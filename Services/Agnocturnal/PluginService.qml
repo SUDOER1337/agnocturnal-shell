@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Io
 import qs.Commons
 import qs.Modules.Panels.Settings
-import qs.Services.Noctalia
+import qs.Services.Agnocturnal
 import qs.Services.UI
 
 Singleton {

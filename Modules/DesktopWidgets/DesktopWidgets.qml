@@ -6,7 +6,7 @@ import Quickshell.Wayland
 import qs.Commons
 import qs.Modules.Panels.Settings
 import qs.Services.Compositor
-import qs.Services.Noctalia
+import qs.Services.Agnocturnal
 import qs.Services.Power
 import qs.Services.UI
 import qs.Widgets

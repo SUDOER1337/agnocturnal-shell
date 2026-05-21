@@ -392,7 +392,7 @@ Singleton {
   ]
 
   // --------------------------------
-  // Default colors: Noctalia (default) dark — must match Assets/ColorScheme/Noctalia-default
+  // Default colors: Agnoctural (default) dark — must match Assets/ColorScheme/Agnoctural-default
   QtObject {
     id: defaultColors
 

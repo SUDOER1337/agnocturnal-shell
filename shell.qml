@@ -33,7 +33,7 @@ import qs.Services.Hardware
 import qs.Services.Keyboard
 import qs.Services.Location
 import qs.Services.Networking
-import qs.Services.Noctalia
+import qs.Services.Agnocturnal
 import qs.Services.Power
 import qs.Services.System
 import qs.Services.Theming

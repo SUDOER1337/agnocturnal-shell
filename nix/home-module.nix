@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.programs.noctalia-shell;
+  cfg = config.programs.agnoctural-shell;
   jsonFormat = pkgs.formats.json { };
   tomlFormat = pkgs.formats.toml { };
 
@@ -19,14 +19,14 @@ let
       jsonFormat.generate "noctalia-${name}.json" value;
 in
 {
-  options.programs.noctalia-shell = {
+  options.programs.agnoctural-shell = {
     enable = lib.mkEnableOption "Noctalia shell configuration";
 
     systemd.enable = lib.mkEnableOption "Noctalia shell systemd integration";
 
     package = lib.mkOption {
       type = lib.types.nullOr lib.types.package;
-      description = "The noctalia-shell package to use";
+      description = "The agnoctural-shell package to use";
     };
 
     settings = lib.mkOption {
@@ -184,15 +184,15 @@ in
   config = lib.mkIf cfg.enable {
     warnings = lib.mkIf cfg.systemd.enable [
       ''
-        Running noctalia-shell as a systemd service has been deprecated!
-        See https://docs.noctalia.dev/getting-started/nixos/#running-the-shell for details.
+        Running agnoctural-shell as a systemd service has been deprecated!
+        See https://github.com/SUDOER1337/agnocturnal-shell/getting-started/nixos/#running-the-shell for details.
       ''
     ];
 
-    systemd.user.services.noctalia-shell = lib.mkIf cfg.systemd.enable {
+    systemd.user.services.agnoctural-shell = lib.mkIf cfg.systemd.enable {
       Unit = {
         Description = "Noctalia Shell - Wayland desktop shell";
-        Documentation = "https://docs.noctalia.dev";
+        Documentation = "https://github.com/SUDOER1337/agnocturnal-shell";
         PartOf = [ config.wayland.systemd.target ];
         After = [ config.wayland.systemd.target ];
         X-Restart-Triggers =
@@ -247,7 +247,7 @@ in
     assertions = [
       {
         assertion = !cfg.systemd.enable || cfg.package != null;
-        message = "noctalia-shell: The package option must not be null when systemd service is enabled.";
+        message = "agnoctural-shell: The package option must not be null when systemd service is enabled.";
       }
     ];
   };

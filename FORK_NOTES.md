@@ -1,0 +1,142 @@
+# Fork Notes - Agnoctural Shell
+
+This document explains the current state of Agnoctural as an independent fork of Noctalia Shell.
+
+---
+
+## Fork Status
+
+**Agnoctural** is an independent fork of [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell) (v4).
+
+### Timeline
+
+- **Original Noctalia v4** - Maintained by the Noctalia team as a complete QML/Quickshell desktop shell
+- **Noctalia v5 Announcement** - Full rewrite in C++ (no longer QML-based), focus shifted to v5 development
+- **Noctalia v4 Discontinued** - v4 no longer receives updates; replaced by C++ v5
+- **Agnoctural Fork Created** - Forked from Noctalia v4 for independent maintenance and continued QML-based development
+
+---
+
+## Maintenance Approach
+
+### Goals
+- ✅ Keep the QML-based shell functional and maintained
+- ✅ Continue support for Quickshell and current Wayland compositors
+- ✅ Fix bugs and add community-requested features
+- ✅ Maintain compatibility with existing configs and themes
+
+### Non-Goals
+- ❌ Rewrite in C++ or major architectural changes
+- ❌ Compete with Noctalia v5 (different approaches, both valid)
+- ❌ Official support or SLAs
+
+### Scope
+- Bug fixes for existing functionality
+- Compatibility updates for new Wayland compositor features
+- Configuration path changes (e.g., `~/.config/agnocturnal/`)
+- Rebranding to reflect fork status
+- Minor feature additions that fit the shell's scope
+
+### Out of Scope
+- Major new subsystems beyond the shell's responsibility
+- Support for proprietary compositors or desktop environments
+- Guarantees on update frequency or feature roadmap
+
+---
+
+## Configuration Migration
+
+### For Existing Noctalia v4 Users
+
+If you're migrating from Noctalia v4 to Agnoctural, note these changes:
+
+**Old Config Path:**
+```
+~/.config/noctalia/
+~/.cache/noctalia/
+```
+
+**New Config Path:**
+```
+~/.config/agnocturnal/
+~/.cache/agnocturnal/
+```
+
+**Automatic Path Change:**
+- Agnoctural uses `AGNOCTURNAL_CONFIG_DIR` and `AGNOCTURNAL_CACHE_DIR` environment variables
+- If not set, defaults to `~/.config/agnocturnal/` and `~/.cache/agnocturnal/`
+
+**Manual Migration:**
+1. Copy your existing Noctalia v4 config:
+   ```bash
+   cp -r ~/.config/noctalia/ ~/.config/agnocturnal/
+   cp -r ~/.cache/noctalia/ ~/.cache/agnocturnal/
+   ```
+2. Update color scheme names in `~/.config/agnocturnal/settings.json`:
+   - `"Noctalia (default)"` → `"Agnoctural (default)"`
+   - `"Noctalia (legacy)"` → `"Agnoctural (legacy)"`
+
+---
+
+## Upstream Relationship
+
+**Original Repository:** https://github.com/noctalia-dev/noctalia-shell
+
+This fork does **not** submit pull requests upstream or claim to be the official continuation. It is maintained as an independent project.
+
+**Why not merge back?**
+- The Noctalia project has moved to v5 (C++ rewrite)
+- The two projects have diverged in goals and maintenance model
+- Both approaches are valid; users can choose which fits their needs
+
+---
+
+## Dependency Notes
+
+### Quickshell Dependency
+
+Agnoctural depends on Quickshell (Qt/QML framework) via the `noctalia-qs` fork:
+```
+https://github.com/noctalia-dev/noctalia-qs
+```
+
+This is the Quickshell fork maintained for Noctalia v4 compatibility. As long as this Quickshell fork is maintained, Agnoctural can continue running.
+
+**If `noctalia-qs` is unmaintained:**
+- The project may need to fork Quickshell as well, or
+- Find an alternative QML/Qt Wayland shell framework
+
+---
+
+## Future Directions
+
+### Potential Development Areas
+- Bug fixes and stability improvements
+- Support for new Wayland compositor features
+- UI/UX refinements
+- Theme and customization options
+- Performance optimizations
+
+### Not Planned
+- Major architectural rewrites (C++, Rust, etc.)
+- Support for non-Wayland environments
+- Desktop environment features (file manager, settings daemon, etc.)
+
+---
+
+## How to Contribute
+
+If you'd like to contribute to Agnoctural:
+
+1. **Bug Reports** - Open an issue describing the problem and reproduction steps
+2. **Feature Requests** - Open an issue or discuss in the repo's discussion section
+3. **Pull Requests** - Fork, make changes, and submit a PR with a clear description
+4. **Code Style** - Follow the existing QML conventions used in the project
+
+---
+
+## Disclaimer
+
+Agnoctural is provided **as-is** without guarantees. It's a community-maintained fork, not an official project. Use at your own risk.
+
+For the official Noctalia project and v5, visit: https://noctalia.dev

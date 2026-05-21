@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import qs.Commons
-import qs.Services.Noctalia
+import qs.Services.Agnocturnal
 import qs.Services.UI
 import qs.Widgets
 

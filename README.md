@@ -1,179 +1,155 @@
-# Noctalia Shell
+# Agnoctural Shell
 
-> [!IMPORTANT]
-> We are actively working on **[Noctalia v5](https://noctalia.dev/blog/announcing-noctalia-v5)** — a full rewrite that will be entering alpha soon. As a result, issues and pull requests targeting v4 will most likely not be merged or fixed. Thank you for your patience and support!
+> **Fork Notice:** Agnoctural is an independent fork of [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell), which was discontinued after v4 in favor of a C++ rewrite (v5). This fork is maintained as a standalone project for continued use and development.
 
 **_quiet by design_**
 
-<p align="center">
-  <img src="https://assets.noctalia.dev/noctalia-logo.svg?v=2" alt="Noctalia Logo" style="width: 192px" />
-</p>
-
-<p align="center">
-  <a href="https://docs.noctalia.dev/getting-started/installation">
-    <img
-      src="https://img.shields.io/badge/🌙_Install_Noctalia-A8AEFF?style=for-the-badge&labelColor=0C0D11"
-      alt="Install Noctalia"
-      style="height: 50px"
-    />
-  </a>
-</p>
-
-<p><br/></p>
-
-<p align="center">
-  <a href="https://github.com/noctalia-dev/noctalia-shell/commits">
-    <img src="https://img.shields.io/github/last-commit/noctalia-dev/noctalia-shell?style=for-the-badge&labelColor=0C0D11&color=A8AEFF&logo=git&logoColor=FFFFFF&label=commit" alt="Last commit" />
-  </a>
-  <a href="https://github.com/noctalia-dev/noctalia-shell/stargazers">
-    <img src="https://img.shields.io/github/stars/noctalia-dev/noctalia-shell?style=for-the-badge&labelColor=0C0D11&color=A8AEFF&logo=github&logoColor=FFFFFF" alt="GitHub stars" />
-  </a>
-  <a href="https://docs.noctalia.dev">
-    <img src="https://img.shields.io/badge/docs-A8AEFF?style=for-the-badge&logo=gitbook&logoColor=FFFFFF&labelColor=0C0D11" alt="Documentation" />
-  </a>
-  <a href="https://discord.noctalia.dev">
-    <img src="https://img.shields.io/badge/discord-A8AEFF?style=for-the-badge&labelColor=0C0D11&logo=discord&logoColor=FFFFFF" alt="Discord" />
-  </a>
-</p>
+A beautiful, minimal desktop shell for Wayland built on [Quickshell](https://quickshell.org/) (Qt/QML) with a warm lavender aesthetic that you can easily customize to match your vibe.
 
 ---
 
-## What is Noctalia?
+## ✨ Key Features
 
-A beautiful, minimal desktop shell for Wayland that actually gets out of your way. Built on [Quickshell](https://quickshell.org/) (Qt/QML) with a warm lavender aesthetic that you can easily customize to match your vibe.
-
-**✨ Key Features:**
-- 🪟 Native support for Niri, Hyprland, Sway, Scroll, Labwc and MangoWC
-- 🎨 Extensive theming with predefined color schemes and automatic color generation from your wallpaper
-- 🖼️ Wallpaper management with Wallhaven integration
-- 🔔 Notification system with history and Do Not Disturb
-- 🖥️ Multi-monitor support
-- 🔒 Lock screen
-- 🧩 Desktop widgets (clock, media player and more)
-- 💡 OSD for volume and brightness
-- 🔌 Nearly 100 plugins available ([explore plugins](https://noctalia.dev/plugins/))
-- 🪄 Setup wizard for first-time users
-- ⚡ Built on Quickshell for performance
-
----
-
-## Preview
-
-https://github.com/user-attachments/assets/bf46f233-8d66-439a-a1ae-ab0446270f2d
-
-<details>
-<summary>Screenshots</summary>
-
-![Dark 1](/Assets/Screenshots/noctalia-dark-1.png)
-![Dark 2](/Assets/Screenshots/noctalia-dark-2.png)
-![Dark 3](/Assets/Screenshots/noctalia-dark-3.png)
-
-![Light 1](/Assets/Screenshots/noctalia-light-1.png)
-![Light 2](/Assets/Screenshots/noctalia-light-2.png)
-![Light 3](/Assets/Screenshots/noctalia-light-3.png)
-
-</details>
+- 🪟 **Native support** for Niri, Hyprland, Sway, Scroll, Labwc and MangoWC
+- 🎨 **Extensive theming** with predefined color schemes and automatic color generation from your wallpaper
+- 🖼️ **Wallpaper management** with Wallhaven integration
+- 🔔 **Notification system** with history and Do Not Disturb
+- 🖥️ **Multi-monitor support**
+- 🔒 **Lock screen** with customizable options
+- 🧩 **Desktop widgets** (clock, media player and more)
+- 💡 **OSD** for volume and brightness
+- 🔌 **Plugin system** for extending functionality
+- 🪄 **Setup wizard** for first-time users
+- ⚡ **Built on Quickshell** for performance
 
 ---
 
 ## 📋 Requirements
 
-- Wayland compositor (see supported compositors below)
-- Quickshell: [noctalia-qs](https://github.com/noctalia-dev/noctalia-qs)
-- Additional dependencies are listed in our [documentation](https://docs.noctalia.dev)
+- **Wayland compositor** (see supported compositors below)
+- **Quickshell**: [noctalia-qs](https://github.com/noctalia-dev/noctalia-qs) (the fork maintained for Noctalia v4)
+- **Additional dependencies**: See documentation or nix files
+
+---
+
+## 🖥️ Supported Wayland Compositors
+
+Agnoctural provides native support for:
+- **Niri** — Scrollable-tiling compositor
+- **Hyprland** — Dynamic tiling Wayland compositor
+- **Sway** — i3-like Wayland compositor
+- **Scroll** — Minimalist tiling compositor
+- **Labwc** — Label-based window compositor
+- **MangoWC** — Mango window compositor
+
+Other Wayland compositors may work but could require additional configuration for compositor-specific features.
 
 ---
 
 ## 🚀 Getting Started
 
-**New to Noctalia?**
-Check out our comprehensive documentation and installation guide to get up and running!
+### Installation
 
-<p align="center">
-  <a href="https://docs.noctalia.dev/getting-started/installation">
-    <img src="https://img.shields.io/badge/📖_Installation_Guide-A8AEFF?style=for-the-badge&logoColor=FFFFFF&labelColor=0C0D11" alt="Installation Guide" />
-  </a>
-  <a href="https://docs.noctalia.dev/getting-started/faq/">
-    <img src="https://img.shields.io/badge/❓_FAQ-A8AEFF?style=for-the-badge&logoColor=FFFFFF&labelColor=0C0D11" alt="FAQ" />
-  </a>
-  <a href="https://discord.noctalia.dev">
-    <img src="https://img.shields.io/badge/💬_Get_Help-A8AEFF?style=for-the-badge&logo=discord&logoColor=FFFFFF&labelColor=0C0D11" alt="Discord" />
-  </a>
-</p>
+**Via Nix (recommended):**
+```bash
+nix run github:SUDOER1337/agnocturnal-shell
+```
+
+**Via NixOS (home-manager):**
+Add to your home-manager configuration:
+```nix
+programs.agnoctural-shell = {
+  enable = true;
+};
+```
+
+For other Linux distributions, refer to the installation instructions in the repository documentation.
+
+### Configuration
+
+Configuration files are stored in `~/.config/agnocturnal/`:
+- `settings.json` — Main settings file
+- `colors.json` — Current color scheme (auto-generated)
+- `colorschemes/` — Downloaded color schemes
+
+### Environment Variables
+
+Control behavior via environment variables:
+- `AGNOCTURNAL_CONFIG_DIR` — Override config directory (default: `~/.config/agnocturnal/`)
+- `AGNOCTURNAL_CACHE_DIR` — Override cache directory (default: `~/.cache/agnocturnal/`)
+- `AGNOCTURNAL_DEBUG` — Enable debug logging (set to `1`)
 
 ---
 
-## 🖥️ Wayland Compositors
+## 📖 Documentation & Help
 
-Noctalia provides native support for **Niri**, **Hyprland**, **Sway**, **Scroll**, **Labwc** and **MangoWC**. Other Wayland compositors may work but could require additional configuration for compositor-specific features like workspaces and window management.
+Since this is a fork maintained for personal use, documentation is limited. However, most Noctalia v4 documentation still applies:
+
+- **Original Noctalia Docs**: [docs.noctalia.dev](https://docs.noctalia.dev)
+- **GitHub Discussions/Issues**: Use the issue tracker in this repo
+- **Discord**: Original Noctalia community (may still be active)
 
 ---
 
-## Scope
+## 🔧 Scope: Desktop Shell, Not Desktop Environment
 
-Noctalia is a **desktop shell**, not a full desktop environment. It provides the visual layer that sits on top of your Wayland compositor (bars, panels, notifications, a dock, and widgets) but it intentionally stays within that boundary. Understanding this helps set the right expectations for feature requests.
+Agnoctural is a **desktop shell**, not a full desktop environment. It provides the visual layer (bars, panels, notifications, dock, widgets) that sits on top of your Wayland compositor but intentionally stays within that boundary.
 
-### What Noctalia does
+### What Agnoctural does:
+- Status bar, panels, application launcher
+- Notifications and notification history
+- Lock screen and idle management
+- On-screen display (OSD) for volume/brightness
+- Theming and wallpaper management
+- Desktop widgets
+- Multi-monitor support
 
-Noctalia focuses on the things a shell is responsible for: status bar, panels, application launcher, notifications, lock screen, idle management, OSD, theming, wallpapers, desktop widgets, dock, and multi-monitor support.
+### What Agnoctural doesn't do:
+- **File management** — use a file manager application
+- **Display/login greeter** — managed by system/display manager
+- **Window management & tiling** — compositor responsibilities
+- **System login** — handled by system services
 
-### What belongs in a plugin
+---
 
-If a feature is useful to some users but not essential to the core shell experience, it's a great candidate for a [plugin](https://noctalia.dev/plugins/). The plugin system is designed to make this easy: plugins can add bar widgets, panels, launcher providers, desktop widgets, and more.
+## 🛠️ Development
 
-Some examples of features that are better suited as plugins:
-- Compositor-specific extras (e.g., Steam overlay for Hyprland)
-- Hardware-specific controls (e.g., laptop fan profiles, battery thresholds)
-- Third-party service integrations (e.g., smart home controls, Tailscale)
-- Niche productivity tools (e.g., Pomodoro timer, RSS reader, Docker manager)
-- Alternative visualizations or widgets
+This is a fork maintained for independent use. For development setup:
 
-If you have an idea that fits this category, consider [building a plugin](https://docs.noctalia.dev/development/guideline) for it!
+1. Clone the repository
+2. Install dependencies (see `flake.nix` for Nix-based setup)
+3. Run with: `nix flake show`
+4. Make changes and test locally
 
-### What falls outside our scope
-
-Some features go beyond what a desktop shell can or should do. These are typically responsibilities of the compositor, a dedicated application, or the system itself:
-
-- **File management**: use a file manager application
-- **Display/login greeter**: this runs before the shell and is managed separately
-- **Window management and overview**: workspace switching and window tiling are compositor responsibilities
-- **Removable drive mounting**: handled by system services like udisks and desktop applications
-- **Screen mirroring/casting**: managed by the compositor or dedicated tools
-
-We appreciate feature suggestions, but if a request falls into this category, it's likely outside what Noctalia can provide. When in doubt, feel free to ask in our [Discord](https://discord.noctalia.dev).
+### Building from source:
+```bash
+nix build
+```
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions of any size - bug fixes, new features, documentation improvements, or custom themes and configs.
-
-**Get involved:**
-- **Found a bug?** [Open an issue](https://github.com/noctalia-dev/noctalia-shell/issues/new)
-- **Want to code?** Check out our [development guidelines](https://docs.noctalia.dev/development/guideline)
-- **Need help?** Join our [Discord](https://discord.noctalia.dev)
-
----
-
-## 💜 Credits
-
-A heartfelt thank you to our incredible community of [**contributors**](https://github.com/noctalia-dev/noctalia-shell/graphs/contributors). We are immensely grateful for your dedicated participation and the constructive feedback you've provided, which continue to shape and improve our project for everyone.
+Contributions are welcome! Please:
+1. Fork this repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ---
 
-## ☕ Donations
+## 💜 Credits & Attribution
 
-While all donations are greatly appreciated, they are completely voluntary.
-Thank you to everyone who supports the project! 💜
+**Agnoctural** is forked from [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell).
 
-<p>
-  <a href="https://www.buymeacoffee.com/noctalia">
-    <img src="https://img.shields.io/badge/Buy_Me_a_Coffee-A8AEFF?style=for-the-badge&logo=buymeacoffee&logoColor=FFFFFF&labelColor=0C0D11" alt="Buy Me a Coffee">
-  </a>
-  <a href="https://ko-fi.com/noctaliadev">
-    <img src="https://img.shields.io/badge/Ko--fi-A8AEFF?style=for-the-badge&logo=kofi&logoColor=FFFFFF&labelColor=0C0D11" alt="Ko-fi">
-  </a>
-</p>
+**Current Maintainer:** Nullfjord (SUDOER1337)
+
+**Original Noctalia Project:** Created and maintained by the Noctalia team (now focused on v5 C++ rewrite)
+
+Special thanks to:
+- The [Noctalia community](https://github.com/noctalia-dev/noctalia-shell/graphs/contributors) for the original foundation
+- The [Quickshell](https://quickshell.org/) project for the excellent Qt/QML framework
+- All contributors and community members
 
 ---
 
@@ -183,10 +159,18 @@ MIT License - see [LICENSE](./LICENSE) for details.
 
 ---
 
-## ⭐ Star History
+## ⚠️ Important Notes
 
-<p align="center">
-  <a href="https://github.com/noctalia-dev/noctalia-shell/stargazers">
-    <img src="https://api.noctalia.dev/stars" alt="Star History" />
-  </a>
-</p>
+- This is an **independent fork** maintained for personal use
+- Original Noctalia v5 development has moved to C++ and is no longer QML-based
+- This fork is based on Noctalia v4 and remains QML-based with Quickshell
+- For the official Noctalia v5 project, see [noctalia.dev](https://noctalia.dev)
+
+---
+
+## 🔗 Links
+
+- **GitHub (this fork)**: https://github.com/SUDOER1337/agnocturnal-shell
+- **Original Noctalia**: https://github.com/noctalia-dev/noctalia-shell
+- **Quickshell**: https://quickshell.org/
+- **Noctalia v5 (C++ rewrite)**: https://noctalia.dev

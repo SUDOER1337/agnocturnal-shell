@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Io
 import qs.Commons
 import qs.Services.Compositor
-import qs.Services.Noctalia
+import qs.Services.Agnocturnal
 import qs.Services.System
 
 Singleton {
