@@ -16,7 +16,6 @@ Singleton {
   property bool isLoaded: false
   property bool reloadSettings: false
   property bool directoriesCreated: false
-  property bool shouldOpenSetupWizard: false
   property bool isFreshInstall: false
 
   /*
@@ -152,9 +151,6 @@ Singleton {
         // File doesn't exist, create it with default values
         root.isFreshInstall = true;
         writeAdapter();
-
-        // We started without settings, we should open the setupWizard
-        root.shouldOpenSetupWizard = true;
       }
     }
   }

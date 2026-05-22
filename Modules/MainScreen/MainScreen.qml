@@ -25,7 +25,6 @@ import qs.Modules.Panels.NotificationHistory
 import qs.Modules.Panels.Plugins
 import qs.Modules.Panels.SessionMenu
 import qs.Modules.Panels.Settings
-import qs.Modules.Panels.SetupWizard
 import qs.Modules.Panels.SystemStats
 import qs.Modules.Panels.Tray
 import qs.Modules.Panels.Wallpaper
@@ -367,12 +366,6 @@ PanelWindow {
     SettingsPanel {
       id: settingsPanel
       objectName: "settingsPanel-" + (root.screen?.name || "unknown")
-      screen: root.screen
-    }
-
-    SetupWizard {
-      id: setupWizardPanel
-      objectName: "setupWizardPanel-" + (root.screen?.name || "unknown")
       screen: root.screen
     }
 
