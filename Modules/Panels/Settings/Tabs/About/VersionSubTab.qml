@@ -403,7 +403,6 @@ ColumnLayout {
           font.weight: Style.fontWeightBold
         }
       }
-  }
 
   // System Information Section
   NDivider {
