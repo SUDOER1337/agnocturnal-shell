@@ -24,14 +24,27 @@ NBox {
     anchors.margins: Style.marginM
     spacing: Style.marginM
 
-    NImageRounded {
+    // Initials avatar
+    Rectangle {
       Layout.preferredWidth: Math.round(Style.baseWidgetSize * 1.25 * Style.uiScaleRatio)
       Layout.preferredHeight: Math.round(Style.baseWidgetSize * 1.25 * Style.uiScaleRatio)
       radius: Layout.preferredWidth / 2
-      imagePath: Settings.preprocessPath(Settings.data.general.avatarImage)
-      fallbackIcon: "person"
-      borderColor: Color.mPrimary
-      borderWidth: Style.borderS * 1.5
+      color: Color.mPrimaryContainer
+      border.color: Color.mPrimary
+      border.width: 2
+
+      NText {
+        anchors.centerIn: parent
+        text: {
+          var name = HostService.displayName || "U";
+          var parts = name.trim().split(/\s+/);
+          if (parts.length >= 2) return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+          return name.substring(0, 2).toUpperCase();
+        }
+        pointSize: Style.fontSizeL
+        font.weight: Style.fontWeightBold
+        color: Color.mOnPrimaryContainer
+      }
     }
 
     ColumnLayout {
@@ -80,14 +93,6 @@ NBox {
         tooltipText: I18n.tr("tooltips.session-menu")
         onClicked: {
           PanelService.getPanel("sessionMenuPanel", screen)?.open();
-          PanelService.getPanel("controlCenterPanel", screen)?.close();
-        }
-      }
-
-      NIconButton {
-        icon: "close"
-        tooltipText: I18n.tr("common.close")
-        onClicked: {
           PanelService.getPanel("controlCenterPanel", screen)?.close();
         }
       }

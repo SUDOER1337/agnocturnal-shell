@@ -11,58 +11,6 @@ import qs.Widgets
 ColumnLayout {
   id: root
 
-  // Profile section
-  RowLayout {
-    Layout.fillWidth: true
-    spacing: Style.marginL
-
-    // Avatar preview
-    NImageRounded {
-      Layout.preferredWidth: 128 * Style.uiScaleRatio
-      Layout.preferredHeight: width
-      radius: width / 2
-      imagePath: Settings.preprocessPath(Settings.data.general.avatarImage)
-      fallbackIcon: "person"
-      borderColor: Color.mPrimary
-      borderWidth: Style.borderM
-      Layout.alignment: Qt.AlignTop
-    }
-
-    ColumnLayout {
-      NText {
-        text: HostService.displayName
-        pointSize: Style.fontSizeM
-        color: Color.mPrimary
-      }
-
-      NTextInputButton {
-        label: I18n.tr("panels.general.profile-picture-label")
-        description: I18n.tr("panels.general.profile-picture-description")
-        text: Settings.data.general.avatarImage
-        placeholderText: '~/.face' // don't translate path
-        buttonIcon: "photo"
-        buttonTooltip: I18n.tr("panels.general.profile-tooltip")
-        onInputTextChanged: text => Settings.data.general.avatarImage = text
-        onButtonClicked: {
-          avatarPicker.openFilePicker();
-        }
-      }
-    }
-  }
-
-  NFilePicker {
-    id: avatarPicker
-    title: I18n.tr("panels.general.profile-select-avatar")
-    selectionMode: "files"
-    initialPath: Settings.preprocessPath(Settings.data.general.avatarImage).substr(0, Settings.preprocessPath(Settings.data.general.avatarImage).lastIndexOf("/")) || Quickshell.env("HOME")
-    nameFilters: ImageCacheService.basicImageFilters
-    onAccepted: paths => {
-                  if (paths.length > 0) {
-                    Settings.data.general.avatarImage = paths[0];
-                  }
-                }
-  }
-
   NDivider {
     Layout.fillWidth: true
     Layout.topMargin: Style.marginM

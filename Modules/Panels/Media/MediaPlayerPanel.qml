@@ -217,12 +217,6 @@ SmartPanel {
             }
           }
 
-          NIconButton {
-            icon: "close"
-            tooltipText: I18n.tr("common.close")
-            baseSize: Style.baseWidgetSize * 0.8
-            onClicked: root.close()
-          }
         }
       }
 

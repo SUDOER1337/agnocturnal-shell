@@ -75,19 +75,10 @@ SmartPanel {
           }
         }
 
-        Item {
-          Layout.fillWidth: true
-        }
-
-        NIconButton {
-          icon: "close"
-          tooltipText: I18n.tr("common.close")
-          onClicked: root.close()
-          Layout.alignment: Qt.AlignTop | Qt.AlignRight
-          Layout.preferredHeight: Style.baseWidgetSize
-          Layout.preferredWidth: Style.baseWidgetSize
-        }
-      }
+         Item {
+           Layout.fillWidth: true
+         }
+       }
 
       Rectangle {
         clip: true

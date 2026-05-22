@@ -67,22 +67,13 @@ SmartPanel {
             onClicked: Settings.data.network.bluetoothAutoConnect = !Settings.data.network.bluetoothAutoConnect
           }
 
-          NIconButton {
-            icon: "settings"
-            tooltipText: I18n.tr("tooltips.open-settings")
-            baseSize: Style.baseWidgetSize * 0.8
-            onClicked: SettingsPanelService.openToTab(SettingsPanel.Tab.Connections, 1, screen)
-          }
-
-          NIconButton {
-            icon: "close"
-            tooltipText: I18n.tr("common.close")
-            baseSize: Style.baseWidgetSize * 0.8
-            onClicked: {
-              root.close();
-            }
-          }
-        }
+           NIconButton {
+             icon: "settings"
+             tooltipText: I18n.tr("tooltips.open-settings")
+             baseSize: Style.baseWidgetSize * 0.8
+             onClicked: SettingsPanelService.openToTab(SettingsPanel.Tab.Connections, 1, screen)
+           }
+         }
       }
 
       NScrollView {

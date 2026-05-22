@@ -32,7 +32,6 @@ Singleton {
   readonly property string cacheDir: ensureTrailingSlash(Quickshell.env("AGNOCTURNAL_CACHE_DIR") || (Quickshell.env("XDG_CACHE_HOME") || Quickshell.env("HOME") + "/.cache") + "/" + shellName + "/")
 
   readonly property string settingsFile: Quickshell.env("AGNOCTURNAL_SETTINGS_FILE") || (configDir + "settings.json")
-  readonly property string defaultAvatar: Quickshell.env("HOME") + "/.face"
   readonly property string defaultVideosDirectory: Quickshell.env("HOME") + "/Videos"
   readonly property string defaultWallpapersDirectory: Quickshell.env("HOME") + "/Pictures/Wallpapers"
 
@@ -82,7 +81,6 @@ Singleton {
     }
 
     // Patch-in the local default, resolved to user's home
-    adapter.general.avatarImage = defaultAvatar;
     adapter.wallpaper.directory = defaultWallpapersDirectory;
     adapter.ui.fontDefault = Qt.application.font.family;
     adapter.ui.fontFixed = "monospace";
@@ -301,7 +299,6 @@ Singleton {
 
     // general
     property JsonObject general: JsonObject {
-      property string avatarImage: ""
       property real dimmerOpacity: 0.2
       property bool showScreenCorners: false
       property bool forceBlackScreenCorners: false

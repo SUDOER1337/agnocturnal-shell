@@ -53,23 +53,14 @@ SmartPanel {
             color: Color.mPrimary
           }
 
-          NText {
-            text: I18n.tr("system-monitor.title")
-            pointSize: Style.fontSizeL
-            font.weight: Style.fontWeightBold
-            color: Color.mOnSurface
-            Layout.fillWidth: true
-          }
-
-          NIconButton {
-            icon: "close"
-            tooltipText: I18n.tr("common.close")
-            baseSize: Style.baseWidgetSize * 0.8
-            onClicked: {
-              root.close();
-            }
-          }
-        }
+           NText {
+             text: I18n.tr("system-monitor.title")
+             pointSize: Style.fontSizeL
+             font.weight: Style.fontWeightBold
+             color: Color.mOnSurface
+             Layout.fillWidth: true
+           }
+         }
       }
 
       // CPU Card (dual-line: usage % + temperature °C)

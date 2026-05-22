@@ -155,13 +155,6 @@ SmartPanel {
               baseSize: Style.baseWidgetSize * 0.8
               onClicked: SettingsPanelService.openToTab(SettingsPanel.Tab.Connections, 0, screen)
             }
-
-            NIconButton {
-              icon: "close"
-              tooltipText: I18n.tr("common.close")
-              baseSize: Style.baseWidgetSize * 0.8
-              onClicked: root.close()
-            }
           }
 
           // Mode switch (Wi‑Fi / Ethernet)

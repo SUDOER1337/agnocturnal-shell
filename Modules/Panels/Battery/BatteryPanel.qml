@@ -94,27 +94,20 @@ SmartPanel {
             icon: BatteryService.getIcon(BatteryService.getPercentage(primaryDevice), BatteryService.isCharging(primaryDevice), BatteryService.isPluggedIn(primaryDevice), BatteryService.isDeviceReady(primaryDevice))
           }
 
-          ColumnLayout {
-            spacing: Style.marginXXS
-            Layout.fillWidth: true
+           ColumnLayout {
+             spacing: Style.marginXXS
+             Layout.fillWidth: true
 
-            NText {
-              text: I18n.tr("common.battery")
-              pointSize: Style.fontSizeL
-              font.weight: Style.fontWeightBold
-              color: Color.mOnSurface
-              Layout.fillWidth: true
-              elide: Text.ElideRight
-            }
-          }
-
-          NIconButton {
-            icon: "close"
-            tooltipText: I18n.tr("common.close")
-            baseSize: Style.baseWidgetSize * 0.8
-            onClicked: root.close()
-          }
-        }
+             NText {
+               text: I18n.tr("common.battery")
+               pointSize: Style.fontSizeL
+               font.weight: Style.fontWeightBold
+               color: Color.mOnSurface
+               Layout.fillWidth: true
+               elide: Text.ElideRight
+             }
+           }
+         }
       }
 
       // Charge level + health/time

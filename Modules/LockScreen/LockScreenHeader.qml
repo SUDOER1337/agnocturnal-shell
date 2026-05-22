@@ -46,59 +46,42 @@ Rectangle {
     anchors.margins: Style.marginL
     spacing: Style.margin2XL
 
-    // Left side: Avatar
+    // Left side: Initials avatar
     Rectangle {
       Layout.preferredWidth: 70
       Layout.preferredHeight: 70
       Layout.alignment: Qt.AlignVCenter
       radius: width / 2
-      color: "transparent"
+      color: Color.mPrimaryContainer
+      border.color: Qt.alpha(Color.mPrimary, 0.8)
+      border.width: Style.borderM
 
-      Rectangle {
-        anchors.fill: parent
-        radius: parent.radius
-        color: "transparent"
-        border.color: Qt.alpha(Color.mPrimary, 0.8)
-        border.width: Style.borderM
-
-        SequentialAnimation on border.color {
-          loops: Animation.Infinite
-          running: root.animationsEnabled
-          ColorAnimation {
-            to: Qt.alpha(Color.mPrimary, 1.0)
-            duration: 2000
-            easing.type: Easing.InOutQuad
-          }
-          ColorAnimation {
-            to: Qt.alpha(Color.mPrimary, 0.8)
-            duration: 2000
-            easing.type: Easing.InOutQuad
-          }
+      SequentialAnimation on border.color {
+        loops: Animation.Infinite
+        running: root.animationsEnabled
+        ColorAnimation {
+          to: Qt.alpha(Color.mPrimary, 1.0)
+          duration: 2000
+          easing.type: Easing.InOutQuad
+        }
+        ColorAnimation {
+          to: Qt.alpha(Color.mPrimary, 0.8)
+          duration: 2000
+          easing.type: Easing.InOutQuad
         }
       }
 
-      NImageRounded {
+      NText {
         anchors.centerIn: parent
-        width: 66
-        height: 66
-        radius: width / 2
-        imagePath: Settings.preprocessPath(Settings.data.general.avatarImage)
-        fallbackIcon: "person"
-
-        SequentialAnimation on scale {
-          loops: Animation.Infinite
-          running: root.animationsEnabled
-          NumberAnimation {
-            to: 1.02
-            duration: 4000
-            easing.type: Easing.InOutQuad
-          }
-          NumberAnimation {
-            to: 1.0
-            duration: 4000
-            easing.type: Easing.InOutQuad
-          }
+        text: {
+          var name = HostService.displayName || "U";
+          var parts = name.trim().split(/\s+/);
+          if (parts.length >= 2) return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+          return name.substring(0, 2).toUpperCase();
         }
+        pointSize: 24
+        font.weight: Style.fontWeightBold
+        color: Color.mOnPrimaryContainer
       }
     }
 
