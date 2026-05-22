@@ -115,17 +115,17 @@ Singleton {
       root.pluginStates = adapter.states || {};
       root.pluginSources = adapter.sources || [];
 
-      // Ensure default repo is in sources
-      if (root.pluginSources.length === 0) {
-        root.pluginSources = [
-          {
-            "name": "Noctalia Plugins",
-            "url": "https://github.com/noctalia-dev/noctalia-plugins",
-            "enabled": true
-          }
-        ];
-        root.save();
-      }
+       // Ensure default repo is in sources
+       if (root.pluginSources.length === 0) {
+         root.pluginSources = [
+           {
+             "name": "Agnoctural Plugins",
+             "url": "https://github.com/noctalia-dev/noctalia-plugins",
+             "enabled": true
+           }
+         ];
+         root.save();
+       }
 
       // Migrate from v1 to v2 (add sourceUrl to states)
       root.migratePluginData();
@@ -135,18 +135,18 @@ Singleton {
     }
 
     onLoadFailed: function (error) {
-      Logger.w("PluginRegistry", "Failed to load plugins.json, will create it:", error);
-      // Initialize defaults and continue
-      root.pluginStates = {};
-      root.pluginSources = [
-            {
-              "name": "Noctalia Plugins",
-              "url": "https://github.com/noctalia-dev/noctalia-plugins",
-              "enabled": true
-            }
-          ];
-      // Scan for installed plugins
-      root.scanPluginFolder();
+       Logger.w("PluginRegistry", "Failed to load plugins.json, will create it:", error);
+       // Initialize defaults and continue
+       root.pluginStates = {};
+       root.pluginSources = [
+             {
+               "name": "Agnoctural Plugins",
+               "url": "https://github.com/noctalia-dev/noctalia-plugins",
+               "enabled": true
+             }
+           ];
+       // Scan for installed plugins
+       root.scanPluginFolder();
     }
   }
 
@@ -185,14 +185,14 @@ Singleton {
     var sourcesChanged = false;
     for (var i = 0; i < root.pluginSources.length; i++) {
       var source = root.pluginSources[i];
-      if (source.name === "Official Noctalia Plugins") {
-        newSources.push({
-                          name: "Noctalia Plugins",
-                          url: source.url,
-                          enabled: source.enabled
-                        });
-        sourcesChanged = true;
-        Logger.i("PluginRegistry", "Migrating source name: 'Official Noctalia Plugins' -> 'Noctalia Plugins'");
+       if (source.name === "Official Noctalia Plugins") {
+         newSources.push({
+                           name: "Agnoctural Plugins",
+                           url: source.url,
+                           enabled: source.enabled
+                         });
+         sourcesChanged = true;
+         Logger.i("PluginRegistry", "Migrating source name: 'Official Noctalia Plugins' -> 'Agnoctural Plugins'");
       } else {
         newSources.push(source);
       }

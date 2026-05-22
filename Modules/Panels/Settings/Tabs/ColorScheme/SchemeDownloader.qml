@@ -661,11 +661,11 @@ Popup {
 
         // If the deleted scheme was the active one, reset to default BEFORE reloading
         if (needsReset) {
-          Logger.i("ColorSchemeDownload", "Deleted scheme was active, resetting to Noctalia (default)");
+          Logger.i("ColorSchemeDownload", "Deleted scheme was active, resetting to Agnoctural (default)");
           // Clear the setting immediately so ColorSchemeService won't try to apply the deleted scheme
-          Settings.data.colorSchemes.predefinedScheme = "Noctalia (default)";
+          Settings.data.colorSchemes.predefinedScheme = "Agnoctural (default)";
           // Apply the default scheme immediately
-          ColorSchemeService.setPredefinedScheme("Noctalia (default)");
+          ColorSchemeService.setPredefinedScheme("Agnoctural (default)");
         }
 
         // Reload color schemes

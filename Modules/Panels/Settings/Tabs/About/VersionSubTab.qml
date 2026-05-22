@@ -128,7 +128,7 @@ ColumnLayout {
   }
 
   function copyInfoToClipboard() {
-    let info = "Noctalia Shell: " + root.currentVersion;
+    let info = "Agnoctural Shell: " + root.currentVersion;
     if (root.isGitVersion && root.commitInfo) {
       info += " (" + root.commitInfo + ")";
     }
@@ -136,7 +136,7 @@ ColumnLayout {
 
     if (root.qsVersion) {
       let qsV = root.qsVersion.startsWith("v") ? root.qsVersion : "v" + root.qsVersion;
-      info += "Noctalia QS: " + qsV;
+      info += "Agnoctural QS: " + qsV;
       if (root.qsRevision) {
         info += " (" + root.qsRevision + ")";
       }
@@ -375,7 +375,7 @@ ColumnLayout {
 
     ColumnLayout {
       NHeader {
-        label: "Noctalia Shell"
+        label: "Agnoctural Shell"
       }
 
       // Versions
@@ -386,7 +386,7 @@ ColumnLayout {
 
         // Installed Version (Shell)
         NText {
-          text: "Noctalia Shell:"
+          text: "Agnoctural Shell:"
           color: Color.mOnSurfaceVariant
           Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
         }
@@ -485,7 +485,7 @@ ColumnLayout {
         // Quickshell Version
         NText {
           visible: root.qsVersion !== ""
-          text: "Noctalia QS:"
+          text: "Agnoctural QS:"
           color: Color.mOnSurfaceVariant
           Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
         }
