@@ -21,7 +21,6 @@ Singleton {
   // Signals for state changes
   signal displayStateChanged
   signal notificationsStateChanged
-  signal changelogStateChanged
   signal colorSchemesListChanged
 
   Component.onCompleted: {
@@ -50,11 +49,6 @@ Singleton {
       property var notificationsState: ({
                                           lastSeenTs: 0
                                         })
-
-      // UpdateService: changelog state
-      property var changelogState: ({
-                                      lastSeenVersion: ""
-                                    })
 
       // SchemeDownloader: color schemes list
       property var colorSchemesList: ({
@@ -184,19 +178,6 @@ Singleton {
     };
   }
 
-  // Changelog state (UpdateService)
-  function setChangelogState(stateData) {
-    adapter.changelogState = stateData;
-    save();
-    changelogStateChanged();
-  }
-
-  function getChangelogState() {
-    return adapter.changelogState || {
-      lastSeenVersion: ""
-    };
-  }
-
   // Color schemes list (SchemeDownloader)
   function setColorSchemesList(listData) {
     adapter.colorSchemesList = listData;
@@ -274,7 +255,6 @@ Singleton {
           // -------------
           display: shellStateData.display || {},
           notificationsState: shellStateData.notificationsState || {},
-          changelogState: shellStateData.changelogState || {},
           colorSchemesList: shellStateData.colorSchemesList || {},
           ui: shellStateData.ui || {}
         }

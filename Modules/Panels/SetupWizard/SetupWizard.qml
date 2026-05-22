@@ -98,23 +98,12 @@ SmartPanel {
           Settings.data.bar.position = selectedBarPosition;
         }
 
-        // Mark the current version as seen to prevent telemetry wizard on next startup
-        // (only for full setup wizard - telemetry wizard lets changelog mark it seen)
-        if (!root.telemetryOnlyMode) {
-          UpdateService.markChangelogSeen(UpdateService.currentVersion);
-        }
-
         // Initialize telemetry now that user has made their choice
         TelemetryService.init();
 
         // Save settings immediately and wait for settingsSaved signal before closing
         Settings.saveImmediate();
         Logger.i("SetupWizard", "Setup completed successfully, waiting for settings save confirmation");
-
-        // Emit signal for telemetry wizard completion (shell.qml will show changelog)
-        if (root.telemetryOnlyMode) {
-          root.telemetryWizardCompleted();
-        }
 
         // Fallback: if settingsSaved signal doesn't fire within 2 seconds, close anyway
         closeTimer.start();
