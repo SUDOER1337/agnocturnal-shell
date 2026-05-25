@@ -2,15 +2,13 @@
 
 > Independent fork of [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell) v4. Noctalia is now v5 (C++), so this fork maintains the original QML-based shell for continued use.
 
-**_quiet by design_**
-
-A minimal desktop shell for Wayland built on [Quickshell](https://quickshell.org/) with extensive theming and a warm aesthetic.
+A minimal desktop shell for Wayland built on [Quickshell](https://quickshell.org/)
 
 ## Features
 
-- Native support for Niri, Hyprland, Sway, Scroll, Labwc, and MangoWC
+- Native support for Niri, Hyprland, Sway, Labwc, and MangoWC
 - Extensive theming with color schemes and automatic wallpaper color generation
-- Wallpaper management with Wallhaven integration
+- Wallpaper management with Wallhaven integration --(planned to remove Wallhaven)
 - Notifications with history and Do Not Disturb
 - Lock screen, OSD (volume/brightness), desktop widgets
 - Plugin system for extending functionality
