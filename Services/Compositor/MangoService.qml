@@ -51,9 +51,6 @@ Item {
     // Window signature for change detection
     property string lastWindowSignature: ""
 
-    // Scale regex
-    readonly property var scalePattern: /^(\S+)\s+scale_factor\s+(\d+(?:\.\d+)?)$/
-
                                         // Get all screen names mapped to their DwlIpcOutput
                                         function getOutputMap() {
                                           const map = {};
@@ -294,39 +291,44 @@ Item {
       }
     }
 
-    // ===== PROCESS SCALES =====
+    // ===== PROCESS MONITOR SCALES (JSON from new IPC) =====
 
-    function processScales(output) {
-      const lines = output.trim().split('\n');
-
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        const match = line.match(scalePattern);
-
-        if (match) {
-          const outputName = match[1];
-          const scale = parseFloat(match[2]);
-          internal.monitorScales[outputName] = scale;
+    function processMonitorScales(jsonOutput) {
+      try {
+        const data = JSON.parse(jsonOutput);
+        if (!data.monitors || !Array.isArray(data.monitors)) {
+          return;
         }
-      }
 
-      const scalesMap = {};
-      for (const name in internal.monitorScales) {
-        scalesMap[name] = {
-          name: name,
-          scale: internal.monitorScales[name] || 1.0,
-          width: 0,
-          height: 0,
-          x: 0,
-          y: 0
-        };
-      }
+        // Parse monitor JSON and extract scales
+        // Structure: {"monitors": [{"name": "...", "scale": 1, ...}, ...]}
+        for (let i = 0; i < data.monitors.length; i++) {
+          const mon = data.monitors[i];
+          if (mon.name && typeof mon.scale === "number") {
+            internal.monitorScales[mon.name] = mon.scale;
+          }
+        }
 
-      if (CompositorService && CompositorService.onDisplayScalesUpdated) {
-        CompositorService.onDisplayScalesUpdated(scalesMap);
-      }
+        const scalesMap = {};
+        for (const name in internal.monitorScales) {
+          scalesMap[name] = {
+            name: name,
+            scale: internal.monitorScales[name] || 1.0,
+            width: 0,
+            height: 0,
+            x: 0,
+            y: 0
+          };
+        }
 
-      root.displayScalesChanged();
+        if (CompositorService && CompositorService.onDisplayScalesUpdated) {
+          CompositorService.onDisplayScalesUpdated(scalesMap);
+        }
+
+        root.displayScalesChanged();
+      } catch (e) {
+        Logger.e("MangoService", "Failed to parse monitor JSON:", e);
+      }
     }
   }
 
@@ -352,26 +354,26 @@ Item {
 
   // ===== PROCESSES =====
 
-  // Scale query (mmsg -g -A) - DWL doesn't provide scale info
-  property QtObject _scaleQuery: Process {
-    id: scaleQuery
-    command: ["mmsg", "-g", "-A"]
+   // Scale query (mmsg get all-monitors) - New IPC: get monitor data including scales
+   property QtObject _scaleQuery: Process {
+     id: scaleQuery
+     command: ["mmsg", "get", "all-monitors"]
 
-    property string buffer: ""
+     property string buffer: ""
 
-    stdout: SplitParser {
-      onRead: line => {
-                scaleQuery.buffer += line + "\n";
-              }
-    }
+     stdout: SplitParser {
+       onRead: line => {
+                 scaleQuery.buffer += line + "\n";
+               }
+     }
 
-    onExited: code => {
-                if (code === 0) {
-                  internal.processScales(scaleQuery.buffer);
-                  scaleQuery.buffer = "";
-                }
-              }
-  }
+     onExited: code => {
+                 if (code === 0) {
+                   internal.processMonitorScales(scaleQuery.buffer);
+                   scaleQuery.buffer = "";
+                 }
+               }
+   }
 
   // Keyboard layout polling - MangoWC doesn't send DWL IPC events for XKB-driven
   // layout switches (grp:win_space_toggle), so we poll mmsg periodically.
@@ -390,23 +392,23 @@ Item {
     }
   }
 
-  property QtObject _kbLayoutQuery: Process {
-    id: kbLayoutQuery
-    command: ["mmsg", "-g", "-k"]
+   property QtObject _kbLayoutQuery: Process {
+      id: kbLayoutQuery
+      command: ["sh", "-c", "mmsg get keyboardlayout | jq -r '.layout'"]
 
-    stdout: SplitParser {
-      onRead: line => {
-        var parts = line.trim().split(/\s+/);
-        if (parts.length >= 3 && parts[1] === "kb_layout") {
-          KeyboardLayoutService.setCurrentLayout(parts.slice(2).join(" "));
-        }
-      }
-    }
+     stdout: SplitParser {
+       onRead: line => {
+         var layout = line.trim();
+         if (layout.length > 0) {
+           KeyboardLayoutService.setCurrentLayout(layout);
+         }
+       }
+     }
 
-    onExited: code => {
-      kbLayoutPoll.busy = false;
-    }
-  }
+     onExited: code => {
+       kbLayoutPoll.busy = false;
+     }
+   }
 
   // ===== TOPLEVEL MANAGER CONNECTION =====
 
@@ -455,10 +457,11 @@ Item {
     if (dwlOutput) {
       dwlOutput.setTags(1 << (tagId - 1)); // tagId is 1-based, bitmask is 0-based
     } else {
-      // Fallback to mmsg
-      const cmd = ["mmsg", "-s", "-t", tagId.toString()];
+      // Fallback to new mmsg dispatch API: view <tagid>
+      // Per IPC_MIGRATION_GUIDE.md: mmsg dispatch view,1
+      let cmd = ["mmsg", "dispatch", "view," + tagId.toString()];
       if (outputName && Object.keys(internal.monitorScales).length > 1) {
-        cmd.push("-o", outputName);
+        cmd.push("monitor," + outputName);
       }
       Quickshell.execDetached(cmd);
     }
@@ -479,38 +482,14 @@ Item {
     if (window && window.handle) {
       window.handle.close();
     } else {
-      Quickshell.execDetached(["mmsg", "-s", "-d", "killclient"]);
+      // New mmsg dispatch API: killclient
+      Quickshell.execDetached(["mmsg", "dispatch", "killclient"]);
     }
-  }
-
-  function turnOffMonitors() {
-    const screens = Quickshell.screens;
-    const cmds = [];
-    for (let i = 0; i < screens.length; i++) {
-      cmds.push("mmsg -s -d disable_monitor," + screens[i].name);
-    }
-    if (cmds.length > 0) {
-      Quickshell.execDetached(["sh", "-c", cmds.join(" && ")]);
-    }
-  }
-
-  function turnOnMonitors() {
-    const screens = Quickshell.screens;
-    const cmds = [];
-    for (let i = 0; i < screens.length; i++) {
-      cmds.push("mmsg -s -d enable_monitor," + screens[i].name);
-    }
-    if (cmds.length > 0) {
-      Quickshell.execDetached(["sh", "-c", cmds.join(" && ")]);
-    }
-  }
-
-  function logout() {
-    Quickshell.execDetached(["mmsg", "-s", "-q"]);
   }
 
   function cycleKeyboardLayout() {
-    Quickshell.execDetached(["mmsg", "-s", "-d", "switch_keyboard_layout"]);
+    // New mmsg dispatch API: switch_keyboard_layout
+    Quickshell.execDetached(["mmsg", "dispatch", "switch_keyboard_layout"]);
   }
 
   function getFocusedScreen() {
@@ -519,7 +498,9 @@ Item {
 
   function spawn(command) {
     try {
-      Quickshell.execDetached(["mmsg", "-s", "-d", "spawn_shell," + command.join(" ")]);
+      // New mmsg dispatch API: spawn_shell for shell command execution
+      const cmd = ["mmsg", "dispatch", "spawn_shell," + command.join(" ")];
+      Quickshell.execDetached(cmd);
     } catch (e) {
       Logger.e("MangoService", "Failed to spawn command:", e);
     }
