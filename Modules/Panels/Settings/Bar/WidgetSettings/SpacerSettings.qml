@@ -24,10 +24,10 @@ ColumnLayout {
   NTextInput {
     id: widthInput
     Layout.fillWidth: true
-    label: I18n.tr("common.width")
-    description: I18n.tr("bar.spacer.width-description")
+    label: "Width"
+    description: "Spacing width in pixels."
     text: widgetData.width || widgetMetadata.width
-    placeholderText: I18n.tr("placeholders.enter-width-pixels")
+    placeholderText: "Enter width in pixels"
     onTextChanged: saveSettings()
     defaultValue: String(widgetMetadata.width)
   }

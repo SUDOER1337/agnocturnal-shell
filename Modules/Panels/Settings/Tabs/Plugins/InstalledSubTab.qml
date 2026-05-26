@@ -34,16 +34,16 @@ ColumnLayout {
 
   // Auto-update toggle
   NToggle {
-    label: I18n.tr("panels.plugins.auto-update")
-    description: I18n.tr("panels.plugins.auto-update-description")
+    label: "Auto-update plugins"
+    description: "Automatically update all plugins when the shell starts."
     checked: Settings.data.plugins.autoUpdate
     onToggled: checked => Settings.data.plugins.autoUpdate = checked
   }
 
   // Update notification toggle
   NToggle {
-    label: I18n.tr("panels.plugins.notify-updates")
-    description: I18n.tr("panels.plugins.notify-updates-description")
+    label: "Plugin update notifications"
+    description: "Show a notification popup when new plugin updates are available."
     checked: Settings.data.plugins.notifyUpdates
     onToggled: checked => Settings.data.plugins.notifyUpdates = checked
   }
@@ -52,7 +52,7 @@ ColumnLayout {
   NButton {
     property bool isChecking: Object.keys(PluginService.activeFetches).length > 0
 
-    text: isChecking ? I18n.tr("panels.plugins.checking-for-updates") : I18n.tr("panels.plugins.check-for-updates")
+    text: isChecking ? "Checking for updates..." : "Check for updates"
     icon: "refresh"
     enabled: !isChecking
     visible: Object.keys(PluginService.pluginUpdates).length === 0
@@ -65,9 +65,7 @@ ColumnLayout {
     property int updateCount: Object.keys(PluginService.pluginUpdates).length
     property bool isUpdating: false
 
-    text: I18n.tr("panels.plugins.update-all", {
-                    "count": updateCount
-                  })
+    text: "Update All ({count})"
     icon: "download"
     visible: (updateCount > 0)
     enabled: !isUpdating
@@ -82,7 +80,7 @@ ColumnLayout {
       function updateNext() {
         if (currentIndex >= pluginIds.length) {
           isUpdating = false;
-          ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.update-all-success"));
+          ToastService.showNotice("Plugins", "All plugins updated successfully");
           return;
         }
 
@@ -201,7 +199,7 @@ ColumnLayout {
                 }
 
                 NText {
-                  text: I18n.tr("common.official")
+                  text: "Official"
                   font.pointSize: Style.fontSizeXXS
                   font.weight: Style.fontWeightMedium
                   color: Color.mOnSecondary
@@ -217,7 +215,7 @@ ColumnLayout {
             NIconButtonHot {
               icon: "bug"
               hot: PluginService.isPluginHotReloadEnabled(modelData.id)
-              tooltipText: PluginService.isPluginHotReloadEnabled(modelData.id) ? I18n.tr("panels.plugins.development-disable") : I18n.tr("panels.plugins.development-enable")
+              tooltipText: PluginService.isPluginHotReloadEnabled(modelData.id) ? "Disable development mode for this plugin" : "Enable development mode for this plugin"
               baseSize: Style.baseWidgetSize * 0.7
               onClicked: PluginService.togglePluginHotReload(modelData.id)
               visible: Settings.isDebug
@@ -225,7 +223,7 @@ ColumnLayout {
 
             NIconButton {
               icon: "settings"
-              tooltipText: I18n.tr("panels.plugins.settings-tooltip")
+              tooltipText: "Plugin settings"
               baseSize: Style.baseWidgetSize * 0.7
               visible: (modelData.entryPoints?.settings !== undefined)
               enabled: modelData.enabled
@@ -236,7 +234,7 @@ ColumnLayout {
 
             NIconButton {
               icon: "external-link"
-              tooltipText: I18n.tr("panels.plugins.open-plugin-page")
+              tooltipText: "Open plugin page"
               baseSize: Style.baseWidgetSize * 0.7
               visible: true
               onClicked: {
@@ -247,7 +245,7 @@ ColumnLayout {
 
             NIconButton {
               icon: "trash"
-              tooltipText: I18n.tr("common.uninstall")
+              tooltipText: "Uninstall"
               baseSize: Style.baseWidgetSize * 0.7
               onClicked: {
                 uninstallDialog.pluginToUninstall = modelData;
@@ -260,7 +258,7 @@ ColumnLayout {
               property string pluginId: modelData.compositeKey
               property bool isUpdating: root.updatingPlugins[pluginId] === true
 
-              text: isUpdating ? I18n.tr("panels.plugins.updating") : I18n.tr("common.update")
+              text: isUpdating ? "Updating..." : "Update"
               icon: isUpdating ? "" : "download"
               visible: modelData.updateInfo !== undefined
               enabled: !isUpdating
@@ -283,15 +281,9 @@ ColumnLayout {
                   rootRef.updatingPlugins = updates2;
 
                   if (success) {
-                    ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.update-success", {
-                                                                                       "plugin": pname,
-                                                                                       "version": pversion
-                                                                                     }));
+                    ToastService.showNotice("Plugins", "Updated {plugin} to v{version}");
                   } else {
-                    ToastService.showError(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.update-error", {
-                                                                                      "plugin": pname,
-                                                                                      "error": error || "Unknown error"
-                                                                                    }));
+                    ToastService.showError("Plugins", "Failed to update plugin: {plugin}: {error}");
                   }
                 });
               }
@@ -330,16 +322,9 @@ ColumnLayout {
             NText {
               text: {
                 if (modelData.updateInfo) {
-                  return I18n.tr("panels.plugins.update-version", {
-                                   "current": modelData.version,
-                                   "new": modelData.updateInfo.availableVersion
-                                 });
+                  return "v{current} → v{new}";
                 } else if (modelData.pendingUpdateInfo) {
-                  return I18n.tr("panels.plugins.update-pending", {
-                                   "current": modelData.version,
-                                   "new": modelData.pendingUpdateInfo.availableVersion,
-                                   "required": modelData.pendingUpdateInfo.minNoctaliaVersion
-                                 });
+                  return "v{current} → v{new} (requires Noctalia v{required})";
                 }
                 return "v" + modelData.version;
               }
@@ -370,7 +355,7 @@ ColumnLayout {
 
             NText {
               visible: !modelData.isFromOfficialRepo
-              text: modelData.sourceName || I18n.tr("panels.plugins.source-custom")
+              text: modelData.sourceName || "Custom source"
               font.pointSize: Style.fontSizeXS
               color: Color.mTertiary
             }
@@ -422,8 +407,8 @@ ColumnLayout {
 
     NLabel {
       visible: PluginRegistry.getAllInstalledPluginIds().length === 0
-      label: I18n.tr("panels.plugins.installed-no-plugins-label")
-      description: I18n.tr("panels.plugins.installed-no-plugins-description")
+      label: "No plugins installed"
+      description: "Install plugins from the \"Available\" section."
       Layout.fillWidth: true
     }
   }
@@ -452,10 +437,8 @@ ColumnLayout {
       spacing: Style.marginL
 
       NHeader {
-        label: I18n.tr("panels.plugins.uninstall-dialog-title")
-        description: I18n.tr("panels.plugins.uninstall-dialog-description", {
-                               "plugin": uninstallDialog.pluginToUninstall?.name || ""
-                             })
+        label: "Uninstall plugin"
+        description: "Are you sure you want to uninstall {plugin}? This will remove all plugin data."
       }
 
       RowLayout {
@@ -467,12 +450,12 @@ ColumnLayout {
         }
 
         NButton {
-          text: I18n.tr("common.cancel")
+          text: "Cancel"
           onClicked: uninstallDialog.close()
         }
 
         NButton {
-          text: I18n.tr("common.uninstall")
+          text: "Uninstall"
           backgroundColor: Color.mPrimary
           textColor: Color.mOnPrimary
           onClicked: {
@@ -499,19 +482,13 @@ ColumnLayout {
 
     BarService.widgetsRevision++;
 
-    ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.uninstalling", {
-                                                                       "plugin": pluginName
-                                                                     }));
+    ToastService.showNotice("Plugins", "Uninstalling {plugin}...");
 
     PluginService.uninstallPlugin(pluginId, function (success, error) {
       if (success) {
-        ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.uninstall-success", {
-                                                                           "plugin": pluginName
-                                                                         }));
+        ToastService.showNotice("Plugins", "Successfully uninstalled {plugin}");
       } else {
-        ToastService.showError(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.uninstall-error", {
-                                                                          "error": error || "Unknown error"
-                                                                        }));
+        ToastService.showError("Plugins", "Failed to uninstall: {error}");
       }
     });
   }

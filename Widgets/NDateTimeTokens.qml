@@ -38,171 +38,171 @@ Rectangle {
             {
               "category": "Common",
               "token": "h:mm AP",
-              "description": I18n.tr("widgets.datetime-tokens.common-12hour-time-minutes"),
+              "description": "12-hour time with minutes",
               "example": "2:30 PM"
             },
             {
               "category": "Common",
               "token": "HH:mm",
-              "description": I18n.tr("widgets.datetime-tokens.common-24hour-time-minutes"),
+              "description": "24-hour time with minutes",
               "example": "14:30"
             },
             {
               "category": "Common",
               "token": "HH:mm:ss",
-              "description": I18n.tr("widgets.datetime-tokens.common-24hour-time-seconds"),
+              "description": "24-hour time with seconds",
               "example": "14:30:45"
             },
             {
               "category": "Common",
               "token": "ddd MMM d",
-              "description": I18n.tr("widgets.datetime-tokens.common-weekday-month-day"),
+              "description": "Weekday, month and day",
               "example": "Mon Dec 25"
             },
             {
               "category": "Common",
               "token": "yyyy-MM-dd",
-              "description": I18n.tr("widgets.datetime-tokens.common-iso-date"),
+              "description": "ISO date format",
               "example": "2023-12-25"
             },
             {
               "category": "Common",
               "token": "MM/dd/yyyy",
-              "description": I18n.tr("widgets.datetime-tokens.common-us-date"),
+              "description": "US date format",
               "example": "12/25/2023"
             },
             {
               "category": "Common",
               "token": "dd.MM.yyyy",
-              "description": I18n.tr("widgets.datetime-tokens.common-european-date"),
+              "description": "European date format",
               "example": "25.12.2023"
             },
             {
               "category": "Common",
               "token": "ddd, MMM dd",
-              "description": I18n.tr("widgets.datetime-tokens.common-weekday-date"),
+              "description": "Weekday with date",
               "example": "Fri, Dec 12"
             } // Hour tokens
             ,
             {
               "category": "Hour",
               "token": "H",
-              "description": I18n.tr("widgets.datetime-tokens.hour-no-leading-zero"),
+              "description": "Hour without leading zero (0-23) — 24-hour format",
               "example": "14"
             },
             {
               "category": "Hour",
               "token": "HH",
-              "description": I18n.tr("widgets.datetime-tokens.hour-leading-zero"),
+              "description": "Hour with leading zero (00-23) — 24-hour format",
               "example": "14"
             } // Minute tokens
             ,
             {
               "category": "Minute",
               "token": "m",
-              "description": I18n.tr("widgets.datetime-tokens.minute-no-leading-zero"),
+              "description": "Minute without leading zero (0-59)",
               "example": "30"
             },
             {
               "category": "Minute",
               "token": "mm",
-              "description": I18n.tr("widgets.datetime-tokens.minute-leading-zero"),
+              "description": "Minute with leading zero (00-59)",
               "example": "30"
             } // Second tokens
             ,
             {
               "category": "Second",
               "token": "s",
-              "description": I18n.tr("widgets.datetime-tokens.second-no-leading-zero"),
+              "description": "Second without leading zero (0-59)",
               "example": "45"
             },
             {
               "category": "Second",
               "token": "ss",
-              "description": I18n.tr("widgets.datetime-tokens.second-leading-zero"),
+              "description": "Second with leading zero (00-59)",
               "example": "45"
             } // AM/PM tokens
             ,
             {
               "category": "AM/PM",
               "token": "AP",
-              "description": I18n.tr("widgets.datetime-tokens.ampm-uppercase"),
+              "description": "AM/PM in uppercase",
               "example": "PM"
             },
             {
               "category": "AM/PM",
               "token": "ap",
-              "description": I18n.tr("widgets.datetime-tokens.ampm-lowercase"),
+              "description": "am/pm in lowercase",
               "example": "pm"
             } // Timezone tokens
             ,
             {
               "category": "Timezone",
               "token": "t",
-              "description": I18n.tr("widgets.datetime-tokens.timezone-abbreviation"),
+              "description": "Timezone abbreviation",
               "example": "UTC"
             } // Year tokens
             ,
             {
               "category": "Year",
               "token": "yy",
-              "description": I18n.tr("widgets.datetime-tokens.year-two-digit"),
+              "description": "Year as two-digit number (00-99)",
               "example": "23"
             },
             {
               "category": "Year",
               "token": "yyyy",
-              "description": I18n.tr("widgets.datetime-tokens.year-four-digit"),
+              "description": "Year as four-digit number",
               "example": "2023"
             } // Month tokens
             ,
             {
               "category": "Month",
               "token": "M",
-              "description": I18n.tr("widgets.datetime-tokens.month-number-no-zero"),
+              "description": "Month as number without leading zero (1-12)",
               "example": "12"
             },
             {
               "category": "Month",
               "token": "MM",
-              "description": I18n.tr("widgets.datetime-tokens.month-number-leading-zero"),
+              "description": "Month as number with leading zero (01-12)",
               "example": "12"
             },
             {
               "category": "Month",
               "token": "MMM",
-              "description": I18n.tr("widgets.datetime-tokens.month-abbreviated"),
+              "description": "Abbreviated month name",
               "example": "Dec"
             },
             {
               "category": "Month",
               "token": "MMMM",
-              "description": I18n.tr("widgets.datetime-tokens.month-full"),
+              "description": "Full month name",
               "example": "December"
             } // Day tokens
             ,
             {
               "category": "Day",
               "token": "d",
-              "description": I18n.tr("widgets.datetime-tokens.day-no-leading-zero"),
+              "description": "Day without leading zero (1-31)",
               "example": "25"
             },
             {
               "category": "Day",
               "token": "dd",
-              "description": I18n.tr("widgets.datetime-tokens.day-leading-zero"),
+              "description": "Day with leading zero (01-31)",
               "example": "25"
             },
             {
               "category": "Day",
               "token": "ddd",
-              "description": I18n.tr("widgets.datetime-tokens.day-abbreviated"),
+              "description": "Abbreviated day name",
               "example": "Mon"
             },
             {
               "category": "Day",
               "token": "dddd",
-              "description": I18n.tr("widgets.datetime-tokens.day-full"),
+              "description": "Full day name",
               "example": "Monday"
             }
           ]
@@ -348,7 +348,7 @@ Rectangle {
 
                 NText {
                   anchors.centerIn: parent
-                  text: I18n.locale.toString(root.sampleDate, modelData.token)
+                  text: Qt.locale().toString(root.sampleDate, modelData.token)
                   color: tokenMouseArea.containsMouse ? Color.mOnPrimary : Color.mSurfaceVariant
                   pointSize: Style.fontSizeS
 

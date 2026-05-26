@@ -23,6 +23,6 @@ RowLayout {
   NIconButton {
     icon: "settings"
     onClicked: root.editClicked()
-    tooltipText: I18n.tr("common.edit")
+    tooltipText: "Edit"
   }
 }

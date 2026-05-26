@@ -12,7 +12,7 @@ ColumnLayout {
 
   NLabel {
     Layout.fillWidth: true
-    description: I18n.tr("panels.system-monitor.thresholds-section-description")
+    description: "Adjust warning/critical thresholds for each system metric."
   }
 
   GridLayout {
@@ -30,7 +30,7 @@ ColumnLayout {
     NText {
       Layout.alignment: Qt.AlignHCenter
       horizontalAlignment: Text.AlignHCenter
-      text: I18n.tr("panels.system-monitor.threshold-warning")
+      text: "Warning threshold"
       pointSize: Style.fontSizeS
       color: Color.mOnSurfaceVariant
     }
@@ -38,14 +38,14 @@ ColumnLayout {
     NText {
       Layout.alignment: Qt.AlignHCenter
       horizontalAlignment: Text.AlignHCenter
-      text: I18n.tr("panels.system-monitor.threshold-critical")
+      text: "Critical threshold"
       pointSize: Style.fontSizeS
       color: Color.mOnSurfaceVariant
     }
 
     // CPU Usage
     NText {
-      text: I18n.tr("bar.system-monitor.cpu-usage-label")
+      text: "CPU usage"
       pointSize: Style.fontSizeM
     }
 
@@ -78,7 +78,7 @@ ColumnLayout {
 
     // CPU Temperature
     NText {
-      text: I18n.tr("bar.system-monitor.cpu-temperature-label")
+      text: "CPU temperature"
       pointSize: Style.fontSizeM
     }
 
@@ -112,7 +112,7 @@ ColumnLayout {
     // GPU Temperature
     NText {
       visible: SystemStatService.gpuAvailable
-      text: I18n.tr("panels.system-monitor.gpu-section-label")
+      text: "GPU temperature"
       pointSize: Style.fontSizeM
     }
 
@@ -147,7 +147,7 @@ ColumnLayout {
 
     // Memory Usage
     NText {
-      text: I18n.tr("bar.system-monitor.memory-usage-label")
+      text: "Memory usage"
       pointSize: Style.fontSizeM
     }
 
@@ -180,7 +180,7 @@ ColumnLayout {
 
     // Swap Usage
     NText {
-      text: I18n.tr("bar.system-monitor.swap-usage-label")
+      text: "Swap usage"
       pointSize: Style.fontSizeM
     }
 
@@ -213,7 +213,7 @@ ColumnLayout {
 
     // Disk Usage
     NText {
-      text: I18n.tr("panels.system-monitor.disk-section-label")
+      text: "Disk usage"
       pointSize: Style.fontSizeM
     }
 
@@ -246,7 +246,7 @@ ColumnLayout {
 
     // Disk Available
     NText {
-      text: I18n.tr("panels.system-monitor.disk-available-label")
+      text: "Disk available"
       pointSize: Style.fontSizeM
     }
 
@@ -279,7 +279,7 @@ ColumnLayout {
 
     // Battery
     NText {
-      text: I18n.tr("panels.notifications.toast-battery-label")
+      text: "Battery warning"
       pointSize: Style.fontSizeM
     }
 

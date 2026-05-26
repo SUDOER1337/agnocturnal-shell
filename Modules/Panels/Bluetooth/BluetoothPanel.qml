@@ -47,7 +47,7 @@ SmartPanel {
           }
 
           NLabel {
-            label: I18n.tr("common.bluetooth")
+            label: "Bluetooth"
             Layout.fillWidth: true
           }
 
@@ -61,7 +61,7 @@ SmartPanel {
 
           NIconButton {
             icon: Settings.data.network.bluetoothAutoConnect ? "bluetooth-connected" : "bluetooth"
-            tooltipText: Settings.data.network.bluetoothAutoConnect ? I18n.tr("tooltips.bluetooth-auto-connect-on") : I18n.tr("tooltips.bluetooth-auto-connect-off")
+            tooltipText: Settings.data.network.bluetoothAutoConnect ? "Auto-connect is on" : "Auto-connect is off"
             colorFg: Settings.data.network.bluetoothAutoConnect ? Color.mPrimary : Color.mOnSurfaceVariant
             baseSize: Style.baseWidgetSize * 0.8
             onClicked: Settings.data.network.bluetoothAutoConnect = !Settings.data.network.bluetoothAutoConnect
@@ -69,7 +69,7 @@ SmartPanel {
 
            NIconButton {
              icon: "settings"
-             tooltipText: I18n.tr("tooltips.open-settings")
+             tooltipText: "Settings"
              baseSize: Style.baseWidgetSize * 0.8
              onClicked: SettingsPanelService.openToTab(SettingsPanel.Tab.Connections, 1, screen)
            }
@@ -115,14 +115,14 @@ SmartPanel {
               }
 
               NText {
-                text: I18n.tr("bluetooth.panel.disabled")
+                text: "Bluetooth is disabled"
                 pointSize: Style.fontSizeL
                 color: Color.mOnSurfaceVariant
                 Layout.alignment: Qt.AlignHCenter
               }
 
               NText {
-                text: I18n.tr("bluetooth.panel.enable-message")
+                text: "Enable Bluetooth to see available devices."
                 pointSize: Style.fontSizeS
                 color: Color.mOnSurfaceVariant
                 horizontalAlignment: Text.AlignHCenter
@@ -166,14 +166,14 @@ SmartPanel {
               }
 
               NText {
-                text: I18n.tr("bluetooth.panel.no-devices")
+                text: "No devices available"
                 pointSize: Style.fontSizeL
                 color: Color.mOnSurfaceVariant
                 Layout.alignment: Qt.AlignHCenter
               }
 
               NButton {
-                text: I18n.tr("common.settings")
+                text: "Settings"
                 icon: "settings"
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: SettingsPanelService.openToTab(SettingsPanel.Tab.Connections, 1, screen)

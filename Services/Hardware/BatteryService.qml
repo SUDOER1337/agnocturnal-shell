@@ -54,7 +54,7 @@ Singleton {
     var model = [
       {
         "key": "__default__",
-        "name": I18n.tr("bar.battery.device-default")
+        "name": "Default (Display Device)"
       }
     ];
     const devices = UPower.devices?.values || [];
@@ -64,7 +64,7 @@ Singleton {
       }
       model.push({
                    key: d.nativePath || "",
-                   name: d.model || d.nativePath || I18n.tr("common.unknown")
+                   name: d.model || d.nativePath || "Unknown"
                  });
     }
     return model;
@@ -189,16 +189,16 @@ Singleton {
       // Logger.e("BatteryDebug", "Available Battery count: " + laptopBatteries.length); // can be useful for debugging
       if (laptopBatteries.length > 1 && device.nativePath) {
         if (device.nativePath === "DisplayDevice") {
-          return I18n.tr("battery.all-batteries");
+          return "All batteries (combined)";
         }
         var match = device.nativePath.match(/(\d+)$/);
         if (match) {
           // In case of 2 batteries: bat0 => bat1  bat1 => bat2
-          return I18n.tr("common.battery") + " " + (parseInt(match[1]) + 1);  // Append numbers
+          return "Battery" + " " + (parseInt(match[1]) + 1);  // Append numbers
         }
       }
       // Return Battery if there is only one
-      return I18n.tr("common.battery");
+      return "Battery";
     }
 
     if (isBluetoothDevice(device) && device.name) {
@@ -256,32 +256,24 @@ Singleton {
     }
     const rate = Math.abs(device.changeRate);
     if (device.timeToFull > 0) {
-      return I18n.tr("battery.charging-rate", {
-                       "rate": rate.toFixed(2)
-                     });
+      return "Charging rate: {rate} W";
     } else if (device.timeToEmpty > 0) {
-      return I18n.tr("battery.discharging-rate", {
-                       "rate": rate.toFixed(2)
-                     });
+      return "Discharging rate: {rate} W";
     }
   }
 
   function getTimeRemainingText(device) {
     if (!isDeviceReady(device)) {
-      return I18n.tr("battery.no-battery-detected");
+      return "No battery detected";
     }
     if (isPluggedIn(device)) {
-      return I18n.tr("battery.plugged-in");
+      return "Plugged in";
     } else if (device.timeToFull > 0) {
-      return I18n.tr("battery.time-until-full", {
-                       "time": Time.formatVagueHumanReadableDuration(device.timeToFull)
-                     });
+      return "Time until full: {time}";
     } else if (device.timeToEmpty > 0) {
-      return I18n.tr("battery.time-left", {
-                       "time": Time.formatVagueHumanReadableDuration(device.timeToEmpty)
-                     });
+      return "Time left: {time}";
     }
-    return I18n.tr("common.idle");
+    return "Idle";
   }
 
   function checkDevice(device) {

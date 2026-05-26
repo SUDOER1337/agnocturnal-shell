@@ -8,7 +8,7 @@ Item {
   id: root
 
   // Provider metadata
-  property string name: I18n.tr("launcher.providers.clipboard")
+  property string name: "Clipboard history"
   property var launcher: null
   property string iconMode: Settings.data.appLauncher.iconMode
   property string supportedLayouts: "list" // List view for clipboard content
@@ -110,7 +110,7 @@ Item {
     return [
           {
             "name": ">clip",
-            "description": I18n.tr("launcher.providers.clipboard-search-description"),
+            "description": "Search clipboard history",
             "icon": iconMode === "tabler" ? "clipboard" : "diodon",
             "isTablerIcon": true,
             "isImage": false,
@@ -120,7 +120,7 @@ Item {
           },
           {
             "name": ">clip clear",
-            "description": I18n.tr("launcher.providers.clipboard-clear-description"),
+            "description": "Clear all clipboard history",
             "icon": iconMode === "tabler" ? "trash" : "user-trash",
             "isTablerIcon": true,
             "isImage": false,
@@ -148,8 +148,8 @@ Item {
       if (!ClipboardService.dependencyChecked) {
         return [
               {
-                "name": I18n.tr("launcher.providers.clipboard-loading"),
-                "description": I18n.tr("launcher.providers.emoji-loading-description"),
+                "name": "Loading clipboard history...",
+                "description": "Please wait",
                 "icon": iconMode === "tabler" ? "refresh" : "view-refresh",
                 "isTablerIcon": true,
                 "isImage": false,
@@ -159,8 +159,8 @@ Item {
       }
       return [
             {
-              "name": I18n.tr("launcher.providers.clipboard-history-disabled"),
-              "description": I18n.tr("launcher.providers.clipboard-history-disabled-description"),
+              "name": "Clipboard history disabled",
+              "description": "Enable clipboard history in settings or install cliphist",
               "icon": iconMode === "tabler" ? "refresh" : "view-refresh",
               "isTablerIcon": true,
               "isImage": false,
@@ -173,8 +173,8 @@ Item {
     if (query === "clear") {
       return [
             {
-              "name": I18n.tr("launcher.providers.clipboard-clear-history"),
-              "description": I18n.tr("launcher.providers.clipboard-clear-description-full"),
+              "name": "Clear clipboard history",
+              "description": "Remove all items from clipboard history",
               "icon": iconMode === "tabler" ? "trash" : "user-trash",
               "isTablerIcon": true,
               "isImage": false,
@@ -190,8 +190,8 @@ Item {
     if (ClipboardService.loading || isWaitingForData) {
       return [
             {
-              "name": I18n.tr("launcher.providers.clipboard-loading"),
-              "description": I18n.tr("launcher.providers.emoji-loading-description"),
+              "name": "Loading clipboard history...",
+              "description": "Please wait",
               "icon": iconMode === "tabler" ? "refresh" : "view-refresh",
               "isTablerIcon": true,
               "isImage": false,
@@ -209,8 +209,8 @@ Item {
       ClipboardService.list(100);
       return [
             {
-              "name": I18n.tr("launcher.providers.clipboard-loading"),
-              "description": I18n.tr("launcher.providers.emoji-loading-description"),
+              "name": "Loading clipboard history...",
+              "description": "Please wait",
               "icon": iconMode === "tabler" ? "refresh" : "view-refresh",
               "isTablerIcon": true,
               "isImage": false,
@@ -331,7 +331,7 @@ Item {
     } else {
       // Preview is truncated at ~100 chars, so we can't show exact count
       if (preview.length >= 100) {
-        description = I18n.tr("toast.clipboard.long-text");
+        description = "Long text";
       } else {
         const chars = preview.length;
         const words = preview.split(/\s+/).length;
@@ -388,7 +388,7 @@ Item {
     if (item.isImage && Settings.data.appLauncher.screenshotAnnotationTool.trim() !== "") {
       actions.push({
                      "icon": "pencil",
-                     "tooltip": I18n.tr("tooltips.open-annotation-tool"),
+                     "tooltip": "Open with annotation tool",
                      "action": function () {
                        var tool = Settings.data.appLauncher.screenshotAnnotationTool.trim();
                        Quickshell.execDetached(["sh", "-c", "cliphist decode " + item.clipboardId + " | " + tool]);
@@ -401,7 +401,7 @@ Item {
     // Delete action
     actions.push({
                    "icon": "trash",
-                   "tooltip": I18n.tr("launcher.providers.clipboard-delete"),
+                   "tooltip": "Delete clipboard entry",
                    "action": function () {
                      deleteItem(item);
                    }

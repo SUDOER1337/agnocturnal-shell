@@ -6,8 +6,8 @@ import qs.Services.UI
 RowLayout {
   id: root
 
-  property string label: I18n.tr("common.select-color")
-  property string description: I18n.tr("common.select-color-description")
+  property string label: "Select color"
+  property string description: "Apply theme colors for emphasis."
   property string tooltip: ""
   property string currentKey: ""
   property var defaultValue: undefined
@@ -16,9 +16,7 @@ RowLayout {
 
   readonly property bool isValueChanged: (defaultValue !== undefined) && (currentKey !== defaultValue)
   readonly property string indicatorTooltip: {
-    I18n.tr("panels.indicator.default-value", {
-              "value": defaultValue === "" ? "(empty)" : String(defaultValue)
-            });
+    "Default: {value}";
   }
 
   readonly property int diameter: Style.baseWidgetSize * 0.9 * Style.uiScaleRatio

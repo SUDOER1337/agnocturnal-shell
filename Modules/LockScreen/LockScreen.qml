@@ -250,10 +250,7 @@ Loader {
                     }
 
                     NText {
-                      text: I18n.tr("session-menu.action-in-seconds", {
-                                      "action": I18n.tr("common." + panelComponent.pendingAction),
-                                      "seconds": Math.ceil(panelComponent.timeRemaining / 1000)
-                                    })
+                      text: "{action} in {seconds} seconds..."
                       color: Color.mOnSurface
                       pointSize: Style.fontSizeL
                       horizontalAlignment: Text.AlignHCenter
@@ -266,7 +263,7 @@ Loader {
 
                     NIconButton {
                       icon: "x"
-                      tooltipText: I18n.tr("session-menu.cancel-timer")
+                      tooltipText: "Cancel timer"
                       baseSize: 32
                       colorBg: Qt.alpha(Color.mPrimary, 0.1)
                       colorFg: Color.mPrimary

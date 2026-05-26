@@ -8,7 +8,7 @@ Item {
   id: root
 
   property var launcher: null
-  property string name: I18n.tr("launcher.providers.applications")
+  property string name: "Applications"
   property bool handleSearch: true
   property var entries: []
   property string supportedLayouts: "both"
@@ -42,19 +42,19 @@ Item {
 
   function getCategoryName(category) {
     const names = {
-      "all": I18n.tr("launcher.categories.all"),
-      "Pinned": I18n.tr("launcher.categories.pinned"),
-      "AudioVideo": I18n.tr("launcher.categories.audiovideo"),
-      "Chat": I18n.tr("launcher.categories.chat"),
-      "Development": I18n.tr("launcher.categories.development"),
-      "Education": I18n.tr("launcher.categories.education"),
-      "Game": I18n.tr("launcher.categories.game"),
-      "Graphics": I18n.tr("launcher.categories.graphics"),
-      "Network": I18n.tr("common.network"),
-      "Office": I18n.tr("launcher.categories.office"),
-      "System": I18n.tr("launcher.categories.system"),
-      "Misc": I18n.tr("launcher.categories.misc"),
-      "WebBrowser": I18n.tr("launcher.categories.webbrowser")
+      "all": "All",
+      "Pinned": "Pinned",
+      "AudioVideo": "Audio & Video",
+      "Chat": "Chat",
+      "Development": "Development",
+      "Education": "Education",
+      "Game": "Games",
+      "Graphics": "Graphics",
+      "Network": "Network",
+      "Office": "Office",
+      "System": "System",
+      "Misc": "Misc",
+      "WebBrowser": "Web Browser"
     };
     return names[category] || category;
   }
@@ -602,7 +602,7 @@ Item {
                                 }) ? "unpin" : "pin",
             "tooltip": isAppPinned({
                                      "id": item.appId
-                                   }) ? I18n.tr("common.unpin") : I18n.tr("common.pin"),
+                                   }) ? "Unpin" : "Pin",
             "action": function () {
               togglePin(item.appId);
             }

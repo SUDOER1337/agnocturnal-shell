@@ -44,10 +44,10 @@ ColumnLayout {
       if (exitCode === 0) {
         Settings.data.nightLight.enabled = true;
         NightLightService.apply();
-        ToastService.showNotice(I18n.tr("common.night-light"), I18n.tr("common.enabled"), "nightlight-on");
+        ToastService.showNotice("Night Light", "Enabled", "nightlight-on");
       } else {
         Settings.data.nightLight.enabled = false;
-        ToastService.showWarning(I18n.tr("common.night-light"), I18n.tr("toast.night-light.not-installed"));
+        ToastService.showWarning("Night Light", "wlsunset not installed");
       }
     }
 
@@ -63,12 +63,12 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.brightness")
+      text: "Brightness"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.night-light")
+      text: "Night Light"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }

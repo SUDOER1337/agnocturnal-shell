@@ -8,7 +8,7 @@ Item {
   id: root
 
   // Provider metadata
-  property string name: I18n.tr("tooltips.session-menu")
+  property string name: "Session menu"
   property var launcher: null
   property bool handleSearch: Settings.data.appLauncher.enableSessionSearch
   property string supportedLayouts: "list"
@@ -135,7 +135,7 @@ Item {
 
       launcherItems.push({
                            "name": entry.label,
-                           "description": I18n.tr("tooltips.session-menu"),
+                           "description": "Session menu",
                            "icon": entry.icon,
                            "isTablerIcon": true,
                            "isImage": false,

@@ -157,7 +157,7 @@ Singleton {
       Logger.i("Bluetooth", "SetBluetoothEnabled", state);
     } catch (e) {
       Logger.w("Bluetooth", "Enable/Disable failed", e);
-      ToastService.showWarning(I18n.tr("common.bluetooth"), I18n.tr("toast.bluetooth.state-change-failed"));
+      ToastService.showWarning("Bluetooth", "Failed to change Bluetooth state");
     }
   }
 
@@ -167,18 +167,18 @@ Singleton {
     if (isAirplaneModeActive && !NetworkService.airplaneModeEnabled) {
       NetworkService.airplaneModeToggled = true;
       NetworkService.airplaneModeEnabled = true;
-      ToastService.showNotice(I18n.tr("toast.airplane-mode.title"), I18n.tr("common.enabled"), "plane");
+      ToastService.showNotice("Airplane Mode", "Enabled", "plane");
       Logger.i("AirplaneMode", "Enabled");
     } else if (!isAirplaneModeActive && NetworkService.airplaneModeEnabled) {
       NetworkService.airplaneModeToggled = true;
       NetworkService.airplaneModeEnabled = false;
-      ToastService.showNotice(I18n.tr("toast.airplane-mode.title"), I18n.tr("common.disabled"), "plane-off");
+      ToastService.showNotice("Airplane Mode", "Disabled", "plane-off");
       Logger.i("AirplaneMode", "Disabled");
     } else if (adapter.enabled) {
-      ToastService.showNotice(I18n.tr("common.bluetooth"), I18n.tr("common.enabled"), "bluetooth");
+      ToastService.showNotice("Bluetooth", "Enabled", "bluetooth");
       Logger.d("Bluetooth", "Adapter enabled");
     } else {
-      ToastService.showNotice(I18n.tr("common.bluetooth"), I18n.tr("common.disabled"), "bluetooth-off");
+      ToastService.showNotice("Bluetooth", "Disabled", "bluetooth-off");
       Logger.d("Bluetooth", "Adapter disabled");
     }
   }
@@ -209,7 +209,7 @@ Singleton {
       Logger.i("Bluetooth", "Discoverable state set to:", state);
     } catch (e) {
       Logger.w("Bluetooth", "Failed to change discoverable state", e);
-      ToastService.showWarning(I18n.tr("common.bluetooth"), I18n.tr("toast.bluetooth.discoverable-change-failed"));
+      ToastService.showWarning("Bluetooth", "Failed to change discoverable state");
     }
   }
 
@@ -259,21 +259,21 @@ Singleton {
   function getSignalStrength(device) {
     var p = getSignalPercent(device);
     if (p === null) {
-      return I18n.tr("bluetooth.panel.signal-text-unknown");
+      return "Signal: Unknown";
     }
     if (p >= 80) {
-      return I18n.tr("bluetooth.panel.signal-text-excellent");
+      return "Signal: Excellent";
     }
     if (p >= 60) {
-      return I18n.tr("bluetooth.panel.signal-text-good");
+      return "Signal: Good";
     }
     if (p >= 40) {
-      return I18n.tr("bluetooth.panel.signal-text-fair");
+      return "Signal: Fair";
     }
     if (p >= 20) {
-      return I18n.tr("bluetooth.panel.signal-text-poor");
+      return "Signal: Poor";
     }
-    return I18n.tr("bluetooth.panel.signal-text-very-poor");
+    return "Signal: Very poor";
   }
 
   // Numeric helpers for UI rendering
@@ -322,12 +322,12 @@ Singleton {
     if (!device) {
       return;
     }
-    ToastService.showNotice(I18n.tr("common.bluetooth"), I18n.tr("common.pairing"), "bluetooth");
+    ToastService.showNotice("Bluetooth", "Pairing...", "bluetooth");
     try {
       pairWithBluetoothctl(device);
     } catch (e) {
       Logger.w("Bluetooth", "pairDevice failed", e);
-      ToastService.showWarning(I18n.tr("common.bluetooth"), I18n.tr("toast.bluetooth.pair-failed"));
+      ToastService.showWarning("Bluetooth", "Failed to pair device");
     }
   }
 
@@ -458,7 +458,7 @@ Singleton {
       device.connect();
     } catch (e) {
       Logger.w("Bluetooth", "connectDeviceWithTrust failed", e);
-      ToastService.showWarning(I18n.tr("common.bluetooth"), I18n.tr("toast.bluetooth.connect-failed"));
+      ToastService.showWarning("Bluetooth", "Failed to connect to device");
     }
   }
 
@@ -470,7 +470,7 @@ Singleton {
       device.disconnect();
     } catch (e) {
       Logger.w("Bluetooth", "disconnectDevice failed", e);
-      ToastService.showWarning(I18n.tr("common.bluetooth"), I18n.tr("toast.bluetooth.disconnect-failed"));
+      ToastService.showWarning("Bluetooth", "Failed to disconnect from device");
     }
   }
 
@@ -483,7 +483,7 @@ Singleton {
       device.forget();
     } catch (e) {
       Logger.w("Bluetooth", "forgetDevice failed", e);
-      ToastService.showWarning(I18n.tr("common.bluetooth"), I18n.tr("toast.bluetooth.forget-failed"));
+      ToastService.showWarning("Bluetooth", "Failed to forget device");
     }
   }
 

@@ -15,49 +15,49 @@ ColumnLayout {
   property list<var> entriesDefault: [
     {
       "id": "lock",
-      "text": I18n.tr("common.lock"),
+      "text": "Lock",
       "enabled": true,
       "required": false
     },
     {
       "id": "suspend",
-      "text": I18n.tr("common.suspend"),
+      "text": "Suspend",
       "enabled": true,
       "required": false
     },
     {
       "id": "hibernate",
-      "text": I18n.tr("common.hibernate"),
+      "text": "Hibernate",
       "enabled": true,
       "required": false
     },
     {
       "id": "reboot",
-      "text": I18n.tr("common.reboot"),
+      "text": "Reboot",
       "enabled": true,
       "required": false
     },
     {
       "id": "userspaceReboot",
-      "text": I18n.tr("common.userspace-reboot"),
+      "text": "Userspace Reboot",
       "enabled": false,
       "required": false
     },
     {
       "id": "rebootToUefi",
-      "text": I18n.tr("common.reboot-to-uefi"),
+      "text": "Reboot to UEFI",
       "enabled": true,
       "required": false
     },
     {
       "id": "logout",
-      "text": I18n.tr("common.logout"),
+      "text": "Logout",
       "enabled": true,
       "required": false
     },
     {
       "id": "shutdown",
-      "text": I18n.tr("common.shutdown"),
+      "text": "Shutdown",
       "enabled": true,
       "required": false
     }
@@ -235,12 +235,12 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.general")
+      text: "General"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.actions")
+      text: "Actions"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }

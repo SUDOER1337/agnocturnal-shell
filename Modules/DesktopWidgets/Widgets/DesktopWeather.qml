@@ -99,7 +99,7 @@ DraggableDesktopWidget {
 
       NText {
         Layout.fillWidth: true
-        text: locationName || I18n.tr("common.weather-no-location")
+        text: locationName || "Set a location in Settings to see weather"
         pointSize: Math.round(Style.fontSizeS * widgetScale)
         font.weight: Style.fontWeightRegular
         color: Color.mOnSurfaceVariant

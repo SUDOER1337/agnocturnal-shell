@@ -54,20 +54,20 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.hide-mode-label")
-    description: I18n.tr("bar.taskbar.hide-mode-description")
+    label: "Hiding mode"
+    description: "Controls how the widget behaves when there are no matching windows."
     model: [
       {
         "key": "visible",
-        "name": I18n.tr("hide-modes.visible")
+        "name": "Always visible"
       },
       {
         "key": "hidden",
-        "name": I18n.tr("hide-modes.hidden")
+        "name": "Hide when empty"
       },
       {
         "key": "transparent",
-        "name": I18n.tr("hide-modes.transparent")
+        "name": "Transparent when empty"
       }
     ]
     currentKey: root.valueHideMode
@@ -80,8 +80,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.only-same-monitor-label")
-    description: I18n.tr("bar.taskbar.only-same-monitor-description")
+    label: "Only from same monitor"
+    description: "Show only apps from the monitor where the bar is located."
     checked: root.valueOnlySameOutput
     onToggled: checked => {
                  root.valueOnlySameOutput = checked;
@@ -92,8 +92,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.only-active-workspaces-label")
-    description: I18n.tr("bar.taskbar.only-active-workspaces-description")
+    label: "Only from active workspaces"
+    description: "Show only apps from active workspaces."
     checked: root.valueOnlyActiveWorkspaces
     onToggled: checked => {
                  root.valueOnlyActiveWorkspaces = checked;
@@ -104,8 +104,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.tray.colorize-icons-label")
-    description: I18n.tr("bar.taskbar.colorize-icons-description")
+    label: "Colorize icons"
+    description: "Apply theme colors to taskbar icons."
     checked: root.valueColorizeIcons
     onToggled: checked => {
                  root.valueColorizeIcons = checked;
@@ -116,8 +116,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.show-pinned-apps-label")
-    description: I18n.tr("bar.taskbar.show-pinned-apps-description")
+    label: "Show pinned apps"
+    description: "Show pinned apps from the dock in the taskbar."
     checked: root.valueShowPinnedApps
     onToggled: checked => {
                  root.valueShowPinnedApps = checked;
@@ -128,8 +128,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.icon-scale-label")
-    description: I18n.tr("bar.taskbar.icon-scale-description")
+    label: "Icon scaling"
+    description: "Sets the scaling factor for taskbar icons."
     from: 0.5
     to: 1
     stepSize: 0.01
@@ -145,8 +145,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.show-title-label")
-    description: isVerticalBar ? I18n.tr("bar.taskbar.show-title-description-disabled") : I18n.tr("bar.taskbar.show-title-description")
+    label: "Show title"
+    description: isVerticalBar ? "Vertical taskbar does not support showing titles." : "Display window titles in the taskbar."
     checked: root.valueShowTitle
     onToggled: checked => {
                  root.valueShowTitle = checked;
@@ -160,10 +160,10 @@ ColumnLayout {
     id: titleWidthInput
     visible: root.valueShowTitle && !isVerticalBar
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.title-width-label")
-    description: I18n.tr("bar.taskbar.title-width-description")
+    label: "Title width"
+    description: "Set the width of window titles in the taskbar (in pixels)."
     text: widgetData.titleWidth || widgetMetadata.titleWidth
-    placeholderText: I18n.tr("placeholders.enter-width-pixels")
+    placeholderText: "Enter width in pixels"
     onTextChanged: saveSettings()
     defaultValue: String(widgetMetadata.titleWidth)
   }
@@ -171,8 +171,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     visible: !isVerticalBar && root.valueShowTitle
-    label: I18n.tr("bar.taskbar.smart-width-label")
-    description: I18n.tr("bar.taskbar.smart-width-description")
+    label: "Smart width"
+    description: "Automatically adjust entry width based on the number of entries."
     checked: root.valueSmartWidth
     onToggled: checked => {
                  root.valueSmartWidth = checked;
@@ -184,8 +184,8 @@ ColumnLayout {
   NValueSlider {
     visible: root.valueSmartWidth && !isVerticalBar
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.max-width-label")
-    description: I18n.tr("bar.taskbar.max-width-description")
+    label: "Maximum width"
+    description: "Maximum width of the taskbar as a percentage of screen width."
     from: 10
     to: 100
     stepSize: 5

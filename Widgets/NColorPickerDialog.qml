@@ -80,7 +80,7 @@ Popup {
         }
 
         NText {
-          text: I18n.tr("widgets.color-picker.title")
+          text: "Color picker"
           pointSize: Style.fontSizeXL
           font.weight: Style.fontWeightBold
           color: Color.mPrimary
@@ -609,7 +609,7 @@ Popup {
         }
 
         NLabel {
-          label: I18n.tr("widgets.color-picker.palette-label")
+          label: "Palette"
           Layout.fillWidth: true
         }
 
@@ -630,7 +630,7 @@ Popup {
             NLabel {
               Layout.columnSpan: 17
               Layout.fillWidth: true
-              description: I18n.tr("widgets.color-picker.palette-theme-colors")
+              description: "Quick access to your theme's color palette."
             }
 
             Repeater {
@@ -702,7 +702,7 @@ Popup {
             NLabel {
               Layout.columnSpan: 17
               Layout.fillWidth: true
-              description: I18n.tr("widgets.color-picker.palette-description")
+              description: "Choose from a wide range of predefined colors."
             }
 
             Repeater {
@@ -752,7 +752,7 @@ Popup {
 
       NButton {
         id: cancelButton
-        text: I18n.tr("common.cancel")
+        text: "Cancel"
         outlined: cancelButton.hovered ? false : true
         onClicked: {
           root.close();
@@ -760,7 +760,7 @@ Popup {
       }
 
       NButton {
-        text: I18n.tr("common.apply")
+        text: "Apply"
         icon: "check"
         onClicked: {
           root.colorSelected(root.selectedColor);

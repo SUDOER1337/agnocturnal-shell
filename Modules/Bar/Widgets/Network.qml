@@ -46,18 +46,18 @@ Item {
 
     model: [
       {
-        "label": NetworkService.wifiEnabled ? I18n.tr("actions.disable-wifi") : I18n.tr("actions.enable-wifi"),
+        "label": NetworkService.wifiEnabled ? "Disable Wi-Fi" : "Enable Wi-Fi",
         "action": "toggle-wifi",
         "icon": NetworkService.wifiEnabled ? "wifi-off" : "wifi",
         "enabled": !NetworkService.airplaneModeEnabled && NetworkService.wifiAvailable
       },
       {
-        "label": I18n.tr("common.wifi") + " " + I18n.tr("tooltips.open-settings"),
+        "label": "Wi-Fi" + " " + "Settings",
         "action": "wifi-settings",
         "icon": "settings"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

@@ -5,7 +5,6 @@ import Quickshell
 import Quickshell.Io
 import qs.Commons
 import qs.Services.Compositor
-import qs.Services.Agnocturnal
 import qs.Services.System
 import qs.Services.UI
 import qs.Widgets
@@ -28,39 +27,12 @@ ColumnLayout {
     running: false
   }
 
-  property string latestVersion: GitHubService.latestVersion
   property string currentVersion: UpdateService.currentVersion
   property string commitInfo: ""
-  property string qsVersion: ""
-  property string qsRevision: ""
 
   readonly property bool isGitVersion: root.currentVersion.endsWith("-git")
   readonly property int gigaB: (1024 * 1024 * 1024)
   readonly property int gigaD: (1000 * 1000 * 1000)
-
-  // Update status: compare versions
-  readonly property bool updateAvailable: {
-    if (!root.latestVersion || !root.currentVersion || root.latestVersion === I18n.tr("common.unknown"))
-      return false;
-    return UpdateService.compareVersions(root.latestVersion, root.currentVersion) > 0 && !root.isGitVersion;
-  }
-  readonly property bool isUpToDate: {
-    if (!root.latestVersion || !root.currentVersion || root.latestVersion === I18n.tr("common.unknown"))
-      return false;
-    return UpdateService.compareVersions(root.latestVersion, root.currentVersion) <= 0;
-  }
-
-  readonly property bool qsUpdateAvailable: {
-    if (!GitHubService.latestQSVersion || !root.qsVersion || GitHubService.latestQSVersion === I18n.tr("common.unknown"))
-      return false;
-    return UpdateService.compareVersions(GitHubService.latestQSVersion, root.qsVersion) > 0;
-  }
-
-  readonly property bool qsIsUpToDate: {
-    if (!GitHubService.latestQSVersion || !root.qsVersion || GitHubService.latestQSVersion === I18n.tr("common.unknown"))
-      return false;
-    return UpdateService.compareVersions(GitHubService.latestQSVersion, root.qsVersion) <= 0;
-  }
 
   // System info properties
   property var systemInfo: null
@@ -78,8 +50,6 @@ ColumnLayout {
   Component.onCompleted: {
     // Check if fastfetch is available before trying to run it
     checkFastfetchProcess.running = true;
-    qsVersionProcess.running = true;
-
     Logger.d("VersionSubTab", "Current version:", root.currentVersion);
     Logger.d("VersionSubTab", "Is git version:", root.isGitVersion);
     // Only fetch commit info for -git versions
@@ -134,29 +104,6 @@ ColumnLayout {
         }
       } else {
         Logger.d("VersionSubTab", "gitProcess - Git command failed. Exit code:", exitCode);
-      }
-    }
-
-    stdout: StdioCollector {}
-    stderr: StdioCollector {}
-  }
-
-  Process {
-    id: qsVersionProcess
-    command: ["qs", "--version"]
-    running: false
-
-    onExited: function (exitCode) {
-      if (exitCode === 0) {
-        var output = stdout.text.trim();
-        // Format (old): "noctalia-qs 0.3.0, revision abc12345, distributed by: ..."
-        // Format (new): "noctalia-qs 0.0.9 (revision b602b69c81d96a1d7c645328feb7b1e1d4b7b7a4, distributed by Unset)"
-        // Only set if this is actually noctalia-qs; leave empty for upstream quickshell
-        var match = output.match(/noctalia-qs\s+(\S+?)[\s,(]+revision\s*([0-9a-f]*)/i);
-        if (match) {
-          root.qsVersion = match[1];
-          root.qsRevision = match[2] ? match[2].substring(0, 9) : "";
-        }
       }
     }
 
@@ -238,7 +185,7 @@ ColumnLayout {
           NText {
             id: commitText
             visible: root.isGitVersion
-            text: "(" + (root.commitInfo || I18n.tr("common.loading")) + ")"
+            text: "(" + (root.commitInfo || "Loading...") + ")"
             color: commitMouseArea.containsMouse ? Color.mPrimary : Color.mOnSurfaceVariant
             pointSize: Style.fontSizeXS
             font.underline: commitMouseArea.containsMouse && root.commitInfo
@@ -250,7 +197,7 @@ ColumnLayout {
               cursorShape: root.commitInfo ? Qt.PointingHandCursor : Qt.ArrowCursor
               onEntered: {
                 if (root.commitInfo) {
-                  TooltipService.show(commitText, I18n.tr("panels.about.view-commit"));
+                  TooltipService.show(commitText, "View commit on GitHub");
                 }
               }
               onExited: TooltipService.hide()
@@ -262,145 +209,6 @@ ColumnLayout {
             }
           }
 
-          // Update status indicator
-          NIcon {
-            id: upToDateIcon
-            visible: root.isUpToDate
-            icon: "circle-check"
-            pointSize: Style.fontSizeM
-            color: Color.mPrimary
-
-            MouseArea {
-              anchors.fill: parent
-              hoverEnabled: true
-              onEntered: TooltipService.show(upToDateIcon, I18n.tr("panels.about.up-to-date"))
-              onExited: TooltipService.hide()
-            }
-          }
-
-          NIcon {
-            id: updateAvailableIcon
-            visible: root.updateAvailable
-            icon: "arrow-up-circle"
-            pointSize: Style.fontSizeS
-            color: Color.mPrimary
-
-            MouseArea {
-              anchors.fill: parent
-              hoverEnabled: true
-              onEntered: TooltipService.show(updateAvailableIcon, I18n.tr("panels.about.update-available"))
-              onExited: TooltipService.hide()
-            }
-          }
-        }
-
-        // Latest Version (Shell)
-        NText {
-          visible: root.updateAvailable
-          text: I18n.tr("panels.about.noctalia-available")
-          color: Color.mOnSurfaceVariant
-          Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-        }
-
-        NText {
-          visible: root.updateAvailable
-          text: root.latestVersion
-          color: Color.mOnSurface
-          font.weight: Style.fontWeightBold
-        }
-
-        // Divider-like spacing
-        Item {
-          visible: root.qsUpdateAvailable || root.updateAvailable
-          Layout.columnSpan: 2
-          Layout.preferredHeight: Style.marginXS
-        }
-
-        // Quickshell Version
-        NText {
-          visible: root.qsVersion !== ""
-          text: "Agnoctural QS:"
-          color: Color.mOnSurfaceVariant
-          Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-        }
-
-        RowLayout {
-          visible: root.qsVersion !== ""
-          spacing: Style.marginS
-
-          NText {
-            text: root.qsVersion.startsWith("v") ? root.qsVersion : "v" + root.qsVersion
-            color: Color.mOnSurface
-            font.weight: Style.fontWeightBold
-          }
-
-          // Git revision in parentheses
-          NText {
-            id: qsRevisionText
-            visible: root.qsRevision !== ""
-            text: "(" + root.qsRevision + ")"
-            color: qsRevisionMouseArea.containsMouse ? Color.mPrimary : Color.mOnSurfaceVariant
-            pointSize: Style.fontSizeXS
-            font.underline: qsRevisionMouseArea.containsMouse
-
-            MouseArea {
-              id: qsRevisionMouseArea
-              anchors.fill: parent
-              hoverEnabled: true
-              cursorShape: Qt.PointingHandCursor
-              onEntered: TooltipService.show(qsRevisionText, I18n.tr("panels.about.view-commit"))
-              onExited: TooltipService.hide()
-              onClicked: {
-                Quickshell.execDetached(["xdg-open", "https://github.com/noctalia-dev/noctalia-qs/commit/" + root.qsRevision]);
-              }
-            }
-          }
-
-          // Update status indicator
-          NIcon {
-            id: qsUpToDateIcon
-            visible: root.qsIsUpToDate
-            icon: "circle-check"
-            pointSize: Style.fontSizeM
-            color: Color.mPrimary
-
-            MouseArea {
-              anchors.fill: parent
-              hoverEnabled: true
-              onEntered: TooltipService.show(qsUpToDateIcon, I18n.tr("panels.about.up-to-date"))
-              onExited: TooltipService.hide()
-            }
-          }
-
-          NIcon {
-            id: qsUpdateAvailableIcon
-            visible: root.qsUpdateAvailable
-            icon: "arrow-up-circle"
-            pointSize: Style.fontSizeS
-            color: Color.mPrimary
-
-            MouseArea {
-              anchors.fill: parent
-              hoverEnabled: true
-              onEntered: TooltipService.show(qsUpdateAvailableIcon, I18n.tr("panels.about.update-available"))
-              onExited: TooltipService.hide()
-            }
-          }
-        }
-
-        // Latest Quickshell Version
-        NText {
-          visible: root.qsUpdateAvailable
-          text: I18n.tr("panels.about.noctalia-available")
-          color: Color.mOnSurfaceVariant
-          Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-        }
-
-        NText {
-          visible: root.qsUpdateAvailable
-          text: GitHubService.latestQSVersion
-          color: Color.mOnSurface
-          font.weight: Style.fontWeightBold
         }
       }
 
@@ -410,7 +218,7 @@ ColumnLayout {
   }
 
   NHeader {
-    label: I18n.tr("panels.about.system-title")
+    label: "System Information"
   }
 
   // Error state (fastfetch not installed)
@@ -420,12 +228,12 @@ ColumnLayout {
     spacing: Style.marginS
 
     NText {
-      text: I18n.tr("panels.about.system-not-installed")
+      text: "fastfetch is not installed"
       color: Color.mOnSurfaceVariant
     }
 
     NText {
-      text: I18n.tr("panels.about.system-install-hint")
+      text: "Install fastfetch to view system information"
       color: Color.mOnSurfaceVariant
       pointSize: Style.fontSizeXS
     }
@@ -444,7 +252,7 @@ ColumnLayout {
 
     // OS
     NText {
-      text: I18n.tr("panels.about.system-os")
+      text: "OS:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -461,7 +269,7 @@ ColumnLayout {
 
     // Kernel
     NText {
-      text: I18n.tr("panels.about.system-kernel")
+      text: "Kernel:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -478,7 +286,7 @@ ColumnLayout {
 
     // Host
     NText {
-      text: I18n.tr("panels.about.system-host")
+      text: "Host:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -495,7 +303,7 @@ ColumnLayout {
 
     // Product name
     NText {
-      text: I18n.tr("panels.about.system-product")
+      text: "Product:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -512,7 +320,7 @@ ColumnLayout {
 
     // Board name
     NText {
-      text: I18n.tr("panels.about.system-board")
+      text: "Board:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -529,7 +337,7 @@ ColumnLayout {
 
     // Uptime
     NText {
-      text: I18n.tr("panels.about.system-uptime")
+      text: "Uptime:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -546,7 +354,7 @@ ColumnLayout {
 
     // CPU
     NText {
-      text: I18n.tr("panels.about.system-cpu")
+      text: "CPU:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -570,7 +378,7 @@ ColumnLayout {
 
     // GPU
     NText {
-      text: I18n.tr("panels.about.system-gpu")
+      text: "GPU:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -589,7 +397,7 @@ ColumnLayout {
 
     // Memory
     NText {
-      text: I18n.tr("panels.about.system-memory")
+      text: "Memory:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -610,7 +418,7 @@ ColumnLayout {
 
     // Disk
     NText {
-      text: I18n.tr("panels.about.system-disk")
+      text: "Disk:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -634,7 +442,7 @@ ColumnLayout {
 
     // WM
     NText {
-      text: I18n.tr("panels.about.system-wm")
+      text: "WM:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -657,7 +465,7 @@ ColumnLayout {
 
     // Packages
     NText {
-      text: I18n.tr("panels.about.system-packages")
+      text: "Packages:"
       color: Color.mOnSurfaceVariant
       pointSize: sysInfo.textSize
     }
@@ -711,7 +519,7 @@ ColumnLayout {
 
         text: {
           if (isLabel)
-            return I18n.tr("panels.about.system-monitor");
+            return "Monitor:";
           const name = screen?.name || "Unknown";
           const scales = CompositorService.displayScales || {};
           const scaleData = scales[name];

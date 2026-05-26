@@ -37,9 +37,7 @@ NIconButton {
   customRadius: Style.radiusL
   visible: PowerProfileService.available
   icon: PowerProfileService.getIcon()
-  tooltipText: I18n.tr("tooltips.power-profile", {
-                         "profile": PowerProfileService.getName()
-                       })
+  tooltipText: "{profile} power profile"
   tooltipDirection: BarService.getTooltipDirection(screen?.name)
   colorBg: (PowerProfileService.profile === PowerProfile.Balanced) ? Style.capsuleColor : Color.mPrimary
   colorFg: (PowerProfileService.profile === PowerProfile.Balanced) ? Color.resolveColorKey(iconColorKey) : Color.mOnPrimary
@@ -52,7 +50,7 @@ NIconButton {
 
     model: [
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

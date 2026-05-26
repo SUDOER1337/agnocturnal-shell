@@ -11,8 +11,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.system.noctalia-performance-disable-wallpaper-label")
-    description: I18n.tr("panels.system.noctalia-performance-disable-wallpaper-description")
+    label: "Enable wallpaper rendering in performance mode"
+    description: "Keep desktop, overview, and lock screen wallpapers visible while Noctalia performance mode is enabled."
     checked: !Settings.data.noctaliaPerformance.disableWallpaper
     defaultValue: !Settings.getDefaultValue("noctaliaPerformance.disableWallpaper")
     onToggled: checked => Settings.data.noctaliaPerformance.disableWallpaper = !checked
@@ -20,8 +20,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.system.noctalia-performance-disable-desktop-widgets-label")
-    description: I18n.tr("panels.system.noctalia-performance-disable-desktop-widgets-description")
+    label: "Enable desktop widgets in performance mode"
+    description: "Keep desktop widgets visible while Noctalia performance mode is enabled."
     checked: !Settings.data.noctaliaPerformance.disableDesktopWidgets
     defaultValue: !Settings.getDefaultValue("noctaliaPerformance.disableDesktopWidgets")
     onToggled: checked => Settings.data.noctaliaPerformance.disableDesktopWidgets = !checked

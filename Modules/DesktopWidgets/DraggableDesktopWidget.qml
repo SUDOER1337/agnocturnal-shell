@@ -341,28 +341,28 @@ Item {
     var items = [];
     if (hasSettings) {
       items.push({
-                   "label": I18n.tr("actions.widget-settings"),
+                   "label": "Widget settings",
                    "action": "widget-settings",
                    "icon": "settings"
                  });
     }
     items.push({
-                 "label": I18n.tr("common.reset"),
+                 "label": "Reset",
                  "action": "reset",
                  "icon": "restore"
                });
     items.push({
-                 "label": I18n.tr("actions.raise-to-top"),
+                 "label": "Raise to top",
                  "action": "raise-to-top",
                  "icon": "stack-front"
                });
     items.push({
-                 "label": I18n.tr("actions.lower-to-bottom"),
+                 "label": "Lower to bottom",
                  "action": "lower-to-bottom",
                  "icon": "stack-back"
                });
     items.push({
-                 "label": I18n.tr("common.delete"),
+                 "label": "Delete",
                  "action": "delete",
                  "icon": "trash"
                });

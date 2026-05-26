@@ -41,8 +41,8 @@ ColumnLayout {
   NComboBox {
     id: deviceComboBox
     Layout.fillWidth: true
-    label: I18n.tr("bar.battery.device-label")
-    description: I18n.tr("bar.battery.device-description")
+    label: "Battery device"
+    description: "Select which battery device to display."
     minimumWidth: 240
     model: BatteryService.deviceModel
     currentKey: root.valueDeviceNativePath
@@ -55,29 +55,29 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("common.display-mode")
-    description: I18n.tr("bar.battery.display-mode-description")
+    label: "Display mode"
+    description: "Choose how the battery is displayed in the bar."
     minimumWidth: 240
     model: [
       {
         "key": "graphic",
-        "name": I18n.tr("bar.battery.display-mode-graphic")
+        "name": "Graphical battery"
       },
       {
         "key": "graphic-clean",
-        "name": I18n.tr("bar.battery.display-mode-graphic-clean")
+        "name": "Graphical battery (no %)"
       },
       {
         "key": "icon-hover",
-        "name": I18n.tr("bar.battery.display-mode-icon-hover")
+        "name": "Icon - Show on hover"
       },
       {
         "key": "icon-always",
-        "name": I18n.tr("bar.battery.display-mode-icon-always")
+        "name": "Icon - Always show %"
       },
       {
         "key": "icon-only",
-        "name": I18n.tr("bar.battery.display-mode-icon-only")
+        "name": "Icon only"
       }
     ]
     currentKey: root.valueDisplayMode
@@ -89,8 +89,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.battery.hide-if-not-detected-label")
-    description: I18n.tr("bar.battery.hide-if-not-detected-description")
+    label: "Hide when not detected"
+    description: "Hide the widget when no battery is detected on the system."
     checked: valueHideIfNotDetected
     onToggled: checked => {
                  valueHideIfNotDetected = checked;
@@ -100,8 +100,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.battery.hide-if-idle-label")
-    description: I18n.tr("bar.battery.hide-if-idle-description")
+    label: "Hide when idle"
+    description: "Hide the widget when the battery is not charging or discharging."
     checked: valueHideIfIdle
     onToggled: checked => {
                  valueHideIfIdle = checked;
@@ -115,8 +115,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.battery.show-power-profile-label")
-    description: I18n.tr("bar.battery.show-power-profile-description")
+    label: "Show power profile controls"
+    description: "Display the power profile selection inside the battery panel."
     checked: valueShowPowerProfiles
     onToggled: checked => {
                  valueShowPowerProfiles = checked;
@@ -126,8 +126,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.battery.show-noctalia-performance-label")
-    description: I18n.tr("bar.battery.show-noctalia-performance-description")
+    label: "Show Noctalia Performance toggle"
+    description: "Display the Noctalia performance mode toggle inside the battery panel.<br>Disables shadows and animations in Noctalia to reduce resource usage."
     checked: valueShowNoctaliaPerformance
     onToggled: checked => {
                  valueShowNoctaliaPerformance = checked;

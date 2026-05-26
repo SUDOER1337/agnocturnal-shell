@@ -18,17 +18,17 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("system-monitor.title")
+      text: "System Monitor"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.thresholds")
+      text: "Thresholds"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }
     NTabButton {
-      text: I18n.tr("common.performance")
+      text: "Performance"
       tabIndex: 2
       checked: subTabBar.currentIndex === 2
     }

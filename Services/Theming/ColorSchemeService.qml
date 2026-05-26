@@ -42,8 +42,8 @@ Singleton {
       root.pushSystemColorScheme();
       // Toast: dark/light mode switched
       const enabled = !!Settings.data.colorSchemes.darkMode;
-      const label = enabled ? I18n.tr("tooltips.switch-to-dark-mode") : I18n.tr("tooltips.switch-to-light-mode");
-      const description = I18n.tr("common.enabled");
+      const label = enabled ? "Dark Mode" : "Light Mode";
+      const description = "Enabled";
       ToastService.showNotice(label, description, "dark-mode");
     }
   }
@@ -63,8 +63,8 @@ Singleton {
     // Use find command to locate all scheme.json files in both directories
     // First ensure the downloaded schemes directory exists
     Quickshell.execDetached(["mkdir", "-p", downloadedSchemesDirectory]);
-    // Find in both preinstalled and downloaded directories
-    findProcess.command = ["find", "-L", schemesDirectory, downloadedSchemesDirectory, "-mindepth", "2", "-name", "*.json", "-type", "f"];
+    // Find in both preinstalled and downloaded directories, ignoring missing dirs
+    findProcess.command = ["sh", "-c", "find -L '" + schemesDirectory + "' '" + downloadedSchemesDirectory + "' -mindepth 2 -name '*.json' -type f 2>/dev/null || true"];
     findProcess.running = true;
   }
 
@@ -143,10 +143,10 @@ Singleton {
     if (schemeExists) {
       Settings.data.colorSchemes.predefinedScheme = basename;
       applyScheme(schemeName);
-      ToastService.showNotice(I18n.tr("panels.color-scheme.title"), basename, "settings-color-scheme");
+      ToastService.showNotice("Color Scheme", basename, "settings-color-scheme");
     } else {
       Logger.e("ColorScheme", "Scheme not found:", schemeName);
-      ToastService.showError(I18n.tr("panels.color-scheme.title"), `'${basename}' ` + I18n.tr("common.not-found"));
+      ToastService.showError("Color Scheme", `'${basename}' ` + "Not found");
     }
   }
 

@@ -26,7 +26,7 @@ ColumnLayout {
         property real localBrightness: 0.5
         property bool localBrightnessChanging: false
         readonly property string automaticOptionLabel: {
-          var baseLabel = I18n.tr("panels.display.monitors-backlight-device-auto-option");
+          var baseLabel = "Default";
           var autoDevicePath = (BrightnessService.availableBacklightDevices && BrightnessService.availableBacklightDevices.length > 0) ? BrightnessService.availableBacklightDevices[0] : "";
           if (autoDevicePath === "")
             return baseLabel;
@@ -112,12 +112,7 @@ ColumnLayout {
                 return (info && info.scale) ? info.scale : 1.0;
               }
               text: {
-                I18n.tr("system.monitor-description", {
-                          "model": modelData.model,
-                          "width": modelData.width * compositorScale,
-                          "height": modelData.height * compositorScale,
-                          "scale": compositorScale
-                        });
+                "{model} ({width}x{height} @ {scale}x)";
               }
               pointSize: Style.fontSizeS
               color: Color.mOnSurfaceVariant
@@ -137,7 +132,7 @@ ColumnLayout {
               spacing: Style.marginL
 
               NText {
-                text: I18n.tr("common.brightness")
+                text: "Brightness"
                 Layout.preferredWidth: 90
                 Layout.alignment: Qt.AlignVCenter
               }
@@ -192,7 +187,7 @@ ColumnLayout {
 
             NText {
               visible: brightnessMonitor && !brightnessMonitor.brightnessControlAvailable && !(brightnessMonitor.method === "internal" && brightnessMonitor.initInProgress)
-              text: !Settings.data.brightness.enableDdcSupport ? I18n.tr("panels.display.monitors-brightness-unavailable-ddc-disabled") : I18n.tr("panels.display.monitors-brightness-unavailable-generic")
+              text: !Settings.data.brightness.enableDdcSupport ? "Brightness control unavailable. Enable \"External brightness support\" to control this display's brightness." : "Brightness control is not available for this display."
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
               Layout.fillWidth: true
@@ -202,8 +197,8 @@ ColumnLayout {
             NComboBox {
               Layout.fillWidth: true
               visible: brightnessMonitor && brightnessMonitor.method === "internal"
-              label: I18n.tr("panels.display.monitors-backlight-device-label")
-              description: I18n.tr("panels.display.monitors-backlight-device-description")
+              label: "Backlight device"
+              description: "Select a backlight device for this output."
               model: backlightDeviceOptions
               currentKey: BrightnessService.getMappedBacklightDevice(modelData.name) || ""
               onSelected: key => BrightnessService.setMappedBacklightDevice(modelData.name, key)
@@ -215,8 +210,8 @@ ColumnLayout {
 
     NSpinBox {
       Layout.fillWidth: true
-      label: I18n.tr("panels.display.monitors-brightness-step-label")
-      description: I18n.tr("panels.display.monitors-brightness-step-description")
+      label: "Brightness step size"
+      description: "Adjust the step size for brightness changes (scroll wheel and keyboard shortcuts)."
       minimum: 1
       maximum: 50
       value: Settings.data.brightness.brightnessStep
@@ -228,8 +223,8 @@ ColumnLayout {
 
     NToggle {
       Layout.fillWidth: true
-      label: I18n.tr("panels.display.monitors-enforce-minimum-label")
-      description: I18n.tr("panels.display.monitors-enforce-minimum-description")
+      label: "Enforce minimum brightness (1%)"
+      description: "Solves the problem of backlight completely turning off on some displays at 0% brightness."
       checked: Settings.data.brightness.enforceMinimum
       onToggled: checked => Settings.data.brightness.enforceMinimum = checked
       defaultValue: Settings.getDefaultValue("brightness.enforceMinimum")
@@ -237,8 +232,8 @@ ColumnLayout {
 
     NToggle {
       Layout.fillWidth: true
-      label: I18n.tr("panels.display.monitors-external-brightness-label")
-      description: I18n.tr("panels.display.monitors-external-brightness-description")
+      label: "External brightness support"
+      description: "Enable DDCUtil support for controlling brightness on external displays via DDC/CI protocol."
       checked: Settings.data.brightness.enableDdcSupport
       onToggled: checked => {
                    Settings.data.brightness.enableDdcSupport = checked;

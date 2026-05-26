@@ -399,7 +399,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("common.notifications")
+              text: "Notifications"
               pointSize: Style.fontSizeL
               font.weight: Style.fontWeightBold
               color: Color.mOnSurface
@@ -408,14 +408,14 @@ SmartPanel {
 
             NIconButton {
               icon: NotificationService.doNotDisturb ? "bell-off" : "bell"
-              tooltipText: NotificationService.doNotDisturb ? I18n.tr("tooltips.do-not-disturb-enabled") : I18n.tr("tooltips.do-not-disturb-enabled")
+              tooltipText: NotificationService.doNotDisturb ? "Do Not Disturb" : "Do Not Disturb"
               baseSize: Style.baseWidgetSize * 0.8
               onClicked: NotificationService.doNotDisturb = !NotificationService.doNotDisturb
             }
 
             NIconButton {
               icon: "trash"
-              tooltipText: I18n.tr("actions.clear-history")
+              tooltipText: "Clear history"
               baseSize: Style.baseWidgetSize * 0.8
               onClicked: {
                 NotificationService.clearHistory();
@@ -426,7 +426,7 @@ SmartPanel {
 
             NIconButton {
               icon: "settings"
-              tooltipText: I18n.tr("common.settings")
+              tooltipText: "Settings"
               baseSize: Style.baseWidgetSize * 0.8
               onClicked: {
                 SettingsPanelService.openToTab(SettingsPanel.Tab.Notifications, 0, screen);
@@ -447,7 +447,7 @@ SmartPanel {
 
             NTabButton {
               tabIndex: 0
-              text: I18n.tr("launcher.categories.all") + " (" + panelContent.countForRange(0) + ")"
+              text: "All" + " (" + panelContent.countForRange(0) + ")"
               checked: tabsBox.currentIndex === 0
               onClicked: panelContent.currentRange = 0
               pointSize: Style.fontSizeXS
@@ -455,7 +455,7 @@ SmartPanel {
 
             NTabButton {
               tabIndex: 1
-              text: I18n.tr("notifications.range.today") + " (" + panelContent.countForRange(1) + ")"
+              text: "Today" + " (" + panelContent.countForRange(1) + ")"
               checked: tabsBox.currentIndex === 1
               onClicked: panelContent.currentRange = 1
               pointSize: Style.fontSizeXS
@@ -463,7 +463,7 @@ SmartPanel {
 
             NTabButton {
               tabIndex: 2
-              text: I18n.tr("notifications.range.yesterday") + " (" + panelContent.countForRange(2) + ")"
+              text: "Yesterday" + " (" + panelContent.countForRange(2) + ")"
               checked: tabsBox.currentIndex === 2
               onClicked: panelContent.currentRange = 2
               pointSize: Style.fontSizeXS
@@ -471,7 +471,7 @@ SmartPanel {
 
             NTabButton {
               tabIndex: 3
-              text: I18n.tr("notifications.range.earlier") + " (" + panelContent.countForRange(3) + ")"
+              text: "Earlier" + " (" + panelContent.countForRange(3) + ")"
               checked: tabsBox.currentIndex === 3
               onClicked: panelContent.currentRange = 3
               pointSize: Style.fontSizeXS
@@ -524,7 +524,7 @@ SmartPanel {
                 }
 
                 NText {
-                  text: I18n.tr("notifications.panel.no-notifications")
+                  text: "No notifications"
                   pointSize: (NotificationService.historyModel.count === 0) ? Style.fontSizeL : Style.fontSizeM
                   color: Color.mOnSurfaceVariant
                   Layout.alignment: Qt.AlignHCenter
@@ -532,7 +532,7 @@ SmartPanel {
 
                 NText {
                   visible: NotificationService.historyModel.count === 0
-                  text: I18n.tr("notifications.panel.description")
+                  text: "Your notifications will show up here as they arrive."
                   pointSize: Style.fontSizeS
                   color: Color.mOnSurfaceVariant
                   horizontalAlignment: Text.AlignHCenter
@@ -900,7 +900,7 @@ SmartPanel {
                           NText {
                             id: summaryText
                             width: parent.width
-                            text: (Settings.data.notifications.enableMarkdown && notificationDelegate.isExpanded) ? (model.summaryMarkdown || I18n.tr("common.no-summary")) : (model.summary || I18n.tr("common.no-summary"))
+                            text: (Settings.data.notifications.enableMarkdown && notificationDelegate.isExpanded) ? (model.summaryMarkdown || "No summary") : (model.summary || "No summary")
                             pointSize: Style.fontSizeM
                             color: Color.mOnSurface
                             textFormat: notificationDelegate.notificationTextFormat
@@ -973,7 +973,7 @@ SmartPanel {
                             NIconButton {
                               id: expandButton
                               icon: notificationDelegate.isExpanded ? "chevron-up" : "chevron-down"
-                              tooltipText: notificationDelegate.isExpanded ? I18n.tr("notifications.panel.click-to-collapse") || "Click to collapse" : I18n.tr("notifications.panel.click-to-expand") || "Click to expand"
+                              tooltipText: notificationDelegate.isExpanded ? "Click to collapse" || "Click to collapse" : "Click to expand" || "Click to expand"
                               baseSize: notificationDelegate.actionButtonSize
                               opacity: (notificationDelegate.canExpand || notificationDelegate.isExpanded) ? 1.0 : 0.0
                               enabled: notificationDelegate.canExpand || notificationDelegate.isExpanded
@@ -992,7 +992,7 @@ SmartPanel {
                             // Delete button
                             NIconButton {
                               icon: "trash"
-                              tooltipText: I18n.tr("tooltips.delete-notification")
+                              tooltipText: "Delete notification"
                               baseSize: notificationDelegate.actionButtonSize
 
                               onClicked: {

@@ -42,8 +42,8 @@ ColumnLayout {
     spacing: Style.marginM
 
     NToggle {
-      label: I18n.tr("bar.lock-keys.show-caps-lock-label")
-      description: I18n.tr("bar.lock-keys.show-caps-lock-description")
+      label: "Caps Lock"
+      description: "Display Caps Lock status."
       checked: valueShowCapsLock
       onToggled: checked => {
                    valueShowCapsLock = checked;
@@ -60,7 +60,7 @@ ColumnLayout {
     }
 
     NButton {
-      text: I18n.tr("common.browse")
+      text: "Browse"
       onClicked: capsPicker.open()
       enabled: valueShowCapsLock
     }
@@ -80,8 +80,8 @@ ColumnLayout {
     spacing: Style.marginM
 
     NToggle {
-      label: I18n.tr("bar.lock-keys.show-num-lock-label")
-      description: I18n.tr("bar.lock-keys.show-num-lock-description")
+      label: "Num Lock"
+      description: "Display Num Lock status."
       checked: valueShowNumLock
       onToggled: checked => {
                    valueShowNumLock = checked;
@@ -98,7 +98,7 @@ ColumnLayout {
     }
 
     NButton {
-      text: I18n.tr("common.browse")
+      text: "Browse"
       onClicked: numPicker.open()
       enabled: valueShowNumLock
     }
@@ -118,8 +118,8 @@ ColumnLayout {
     spacing: Style.marginM
 
     NToggle {
-      label: I18n.tr("bar.lock-keys.show-scroll-lock-label")
-      description: I18n.tr("bar.lock-keys.show-scroll-lock-description")
+      label: "Scroll Lock"
+      description: "Display Scroll Lock status."
       checked: valueShowScrollLock
       onToggled: checked => {
                    valueShowScrollLock = checked;
@@ -136,7 +136,7 @@ ColumnLayout {
     }
 
     NButton {
-      text: I18n.tr("common.browse")
+      text: "Browse"
       onClicked: scrollPicker.open()
       enabled: valueShowScrollLock
     }
@@ -158,8 +158,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.lock-keys.hide-when-off-label")
-    description: I18n.tr("bar.lock-keys.hide-when-off-description")
+    label: "Hide when off"
+    description: "Hide the indicator when the key is not active."
     checked: valueHideWhenOff
     onToggled: checked => {
                  valueHideWhenOff = checked;

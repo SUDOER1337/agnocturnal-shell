@@ -29,8 +29,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.enabled-label")
-    description: I18n.tr("panels.desktop-widgets.enabled-description")
+    label: "Enable desktop widgets"
+    description: "Enable or disable desktop widgets entirely."
     checked: Settings.data.desktopWidgets.enabled
     defaultValue: Settings.getDefaultValue("desktopWidgets.enabled")
     onToggled: checked => Settings.data.desktopWidgets.enabled = checked
@@ -39,8 +39,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     enabled: Settings.data.desktopWidgets.enabled
-    label: I18n.tr("panels.desktop-widgets.overview-enabled-label")
-    description: I18n.tr("panels.desktop-widgets.overview-enabled-description")
+    label: "Show in overview"
+    description: "Show desktop widgets while the compositor overview is open."
     checked: Settings.data.desktopWidgets.overviewEnabled
     defaultValue: Settings.getDefaultValue("desktopWidgets.overviewEnabled")
     onToggled: checked => Settings.data.desktopWidgets.overviewEnabled = checked
@@ -50,14 +50,14 @@ ColumnLayout {
     enabled: Settings.data.desktopWidgets.enabled
 
     NLabel {
-      description: I18n.tr("panels.desktop-widgets.cpu-intensive-note")
+      description: "Widgets marked with ! use more CPU and should be enabled mindfully."
     }
 
     NButton {
       Layout.fillWidth: true
       Layout.topMargin: Style.marginM
       Layout.bottomMargin: Style.marginM
-      text: DesktopWidgetRegistry.editMode ? I18n.tr("panels.desktop-widgets.edit-mode-exit-button") : I18n.tr("panels.desktop-widgets.edit-mode-button-label")
+      text: DesktopWidgetRegistry.editMode ? "Exit edit mode" : "Enter edit mode"
       icon: "edit"
       onClicked: {
         DesktopWidgetRegistry.editMode = !DesktopWidgetRegistry.editMode;

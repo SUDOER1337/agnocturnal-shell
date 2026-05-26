@@ -17,12 +17,12 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.wifi")
+      text: "Wi-Fi"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.bluetooth")
+      text: "Bluetooth"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }

@@ -81,7 +81,7 @@ Singleton {
         root.cliphistAvailable = false;
         // Show toast notification if feature is enabled but cliphist is missing
         if (Settings.data.appLauncher.enableClipboardHistory) {
-          ToastService.showWarning(I18n.tr("toast.clipboard.unavailable"), I18n.tr("toast.clipboard.unavailable-desc"), 6000);
+          ToastService.showWarning("Clipboard history unavailable", "The 'cliphist' application is not installed. Please install it to use clipboard history features", 6000);
         }
       }
     }

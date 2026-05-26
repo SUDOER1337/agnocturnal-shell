@@ -35,14 +35,14 @@ NBox {
           icon: "cpu-usage"
           contentScale: root.contentScale
           fillColor: SystemStatService.cpuColor
-          tooltipText: I18n.tr("system-monitor.cpu-usage") + `: ${Math.round(SystemStatService.cpuUsage)}%`
+          tooltipText: "CPU usage" + `: ${Math.round(SystemStatService.cpuUsage)}%`
         }
 
         Connections {
           target: SystemStatService
           function onCpuUsageChanged() {
             if (TooltipService.activeTooltip && TooltipService.activeTooltip.targetItem === cpuUsageGauge) {
-              TooltipService.updateText(I18n.tr("system-monitor.cpu-usage") + `: ${Math.round(SystemStatService.cpuUsage)}%`);
+              TooltipService.updateText("CPU usage" + `: ${Math.round(SystemStatService.cpuUsage)}%`);
             }
           }
         }
@@ -60,14 +60,14 @@ NBox {
           icon: "cpu-temperature"
           contentScale: root.contentScale
           fillColor: SystemStatService.tempColor
-          tooltipText: I18n.tr("system-monitor.cpu-temp") + `: ${Math.round(SystemStatService.cpuTemp)}°C`
+          tooltipText: "CPU temp" + `: ${Math.round(SystemStatService.cpuTemp)}°C`
         }
 
         Connections {
           target: SystemStatService
           function onCpuTempChanged() {
             if (TooltipService.activeTooltip && TooltipService.activeTooltip.targetItem === cpuTempGauge) {
-              TooltipService.updateText(I18n.tr("system-monitor.cpu-temp") + `: ${Math.round(SystemStatService.cpuTemp)}°C`);
+              TooltipService.updateText("CPU temp" + `: ${Math.round(SystemStatService.cpuTemp)}°C`);
             }
           }
         }
@@ -84,14 +84,14 @@ NBox {
           icon: "memory"
           contentScale: root.contentScale
           fillColor: SystemStatService.memColor
-          tooltipText: I18n.tr("common.memory") + `: ${Math.round(SystemStatService.memPercent)}%`
+          tooltipText: "Memory" + `: ${Math.round(SystemStatService.memPercent)}%`
         }
 
         Connections {
           target: SystemStatService
           function onMemPercentChanged() {
             if (TooltipService.activeTooltip && TooltipService.activeTooltip.targetItem === memPercentGauge) {
-              TooltipService.updateText(I18n.tr("common.memory") + `: ${Math.round(SystemStatService.memPercent)}%`);
+              TooltipService.updateText("Memory" + `: ${Math.round(SystemStatService.memPercent)}%`);
             }
           }
         }
@@ -108,14 +108,14 @@ NBox {
           icon: "storage"
           contentScale: root.contentScale
           fillColor: SystemStatService.getDiskColor(root.diskPath)
-          tooltipText: I18n.tr("system-monitor.disk") + `: ${SystemStatService.diskPercents[root.diskPath] || 0}%\n${root.diskPath}`
+          tooltipText: "Disk" + `: ${SystemStatService.diskPercents[root.diskPath] || 0}%\n${root.diskPath}`
         }
 
         Connections {
           target: SystemStatService
           function onDiskPercentsChanged() {
             if (TooltipService.activeTooltip && TooltipService.activeTooltip.targetItem === diskPercentsGauge) {
-              TooltipService.updateText(I18n.tr("system-monitor.disk") + `: ${SystemStatService.diskPercents[root.diskPath] || 0}%\n${root.diskPath}`);
+              TooltipService.updateText("Disk" + `: ${SystemStatService.diskPercents[root.diskPath] || 0}%\n${root.diskPath}`);
             }
           }
         }

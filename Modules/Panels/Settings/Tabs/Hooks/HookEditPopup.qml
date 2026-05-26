@@ -86,7 +86,7 @@ Popup {
       spacing: Style.marginM
 
       NButton {
-        text: I18n.tr("common.test")
+        text: "Test"
         icon: "caret-right"
         onClicked: root.test(commandInput.text)
         // Disable test if empty? Or maybe allow testing defined script.
@@ -98,13 +98,13 @@ Popup {
       } // Spacer
 
       NButton {
-        text: I18n.tr("common.cancel")
+        text: "Cancel"
         outlined: true
         onClicked: root.close()
       }
 
       NButton {
-        text: I18n.tr("common.save")
+        text: "Save"
         icon: "check"
         backgroundColor: Color.mPrimary
         textColor: Color.mOnPrimary

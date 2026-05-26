@@ -200,13 +200,6 @@ Singleton {
     }
   }
 
-  Connections {
-    target: WallhavenService
-    function onWallpaperDownloaded() {
-      root.refreshWallpapersList();
-    }
-  }
-
   // -------------------------------------------------
   function init() {
     Logger.i("Wallpaper", "Service started");
@@ -240,7 +233,7 @@ Singleton {
   // -------------------------------------------------
   function translateModels() {
     // Wait for i18n to be ready by retrying every time
-    if (!I18n.isLoaded) {
+    if (!true) {
       Qt.callLater(translateModels);
       return;
     }
@@ -248,62 +241,62 @@ Singleton {
     // Populate fillModeModel with translated names
     fillModeModel.append({
                            "key": "center",
-                           "name": I18n.tr("positions.center"),
+                           "name": "Center",
                            "uniform": 0.0
                          });
     fillModeModel.append({
                            "key": "crop",
-                           "name": I18n.tr("wallpaper.fill-modes.crop"),
+                           "name": "Crop (Fill)",
                            "uniform": 1.0
                          });
     fillModeModel.append({
                            "key": "fit",
-                           "name": I18n.tr("wallpaper.fill-modes.fit"),
+                           "name": "Fit (Contain)",
                            "uniform": 2.0
                          });
     fillModeModel.append({
                            "key": "stretch",
-                           "name": I18n.tr("wallpaper.fill-modes.stretch"),
+                           "name": "Stretch",
                            "uniform": 3.0
                          });
     fillModeModel.append({
                            "key": "repeat",
-                           "name": I18n.tr("wallpaper.fill-modes.repeat"),
+                           "name": "Repeat (Tile)",
                            "uniform": 4.0
                          });
 
     // Populate transitionsModel with translated names
     transitionsModel.append({
                               "key": "none",
-                              "name": I18n.tr("common.none")
+                              "name": "None"
                             });
     transitionsModel.append({
                               "key": "random",
-                              "name": I18n.tr("common.random")
+                              "name": "Random"
                             });
     transitionsModel.append({
                               "key": "fade",
-                              "name": I18n.tr("wallpaper.transitions.fade")
+                              "name": "Fade"
                             });
     transitionsModel.append({
                               "key": "disc",
-                              "name": I18n.tr("wallpaper.transitions.disc")
+                              "name": "Disc"
                             });
     transitionsModel.append({
                               "key": "stripes",
-                              "name": I18n.tr("wallpaper.transitions.stripes")
+                              "name": "Stripes"
                             });
     transitionsModel.append({
                               "key": "wipe",
-                              "name": I18n.tr("wallpaper.transitions.wipe")
+                              "name": "Wipe"
                             });
     transitionsModel.append({
                               "key": "pixelate",
-                              "name": I18n.tr("wallpaper.transitions.pixelate")
+                              "name": "Pixelate"
                             });
     transitionsModel.append({
                               "key": "honeycomb",
-                              "name": I18n.tr("wallpaper.transitions.honeycomb")
+                              "name": "Honeycomb"
                             });
   }
 

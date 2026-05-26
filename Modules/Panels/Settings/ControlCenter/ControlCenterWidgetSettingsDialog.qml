@@ -61,9 +61,7 @@ Popup {
       Layout.preferredHeight: implicitHeight
 
       NText {
-        text: I18n.tr("system.widget-settings-title", {
-                        "widget": root.widgetId
-                      })
+        text: "{widget} Settings"
         pointSize: Style.fontSizeL
         font.weight: Style.fontWeightBold
         color: Color.mPrimary
@@ -72,7 +70,7 @@ Popup {
 
       NIconButton {
         icon: "close"
-        tooltipText: I18n.tr("common.close")
+        tooltipText: "Close"
         onClicked: saveAndClose()
       }
     }

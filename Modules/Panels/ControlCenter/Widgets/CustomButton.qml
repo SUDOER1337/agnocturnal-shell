@@ -132,19 +132,19 @@ Item {
     if (_hasCustomTooltip) {
       tooltip = generalTooltipText;
     } else if (!showExecTooltip) {
-      tooltip = I18n.tr("bar.custom-button.default-tooltip");
+      tooltip = "Custom button, configure in settings";
     }
 
     // Add command details if enabled
     if (showExecTooltip) {
       if (onClickedCommand) {
-        tooltip += (tooltip ? "\n" : "") + I18n.tr("bar.custom-button.left-click-label") + `: ${onClickedCommand}`;
+        tooltip += (tooltip ? "\n" : "") + "Left click" + `: ${onClickedCommand}`;
       }
       if (onRightClickedCommand) {
-        tooltip += (tooltip ? "\n" : "") + I18n.tr("bar.custom-button.right-click-label") + `: ${onRightClickedCommand}`;
+        tooltip += (tooltip ? "\n" : "") + "Right click" + `: ${onRightClickedCommand}`;
       }
       if (onMiddleClickedCommand) {
-        tooltip += (tooltip ? "\n" : "") + I18n.tr("bar.custom-button.middle-click-label") + `: ${onMiddleClickedCommand}`;
+        tooltip += (tooltip ? "\n" : "") + "Middle click" + `: ${onMiddleClickedCommand}`;
       }
     }
 

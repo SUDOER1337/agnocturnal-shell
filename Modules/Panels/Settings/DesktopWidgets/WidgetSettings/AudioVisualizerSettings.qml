@@ -36,10 +36,10 @@ ColumnLayout {
   NTextInput {
     id: widthInput
     Layout.fillWidth: true
-    label: I18n.tr("common.width")
-    description: I18n.tr("bar.audio-visualizer.width-description")
+    label: "Width"
+    description: "Custom component width."
     text: String(valueWidth)
-    placeholderText: I18n.tr("placeholders.enter-width-pixels")
+    placeholderText: "Enter width in pixels"
     inputMethodHints: Qt.ImhDigitsOnly
     onEditingFinished: {
       const parsed = parseInt(text);
@@ -56,10 +56,10 @@ ColumnLayout {
   NTextInput {
     id: heightInput
     Layout.fillWidth: true
-    label: I18n.tr("common.height")
-    description: I18n.tr("bar.audio-visualizer.height-description")
+    label: "Height"
+    description: "Custom component width."
     text: String(valueHeight)
-    placeholderText: I18n.tr("placeholders.enter-width-pixels")
+    placeholderText: "Enter width in pixels"
     inputMethodHints: Qt.ImhDigitsOnly
     onEditingFinished: {
       const parsed = parseInt(text);
@@ -75,20 +75,20 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.audio.visualizer-type-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-visualizer-type-description")
+    label: "Visualization type"
+    description: "Choose a visualization type."
     model: [
       {
         "key": "linear",
-        "name": I18n.tr("options.visualizer-types.linear")
+        "name": "Linear"
       },
       {
         "key": "mirrored",
-        "name": I18n.tr("options.visualizer-types.mirrored")
+        "name": "Mirrored"
       },
       {
         "key": "wave",
-        "name": I18n.tr("options.visualizer-types.wave")
+        "name": "Wave"
       }
     ]
     currentKey: valueVisualizerType
@@ -101,8 +101,8 @@ ColumnLayout {
 
   NColorChoice {
     Layout.fillWidth: true
-    label: I18n.tr("bar.audio-visualizer.color-name-label")
-    description: I18n.tr("bar.audio-visualizer.color-name-description")
+    label: "Fill color"
+    description: "Select the color for the visualizer."
     currentKey: valueColorName
     onSelected: key => {
                   valueColorName = key;
@@ -113,8 +113,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.audio-visualizer.hide-when-idle-label")
-    description: I18n.tr("bar.audio-visualizer.hide-when-idle-description")
+    label: "Hide when no media is playing"
+    description: "When enabled, the visualizer is hidden unless a player is actively playing."
     checked: valueHideWhenIdle
     onToggled: checked => {
                  valueHideWhenIdle = checked;
@@ -129,8 +129,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.clock-show-background-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-show-background-description")
+    label: "Show background"
+    description: "Show the background container."
     checked: valueShowBackground
     onToggled: checked => {
                  valueShowBackground = checked;
@@ -142,8 +142,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     visible: valueShowBackground
-    label: I18n.tr("panels.desktop-widgets.clock-rounded-corners-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-rounded-corners-description")
+    label: "Rounded corners"
+    description: "Enable rounded corners on the widget edges."
     checked: valueRoundedCorners
     onToggled: checked => {
                  valueRoundedCorners = checked;

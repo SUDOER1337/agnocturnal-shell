@@ -16,17 +16,17 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.location")
+      text: "Location"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.date")
+      text: "Date"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }
     NTabButton {
-      text: I18n.tr("common.calendar-panel")
+      text: "Calendar Panel"
       tabIndex: 2
       checked: subTabBar.currentIndex === 2
     }

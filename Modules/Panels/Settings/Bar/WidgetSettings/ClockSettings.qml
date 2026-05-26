@@ -82,8 +82,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.clock.use-custom-font-label")
-    description: I18n.tr("bar.clock.use-custom-font-description")
+    label: "Use custom font"
+    description: "Override the default font selection with a custom font for the clock."
     checked: valueUseCustomFont
     onToggled: checked => {
                  valueUseCustomFont = checked;
@@ -95,12 +95,12 @@ ColumnLayout {
   NSearchableComboBox {
     Layout.fillWidth: true
     visible: valueUseCustomFont
-    label: I18n.tr("bar.clock.custom-font-label")
-    description: I18n.tr("bar.clock.custom-font-description")
+    label: "Custom font"
+    description: "Select a custom font for the clock display."
     model: FontService.availableFonts
     currentKey: valueCustomFont
-    placeholder: I18n.tr("bar.clock.custom-font-placeholder")
-    searchPlaceholder: I18n.tr("bar.clock.custom-font-search-placeholder")
+    placeholder: "Select custom font..."
+    searchPlaceholder: "Search fonts..."
     popupHeight: 420
     minimumWidth: 300
     onSelected: function (key) {
@@ -115,8 +115,8 @@ ColumnLayout {
   }
 
   NHeader {
-    label: I18n.tr("bar.clock.clock-display-label")
-    description: I18n.tr("bar.clock.clock-display-description")
+    label: "Clock display"
+    description: "Customize your clock's display by adding tokens from the list below. To use the 12-hour format, you must include the 'AP' token."
   }
 
   RowLayout {
@@ -136,8 +136,8 @@ ColumnLayout {
       NTextInput {
         id: inputHoriz
         Layout.fillWidth: true
-        label: I18n.tr("bar.clock.horizontal-bar-label")
-        description: I18n.tr("bar.clock.horizontal-bar-description")
+        label: "Horizontal bar"
+        description: "Tip: Use \\n to create a line break."
         placeholderText: "HH:mm ddd, MMM dd"
         text: valueFormatHorizontal
         onTextChanged: {
@@ -163,8 +163,8 @@ ColumnLayout {
       NTextInput {
         id: inputVert
         Layout.fillWidth: true
-        label: I18n.tr("bar.clock.vertical-bar-label")
-        description: I18n.tr("bar.clock.vertical-bar-description")
+        label: "Vertical bar"
+        description: "Use a space to separate each part onto a new line."
         // Tokens are Qt format tokens and must not be localized
         placeholderText: "HH mm dd MM"
         text: valueFormatVertical
@@ -187,8 +187,8 @@ ColumnLayout {
       NTextInput {
         id: inputTooltip
         Layout.fillWidth: true
-        label: I18n.tr("bar.clock.tooltip-format-label")
-        description: I18n.tr("bar.clock.tooltip-format-description")
+        label: "Tooltip format"
+        description: "Format string for the tooltip shown when hovering over the clock. Leave empty to use the default tooltip."
         placeholderText: "HH:mm, ddd MMM dd"
         text: valueTooltipFormat
         onTextChanged: {
@@ -215,7 +215,7 @@ ColumnLayout {
       Layout.fillWidth: false
 
       NLabel {
-        label: I18n.tr("bar.clock.preview")
+        label: "Preview"
         Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
       }
 
@@ -245,7 +245,7 @@ ColumnLayout {
             // Horizontal
             Repeater {
               Layout.topMargin: Style.marginM
-              model: I18n.locale.toString(now, valueFormatHorizontal.trim()).split("\\n")
+              model: Qt.locale().toString(now, valueFormatHorizontal.trim()).split("\\n")
               delegate: NText {
                 visible: text !== ""
                 text: modelData
@@ -276,7 +276,7 @@ ColumnLayout {
 
             Repeater {
               Layout.topMargin: Style.marginM
-              model: I18n.locale.toString(now, valueFormatVertical.trim()).split(" ")
+              model: Qt.locale().toString(now, valueFormatVertical.trim()).split(" ")
               delegate: NText {
                 visible: text !== ""
                 text: modelData

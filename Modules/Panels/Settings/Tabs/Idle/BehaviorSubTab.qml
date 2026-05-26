@@ -13,8 +13,8 @@ ColumnLayout {
   // Master enable
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.idle.enable-label")
-    description: I18n.tr("panels.idle.enable-description")
+    label: "Enable idle management"
+    description: "Automatically turn off the screen, lock, or suspend after a period of inactivity."
     checked: Settings.data.idle.enabled
     defaultValue: Settings.getDefaultValue("idle.enabled")
     onToggled: checked => Settings.data.idle.enabled = checked
@@ -27,8 +27,8 @@ ColumnLayout {
     visible: IdleService.nativeIdleMonitorAvailable
 
     NLabel {
-      label: I18n.tr("panels.idle.status-label")
-      description: I18n.tr("panels.idle.status-description")
+      label: "Idle time"
+      description: "Idle time as reported by the compositor."
     }
 
     Item {
@@ -37,7 +37,7 @@ ColumnLayout {
 
     NText {
       Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-      text: IdleService.idleSeconds > 0 ? I18n.trp("common.second", IdleService.idleSeconds) : I18n.tr("common.active")
+      text: IdleService.idleSeconds > 0 ? (IdleService.idleSeconds === 1 ? "{count} second" : "{count} seconds") : "Active"
       family: Settings.data.ui.fontFixed
       pointSize: Style.fontSizeM
       color: IdleService.idleSeconds > 0 ? Color.mPrimary : Color.mOnSurfaceVariant
@@ -46,7 +46,7 @@ ColumnLayout {
 
   NLabel {
     visible: !IdleService.nativeIdleMonitorAvailable
-    description: I18n.tr("panels.idle.unavailable")
+    description: "Native idle monitoring is not available on this compositor."
   }
 
   NDivider {
@@ -62,7 +62,7 @@ ColumnLayout {
     editPopup.editIndex = -1;
     editPopup.showCommand = true;
     editPopup.showTimeout = false;
-    editPopup.titleText = I18n.tr("common.edit") + " " + actionName;
+    editPopup.titleText = "Edit" + " " + actionName;
     editPopup.timeoutValue = 0;
     editPopup.commandValue = cmdVal;
     editPopup.resumeCommandValue = resumeCmdVal;
@@ -87,13 +87,13 @@ ColumnLayout {
     enabled: Settings.data.idle.enabled
 
     NLabel {
-      label: I18n.tr("panels.idle.timeouts-label")
-      description: I18n.tr("panels.idle.timeouts-description")
+      label: "Timeouts"
+      description: "Set to 0 to disable a stage. Timeouts are paused while Keep Awake is active."
     }
 
     DefaultActionRow {
-      actionName: I18n.tr("panels.idle.screen-off-label")
-      actionDescription: I18n.tr("panels.idle.screen-off-description")
+      actionName: "Turn off screen"
+      actionDescription: "Seconds of inactivity before monitors are turned off."
       timeoutValue: Settings.data.idle.screenOffTimeout
       defaultValue: Settings.getDefaultValue("idle.screenOffTimeout")
       command: Settings.data.idle.screenOffCommand
@@ -110,8 +110,8 @@ ColumnLayout {
     }
 
     DefaultActionRow {
-      actionName: I18n.tr("panels.idle.lock-label")
-      actionDescription: I18n.tr("panels.idle.lock-description")
+      actionName: "Lock screen"
+      actionDescription: "Seconds of inactivity before the lock screen activates."
       timeoutValue: Settings.data.idle.lockTimeout
       defaultValue: Settings.getDefaultValue("idle.lockTimeout")
       command: Settings.data.idle.lockCommand
@@ -128,8 +128,8 @@ ColumnLayout {
     }
 
     DefaultActionRow {
-      actionName: I18n.tr("common.suspend")
-      actionDescription: I18n.tr("panels.idle.suspend-description")
+      actionName: "Suspend"
+      actionDescription: "Seconds of inactivity before the system suspends."
       timeoutValue: Settings.data.idle.suspendTimeout
       defaultValue: Settings.getDefaultValue("idle.suspendTimeout")
       command: Settings.data.idle.suspendCommand
@@ -150,8 +150,8 @@ ColumnLayout {
     }
 
     NSpinBox {
-      label: I18n.tr("panels.idle.fade-duration-label")
-      description: I18n.tr("panels.idle.fade-duration-description")
+      label: "Fade duration"
+      description: "Seconds for the fade-to-black animation before each action fires. Any mouse movement cancels the fade."
       from: 1
       to: 60
       suffix: "s"
@@ -192,7 +192,7 @@ ColumnLayout {
     NIconButton {
       Layout.alignment: Qt.AlignVCenter
       icon: "settings"
-      tooltipText: I18n.tr("common.edit")
+      tooltipText: "Edit"
       onClicked: root.openEdit(rowRoot.actionName, rowRoot.command, rowRoot.resumeCommand, rowRoot.actionCommandChanged, rowRoot.actionResumeCommandChanged)
     }
   }

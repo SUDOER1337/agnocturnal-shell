@@ -61,24 +61,24 @@ ColumnLayout {
 
   NComboBox {
     id: labelModeCombo
-    label: I18n.tr("bar.workspace.label-mode-label")
-    description: I18n.tr("bar.workspace.label-mode-description")
+    label: "Label mode"
+    description: "Choose how workspace labels are displayed."
     model: [
       {
         "key": "none",
-        "name": I18n.tr("common.none")
+        "name": "None"
       },
       {
         "key": "index",
-        "name": I18n.tr("options.workspace-labels.index")
+        "name": "Index"
       },
       {
         "key": "name",
-        "name": I18n.tr("options.workspace-labels.name")
+        "name": "Name"
       },
       {
         "key": "index+name",
-        "name": I18n.tr("options.workspace-labels.index-and-name")
+        "name": "Index and name"
       }
     ]
     currentKey: widgetData.labelMode || widgetMetadata.labelMode
@@ -90,8 +90,8 @@ ColumnLayout {
   }
 
   NSpinBox {
-    label: I18n.tr("bar.workspace.character-count-label")
-    description: I18n.tr("bar.workspace.character-count-description")
+    label: "Character count"
+    description: "Number of characters to display from workspace names (1-10)."
     from: 1
     to: 10
     value: valueCharacterCount
@@ -103,8 +103,8 @@ ColumnLayout {
   }
 
   NValueSlider {
-    label: I18n.tr("bar.workspace.pill-size-label")
-    description: I18n.tr("bar.workspace.pill-size-description")
+    label: "Pill size"
+    description: "Adjust the size of workspace pills."
     from: 0.4
     to: 1.0
     stepSize: 0.01
@@ -121,24 +121,24 @@ ColumnLayout {
 
   NComboBox {
     id: fontWeightCombo
-    label: I18n.tr("bar.workspace.font-weight-label")
-    description: I18n.tr("bar.workspace.font-weight-description")
+    label: "Font weight"
+    description: "Set the visual weight for text within workspace."
     model: [
       {
         "key": "regular",
-        "name": I18n.tr("common.font-weight-regular")
+        "name": "Regular"
       },
       {
         "key": "medium",
-        "name": I18n.tr("common.font-weight-medium")
+        "name": "Medium"
       },
       {
         "key": "semibold",
-        "name": I18n.tr("common.font-weight-semibold")
+        "name": "Semi-bold"
       },
       {
         "key": "bold",
-        "name": I18n.tr("common.font-weight-bold")
+        "name": "Bold"
       },
     ]
     currentKey: widgetData.fontWeight || widgetMetadata.fontWeight
@@ -150,8 +150,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.workspace.hide-unoccupied-label")
-    description: I18n.tr("bar.workspace.hide-unoccupied-description")
+    label: "Hide unoccupied"
+    description: "Don't display workspaces without windows."
     checked: valueHideUnoccupied
     onToggled: checked => {
                  valueHideUnoccupied = checked;
@@ -160,8 +160,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.workspace.show-labels-only-when-occupied-label")
-    description: I18n.tr("bar.workspace.show-labels-only-when-occupied-description")
+    label: "Show labels only when occupied"
+    description: "Only show workspace labels when they contain windows."
     checked: valueShowLabelsOnlyWhenOccupied
     onToggled: checked => {
                  valueShowLabelsOnlyWhenOccupied = checked;
@@ -170,8 +170,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.workspace.follow-focused-screen-label")
-    description: I18n.tr("bar.workspace.follow-focused-screen-description")
+    label: "Follow focused screen"
+    description: "Display workspaces from the currently focused screen, rather than the screen where the bar is located."
     checked: valueFollowFocusedScreen
     onToggled: checked => {
                  valueFollowFocusedScreen = checked;
@@ -180,8 +180,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.workspace.enable-scrollwheel-label")
-    description: I18n.tr("bar.workspace.enable-scrollwheel-description")
+    label: "Scroll to switch workspaces"
+    description: "Switch between workspaces using the mouse scroll wheel."
     checked: valueEnableScrollWheel
     onToggled: checked => {
                  valueEnableScrollWheel = checked;
@@ -194,8 +194,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.workspace.show-applications-label")
-    description: I18n.tr("bar.workspace.show-applications-description")
+    label: "Show applications"
+    description: "Display application icons inside each workspace."
     checked: valueShowApplications
     onToggled: checked => {
                  valueShowApplications = checked;
@@ -204,8 +204,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.workspace.show-applications-hover-label")
-    description: I18n.tr("bar.workspace.show-applications-hover-description")
+    label: "Show applications when hovered"
+    description: "Display application icons inside each workspace when the workspace is hovered."
     checked: valueShowApplicationsHover
     onToggled: checked => {
                  valueShowApplicationsHover = checked;
@@ -215,8 +215,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.workspace.show-badge-label")
-    description: I18n.tr("bar.workspace.show-badge-description")
+    label: "Show workspace badge"
+    description: "Show the workspace number badge in grouped mode."
     checked: valueShowBadge
     onToggled: checked => {
                  valueShowBadge = checked;
@@ -226,8 +226,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.tray.colorize-icons-label")
-    description: I18n.tr("bar.active-window.colorize-icons-description")
+    label: "Colorize icons"
+    description: "Apply theme colors to active window icon."
     checked: valueColorizeIcons
     onToggled: checked => {
                  valueColorizeIcons = checked;
@@ -237,8 +237,8 @@ ColumnLayout {
   }
 
   NValueSlider {
-    label: I18n.tr("bar.workspace.unfocused-icons-opacity-label")
-    description: I18n.tr("bar.workspace.unfocused-icons-opacity-description")
+    label: "Unfocused icons opacity"
+    description: "Set the opacity level for unfocused app icons."
     from: 0
     to: 1
     stepSize: 0.01
@@ -254,8 +254,8 @@ ColumnLayout {
   }
 
   NValueSlider {
-    label: I18n.tr("bar.workspace.grouped-border-opacity-label")
-    description: I18n.tr("bar.workspace.grouped-border-opacity-description")
+    label: "Border opacity"
+    description: "Set the opacity level for workspace container borders."
     from: 0
     to: 1
     stepSize: 0.01
@@ -271,8 +271,8 @@ ColumnLayout {
   }
 
   NValueSlider {
-    label: I18n.tr("bar.taskbar.icon-scale-label")
-    description: I18n.tr("bar.taskbar.icon-scale-description")
+    label: "Icon scaling"
+    description: "Sets the scaling factor for taskbar icons."
     from: 0.5
     to: 1
     stepSize: 0.01
@@ -292,8 +292,8 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("bar.workspace.focused-color-label")
-    description: I18n.tr("bar.workspace.focused-color-description")
+    label: "Focused workspace color"
+    description: "Set the background color for the focused workspace."
     currentKey: valueFocusedColor
     onSelected: key => {
                   valueFocusedColor = key;
@@ -302,8 +302,8 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("bar.workspace.occupied-color-label")
-    description: I18n.tr("bar.workspace.occupied-color-description")
+    label: "Occupied workspace color"
+    description: "Set the background color for occupied workspaces."
     currentKey: valueOccupiedColor
     onSelected: key => {
                   valueOccupiedColor = key;
@@ -312,8 +312,8 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("bar.workspace.empty-color-label")
-    description: I18n.tr("bar.workspace.empty-color-description")
+    label: "Empty workspace color"
+    description: "Set the background color for empty workspaces."
     currentKey: valueEmptyColor
     onSelected: key => {
                   valueEmptyColor = key;

@@ -145,7 +145,7 @@ Item {
           spacing: Style.marginM
 
           NToggle {
-            label: I18n.tr("common.wifi")
+            label: "Wi-Fi"
             icon: NetworkService.wifiEnabled ? "wifi" : "wifi-off"
             checked: NetworkService.wifiEnabled
             enabled: !NetworkService.airplaneModeEnabled && NetworkService.wifiAvailable
@@ -162,7 +162,7 @@ Item {
         NText {
           visible: !root.showOnlyLists && NetworkService.wifiEnabled
           Layout.fillWidth: true
-          text: I18n.tr("panels.connections.wifi-header-text")
+          text: "Use Wi-Fi to see available networks and connect to the internet."
           color: Color.mOnSurfaceVariant
           richTextEnabled: true
           wrapMode: Text.WordWrap
@@ -195,7 +195,7 @@ Item {
         spacing: Style.marginM
 
         NLabel {
-          label: I18n.tr("common.connected")
+          label: "Connected"
           Layout.fillWidth: true
           Layout.leftMargin: Style.marginS
         }
@@ -226,7 +226,7 @@ Item {
         spacing: Style.marginM
 
         NLabel {
-          label: I18n.tr("wifi.panel.known-networks")
+          label: "Known networks"
           Layout.fillWidth: true
           Layout.leftMargin: Style.marginS
         }
@@ -262,7 +262,7 @@ Item {
           spacing: Style.marginS
 
           NLabel {
-            label: I18n.tr("wifi.panel.available-networks")
+            label: "Available networks"
             Layout.fillWidth: true
           }
         }
@@ -293,7 +293,7 @@ Item {
             }
 
             NText {
-              text: I18n.tr("wifi.panel.add-network")
+              text: "Add network"
               pointSize: Style.fontSizeM
               color: Color.mOnSurface
               Layout.fillWidth: true
@@ -337,8 +337,8 @@ Item {
 
         NToggle {
           visible: NetworkService.wifiAvailable && BluetoothService.bluetoothAvailable
-          label: I18n.tr("toast.airplane-mode.title")
-          description: I18n.tr("toast.airplane-mode.description")
+          label: "Airplane Mode"
+          description: "Disable all wireless communications."
           icon: NetworkService.airplaneModeEnabled ? "plane" : "plane-off"
           checked: NetworkService.airplaneModeEnabled
           onToggled: checked => NetworkService.setAirplaneMode(checked)
@@ -416,7 +416,7 @@ Item {
           spacing: Style.marginXS
 
           NText {
-            text: I18n.tr("wifi.panel.add-network")
+            text: "Add network"
             pointSize: Style.fontSizeL
             font.weight: Style.fontWeightBold
             color: Color.mOnSurface
@@ -431,8 +431,8 @@ Item {
         id: customSsidInput
         Layout.fillWidth: true
         inputIconName: "wifi"
-        placeholderText: I18n.tr("wifi.panel.network-name-ssid")
-        label: I18n.tr("wifi.panel.network-name-ssid")
+        placeholderText: "Network name (SSID)"
+        label: "Network name (SSID)"
         text: addNetworkPopup.customSsid
         onTextChanged: addNetworkPopup.customSsid = text
         onEditingFinished: {
@@ -464,7 +464,7 @@ Item {
 
         NComboBox {
           Layout.fillWidth: true
-          label: I18n.tr("wifi.enterprise.eap-method")
+          label: "EAP Method"
           model: [
             {
               key: "peap",
@@ -481,7 +481,7 @@ Item {
 
         NComboBox {
           Layout.fillWidth: true
-          label: I18n.tr("wifi.enterprise.phase2-auth")
+          label: "Phase 2 Authentication"
           model: [
             {
               key: "mschapv2",
@@ -510,8 +510,8 @@ Item {
         Layout.fillWidth: true
         inputIconName: "user-question"
         visible: addNetworkPopup.customSecurityKey.indexOf("-eap") !== -1
-        placeholderText: I18n.tr("wifi.enterprise.anonymous-identity")
-        label: I18n.tr("wifi.enterprise.anonymous-identity")
+        placeholderText: "Anonymous Identity"
+        label: "Anonymous Identity"
         text: addNetworkPopup.customEnterpriseAnonIdentity
         onTextChanged: addNetworkPopup.customEnterpriseAnonIdentity = text
       }
@@ -525,8 +525,8 @@ Item {
           id: customCaCertInput
           Layout.fillWidth: true
           inputIconName: "certificate"
-          placeholderText: I18n.tr("wifi.enterprise.ca-cert")
-          label: I18n.tr("wifi.enterprise.ca-cert")
+          placeholderText: "CA Certificate"
+          label: "CA Certificate"
           text: addNetworkPopup.customEnterpriseCaCert
           onTextChanged: addNetworkPopup.customEnterpriseCaCert = text
         }
@@ -543,8 +543,8 @@ Item {
         Layout.fillWidth: true
         inputIconName: "user"
         visible: addNetworkPopup.customSecurityKey.indexOf("-eap") !== -1
-        placeholderText: I18n.tr("wifi.enterprise.username")
-        label: I18n.tr("wifi.enterprise.username")
+        placeholderText: "Identity / Username"
+        label: "Identity / Username"
         text: addNetworkPopup.customIdentity
         onTextChanged: addNetworkPopup.customIdentity = text
       }
@@ -554,8 +554,8 @@ Item {
         Layout.fillWidth: true
         inputIconName: "key"
         visible: addNetworkPopup.customSecurityKey !== "open"
-        placeholderText: I18n.tr("common.password")
-        label: I18n.tr("common.password")
+        placeholderText: "Password"
+        label: "Password"
         text: addNetworkPopup.customPassword
         onTextChanged: addNetworkPopup.customPassword = text
         inputItem.echoMode: addNetworkPopup.customShowPassword ? TextInput.Normal : TextInput.Password
@@ -578,7 +578,7 @@ Item {
 
         NCheckbox {
           Layout.fillWidth: true
-          label: I18n.tr("wifi.panel.show-password")
+          label: "Show password"
           checked: addNetworkPopup.customShowPassword
           onToggled: checked => addNetworkPopup.customShowPassword = checked
           visible: addNetworkPopup.customSecurityKey !== "open"
@@ -586,7 +586,7 @@ Item {
 
         NCheckbox {
           Layout.fillWidth: true
-          label: I18n.tr("wifi.panel.hidden-network")
+          label: "Hidden network"
           checked: addNetworkPopup.customIsHidden
           onToggled: checked => addNetworkPopup.customIsHidden = checked
         }
@@ -603,7 +603,7 @@ Item {
         } // Spacer
 
         NButton {
-          text: I18n.tr("common.cancel")
+          text: "Cancel"
           backgroundColor: Color.mSurfaceVariant
           textColor: Color.mOnSurfaceVariant
           outlined: false
@@ -611,7 +611,7 @@ Item {
         }
 
         NButton {
-          text: I18n.tr("common.connect")
+          text: "Connect"
           backgroundColor: Color.mPrimary
           textColor: Color.mOnPrimary
           enabled: addNetworkPopup.customSsid.length > 0 && (addNetworkPopup.customSecurityKey === "open" || addNetworkPopup.customPassword.length > 0) && (addNetworkPopup.customSecurityKey.indexOf("-eap") === -1 || addNetworkPopup.customIdentity.length > 0)
@@ -715,24 +715,24 @@ Item {
               NText {
                 text: {
                   if (NetworkService.disconnectingFrom === modelData.ssid) {
-                    return I18n.tr("wifi.panel.disconnecting");
+                    return "Disconnecting...";
                   }
                   if (NetworkService.forgettingNetwork === modelData.ssid) {
-                    return I18n.tr("wifi.panel.forgetting");
+                    return "Forgetting...";
                   }
                   if (modelData.connected) {
                     switch (NetworkService.networkConnectivity) {
                     case "full":
-                      return I18n.tr("common.connected");
+                      return "Connected";
                     case "limited":
-                      return I18n.tr("wifi.panel.internet-limited");
+                      return "No internet";
                     case "portal":
-                      return I18n.tr("wifi.panel.action-required");
+                      return "Action required";
                     default:
                       return NetworkService.networkConnectivity;
                     }
                   }
-                  return NetworkService.isSecured(modelData.security) ? modelData.security : I18n.tr("wifi.panel.security-open");
+                  return NetworkService.isSecured(modelData.security) ? modelData.security : "Open";
                 }
                 pointSize: Style.fontSizeXXS
                 color: Qt.alpha(networkItem.getContentColors()[1], Style.opacityHeavy)
@@ -801,7 +801,7 @@ Item {
             NIconButton {
               visible: modelData.connected && NetworkService.disconnectingFrom !== modelData.ssid
               icon: "info"
-              tooltipText: I18n.tr("common.info")
+              tooltipText: "Info"
               baseSize: Style.baseWidgetSize * 0.75
               colorBg: Color.mSurfaceVariant
               colorFg: Color.mOnSurface
@@ -820,7 +820,7 @@ Item {
             NIconButton {
               visible: !root.showOnlyLists && modelData.existing && !modelData.connected && !networkItem.isBusy
               icon: "trash"
-              tooltipText: I18n.tr("tooltips.forget-network")
+              tooltipText: "Forget network"
               baseSize: Style.baseWidgetSize * 0.75
               colorBg: Color.mPrimary
               colorFg: Color.mOnPrimary
@@ -836,7 +836,7 @@ Item {
               fontSize: Style.fontSizeS
               backgroundColor: Color.mPrimary
               textColor: Color.mOnPrimary
-              text: I18n.tr("common.connect")
+              text: "Connect"
               onClicked: {
                 if (modelData.existing || !NetworkService.isSecured(modelData.security)) {
                   NetworkService.connect(modelData.ssid);
@@ -849,7 +849,7 @@ Item {
             NButton {
               id: disconnectButton
               visible: modelData.connected && NetworkService.disconnectingFrom !== modelData.ssid
-              text: I18n.tr("common.disconnect")
+              text: "Disconnect"
               fontSize: Style.fontSizeS
               backgroundColor: Color.mSurfaceVariant
               textColor: Color.mOnSurface
@@ -882,7 +882,7 @@ Item {
             anchors.right: parent.right
             anchors.margins: Style.marginS
             icon: root.detailsGrid ? "layout-list" : "layout-grid"
-            tooltipText: root.detailsGrid ? I18n.tr("tooltips.list-view") : I18n.tr("tooltips.grid-view")
+            tooltipText: root.detailsGrid ? "List view" : "Grid view"
             baseSize: Style.baseWidgetSize * 0.65
             onClicked: {
               root.detailsGrid = !root.detailsGrid;
@@ -920,7 +920,7 @@ Item {
                 MouseArea {
                   anchors.fill: parent
                   hoverEnabled: true
-                  onEntered: TooltipService.show(parent, I18n.tr("wifi.panel.interface"))
+                  onEntered: TooltipService.show(parent, "Network interface")
                   onExited: TooltipService.hide()
                 }
               }
@@ -939,13 +939,13 @@ Item {
                   enabled: (NetworkService.activeWifiIf && NetworkService.activeWifiIf.length > 0)
                   hoverEnabled: true
                   cursorShape: Qt.PointingHandCursor
-                  onEntered: TooltipService.show(parent, I18n.tr("tooltips.copy-address"))
+                  onEntered: TooltipService.show(parent, "Copy address")
                   onExited: TooltipService.hide()
                   onClicked: {
                     const value = NetworkService.activeWifiIf || "";
                     if (value.length > 0) {
                       Quickshell.execDetached(["wl-copy", value]);
-                      ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("common.copied-to-clipboard"), "wifi");
+                      ToastService.showNotice("Wi-Fi", "Copied to clipboard", "wifi");
                     }
                   }
                 }
@@ -963,7 +963,7 @@ Item {
                 MouseArea {
                   anchors.fill: parent
                   hoverEnabled: true
-                  onEntered: TooltipService.show(parent, I18n.tr("common.frequency"))
+                  onEntered: TooltipService.show(parent, "Frequency")
                   onExited: TooltipService.hide()
                 }
               }
@@ -985,7 +985,7 @@ Item {
                 MouseArea {
                   anchors.fill: parent
                   hoverEnabled: true
-                  onEntered: TooltipService.show(parent, I18n.tr("wifi.panel.link-speed"))
+                  onEntered: TooltipService.show(parent, "Link speed")
                   onExited: TooltipService.hide()
                 }
               }
@@ -1008,11 +1008,11 @@ Item {
                 MouseArea {
                   anchors.fill: parent
                   hoverEnabled: true
-                  onEntered: TooltipService.show(parent, root.ipVersion === 4 ? I18n.tr("wifi.panel.ipv4") : I18n.tr("wifi.panel.ipv6"))
+                  onEntered: TooltipService.show(parent, root.ipVersion === 4 ? "IPv4" : "IPv6")
                   onExited: TooltipService.hide()
                   onClicked: {
                     root.ipVersion = root.ipVersion === 4 ? 6 : 4;
-                    TooltipService.show(parent, root.ipVersion === 4 ? I18n.tr("wifi.panel.ipv4") : I18n.tr("wifi.panel.ipv6"));
+                    TooltipService.show(parent, root.ipVersion === 4 ? "IPv4" : "IPv6");
                   }
                 }
               }
@@ -1027,13 +1027,13 @@ Item {
                   enabled: root.ipVersion === 4 ? !!(NetworkService.activeWifiDetails.ipv4 && NetworkService.activeWifiDetails.ipv4.length > 0) : !!(NetworkService.activeWifiDetails.ipv6 && NetworkService.activeWifiDetails.ipv6.length > 0)
                   hoverEnabled: true
                   cursorShape: Qt.PointingHandCursor
-                  onEntered: TooltipService.show(parent, I18n.tr("tooltips.copy-address"))
+                  onEntered: TooltipService.show(parent, "Copy address")
                   onExited: TooltipService.hide()
                   onClicked: {
                     const value = root.ipVersion === 4 ? (NetworkService.activeWifiDetails.ipv4 || "") : ((NetworkService.activeWifiDetails.ipv6 || []).join(", ") || "");
                     if (value.length > 0) {
                       Quickshell.execDetached(["wl-copy", value]);
-                      ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("common.copied-to-clipboard"), "wifi");
+                      ToastService.showNotice("Wi-Fi", "Copied to clipboard", "wifi");
                     }
                   }
                 }
@@ -1051,11 +1051,11 @@ Item {
                 MouseArea {
                   anchors.fill: parent
                   hoverEnabled: true
-                  onEntered: TooltipService.show(parent, root.ipVersion === 4 ? I18n.tr("wifi.panel.dns") + " (" + I18n.tr("wifi.panel.ipv4") + ")" : I18n.tr("wifi.panel.dns") + " (" + I18n.tr("wifi.panel.ipv6") + ")")
+                  onEntered: TooltipService.show(parent, root.ipVersion === 4 ? "DNS" + " (" + "IPv4" + ")" : "DNS" + " (" + "IPv6" + ")")
                   onExited: TooltipService.hide()
                   onClicked: {
                     root.ipVersion = root.ipVersion === 4 ? 6 : 4;
-                    TooltipService.show(parent, root.ipVersion === 4 ? I18n.tr("wifi.panel.dns") + " (" + I18n.tr("wifi.panel.ipv4") + ")" : I18n.tr("wifi.panel.dns") + " (" + I18n.tr("wifi.panel.ipv6") + ")");
+                    TooltipService.show(parent, root.ipVersion === 4 ? "DNS" + " (" + "IPv4" + ")" : "DNS" + " (" + "IPv6" + ")");
                   }
                 }
               }
@@ -1070,13 +1070,13 @@ Item {
                   enabled: root.ipVersion === 4 ? !!(NetworkService.activeWifiDetails.dns4 && NetworkService.activeWifiDetails.dns4.length > 0) : !!(NetworkService.activeWifiDetails.dns6 && NetworkService.activeWifiDetails.dns6.length > 0)
                   hoverEnabled: true
                   cursorShape: Qt.PointingHandCursor
-                  onEntered: TooltipService.show(parent, I18n.tr("tooltips.copy-address"))
+                  onEntered: TooltipService.show(parent, "Copy address")
                   onExited: TooltipService.hide()
                   onClicked: {
                     const value = root.ipVersion === 4 ? ((NetworkService.activeWifiDetails.dns4 || []).join(", ") || "") : ((NetworkService.activeWifiDetails.dns6 || []).join(", ") || "");
                     if (value.length > 0) {
                       Quickshell.execDetached(["wl-copy", value]);
-                      ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("common.copied-to-clipboard"), "wifi");
+                      ToastService.showNotice("Wi-Fi", "Copied to clipboard", "wifi");
                     }
                   }
                 }
@@ -1094,11 +1094,11 @@ Item {
                 MouseArea {
                   anchors.fill: parent
                   hoverEnabled: true
-                  onEntered: TooltipService.show(parent, root.ipVersion === 4 ? I18n.tr("common.gateway") + " (" + I18n.tr("wifi.panel.ipv4") + ")" : I18n.tr("common.gateway") + " (" + I18n.tr("wifi.panel.ipv6") + ")")
+                  onEntered: TooltipService.show(parent, root.ipVersion === 4 ? "Gateway" + " (" + "IPv4" + ")" : "Gateway" + " (" + "IPv6" + ")")
                   onExited: TooltipService.hide()
                   onClicked: {
                     root.ipVersion = root.ipVersion === 4 ? 6 : 4;
-                    TooltipService.show(parent, root.ipVersion === 4 ? I18n.tr("common.gateway") + " (" + I18n.tr("wifi.panel.ipv4") + ")" : I18n.tr("common.gateway") + " (" + I18n.tr("wifi.panel.ipv6") + ")");
+                    TooltipService.show(parent, root.ipVersion === 4 ? "Gateway" + " (" + "IPv4" + ")" : "Gateway" + " (" + "IPv6" + ")");
                   }
                 }
               }
@@ -1113,13 +1113,13 @@ Item {
                   enabled: root.ipVersion === 4 ? !!(NetworkService.activeWifiDetails.gateway4 && NetworkService.activeWifiDetails.gateway4.length > 0) : !!(NetworkService.activeWifiDetails.gateway6 && NetworkService.activeWifiDetails.gateway6.length > 0)
                   hoverEnabled: true
                   cursorShape: Qt.PointingHandCursor
-                  onEntered: TooltipService.show(parent, I18n.tr("tooltips.copy-address"))
+                  onEntered: TooltipService.show(parent, "Copy address")
                   onExited: TooltipService.hide()
                   onClicked: {
                     const value = root.ipVersion === 4 ? (NetworkService.activeWifiDetails.gateway4 || "") : ((NetworkService.activeWifiDetails.gateway6 || []).join(", ") || "");
                     if (value.length > 0) {
                       Quickshell.execDetached(["wl-copy", value]);
-                      ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("common.copied-to-clipboard"), "wifi");
+                      ToastService.showNotice("Wi-Fi", "Copied to clipboard", "wifi");
                     }
                   }
                 }
@@ -1157,7 +1157,7 @@ Item {
 
                 NComboBox {
                   Layout.fillWidth: true
-                  label: I18n.tr("wifi.enterprise.eap-method")
+                  label: "EAP Method"
                   model: [
                     {
                       key: "peap",
@@ -1174,7 +1174,7 @@ Item {
 
                 NComboBox {
                   Layout.fillWidth: true
-                  label: I18n.tr("wifi.enterprise.phase2-auth")
+                  label: "Phase 2 Authentication"
                   model: [
                     {
                       key: "mschapv2",
@@ -1225,7 +1225,7 @@ Item {
                       NText {
                         visible: parent.text.length === 0
                         anchors.verticalCenter: parent.verticalCenter
-                        text: I18n.tr("wifi.enterprise.ca-cert")
+                        text: "CA Certificate"
                         color: Color.mOnSurfaceVariant
                         pointSize: Style.fontSizeS
                       }
@@ -1267,7 +1267,7 @@ Item {
                   NText {
                     visible: parent.text.length === 0
                     anchors.verticalCenter: parent.verticalCenter
-                    text: I18n.tr("wifi.enterprise.anonymous-identity")
+                    text: "Anonymous Identity"
                     color: Color.mOnSurfaceVariant
                     pointSize: Style.fontSizeS
                   }
@@ -1304,7 +1304,7 @@ Item {
                   NText {
                     visible: parent.text.length === 0
                     anchors.verticalCenter: parent.verticalCenter
-                    text: I18n.tr("wifi.enterprise.username")
+                    text: "Identity / Username"
                     color: Color.mOnSurfaceVariant
                     pointSize: Style.fontSizeS
                   }
@@ -1348,7 +1348,7 @@ Item {
                   NText {
                     visible: parent.text.length === 0
                     anchors.verticalCenter: parent.verticalCenter
-                    text: networkItem.isEnterprise ? I18n.tr("wifi.enterprise.password") : I18n.tr("wifi.panel.enter-password")
+                    text: networkItem.isEnterprise ? "User password" : "Enter Wi‑Fi password..."
                     color: Color.mOnSurfaceVariant
                     pointSize: Style.fontSizeS
                   }
@@ -1365,7 +1365,7 @@ Item {
               }
 
               NButton {
-                text: I18n.tr("common.connect")
+                text: "Connect"
                 fontSize: Style.fontSizeS
                 enabled: pwdInput.text.length > 0 && (!networkItem.isEnterprise || identityInput.text.length > 0) && !NetworkService.connecting
                 outlined: true
@@ -1405,7 +1405,7 @@ Item {
               }
 
               NText {
-                text: I18n.tr("wifi.panel.forget-network")
+                text: "Forget this network"
                 pointSize: Style.fontSizeS
                 color: Color.mError
                 Layout.fillWidth: true
@@ -1414,7 +1414,7 @@ Item {
 
             NButton {
               id: forgetButton
-              text: I18n.tr("wifi.panel.forget")
+              text: "Forget"
               fontSize: Style.fontSizeXXS
               backgroundColor: Color.mError
               outlined: !forgetButton.hovered
@@ -1434,7 +1434,7 @@ Item {
 
   NFilePicker {
     id: caCertPicker
-    title: I18n.tr("wifi.enterprise.ca-cert")
+    title: "CA Certificate"
     nameFilters: ["*.pem", "*.crt", "*.cer", "*.der", "*"]
 
     property bool isForAddNetwork: false

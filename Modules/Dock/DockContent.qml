@@ -313,7 +313,7 @@ Item {
 
               onEntered: {
                 dockRoot.anyAppHovered = true;
-                TooltipService.show(launcherButton, I18n.tr("actions.open-launcher"), tooltipDirection);
+                TooltipService.show(launcherButton, "Open launcher", tooltipDirection);
                 if (dockRoot.autoHide) {
                   dockRoot.showTimer.stop();
                   dockRoot.hideTimer.stop();

@@ -31,17 +31,17 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.general")
+      text: "General"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.look")
+      text: "Look"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }
     NTabButton {
-      text: I18n.tr("common.automation")
+      text: "Automation"
       tabIndex: 2
       checked: subTabBar.currentIndex === 2
     }
@@ -70,7 +70,7 @@ ColumnLayout {
   NFilePicker {
     id: mainFolderPicker
     selectionMode: "folders"
-    title: I18n.tr("setup.wallpaper.dir-select-title")
+    title: "Select wallpaper folder"
     initialPath: Settings.data.wallpaper.directory || Quickshell.env("HOME") + "/Pictures"
     onAccepted: paths => {
                   if (paths.length > 0) {
@@ -82,7 +82,7 @@ ColumnLayout {
   NFilePicker {
     id: monitorFolderPicker
     selectionMode: "folders"
-    title: I18n.tr("panels.wallpaper.settings-select-monitor-folder")
+    title: "Select monitor wallpaper folder"
     initialPath: WallpaperService.getMonitorDirectory(specificFolderMonitorName) || Quickshell.env("HOME") + "/Pictures"
     onAccepted: paths => {
                   if (paths.length > 0) {

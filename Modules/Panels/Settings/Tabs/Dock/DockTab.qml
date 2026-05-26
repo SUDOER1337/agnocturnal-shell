@@ -16,12 +16,12 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.appearance")
+      text: "Appearance"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.monitors")
+      text: "Monitors"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }

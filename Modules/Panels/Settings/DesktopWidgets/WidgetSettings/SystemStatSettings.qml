@@ -33,33 +33,33 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.system-stat-stat-type-label")
-    description: I18n.tr("panels.desktop-widgets.system-stat-stat-type-description")
+    label: "Statistic Type"
+    description: "Choose which system statistic to display."
     currentKey: valueStatType
     minimumWidth: 260 * Style.uiScaleRatio
     model: {
       let items = [
             {
               "key": "CPU",
-              "name": I18n.tr("system-monitor.cpu-usage")
+              "name": "CPU usage"
             },
             {
               "key": "Memory",
-              "name": I18n.tr("common.memory")
+              "name": "Memory"
             },
             {
               "key": "Network",
-              "name": I18n.tr("bar.system-monitor.network-traffic-label")
+              "name": "Network traffic"
             },
             {
               "key": "Disk",
-              "name": I18n.tr("system-monitor.disk")
+              "name": "Disk"
             }
           ];
       if (Settings.data.systemMonitor.enableDgpuMonitoring)
         items.push({
                      "key": "GPU",
-                     "name": I18n.tr("panels.system-monitor.gpu-section-label")
+                     "name": "GPU temperature"
                    });
       return items;
     }
@@ -73,8 +73,8 @@ ColumnLayout {
   NComboBox {
     Layout.fillWidth: true
     visible: valueStatType === "Disk"
-    label: I18n.tr("bar.system-monitor.disk-path-label")
-    description: I18n.tr("bar.system-monitor.disk-path-description")
+    label: "Disk path"
+    description: "Select which disk mount point to monitor."
     model: {
       const paths = Object.keys(SystemStatService.diskPercents).sort();
       return paths.map(path => ({
@@ -96,8 +96,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.system-stat-show-background-label")
-    description: I18n.tr("panels.desktop-widgets.system-stat-show-background-description")
+    label: "Show background"
+    description: "Show the background container for the system stat widget."
     checked: valueShowBackground
     onToggled: checked => {
                  valueShowBackground = checked;
@@ -109,8 +109,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     visible: valueShowBackground
-    label: I18n.tr("panels.desktop-widgets.system-stat-rounded-corners-label")
-    description: I18n.tr("panels.desktop-widgets.system-stat-rounded-corners-description")
+    label: "Rounded corners"
+    description: "Use rounded corners for the widget background."
     checked: valueRoundedCorners
     onToggled: checked => {
                  valueRoundedCorners = checked;
@@ -125,18 +125,18 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.system-stat-layout-label")
-    description: I18n.tr("panels.desktop-widgets.system-stat-layout-description")
+    label: "Layout"
+    description: "Choose how the legend is displayed relative to the graph."
     currentKey: valueLayout
     minimumWidth: 260 * Style.uiScaleRatio
     model: [
       {
         "key": "side",
-        "name": I18n.tr("panels.desktop-widgets.system-stat-layout-side")
+        "name": "Side"
       },
       {
         "key": "bottom",
-        "name": I18n.tr("panels.desktop-widgets.system-stat-layout-bottom")
+        "name": "Bottom"
       }
     ]
     onSelected: key => {

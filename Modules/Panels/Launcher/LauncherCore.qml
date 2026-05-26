@@ -656,7 +656,7 @@ Rectangle {
         Layout.fillWidth: true
         radius: Style.iRadiusM
         text: root.searchText
-        placeholderText: I18n.tr("placeholders.search-launcher")
+        placeholderText: "Search entries... or use > for commands"
         fontSize: Style.fontSizeM
         onTextChanged: root.searchText = text
 
@@ -673,7 +673,7 @@ Rectangle {
       NIconButton {
         visible: root.showLayoutToggle
         icon: Settings.data.appLauncher.viewMode === "grid" ? "layout-list" : "layout-grid"
-        tooltipText: Settings.data.appLauncher.viewMode === "grid" ? I18n.tr("tooltips.list-view") : I18n.tr("tooltips.grid-view")
+        tooltipText: Settings.data.appLauncher.viewMode === "grid" ? "List view" : "Grid view"
         customRadius: Style.iRadiusM
         Layout.preferredWidth: searchInput.height
         Layout.preferredHeight: searchInput.height
@@ -888,7 +888,7 @@ Rectangle {
         text: {
           if (root.results.length === 0) {
             if (root.searchText) {
-              return I18n.tr("common.no-results");
+              return "No results";
             }
             // Use provider's empty browsing message if available
             var provider = root.currentProvider;
@@ -898,7 +898,7 @@ Rectangle {
             return "";
           }
           var prefix = root.activeProvider && root.activeProvider.name ? root.activeProvider.name + ": " : "";
-          return prefix + I18n.trp("common.result-count", root.results.length);
+          return prefix + (root.results.length === 1 ? "{count} result" : "{count} results");
         }
         pointSize: Style.fontSizeXS
         color: Color.mOnSurfaceVariant

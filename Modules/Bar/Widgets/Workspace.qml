@@ -461,7 +461,7 @@ Item {
       if (root.selectedWindowId) {
         // Focus item
         items.push({
-                     "label": I18n.tr("common.focus"),
+                     "label": "Focus",
                      "action": "focus",
                      "icon": "eye"
                    });
@@ -469,14 +469,14 @@ Item {
         // Pin/Unpin item
         const isPinned = root.isAppPinned(root.selectedAppId);
         items.push({
-                     "label": !isPinned ? I18n.tr("common.pin") : I18n.tr("common.unpin"),
+                     "label": !isPinned ? "Pin" : "Unpin",
                      "action": "pin",
                      "icon": !isPinned ? "pin" : "pinned-off"
                    });
 
         // Close item
         items.push({
-                     "label": I18n.tr("common.close"),
+                     "label": "Close",
                      "action": "close",
                      "icon": "x"
                    });
@@ -497,7 +497,7 @@ Item {
         }
       }
       items.push({
-                   "label": I18n.tr("actions.widget-settings"),
+                   "label": "Widget settings",
                    "action": "widget-settings",
                    "icon": "settings"
                  });

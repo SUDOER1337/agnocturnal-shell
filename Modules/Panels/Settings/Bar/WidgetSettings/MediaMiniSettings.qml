@@ -57,24 +57,24 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.hide-mode-label")
-    description: I18n.tr("bar.media-mini.hide-mode-description")
+    label: "Hiding mode"
+    description: "Controls how the widget behaves when no media is playing."
     model: [
       {
         "key": "visible",
-        "name": I18n.tr("hide-modes.visible")
+        "name": "Always visible"
       },
       {
         "key": "hidden",
-        "name": I18n.tr("hide-modes.hidden")
+        "name": "Hide when empty"
       },
       {
         "key": "transparent",
-        "name": I18n.tr("hide-modes.transparent")
+        "name": "Transparent when empty"
       },
       {
         "key": "idle",
-        "name": I18n.tr("hide-modes.idle")
+        "name": "Hide when idle"
       }
     ]
     currentKey: root.valueHideMode
@@ -86,8 +86,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.media-mini.show-album-art-label")
-    description: I18n.tr("bar.media-mini.show-album-art-description")
+    label: "Show album art"
+    description: "Display the album artwork for the currently playing track."
     checked: valueShowAlbumArt
     onToggled: checked => {
                  valueShowAlbumArt = checked;
@@ -97,8 +97,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.media-mini.show-artist-first-label")
-    description: I18n.tr("bar.media-mini.show-artist-first-description")
+    label: "Show artist first"
+    description: "Display artist - title instead of title - artist."
     checked: valueShowArtistFirst
     onToggled: checked => {
                  valueShowArtistFirst = checked;
@@ -108,8 +108,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.media-mini.show-visualizer-label")
-    description: I18n.tr("bar.media-mini.show-visualizer-description")
+    label: "Show visualizer"
+    description: "Display an audio visualizer when music is playing."
     checked: valueShowVisualizer
     onToggled: checked => {
                  valueShowVisualizer = checked;
@@ -120,20 +120,20 @@ ColumnLayout {
 
   NComboBox {
     visible: valueShowVisualizer
-    label: I18n.tr("bar.media-mini.visualizer-type-label")
-    description: I18n.tr("bar.media-mini.visualizer-type-description")
+    label: "Visualizer type"
+    description: "Choose the style of audio visualizer to display."
     model: [
       {
         "key": "linear",
-        "name": I18n.tr("options.visualizer-types.linear")
+        "name": "Linear"
       },
       {
         "key": "mirrored",
-        "name": I18n.tr("options.visualizer-types.mirrored")
+        "name": "Mirrored"
       },
       {
         "key": "wave",
-        "name": I18n.tr("options.visualizer-types.wave")
+        "name": "Wave"
       }
     ]
     currentKey: valueVisualizerType
@@ -148,8 +148,8 @@ ColumnLayout {
   NTextInput {
     id: widthInput
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.max-width-label")
-    description: I18n.tr("bar.media-mini.max-width-description")
+    label: "Maximum width"
+    description: "Sets the maximum horizontal size of the widget. The widget will shrink to fit shorter content."
     placeholderText: widgetMetadata.maxWidth
     text: valueMaxWidth
     onTextChanged: saveSettings()
@@ -157,8 +157,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.media-mini.use-fixed-width-label")
-    description: I18n.tr("bar.media-mini.use-fixed-width-description")
+    label: "Use fixed width"
+    description: "When enabled, the widget will always use the maximum width instead of dynamically adjusting to content."
     checked: valueUseFixedWidth
     onToggled: checked => {
                  valueUseFixedWidth = checked;
@@ -168,8 +168,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.media-mini.show-progress-ring-label")
-    description: I18n.tr("bar.media-mini.show-progress-ring-description")
+    label: "Show progress ring"
+    description: "Display a circular progress indicator showing track progress."
     checked: valueShowProgressRing
     onToggled: checked => {
                  valueShowProgressRing = checked;
@@ -188,20 +188,20 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("bar.media-mini.scrolling-mode-label")
-    description: I18n.tr("bar.media-mini.scrolling-mode-description")
+    label: "Scrolling mode"
+    description: "Control when text scrolling is enabled for long track titles."
     model: [
       {
         "key": "always",
-        "name": I18n.tr("options.scrolling-modes.always")
+        "name": "Scroll always"
       },
       {
         "key": "hover",
-        "name": I18n.tr("options.scrolling-modes.hover")
+        "name": "Scroll on hover"
       },
       {
         "key": "never",
-        "name": I18n.tr("options.scrolling-modes.never")
+        "name": "Never scroll"
       }
     ]
     currentKey: valueScrollingMode
@@ -219,14 +219,14 @@ ColumnLayout {
   }
 
   NLabel {
-    label: I18n.tr("bar.media-mini.panel-section-label")
-    description: I18n.tr("bar.media-mini.panel-section-description")
+    label: "Media player panel"
+    description: "Configure the appearance and behavior of the media player panel."
     labelColor: Color.mPrimary
   }
 
   NToggle {
-    label: I18n.tr("bar.media-mini.show-album-art-label")
-    description: I18n.tr("bar.media-mini.show-album-art-description")
+    label: "Show album art"
+    description: "Display the album artwork for the currently playing track."
     checked: valuePanelShowAlbumArt
     onToggled: checked => {
                  valuePanelShowAlbumArt = checked;
@@ -236,8 +236,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.media-mini.compact-mode-label")
-    description: I18n.tr("bar.media-mini.compact-mode-description")
+    label: "Compact mode"
+    description: "Enable a space-saving layout for the media player panel."
     checked: valueCompactMode
     onToggled: checked => {
                  valueCompactMode = checked;

@@ -39,9 +39,7 @@ RowLayout {
   Layout.fillWidth: true
 
   readonly property bool isValueChanged: (defaultValue !== undefined) && (value !== defaultValue)
-  readonly property string indicatorTooltip: defaultValue !== undefined ? I18n.tr("panels.indicator.default-value", {
-                                                                                    "value": String(defaultValue)
-                                                                                  }) : ""
+  readonly property string indicatorTooltip: defaultValue !== undefined ? "Default: {value}" : ""
 
   Timer {
     id: repeatTimer

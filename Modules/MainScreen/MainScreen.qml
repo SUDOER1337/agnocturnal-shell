@@ -17,6 +17,7 @@ import qs.Modules.Panels.Brightness
 import qs.Modules.Panels.Changelog
 import qs.Modules.Panels.Clock
 import qs.Modules.Panels.ControlCenter
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Dock
 import qs.Modules.Panels.Launcher
 import qs.Modules.Panels.Media
@@ -327,7 +328,7 @@ PanelWindow {
       screen: root.screen
     }
 
-    ControlCenterPanel {
+    ControlCenterV5Panel {
       id: controlCenterPanel
       objectName: "controlCenterPanel-" + (root.screen?.name || "unknown")
       screen: root.screen
@@ -360,12 +361,6 @@ PanelWindow {
     SessionMenu {
       id: sessionMenuPanel
       objectName: "sessionMenuPanel-" + (root.screen?.name || "unknown")
-      screen: root.screen
-    }
-
-    SettingsPanel {
-      id: settingsPanel
-      objectName: "settingsPanel-" + (root.screen?.name || "unknown")
       screen: root.screen
     }
 

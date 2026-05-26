@@ -9,14 +9,14 @@ import qs.Services.UI
 
 Singleton {
   id: root
-  property string currentLayout: I18n.tr("common.unknown")
-  property string fullLayoutName: I18n.tr("common.unknown")
+  property string currentLayout: "Unknown"
+  property string fullLayoutName: "Unknown"
   property string previousLayout: ""
   property bool isInitialized: false
 
   // Updates current layout from various format strings. Called by compositors
   function setCurrentLayout(layoutString) {
-    root.fullLayoutName = layoutString || I18n.tr("common.unknown");
+    root.fullLayoutName = layoutString || "Unknown";
     root.currentLayout = extractLayoutCode(layoutString);
   }
 
@@ -24,7 +24,7 @@ Singleton {
   // Priority: variant > country code > language lookup > fallback
   function extractLayoutCode(layoutString) {
     if (!layoutString)
-      return I18n.tr("common.unknown");
+      return "Unknown";
 
     const str = layoutString.toLowerCase();
 
@@ -64,20 +64,18 @@ Singleton {
 
     // If nothing matches, try first 2-3 characters if they look like a code
     const codeMatch = str.match(/^([a-z]{2,3})/);
-    return codeMatch ? codeMatch[1].toUpperCase() : I18n.tr("common.unknown");
+    return codeMatch ? codeMatch[1].toUpperCase() : "Unknown";
   }
 
   // Watch for layout changes and show toast
   onCurrentLayoutChanged: {
     // Update previousLayout after checking for changes
-    const layoutChanged = isInitialized && currentLayout !== previousLayout && currentLayout !== I18n.tr("common.unknown") && previousLayout !== "" && previousLayout !== I18n.tr("common.unknown");
+    const layoutChanged = isInitialized && currentLayout !== previousLayout && currentLayout !== "Unknown" && previousLayout !== "" && previousLayout !== "Unknown";
 
     if (layoutChanged) {
       if (Settings.data.notifications.enableKeyboardLayoutToast) {
-        const message = I18n.tr("toast.keyboard-layout.changed", {
-                                  "layout": fullLayoutName
-                                });
-        ToastService.showNotice(I18n.tr("toast.keyboard-layout.title"), message, "", 2000);
+        const message = "Keyboard layout changed to {layout}";
+        ToastService.showNotice("Keyboard", message, "", 2000);
       }
       Logger.d("KeyboardLayout", "Layout changed from", previousLayout, "to", currentLayout);
     }

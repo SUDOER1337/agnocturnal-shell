@@ -44,9 +44,7 @@ Item {
     for (let i = 0; i < root.currentKeybinds.length; i++) {
       if (i !== root.recordingIndex && String(root.currentKeybinds[i]).toLowerCase() === keyStr.toLowerCase()) {
         hasConflict = true;
-        ToastService.showWarning(I18n.tr("panels.general.keybinds-conflict-title"), I18n.tr("panels.general.keybinds-conflict-description", {
-                                                                                              "action": root.label || "This action"
-                                                                                            }));
+        ToastService.showWarning("Keybind conflict", "The key combination is already assigned to {action}.");
         conflictTimer.restart();
         return;
       }
@@ -56,9 +54,7 @@ Item {
     const conflict = Keybinds.getKeybindConflict(keyStr, root.settingsPath, Settings.data);
     if (conflict) {
       hasConflict = true;
-      ToastService.showWarning(I18n.tr("panels.general.keybinds-conflict-title"), I18n.tr("panels.general.keybinds-conflict-description", {
-                                                                                            "action": conflict
-                                                                                          }));
+      ToastService.showWarning("Keybind conflict", "The key combination is already assigned to {action}.");
       conflictTimer.restart();
       return;
     }
@@ -115,7 +111,7 @@ Item {
 
           readonly property bool isOccupied: index < root.currentKeybinds.length
           readonly property bool isRecordingThis: root.recordingIndex === index
-          readonly property string keybindText: isRecordingThis ? I18n.tr("placeholders.keybind-recording") : (isOccupied ? root.currentKeybinds[index] : I18n.tr("placeholders.add-new-keybind"))
+          readonly property string keybindText: isRecordingThis ? "Recording keybind..." : (isOccupied ? root.currentKeybinds[index] : "Add a new keybind")
 
           onClicked: {
             if (isRecordingThis) {
@@ -235,7 +231,7 @@ Item {
 
                           if (root.requireModifierForNormalKeys && !hasModifier && !isSpecialKey) {
                             hasConflict = true;
-                            ToastService.showWarning(I18n.tr("panels.general.keybinds-modifier-title"), I18n.tr("panels.general.keybinds-modifier-description"));
+                            ToastService.showWarning("Modifier required", "Shortcuts must include a modifier key (Ctrl or Alt).");
                             conflictTimer.restart();
                             return;
                           }

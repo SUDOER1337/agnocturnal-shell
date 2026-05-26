@@ -32,21 +32,21 @@ ColumnLayout {
 
   NComboBox {
     visible: valueShowIcon // Hide display mode setting when icon is disabled
-    label: I18n.tr("common.display-mode")
-    description: I18n.tr("bar.volume.display-mode-description")
+    label: "Display mode"
+    description: "Choose how you'd like this value to appear."
     minimumWidth: 200
     model: [
       {
         "key": "onhover",
-        "name": I18n.tr("display-modes.on-hover")
+        "name": "On hover"
       },
       {
         "key": "forceOpen",
-        "name": I18n.tr("display-modes.force-open")
+        "name": "Force open"
       },
       {
         "key": "alwaysHide",
-        "name": I18n.tr("display-modes.always-hide")
+        "name": "Always hide"
       }
     ]
     currentKey: valueDisplayMode
@@ -58,8 +58,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.custom-button.show-icon-label")
-    description: I18n.tr("bar.keyboard-layout.show-icon-description")
+    label: "Show icon"
+    description: "Display the keyboard layout icon."
     checked: valueShowIcon
     onToggled: checked => {
                  valueShowIcon = checked;
@@ -69,7 +69,7 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-icon-color")
+    label: "Select icon color"
     currentKey: valueIconColor
     onSelected: key => {
                   valueIconColor = key;

@@ -11,7 +11,7 @@ Popup {
   id: root
 
   // Properties
-  property string title: I18n.tr("widget.file-picker.title")
+  property string title: "File Picker"
   property string initialPath: Quickshell.env("HOME") || "/home"
   property string selectionMode: "files" // "files" or "folders"
   property var nameFilters: ["*"]
@@ -241,7 +241,7 @@ Popup {
 
         // "Select Current" button only visible in folder selection mode
         NButton {
-          text: I18n.tr("widgets.file-picker.select-current")
+          text: "Select Current"
           icon: "filepicker-folder-current"
           visible: root.selectionMode === "folders"
           onClicked: {
@@ -252,7 +252,7 @@ Popup {
 
         NIconButton {
           icon: "filepicker-refresh"
-          tooltipText: I18n.tr("common.refresh")
+          tooltipText: "Refresh"
           onClicked: {
             // Force a proper refresh by resetting the folder
             const currentFolder = folderModel.folder;
@@ -263,7 +263,7 @@ Popup {
         }
         NIconButton {
           icon: "filepicker-close"
-          tooltipText: I18n.tr("common.close")
+          tooltipText: "Close"
           onClicked: {
             root.cancelled();
             root.close();
@@ -294,7 +294,7 @@ Popup {
 
           NIconButton {
             icon: "filepicker-arrow-up"
-            tooltipText: I18n.tr("tooltips.up")
+            tooltipText: "Parent directory"
             baseSize: Style.baseWidgetSize * 0.8
             enabled: folderModel.folder.toString() !== "file:///"
             onClicked: {
@@ -306,7 +306,7 @@ Popup {
 
           NIconButton {
             icon: "filepicker-home"
-            tooltipText: I18n.tr("tooltips.home")
+            tooltipText: "Home directory"
             baseSize: Style.baseWidgetSize * 0.8
             onClicked: {
               const homePath = Quickshell.env("HOME") || "/home";
@@ -317,7 +317,7 @@ Popup {
 
           NIconButton {
             icon: filePickerPanel.showSearchBar ? "filepicker-x" : "filepicker-search"
-            tooltipText: filePickerPanel.showSearchBar ? I18n.tr("tooltips.search-close") : I18n.tr("common.search")
+            tooltipText: filePickerPanel.showSearchBar ? "Close search" : "Search"
             baseSize: Style.baseWidgetSize * 0.8
             onClicked: {
               filePickerPanel.showSearchBar = !filePickerPanel.showSearchBar;
@@ -332,7 +332,7 @@ Popup {
           NTextInput {
             id: locationInput
             text: root.currentPath
-            placeholderText: I18n.tr("placeholders.enter-path")
+            placeholderText: "Enter path..."
             Layout.fillWidth: true
 
             visible: !filePickerPanel.showSearchBar
@@ -360,7 +360,7 @@ Popup {
           NTextInput {
             id: searchInput
             inputIconName: "search"
-            placeholderText: I18n.tr("placeholders.search")
+            placeholderText: "Search..."
             Layout.fillWidth: true
 
             visible: filePickerPanel.showSearchBar
@@ -382,13 +382,13 @@ Popup {
 
           NIconButton {
             icon: filePickerPanel.viewMode ? "filepicker-list" : "filepicker-layout-grid"
-            tooltipText: filePickerPanel.viewMode ? I18n.tr("tooltips.list-view") : I18n.tr("tooltips.grid-view")
+            tooltipText: filePickerPanel.viewMode ? "List view" : "Grid view"
             baseSize: Style.baseWidgetSize * 0.8
             onClicked: filePickerPanel.viewMode = !filePickerPanel.viewMode
           }
           NIconButton {
             icon: root.showHiddenFiles ? "filepicker-eye-off" : "filepicker-eye"
-            tooltipText: root.showHiddenFiles ? I18n.tr("tooltips.hidden-files-hide") : I18n.tr("tooltips.hidden-files-hide")
+            tooltipText: root.showHiddenFiles ? "Hidden files" : "Hidden files"
             baseSize: Style.baseWidgetSize * 0.8
             onClicked: {
               root.showHiddenFiles = !root.showHiddenFiles;
@@ -770,9 +770,9 @@ Popup {
               return "Searching for: \"" + filePickerPanel.searchText + "\" (" + filteredModel.count + " matches)";
             } else if (filePickerPanel.currentSelection.length > 0) {
               const selectedName = filePickerPanel.currentSelection[0].split('/').pop();
-              return I18n.tr("widgets.file-picker.selected") + " " + selectedName;
+              return "Selected:" + " " + selectedName;
             } else {
-              return filteredModel.count + " " + (filteredModel.count === 1 ? I18n.tr("widgets.file-picker.item") : I18n.tr("widgets.file-picker.items"));
+              return filteredModel.count + " " + (filteredModel.count === 1 ? "item" : "items");
             }
           }
           color: filePickerPanel.searchText.length > 0 ? Color.mPrimary : Color.mOnSurfaceVariant
@@ -781,7 +781,7 @@ Popup {
         }
 
         NButton {
-          text: I18n.tr("common.cancel")
+          text: "Cancel"
           outlined: true
           onClicked: {
             root.cancelled();
@@ -790,7 +790,7 @@ Popup {
         }
 
         NButton {
-          text: root.selectionMode === "folders" ? I18n.tr("widgets.file-picker.select-folder") : I18n.tr("widgets.file-picker.select-file")
+          text: root.selectionMode === "folders" ? "Select Folder" : "Select File"
           icon: "filepicker-check"
           enabled: filePickerPanel.currentSelection.length > 0
           onClicked: root.confirmSelection()

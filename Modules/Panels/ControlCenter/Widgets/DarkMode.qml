@@ -8,6 +8,6 @@ NIconButtonHot {
   property ShellScreen screen
 
   icon: "dark-mode"
-  tooltipText: Settings.data.colorSchemes.darkMode ? I18n.tr("tooltips.switch-to-light-mode") : I18n.tr("tooltips.switch-to-dark-mode")
+  tooltipText: Settings.data.colorSchemes.darkMode ? "Light Mode" : "Dark Mode"
   onClicked: Settings.data.colorSchemes.darkMode = !Settings.data.colorSchemes.darkMode
 }

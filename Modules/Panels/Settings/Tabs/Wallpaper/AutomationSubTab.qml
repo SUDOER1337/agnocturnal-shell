@@ -12,8 +12,8 @@ ColumnLayout {
   enabled: Settings.data.wallpaper.enabled
 
   NToggle {
-    label: I18n.tr("panels.wallpaper.automation-scheduled-change-label")
-    description: I18n.tr("panels.wallpaper.automation-scheduled-change-description")
+    label: "Scheduled change"
+    description: "Automatically change wallpapers at regular intervals."
     checked: Settings.data.wallpaper.automationEnabled
     onToggled: checked => Settings.data.wallpaper.automationEnabled = checked
   }
@@ -25,17 +25,17 @@ ColumnLayout {
 
     NComboBox {
 
-      label: I18n.tr("panels.wallpaper.automation-change-mode-label")
-      description: I18n.tr("panels.wallpaper.automation-change-mode-description")
+      label: "Change mode"
+      description: "Choose how wallpapers are selected when changing automatically."
       Layout.fillWidth: true
       model: [
         {
           "key": "random",
-          "name": I18n.tr("common.random")
+          "name": "Random"
         },
         {
           "key": "alphabetical",
-          "name": I18n.tr("panels.wallpaper.automation-change-mode-alphabetical")
+          "name": "Alphabetical"
         }
       ]
       currentKey: Settings.data.wallpaper.wallpaperChangeMode || "random"
@@ -44,8 +44,8 @@ ColumnLayout {
     }
 
     NSpinBox {
-      label: I18n.tr("panels.wallpaper.automation-interval-label")
-      description: I18n.tr("panels.wallpaper.automation-interval-description")
+      label: "Wallpaper interval"
+      description: "How often to change wallpapers automatically."
       Layout.fillWidth: true
       from: 1
       to: 1440

@@ -94,38 +94,36 @@ Item {
     let rows = [];
 
     // CPU
-    rows.push([I18n.tr("system-monitor.cpu-usage"), `${Math.round(SystemStatService.cpuUsage)}% (${SystemStatService.cpuFreq.replace(/[^0-9.]/g, "")} GHz)`]);
+    rows.push(["CPU usage", `${Math.round(SystemStatService.cpuUsage)}% (${SystemStatService.cpuFreq.replace(/[^0-9.]/g, "")} GHz)`]);
     if (showCpuCores) {
-      SystemStatService.coresUsage.forEach((usage, core) => rows.push(["  " + I18n.tr("system-monitor.core-usage", {
-                                                                                        "id": core
-                                                                                      }), `${Math.round(usage)}%`]));
+      SystemStatService.coresUsage.forEach((usage, core) => rows.push(["  " + "Core {id} usage", `${Math.round(usage)}%`]));
     }
 
     if (SystemStatService.cpuTemp > 0) {
-      rows.push([I18n.tr("system-monitor.cpu-temp"), `${Math.round(SystemStatService.cpuTemp)}°C`]);
+      rows.push(["CPU temp", `${Math.round(SystemStatService.cpuTemp)}°C`]);
     }
 
     // GPU (if available)
     if (SystemStatService.gpuAvailable) {
-      rows.push([I18n.tr("system-monitor.gpu-temp"), `${Math.round(SystemStatService.gpuTemp)}°C`]);
+      rows.push(["GPU temp", `${Math.round(SystemStatService.gpuTemp)}°C`]);
     }
 
     // Load Average
     if (SystemStatService.loadAvg1 >= 0) {
-      rows.push([I18n.tr("system-monitor.load-average"), `${SystemStatService.loadAvg1.toFixed(2)} · ${SystemStatService.loadAvg5.toFixed(2)} · ${SystemStatService.loadAvg15.toFixed(2)}`]);
+      rows.push(["Load average", `${SystemStatService.loadAvg1.toFixed(2)} · ${SystemStatService.loadAvg5.toFixed(2)} · ${SystemStatService.loadAvg15.toFixed(2)}`]);
     }
 
     // Memory
-    rows.push([I18n.tr("common.memory"), `${Math.round(SystemStatService.memPercent)}% (${(SystemStatService.memGb).toFixed(1)} GiB)`]);
+    rows.push(["Memory", `${Math.round(SystemStatService.memPercent)}% (${(SystemStatService.memGb).toFixed(1)} GiB)`]);
 
     // Swap (if available)
     if (SystemStatService.swapTotalGb > 0) {
-      rows.push([I18n.tr("bar.system-monitor.swap-usage-label"), `${Math.round(SystemStatService.swapPercent)}% (${(SystemStatService.swapGb).toFixed(1)} GiB)`]);
+      rows.push(["Swap usage", `${Math.round(SystemStatService.swapPercent)}% (${(SystemStatService.swapGb).toFixed(1)} GiB)`]);
     }
 
     // Network
-    rows.push([I18n.tr("system-monitor.download-speed"), `${SystemStatService.formatSpeed(SystemStatService.rxSpeed).replace(/([0-9.]+)([A-Za-z]+)/, "$1 $2")}` + "/s"]);
-    rows.push([I18n.tr("system-monitor.upload-speed"), `${SystemStatService.formatSpeed(SystemStatService.txSpeed).replace(/([0-9.]+)([A-Za-z]+)/, "$1 $2")}` + "/s"]);
+    rows.push(["Download speed", `${SystemStatService.formatSpeed(SystemStatService.rxSpeed).replace(/([0-9.]+)([A-Za-z]+)/, "$1 $2")}` + "/s"]);
+    rows.push(["Upload speed", `${SystemStatService.formatSpeed(SystemStatService.txSpeed).replace(/([0-9.]+)([A-Za-z]+)/, "$1 $2")}` + "/s"]);
 
     // Disk
     const diskPercent = SystemStatService.diskPercents[diskPath];
@@ -133,8 +131,8 @@ Item {
       const usedGb = SystemStatService.diskUsedGb[diskPath] || 0;
       const sizeGb = SystemStatService.diskSizeGb[diskPath] || 0;
       const availGb = SystemStatService.diskAvailableGb[diskPath] || 0;
-      rows.push([I18n.tr("system-monitor.disk"), `${diskPercent}% (${usedGb.toFixed(1)} / ${sizeGb.toFixed(1)} GB)`]);
-      rows.push([I18n.tr("common.available"), `${availGb.toFixed(1)} GB`]);
+      rows.push(["Disk", `${diskPercent}% (${usedGb.toFixed(1)} / ${sizeGb.toFixed(1)} GB)`]);
+      rows.push(["Available", `${availGb.toFixed(1)} GB`]);
     }
 
     return rows;
@@ -159,12 +157,12 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("system-monitor.title"),
+        "label": "System Monitor",
         "action": "sysmon-settings",
         "icon": "settings"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

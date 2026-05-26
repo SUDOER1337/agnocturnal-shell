@@ -368,8 +368,8 @@ NBox {
         model: availableWidgets ?? null
         label: ""
         description: ""
-        placeholder: I18n.tr("bar.section-editor.placeholder")
-        searchPlaceholder: I18n.tr("bar.section-editor.search-placeholder")
+        placeholder: "Select a widget to add..."
+        searchPlaceholder: "Search widget..."
         onSelected: key => comboBox.currentKey = key
         popupHeight: 300 * Style.uiScaleRatio
         minimumWidth: 200 * Style.uiScaleRatio
@@ -397,7 +397,7 @@ NBox {
         colorBgHover: Color.mSecondary
         colorFgHover: Color.mOnSecondary
         enabled: comboBox.currentKey !== "" && !root.isAtMaxCapacity
-        tooltipText: root.isAtMaxCapacity ? I18n.tr("tooltips.max-widgets-reached") : I18n.tr("tooltips.add-widget")
+        tooltipText: root.isAtMaxCapacity ? "Maximum widgets reached" : "Add widget"
         Layout.alignment: Qt.AlignVCenter
         Layout.leftMargin: Style.marginS
         onClicked: {
@@ -518,9 +518,7 @@ NBox {
                     }
 
                     items.push({
-                                 "label": I18n.tr("tooltips.move-to-section", {
-                                                    "section": displayLabel
-                                                  }),
+                                 "label": "Move to {section}",
                                  "action": section,
                                  "icon": root.getSectionIcon(section),
                                  "visible": true
@@ -529,7 +527,7 @@ NBox {
                 }
                 // Add remove option
                 items.push({
-                             "label": I18n.tr("tooltips.remove-widget"),
+                             "label": "Remove widget",
                              "action": "remove",
                              "icon": "trash",
                              "visible": true
@@ -627,7 +625,7 @@ NBox {
                   active: root.widgetHasSettings(modelData.id) && root.enabled
                   sourceComponent: NIconButton {
                     icon: "settings"
-                    tooltipText: I18n.tr("actions.widget-settings")
+                    tooltipText: "Widget settings"
                     baseSize: miniButtonSize
                     colorBorder: Qt.alpha(Color.mOutline, Style.opacityLight)
                     colorBg: Color.mOnSurface

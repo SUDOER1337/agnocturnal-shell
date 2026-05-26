@@ -17,7 +17,7 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -251,31 +251,31 @@ Item {
       // Add command details if enabled and available
       if (showExecTooltip && hasExec) {
         if (leftClickExec !== "") {
-          lines.push(I18n.tr("bar.custom-button.left-click-label") + `: ${leftClickExec}`);
+          lines.push("Left click" + `: ${leftClickExec}`);
         } else if (!leftClickUpdateText) {
-          lines.push(I18n.tr("bar.custom-button.left-click-label") + ": " + I18n.tr("actions.widget-settings"));
+          lines.push("Left click" + ": " + "Widget settings");
         }
 
         if (rightClickExec !== "") {
-          lines.push(I18n.tr("bar.custom-button.right-click-label") + `: ${rightClickExec}`);
+          lines.push("Right click" + `: ${rightClickExec}`);
         } else if (!rightClickUpdateText) {
-          lines.push(I18n.tr("bar.custom-button.right-click-label") + ": " + I18n.tr("actions.widget-settings"));
+          lines.push("Right click" + ": " + "Widget settings");
         }
 
         if (middleClickExec !== "") {
-          lines.push(I18n.tr("bar.custom-button.middle-click-label") + `: ${middleClickExec}`);
+          lines.push("Middle click" + `: ${middleClickExec}`);
         } else if (!middleClickUpdateText) {
-          lines.push(I18n.tr("bar.custom-button.middle-click-label") + ": " + I18n.tr("actions.widget-settings"));
+          lines.push("Middle click" + ": " + "Widget settings");
         }
 
         if (wheelMode === "unified" && wheelExec !== "") {
-          lines.push(I18n.tr("bar.custom-button.wheel-label") + `: ${wheelExec}`);
+          lines.push("Scroll wheel" + `: ${wheelExec}`);
         } else if (wheelMode === "separate") {
           if (wheelUpExec !== "") {
-            lines.push(I18n.tr("bar.custom-button.wheel-up") + `: ${wheelUpExec}`);
+            lines.push("Scroll up" + `: ${wheelUpExec}`);
           }
           if (wheelDownExec !== "") {
-            lines.push(I18n.tr("bar.custom-button.wheel-down") + `Wheel down: ${wheelDownExec}`);
+            lines.push("Scroll down" + `Wheel down: ${wheelDownExec}`);
           }
         }
       }
@@ -293,7 +293,7 @@ Item {
 
       // If no custom tooltip and both switches are off, show default tooltip
       if (!_hasCustomTooltip && !showExecTooltip && !showTextTooltip) {
-        return I18n.tr("bar.custom-button.default-tooltip");
+        return "Custom button, configure in settings";
       }
 
       // If there's content, join with newlines
@@ -302,7 +302,7 @@ Item {
       }
 
       // Fallback (shouldn't reach here normally)
-      return I18n.tr("bar.custom-button.default-tooltip");
+      return "Custom button, configure in settings";
     }
 
     onClicked: root.clicked()

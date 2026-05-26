@@ -71,26 +71,26 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.clock-style-label")
-    description: I18n.tr("panels.desktop-widgets.clock-style-description")
+    label: "Clock style"
+    description: "Choose the clock display style."
     currentKey: valueClockStyle
     minimumWidth: 260 * Style.uiScaleRatio
     model: [
       {
         "key": "minimal",
-        "name": I18n.tr("panels.desktop-widgets.clock-style-minimal")
+        "name": "Minimal"
       },
       {
         "key": "digital",
-        "name": I18n.tr("panels.desktop-widgets.clock-style-digital")
+        "name": "Digital"
       },
       {
         "key": "analog",
-        "name": I18n.tr("panels.desktop-widgets.clock-style-analog")
+        "name": "Analog"
       },
       {
         "key": "binary",
-        "name": I18n.tr("panels.desktop-widgets.clock-style-binary")
+        "name": "Binary"
       }
     ]
     onSelected: key => {
@@ -101,8 +101,8 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-color")
-    description: I18n.tr("common.select-color-description")
+    label: "Select color"
+    description: "Apply theme colors for emphasis."
     currentKey: valueClockColor
     onSelected: key => {
                   valueClockColor = key;
@@ -113,8 +113,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.clock.use-custom-font-label")
-    description: I18n.tr("bar.clock.use-custom-font-description")
+    label: "Use custom font"
+    description: "Override the default font selection with a custom font for the clock."
     checked: valueUseCustomFont
     onToggled: checked => {
                  valueUseCustomFont = checked;
@@ -126,12 +126,12 @@ ColumnLayout {
   NSearchableComboBox {
     Layout.fillWidth: true
     visible: valueUseCustomFont
-    label: I18n.tr("bar.clock.custom-font-label")
-    description: I18n.tr("bar.clock.custom-font-description")
+    label: "Custom font"
+    description: "Select a custom font for the clock display."
     model: FontService.availableFonts
     currentKey: valueCustomFont
-    placeholder: I18n.tr("bar.clock.custom-font-placeholder")
-    searchPlaceholder: I18n.tr("bar.clock.custom-font-search-placeholder")
+    placeholder: "Select custom font..."
+    searchPlaceholder: "Search fonts..."
     popupHeight: 420
     minimumWidth: 300
     onSelected: function (key) {
@@ -149,8 +149,8 @@ ColumnLayout {
 
   NHeader {
     visible: isMinimalMode
-    label: I18n.tr("bar.clock.clock-display-label")
-    description: I18n.tr("bar.clock.clock-display-description")
+    label: "Clock display"
+    description: "Customize your clock's display by adding tokens from the list below. To use the 12-hour format, you must include the 'AP' token."
   }
 
   // Format editor - only visible in minimal mode
@@ -170,8 +170,8 @@ ColumnLayout {
       NTextInput {
         id: formatInput
         Layout.fillWidth: true
-        label: I18n.tr("panels.desktop-widgets.clock-format-label")
-        description: I18n.tr("bar.clock.horizontal-bar-description")
+        label: "Format"
+        description: "Tip: Use \\n to create a line break."
         placeholderText: "HH:mm\\nd MMMM yyyy"
         text: valueFormat
         onTextChanged: {
@@ -197,7 +197,7 @@ ColumnLayout {
       Layout.fillWidth: false
 
       NLabel {
-        label: I18n.tr("bar.clock.preview")
+        label: "Preview"
         Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
       }
 
@@ -225,7 +225,7 @@ ColumnLayout {
 
             Repeater {
               Layout.topMargin: Style.marginM
-              model: I18n.locale.toString(now, valueFormat.trim()).split("\\n")
+              model: Qt.locale().toString(now, valueFormat.trim()).split("\\n")
               delegate: NText {
                 visible: text !== ""
                 text: modelData
@@ -268,8 +268,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.clock-show-background-label")
-    description: I18n.tr("panels.desktop-widgets.clock-show-background-description")
+    label: "Show background"
+    description: "Show the background container for the clock widget."
     checked: valueShowBackground
     onToggled: checked => {
                  valueShowBackground = checked;
@@ -281,8 +281,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     visible: valueShowBackground
-    label: I18n.tr("panels.desktop-widgets.clock-rounded-corners-label")
-    description: I18n.tr("panels.desktop-widgets.clock-rounded-corners-description")
+    label: "Rounded corners"
+    description: "Use rounded corners for the widget background."
     checked: valueRoundedCorners
     onToggled: checked => {
                  valueRoundedCorners = checked;

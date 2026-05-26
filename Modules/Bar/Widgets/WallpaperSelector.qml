@@ -41,7 +41,7 @@ NIconButton {
     if (PanelService.getPanel("wallpaperPanel", screen)?.isPanelOpen) {
       return "";
     } else {
-      return I18n.tr("tooltips.wallpaper-selector");
+      return "Wallpaper selector";
     }
   }
   tooltipDirection: BarService.getTooltipDirection(screen?.name)
@@ -55,12 +55,12 @@ NIconButton {
 
     model: [
       {
-        "label": I18n.tr("actions.random-wallpaper"),
+        "label": "Random wallpaper",
         "action": "random-wallpaper",
         "icon": "dice"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

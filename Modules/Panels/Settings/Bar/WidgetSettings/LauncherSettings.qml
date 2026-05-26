@@ -35,8 +35,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.control-center.use-distro-logo-label")
-    description: I18n.tr("bar.control-center.use-distro-logo-description")
+    label: "Use distro logo instead of icon"
+    description: "Use your distribution's logo instead of a custom icon."
     checked: valueUseDistroLogo
     onToggled: checked => {
                  valueUseDistroLogo = checked;
@@ -46,8 +46,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.custom-button.enable-colorization-label")
-    description: I18n.tr("bar.control-center.enable-colorization-description")
+    label: "Enable colorization"
+    description: "Enable colorization for icon, applying theme colors."
     checked: valueEnableColorization
     onToggled: checked => {
                  valueEnableColorization = checked;
@@ -58,8 +58,8 @@ ColumnLayout {
 
   NColorChoice {
     visible: valueEnableColorization
-    label: I18n.tr("common.select-icon-color")
-    description: I18n.tr("bar.control-center.color-selection-description")
+    label: "Select icon color"
+    description: "Apply theme colors to icons."
     currentKey: valueColorizeSystemIcon
     onSelected: function (key) {
       valueColorizeSystemIcon = key;
@@ -72,8 +72,8 @@ ColumnLayout {
     spacing: Style.marginM
 
     NLabel {
-      label: I18n.tr("common.icon")
-      description: I18n.tr("bar.control-center.icon-description")
+      label: "Icon"
+      description: "Select an icon from the library or a custom file."
     }
 
     NImageRounded {
@@ -97,13 +97,13 @@ ColumnLayout {
     spacing: Style.marginM
     NButton {
       enabled: !valueUseDistroLogo
-      text: I18n.tr("bar.control-center.browse-library")
+      text: "Browse Library"
       onClicked: iconPicker.open()
     }
 
     NButton {
       enabled: !valueUseDistroLogo
-      text: I18n.tr("bar.control-center.browse-file")
+      text: "Browse File"
       onClicked: imagePicker.openFilePicker()
     }
   }
@@ -120,7 +120,7 @@ ColumnLayout {
 
   NFilePicker {
     id: imagePicker
-    title: I18n.tr("bar.control-center.select-custom-icon")
+    title: "Select a custom icon"
     selectionMode: "files"
     nameFilters: ImageCacheService.basicImageFilters.concat(["*.svg"])
     initialPath: Quickshell.env("HOME")

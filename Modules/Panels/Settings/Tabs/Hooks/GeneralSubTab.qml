@@ -11,8 +11,8 @@ ColumnLayout {
 
   // Enable/Disable Toggle
   NToggle {
-    label: I18n.tr("panels.hooks.system-hooks-enable-label")
-    description: I18n.tr("panels.hooks.system-hooks-enable-description")
+    label: "Enable hooks"
+    description: "Enable or disable all hook commands."
     checked: Settings.data.hooks.enabled
     onToggled: checked => Settings.data.hooks.enabled = checked
   }
@@ -27,8 +27,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NLabel {
-      label: I18n.tr("panels.hooks.info-parameters-label")
-      description: I18n.tr("panels.hooks.info-parameters-description")
+      label: "Available parameters"
+      description: "• Wallpaper hook: $1 = wallpaper path, $2 = screen name, $3 = theme (dark/light)<br>• Color generation hook: $1 = theme (dark/light)<br>• Theme toggle hook: $1 = true/false (Dark Mode state)<br>• Screen lock/unlock hooks: $1 = lock/unlock (screen lock state)<br>• Performance mode hooks: No parameters<br>• Session hook: $1 = action (shutdown/reboot)"
     }
   }
 }

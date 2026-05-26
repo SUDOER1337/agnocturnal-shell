@@ -11,14 +11,14 @@ ColumnLayout {
 
   // Keybinds section
   NLabel {
-    label: I18n.tr("panels.general.keybinds-title")
-    description: I18n.tr("panels.general.keybinds-description")
+    label: "Navigation keybinds"
+    description: "Configure global navigation keys for panels and launcher."
     Layout.fillWidth: true
   }
 
   NKeybindRecorder {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.keybinds-up")
+    label: "Move up"
     currentKeybinds: Settings.data.general.keybinds.keyUp
     defaultKeybind: "Up"
     settingsPath: "general.keybinds.keyUp"
@@ -27,7 +27,7 @@ ColumnLayout {
 
   NKeybindRecorder {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.keybinds-down")
+    label: "Move down"
     currentKeybinds: Settings.data.general.keybinds.keyDown
     defaultKeybind: "Down"
     settingsPath: "general.keybinds.keyDown"
@@ -36,7 +36,7 @@ ColumnLayout {
 
   NKeybindRecorder {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.keybinds-left")
+    label: "Move left"
     currentKeybinds: Settings.data.general.keybinds.keyLeft
     defaultKeybind: "Left"
     settingsPath: "general.keybinds.keyLeft"
@@ -45,7 +45,7 @@ ColumnLayout {
 
   NKeybindRecorder {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.keybinds-right")
+    label: "Move right"
     currentKeybinds: Settings.data.general.keybinds.keyRight
     defaultKeybind: "Right"
     settingsPath: "general.keybinds.keyRight"
@@ -54,7 +54,7 @@ ColumnLayout {
 
   NKeybindRecorder {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.keybinds-enter")
+    label: "Confirm / Action"
     currentKeybinds: Settings.data.general.keybinds.keyEnter
     defaultKeybind: "Return"
     settingsPath: "general.keybinds.keyEnter"
@@ -63,7 +63,7 @@ ColumnLayout {
 
   NKeybindRecorder {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.keybinds-escape")
+    label: "Close / Back"
     currentKeybinds: Settings.data.general.keybinds.keyEscape
     defaultKeybind: "Esc"
     settingsPath: "general.keybinds.keyEscape"
@@ -72,7 +72,7 @@ ColumnLayout {
 
   NKeybindRecorder {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.keybinds-remove")
+    label: "Remove / Delete"
     currentKeybinds: Settings.data.general.keybinds.keyRemove
     defaultKeybind: "Del"
     settingsPath: "general.keybinds.keyRemove"

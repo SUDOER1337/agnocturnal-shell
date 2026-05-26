@@ -10,24 +10,24 @@ ColumnLayout {
   Layout.fillWidth: true
 
   NComboBox {
-    label: I18n.tr("panels.audio.visualizer-type-label")
-    description: I18n.tr("panels.audio.visualizer-type-description")
+    label: "Visualization type"
+    description: "Choose a visualization type for media playback."
     model: [
       {
         "key": "none",
-        "name": I18n.tr("common.none")
+        "name": "None"
       },
       {
         "key": "linear",
-        "name": I18n.tr("options.visualizer-types.linear")
+        "name": "Linear"
       },
       {
         "key": "mirrored",
-        "name": I18n.tr("options.visualizer-types.mirrored")
+        "name": "Mirrored"
       },
       {
         "key": "wave",
-        "name": I18n.tr("options.visualizer-types.wave")
+        "name": "Wave"
       }
     ]
     currentKey: Settings.data.audio.visualizerType
@@ -36,58 +36,44 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.audio.spectrum-mirrored-label")
-    description: I18n.tr("panels.audio.spectrum-mirrored-description")
+    label: "Mirror spectrum"
+    description: "Mirror the spectrum so low frequencies are in the center. When off, low frequencies are on the left and high on the right."
     checked: Settings.data.audio.spectrumMirrored
     defaultValue: Settings.getDefaultValue("audio.spectrumMirrored")
     onToggled: Settings.data.audio.spectrumMirrored = checked
   }
 
   NComboBox {
-    label: I18n.tr("panels.audio.media-frame-rate-label")
-    description: I18n.tr("panels.audio.media-frame-rate-description")
+    label: "Frame rate"
+    description: "Higher rates are smoother but use more resources."
     model: [
       {
         "key": "30",
-        "name": I18n.tr("options.frame-rates-fps", {
-                          "fps": "30"
-                        })
+        "name": "{fps} FPS"
       },
       {
         "key": "60",
-        "name": I18n.tr("options.frame-rates-fps", {
-                          "fps": "60"
-                        })
+        "name": "{fps} FPS"
       },
       {
         "key": "100",
-        "name": I18n.tr("options.frame-rates-fps", {
-                          "fps": "100"
-                        })
+        "name": "{fps} FPS"
       },
       {
         "key": "120",
-        "name": I18n.tr("options.frame-rates-fps", {
-                          "fps": "120"
-                        })
+        "name": "{fps} FPS"
       },
       {
         "key": "144",
-        "name": I18n.tr("options.frame-rates-fps", {
-                          "fps": "144"
-                        })
+        "name": "{fps} FPS"
       },
       {
         "key": "165",
-        "name": I18n.tr("options.frame-rates-fps", {
-                          "fps": "165"
-                        })
+        "name": "{fps} FPS"
       },
       {
         "key": "240",
-        "name": I18n.tr("options.frame-rates-fps", {
-                          "fps": "240"
-                        })
+        "name": "{fps} FPS"
       }
     ]
     currentKey: Settings.data.audio.spectrumFrameRate

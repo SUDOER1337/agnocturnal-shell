@@ -38,8 +38,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.osd.types-volume-label")
-      description: I18n.tr("panels.audio.volumes-output-volume-description")
+      label: "Output volume"
+      description: "System-wide volume level."
       from: 0
       to: Settings.data.audio.volumeOverdrive ? 1.5 : 1.0
       value: localVolume
@@ -66,8 +66,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NToggle {
-      label: I18n.tr("panels.audio.volumes-mute-output-label")
-      description: I18n.tr("panels.audio.volumes-mute-output-description")
+      label: "Mute audio output"
+      description: "Mute the system's main audio output."
       checked: AudioService.muted
       onToggled: checked => AudioService.setOutputMuted(checked)
     }
@@ -79,8 +79,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NToggle {
-      label: I18n.tr("panels.audio.volumes-volume-feedback-label")
-      description: I18n.tr("panels.audio.volumes-volume-feedback-description")
+      label: "Play volume feedback sound"
+      description: "Play a feedback sound when adjusting volume."
       checked: Settings.data.audio.volumeFeedback
       defaultValue: Settings.getDefaultValue("audio.volumeFeedback")
       onToggled: checked => Settings.data.audio.volumeFeedback = checked
@@ -92,17 +92,17 @@ ColumnLayout {
       Layout.fillWidth: true
 
       NLabel {
-        label: I18n.tr("panels.audio.volumes-feedback-sound-file-label")
-        description: I18n.tr("panels.audio.volumes-feedback-sound-file-description")
+        label: "Volume feedback sound file"
+        description: "Path to the sound file played when changing volume."
       }
 
       NTextInputButton {
         enabled: parent.enabled
         Layout.fillWidth: true
-        placeholderText: I18n.tr("panels.notifications.sounds-files-placeholder")
+        placeholderText: "Enter path to sound file"
         text: Settings.data.audio.volumeFeedbackSoundFile ?? ""
         buttonIcon: "folder-open"
-        buttonTooltip: I18n.tr("panels.notifications.sounds-files-select-file")
+        buttonTooltip: "Select sound file"
         onInputTextChanged: text => Settings.data.audio.volumeFeedbackSoundFile = text
         onButtonClicked: volumeFeedbackFilePicker.open()
       }
@@ -120,8 +120,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.osd.types-input-volume-label")
-      description: I18n.tr("panels.audio.volumes-input-volume-description")
+      label: "Input volume"
+      description: "Microphone input volume level."
       from: 0
       to: Settings.data.audio.volumeOverdrive ? 1.5 : 1.0
       value: AudioService.inputVolume
@@ -137,8 +137,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NToggle {
-      label: I18n.tr("panels.audio.volumes-mute-input-label")
-      description: I18n.tr("panels.audio.volumes-mute-input-description")
+      label: "Mute audio input"
+      description: "Mute the default audio input (microphone)."
       checked: AudioService.inputMuted
       onToggled: checked => AudioService.setInputMuted(checked)
     }
@@ -151,8 +151,8 @@ ColumnLayout {
 
     NSpinBox {
       Layout.fillWidth: true
-      label: I18n.tr("panels.audio.volumes-step-size-label")
-      description: I18n.tr("panels.audio.volumes-step-size-description")
+      label: "Volume step size"
+      description: "Adjust the step size for volume changes (scroll wheel, keyboard shortcuts)."
       minimum: 1
       maximum: 25
       value: Settings.data.audio.volumeStep
@@ -173,8 +173,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NToggle {
-      label: I18n.tr("panels.audio.volumes-volume-overdrive-label")
-      description: I18n.tr("panels.audio.volumes-volume-overdrive-description")
+      label: "Allow volume overdrive"
+      description: "Allow raising volume above 100%. May not be supported by all hardware."
       checked: Settings.data.audio.volumeOverdrive
       defaultValue: Settings.getDefaultValue("audio.volumeOverdrive")
       onToggled: checked => Settings.data.audio.volumeOverdrive = checked
@@ -183,7 +183,7 @@ ColumnLayout {
 
   NFilePicker {
     id: volumeFeedbackFilePicker
-    title: I18n.tr("panels.audio.volumes-feedback-sound-file-select-title")
+    title: "Select volume feedback sound file"
     selectionMode: "files"
     initialPath: Quickshell.env("HOME")
     nameFilters: ["*.wav", "*.mp3", "*.ogg", "*.flac", "*.m4a", "*.aac"]

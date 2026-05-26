@@ -204,7 +204,7 @@ NBox {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             text: {
               var weatherDate = new Date(LocationService.data.weather.daily.time[index].replace(/-/g, "/"));
-              return I18n.locale.toString(weatherDate, "ddd");
+              return Qt.locale().toString(weatherDate, "ddd");
             }
             color: Color.mOnSurface
           }
@@ -270,7 +270,7 @@ NBox {
       NText {
         visible: !LocationService.locationConfigured
         Layout.alignment: Qt.AlignCenter
-        text: I18n.tr("common.weather-no-location")
+        text: "Set a location in Settings to see weather"
         pointSize: Style.fontSizeS
         color: Color.mOnSurfaceVariant
       }

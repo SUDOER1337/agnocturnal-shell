@@ -18,12 +18,12 @@ Popup {
 
   // Default commands mapping
   readonly property var defaultCommands: {
-    "lock": I18n.tr("panels.session-menu.entry-settings-default-command-lock"),
+    "lock": "Internal lock screen (no command)",
     "suspend": "systemctl suspend || loginctl suspend",
     "hibernate": "systemctl hibernate || loginctl hibernate",
     "reboot": "systemctl reboot || loginctl reboot",
     "rebootToUefi": "systemctl reboot --firmware-setup || loginctl reboot --firmware-setup",
-    "logout": I18n.tr("panels.session-menu.entry-settings-default-command-logout"),
+    "logout": "Internal logout (no command)",
     "shutdown": "systemctl poweroff || loginctl poweroff",
     "userspaceReboot": "systemctl soft-reboot"
   }
@@ -78,9 +78,7 @@ Popup {
         Layout.fillWidth: true
 
         NText {
-          text: I18n.tr("panels.session-menu.entry-settings-title", {
-                          "entry": root.entryText
-                        })
+          text: "Configure {entry}"
           pointSize: Style.fontSizeL
           font.weight: Style.fontWeightBold
           color: Color.mPrimary
@@ -89,7 +87,7 @@ Popup {
 
         NIconButton {
           icon: "close"
-          tooltipText: I18n.tr("common.close")
+          tooltipText: "Close"
           onClicked: {
             root.save();
             root.close();
@@ -108,9 +106,9 @@ Popup {
       NTextInput {
         id: commandInput
         Layout.fillWidth: true
-        label: I18n.tr("common.command")
-        description: I18n.tr("panels.session-menu.entry-settings-command-description")
-        placeholderText: I18n.tr("panels.session-menu.entry-settings-command-placeholder")
+        label: "Command"
+        description: "Custom command to execute for this action. Leave empty to use the default system command."
+        placeholderText: "e.g. systemctl poweroff"
         onTextChanged: root.save()
       }
 
@@ -120,8 +118,8 @@ Popup {
         spacing: Style.marginXS
 
         NLabel {
-          label: I18n.tr("panels.session-menu.entry-settings-default-info-label")
-          description: I18n.tr("panels.session-menu.entry-settings-default-info-description")
+          label: "Default command"
+          description: "If no custom command is specified, the default system command will be used."
           Layout.fillWidth: true
         }
 
@@ -161,8 +159,8 @@ Popup {
       NKeybindRecorder {
         id: keybindRecorder
         Layout.fillWidth: true
-        label: I18n.tr("common.keybind")
-        description: I18n.tr("placeholders.keybind-recording")
+        label: "Keybind"
+        description: "Recording keybind..."
         allowEmpty: true
         maxKeybinds: 1
         requireModifierForNormalKeys: false

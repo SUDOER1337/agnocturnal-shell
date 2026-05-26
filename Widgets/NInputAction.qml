@@ -12,7 +12,7 @@ RowLayout {
   property string description: ""
   property string placeholderText: ""
   property string text: ""
-  property string actionButtonText: I18n.tr("common.test")
+  property string actionButtonText: "Test"
   property string actionButtonIcon: "media-play"
   property bool actionButtonEnabled: text !== ""
 

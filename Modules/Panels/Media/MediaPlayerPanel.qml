@@ -112,7 +112,7 @@ SmartPanel {
           }
 
           NText {
-            text: I18n.tr("common.media-player")
+            text: "Media Player"
             font.weight: Style.fontWeightBold
             pointSize: Style.fontSizeL
             color: Color.mOnSurface

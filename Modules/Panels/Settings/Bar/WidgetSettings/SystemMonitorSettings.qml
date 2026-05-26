@@ -67,8 +67,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.compact-mode-label")
-    description: I18n.tr("bar.system-monitor.compact-mode-description")
+    label: "Compact mode"
+    description: "Display stats as mini bar charts instead of text values. Prevents layout shifting."
     checked: valueCompactMode
     onToggled: checked => {
                  valueCompactMode = checked;
@@ -78,7 +78,7 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-icon-color")
+    label: "Select icon color"
     currentKey: valueIconColor
     onSelected: key => {
                   valueIconColor = key;
@@ -99,8 +99,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.use-monospace-font-label")
-    description: I18n.tr("bar.system-monitor.use-monospace-font-description")
+    label: "Monospace font"
+    description: "Use monospace font for consistent character width."
     checked: valueUseMonospaceFont
     onToggled: checked => {
                  valueUseMonospaceFont = checked;
@@ -112,8 +112,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.use-padding-label")
-    description: isVerticalBar ? I18n.tr("bar.system-monitor.use-padding-description-disabled-vertical") : !valueUseMonospaceFont ? I18n.tr("bar.system-monitor.use-padding-description-disabled-monospace-font") : I18n.tr("bar.system-monitor.use-padding-description")
+    label: "Pad text"
+    description: isVerticalBar ? "Vertical taskbar does not support padding text." : !valueUseMonospaceFont ? "A monospace font is needed for this feature." : "Pads the text values with leading spaces to prevent layout shifting."
     checked: valueUsePadding && !isVerticalBar && valueUseMonospaceFont
     onToggled: checked => {
                  valueUsePadding = checked;
@@ -131,8 +131,8 @@ ColumnLayout {
   NToggle {
     id: showCpuUsage
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.cpu-usage-label")
-    description: I18n.tr("bar.system-monitor.cpu-usage-description")
+    label: "CPU usage"
+    description: "Display current CPU usage percentage."
     checked: valueShowCpuUsage
     onToggled: checked => {
                  valueShowCpuUsage = checked;
@@ -144,8 +144,8 @@ ColumnLayout {
   NToggle {
     id: showCpuCores
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.cpu-cores-label")
-    description: I18n.tr("bar.system-monitor.cpu-cores-description")
+    label: "CPU Cores"
+    description: "Display CPU cores usage individually."
     checked: valueShowCpuCores
     onToggled: checked => {
                  valueShowCpuCores = checked;
@@ -157,8 +157,8 @@ ColumnLayout {
   NToggle {
     id: showCpuFreq
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.cpu-frequency-label")
-    description: I18n.tr("bar.system-monitor.cpu-frequency-description")
+    label: "Show CPU frequency"
+    description: "Display the current CPU clock speed in GHz."
     checked: valueShowCpuFreq
     onToggled: checked => {
                  valueShowCpuFreq = checked;
@@ -170,8 +170,8 @@ ColumnLayout {
   NToggle {
     id: showCpuTemp
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.cpu-temperature-label")
-    description: I18n.tr("bar.system-monitor.cpu-temperature-description")
+    label: "CPU temperature"
+    description: "Show CPU temperature readings if available."
     checked: valueShowCpuTemp
     onToggled: checked => {
                  valueShowCpuTemp = checked;
@@ -183,8 +183,8 @@ ColumnLayout {
   NToggle {
     id: showLoadAverage
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.load-average-label")
-    description: I18n.tr("bar.system-monitor.load-average-description")
+    label: "Load average"
+    description: "Display system load average."
     checked: valueShowLoadAverage
     onToggled: checked => {
                  valueShowLoadAverage = checked;
@@ -196,8 +196,8 @@ ColumnLayout {
   NToggle {
     id: showGpuTemp
     Layout.fillWidth: true
-    label: I18n.tr("panels.system-monitor.gpu-section-label")
-    description: I18n.tr("bar.system-monitor.gpu-temperature-description")
+    label: "GPU temperature"
+    description: "Show GPU temperature readings if available."
     checked: valueShowGpuTemp
     onToggled: checked => {
                  valueShowGpuTemp = checked;
@@ -210,8 +210,8 @@ ColumnLayout {
   NToggle {
     id: showMemoryUsage
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.memory-usage-label")
-    description: I18n.tr("bar.system-monitor.memory-usage-description")
+    label: "Memory usage"
+    description: "Display current RAM usage information."
     checked: valueShowMemoryUsage
     onToggled: checked => {
                  valueShowMemoryUsage = checked;
@@ -223,8 +223,8 @@ ColumnLayout {
   NToggle {
     id: showMemoryAsPercent
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.memory-percentage-label")
-    description: I18n.tr("bar.system-monitor.memory-percentage-description")
+    label: "Memory as percentage"
+    description: "Show memory usage as a percentage instead of absolute values."
     checked: valueShowMemoryAsPercent
     onToggled: checked => {
                  valueShowMemoryAsPercent = checked;
@@ -237,8 +237,8 @@ ColumnLayout {
   NToggle {
     id: showSwapUsage
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.swap-usage-label")
-    description: I18n.tr("bar.system-monitor.swap-usage-description")
+    label: "Swap usage"
+    description: "Show swap memory usage."
     checked: valueShowSwapUsage
     onToggled: checked => {
                  valueShowSwapUsage = checked;
@@ -250,8 +250,8 @@ ColumnLayout {
   NToggle {
     id: showNetworkStats
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.network-traffic-label")
-    description: I18n.tr("bar.system-monitor.network-traffic-description")
+    label: "Network traffic"
+    description: "Display network upload and download speeds."
     checked: valueShowNetworkStats
     onToggled: checked => {
                  valueShowNetworkStats = checked;
@@ -267,8 +267,8 @@ ColumnLayout {
   NToggle {
     id: showDiskUsage
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.storage-usage-label")
-    description: I18n.tr("bar.system-monitor.storage-usage-description")
+    label: "Storage usage"
+    description: "Show disk space usage information."
     checked: valueShowDiskUsage
     onToggled: checked => {
                  valueShowDiskUsage = checked;
@@ -280,8 +280,8 @@ ColumnLayout {
   NToggle {
     id: showDiskUsageAsPercent
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.storage-as-percentage-label")
-    description: I18n.tr("bar.system-monitor.storage-as-percentage-description")
+    label: "Disk as percentage"
+    description: "Show disk space as percentage instead of absolute values."
     checked: valueShowDiskUsageAsPercent
     onToggled: checked => {
                  valueShowDiskUsageAsPercent = checked;
@@ -293,8 +293,8 @@ ColumnLayout {
   NToggle {
     id: showDiskAvailable
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.storage-available-label")
-    description: I18n.tr("bar.system-monitor.storage-available-description")
+    label: "Disk space available"
+    description: "Shows how much disk space is available instead of how much is used."
     checked: valueShowDiskAvailable
     onToggled: checked => {
                  valueShowDiskAvailable = checked;
@@ -306,8 +306,8 @@ ColumnLayout {
   NComboBox {
     id: diskPathComboBox
     Layout.fillWidth: true
-    label: I18n.tr("bar.system-monitor.disk-path-label")
-    description: I18n.tr("bar.system-monitor.disk-path-description")
+    label: "Disk path"
+    description: "Select which disk mount point to monitor."
     model: {
       const paths = Object.keys(SystemStatService.diskPercents).sort();
       return paths.map(path => ({

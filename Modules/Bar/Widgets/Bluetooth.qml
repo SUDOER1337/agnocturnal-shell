@@ -46,18 +46,18 @@ Item {
 
     model: [
       {
-        "label": BluetoothService.enabled ? I18n.tr("actions.disable-bluetooth") : I18n.tr("actions.enable-bluetooth"),
+        "label": BluetoothService.enabled ? "Disable Bluetooth" : "Enable Bluetooth",
         "action": "toggle-bluetooth",
         "icon": BluetoothService.enabled ? "bluetooth-off" : "bluetooth",
         "enabled": !NetworkService.airplaneModeEnabled && BluetoothService.bluetoothAvailable
       },
       {
-        "label": I18n.tr("common.bluetooth") + " " + I18n.tr("tooltips.open-settings"),
+        "label": "Bluetooth" + " " + "Settings",
         "action": "bluetooth-settings",
         "icon": "settings"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -116,7 +116,7 @@ Item {
       if (pill.text !== "") {
         return pill.text;
       }
-      return I18n.tr("tooltips.bluetooth-devices");
+      return "Bluetooth devices";
     }
   }
 }

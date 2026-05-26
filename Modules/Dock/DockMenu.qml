@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
 import qs.Commons
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.UI
 import qs.Widgets
@@ -152,14 +153,14 @@ PopupWindow {
       root.items = [
             {
               "icon": "adjustments",
-              "text": I18n.tr("actions.dock-settings"),
+              "text": "Dock settings",
               "action": function () {
                 handleDockSettings();
               }
             },
             {
               "icon": "adjustments",
-              "text": I18n.tr("actions.launcher-settings"),
+              "text": "Launcher settings",
               "action": function () {
                 handleLauncherSettings();
               }
@@ -184,7 +185,7 @@ PopupWindow {
       if (isRunning) {
         next.push({
                     "icon": "eye",
-                    "text": I18n.tr("common.focus"),
+                    "text": "Focus",
                     "action": function () {
                       handleFocus(primaryToplevel);
                     }
@@ -193,7 +194,7 @@ PopupWindow {
 
       next.push({
                   "icon": !isPinned ? "pin" : "unpin",
-                  "text": !isPinned ? I18n.tr("common.pin") : I18n.tr("common.unpin"),
+                  "text": !isPinned ? "Pin" : "Unpin",
                   "action": function () {
                     handlePin(appId);
                   }
@@ -202,7 +203,7 @@ PopupWindow {
       if (isRunning) {
         next.push({
                     "icon": "close",
-                    "text": I18n.tr("common.close"),
+                    "text": "Close",
                     "action": function () {
                       handleClose(primaryToplevel);
                     }
@@ -226,21 +227,21 @@ PopupWindow {
                   });
         next.push({
                     "icon": "eye",
-                    "text": I18n.tr("common.focus"),
+                    "text": "Focus",
                     "action": function () {
                       handleFocus(primaryToplevel);
                     }
                   });
         next.push({
                     "icon": !isPinned ? "pin" : "unpin",
-                    "text": !isPinned ? I18n.tr("common.pin") : I18n.tr("common.unpin"),
+                    "text": !isPinned ? "Pin" : "Unpin",
                     "action": function () {
                       handlePin(appId);
                     }
                   });
         next.push({
                     "icon": "close",
-                    "text": I18n.tr("common.close") + " All",
+                    "text": "Close" + " All",
                     "action": function () {
                       handleCloseAll(windows);
                     }
@@ -534,18 +535,24 @@ PopupWindow {
 
   function handleLauncherSettings() {
     if (targetScreen) {
-      var panel = PanelService.getPanel("settingsPanel", targetScreen);
-      panel.requestedTab = SettingsPanel.Tab.Launcher;
-      panel.toggle();
+      var panel = PanelService.getPanel("controlCenterPanel", targetScreen);
+      if (panel.isPanelOpen) {
+        panel.close();
+      } else {
+        panel.openToTab(ControlCenterV5Panel.Tab.Launcher);
+      }
     }
     closeAndReset();
   }
 
   function handleDockSettings() {
     if (targetScreen) {
-      var panel = PanelService.getPanel("settingsPanel", targetScreen);
-      panel.requestedTab = SettingsPanel.Tab.Dock;
-      panel.toggle();
+      var panel = PanelService.getPanel("controlCenterPanel", targetScreen);
+      if (panel.isPanelOpen) {
+        panel.close();
+      } else {
+        panel.openToTab(ControlCenterV5Panel.Tab.Dock);
+      }
     }
     closeAndReset();
   }

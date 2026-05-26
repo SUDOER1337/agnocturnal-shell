@@ -23,7 +23,7 @@ Popup {
   property bool showCommand: true
   property bool showTimeout: true
   property bool showName: false
-  property string titleText: root.editIndex >= 0 ? I18n.tr("panels.idle.custom-entry-edit") : I18n.tr("panels.idle.custom-entry-new")
+  property string titleText: root.editIndex >= 0 ? "Edit Custom Command" : "New Custom Command"
 
   signal saved(int timeout, string command, string resumeCommand, string name)
 
@@ -76,15 +76,15 @@ Popup {
         id: nameInput
         visible: root.showName
         Layout.fillWidth: true
-        label: I18n.tr("panels.idle.custom-entry-name")
-        placeholderText: I18n.tr("panels.idle.custom-entry-name-placeholder")
+        label: "Name"
+        placeholderText: "e.g. Turn off lights"
       }
 
       NSpinBox {
         id: timeoutSpinBox
         visible: root.showTimeout
         Layout.fillWidth: true
-        label: I18n.tr("panels.idle.custom-entry-timeout")
+        label: "Inactivity time"
         from: 0
         to: 86400
         suffix: "s"
@@ -94,7 +94,7 @@ Popup {
         id: commandInput
         visible: root.showCommand
         Layout.fillWidth: true
-        label: I18n.tr("panels.idle.custom-entry-command")
+        label: "Command"
         placeholderText: "notify-send \"Idle\""
         fontFamily: Settings.data.ui.fontFixed
       }
@@ -102,7 +102,7 @@ Popup {
       NTextInput {
         id: resumeCommandInput
         Layout.fillWidth: true
-        label: I18n.tr("panels.idle.resume-command-label")
+        label: "Resume command"
         placeholderText: "notify-send \"Welcome back!\""
         fontFamily: Settings.data.ui.fontFixed
       }
@@ -118,13 +118,13 @@ Popup {
       } // Spacer
 
       NButton {
-        text: I18n.tr("common.cancel")
+        text: "Cancel"
         outlined: true
         onClicked: root.close()
       }
 
       NButton {
-        text: I18n.tr("common.save")
+        text: "Save"
         icon: "check"
         backgroundColor: Color.mPrimary
         textColor: Color.mOnPrimary

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Quickshell
 import qs.Commons
+import qs.Modules.Panels.ControlCenterV5
 import qs.Services.UI
 import qs.Widgets
 
@@ -35,10 +36,10 @@ NIconButton {
 
   icon: "settings"
   tooltipText: {
-    if (PanelService.getPanel("settingsPanel", screen)?.isPanelOpen) {
+    if (PanelService.getPanel("controlCenterPanel", screen)?.isPanelOpen) {
       return "";
     } else {
-      return I18n.tr("tooltips.open-settings");
+      return "Settings";
     }
   }
   tooltipDirection: BarService.getTooltipDirection(screen?.name)
@@ -57,7 +58,7 @@ NIconButton {
 
     model: [
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -74,10 +75,13 @@ NIconButton {
   }
 
   onClicked: {
-    if (Settings.data.ui.settingsPanelMode === "attached") {
-      PanelService.getPanel("settingsPanel", screen)?.toggle(this);
-    } else {
-      PanelService.getPanel("settingsPanel", screen)?.toggle();
+    var panel = PanelService.getPanel("controlCenterPanel", screen);
+    if (panel) {
+      if (panel.isPanelOpen) {
+        panel.close();
+      } else {
+        panel.openToTab(ControlCenterV5Panel.Tab.General);
+      }
     }
   }
   onRightClicked: {

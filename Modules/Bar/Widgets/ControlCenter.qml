@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Widgets
 import qs.Commons
 import qs.Modules.Bar.Extras
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -53,7 +54,7 @@ NIconButton {
     if (!screen || PanelService.getPanel("controlCenterPanel", screen)?.isPanelOpen) {
       return "";
     } else {
-      return I18n.tr("tooltips.open-control-center");
+      return "Control center";
     }
   }
   tooltipDirection: BarService.getTooltipDirection(screen?.name)
@@ -72,17 +73,17 @@ NIconButton {
 
     model: [
       {
-        "label": I18n.tr("actions.open-launcher"),
+        "label": "Open launcher",
         "action": "open-launcher",
         "icon": "search"
       },
       {
-        "label": I18n.tr("actions.open-settings"),
+        "label": "Open settings",
         "action": "open-settings",
         "icon": "adjustments"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -94,10 +95,15 @@ NIconButton {
 
                    if (action === "open-launcher") {
                      PanelService.toggleLauncher(screen);
-                   } else if (action === "open-settings") {
-                     var panel = PanelService.getPanel("settingsPanel", screen);
-                     panel.requestedTab = SettingsPanel.Tab.General;
-                     panel.toggle();
+                    } else if (action === "open-settings") {
+                      var panel = PanelService.getPanel("controlCenterPanel", screen);
+                      if (panel) {
+                        if (panel.isPanelOpen) {
+                          panel.close();
+                        } else {
+                          panel.openToTab(ControlCenterV5Panel.Tab.General);
+                        }
+                      }
                    } else if (action === "widget-settings") {
                      BarService.openWidgetSettings(screen, section, sectionWidgetIndex, widgetId, widgetSettings);
                    }

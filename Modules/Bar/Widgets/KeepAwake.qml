@@ -44,7 +44,7 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -69,7 +69,7 @@ Item {
     customIconColor: Color.resolveColorKeyOptional(root.iconColorKey)
     customTextColor: Color.resolveColorKeyOptional(root.textColorKey)
     icon: IdleInhibitorService.isInhibited ? "keep-awake-on" : "keep-awake-off"
-    tooltipText: IdleInhibitorService.isInhibited ? I18n.tr("tooltips.keep-awake") : I18n.tr("tooltips.keep-awake")
+    tooltipText: IdleInhibitorService.isInhibited ? "Keep Awake" : "Keep Awake"
     onClicked: IdleInhibitorService.manualToggle()
     onRightClicked: {
       PanelService.showContextMenu(contextMenu, pill, screen);

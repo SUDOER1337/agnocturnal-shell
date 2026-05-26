@@ -10,7 +10,7 @@ Singleton {
   id: root
 
   property bool isInhibited: false
-  property string reason: I18n.tr("system.user-requested")
+  property string reason: "User requested"
   property var activeInhibitors: []
   property var timeout: null // in seconds
 
@@ -182,7 +182,7 @@ Singleton {
 
     if (activeInhibitors.includes("manual")) {
       removeInhibitor("manual");
-      ToastService.showNotice(I18n.tr("tooltips.keep-awake"), I18n.tr("common.disabled"), "keep-awake-off");
+      ToastService.showNotice("Keep Awake", "Disabled", "keep-awake-off");
       Logger.i("IdleInhibitor", "Manual inhibition disabled");
     }
   }
@@ -190,7 +190,7 @@ Singleton {
   function addManualInhibitor(timeoutSec) {
     if (!activeInhibitors.includes("manual")) {
       addInhibitor("manual", "Manually activated by user");
-      ToastService.showNotice(I18n.tr("tooltips.keep-awake"), I18n.tr("common.enabled"), "keep-awake-on");
+      ToastService.showNotice("Keep Awake", "Enabled", "keep-awake-on");
     }
 
     if (timeoutSec === null && timeout === null) {

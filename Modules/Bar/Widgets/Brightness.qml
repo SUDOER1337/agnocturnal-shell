@@ -3,6 +3,7 @@ import QtQuick.Controls
 import Quickshell
 import qs.Commons
 import qs.Modules.Bar.Extras
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.Hardware
 import qs.Services.UI
@@ -111,12 +112,12 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("actions.open-display-settings"),
+        "label": "Display settings",
         "action": "open-display-settings",
         "icon": "sun"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -126,10 +127,9 @@ Item {
                    contextMenu.close();
                    PanelService.closeContextMenu(screen);
 
-                   if (action === "open-display-settings") {
-                     var settingsPanel = PanelService.getPanel("settingsPanel", screen);
-                     settingsPanel.requestedTab = SettingsPanel.Tab.Display;
-                     settingsPanel.open();
+                    if (action === "open-display-settings") {
+                      var panel = PanelService.getPanel("controlCenterPanel", screen);
+                      panel.openToTab(ControlCenterV5Panel.Tab.Display);
                    } else if (action === "widget-settings") {
                      BarService.openWidgetSettings(screen, section, sectionWidgetIndex, widgetId, widgetSettings);
                    }
@@ -159,9 +159,7 @@ Item {
       var panel = PanelService.getPanel("brightnessPanel", screen);
       if (panel?.isPanelOpen || !monitor || !monitor.brightnessControlAvailable || isNaN(monitor.brightness))
         return "";
-      return I18n.tr("tooltips.brightness-at", {
-                       "brightness": Math.round(monitor.brightness * 100)
-                     });
+      return "Brightness: {brightness}%";
     }
 
     onWheel: function (angle) {

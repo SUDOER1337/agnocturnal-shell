@@ -30,18 +30,18 @@ ColumnLayout {
   NTextInput {
     id: widthInput
     Layout.fillWidth: true
-    label: I18n.tr("common.width")
-    description: I18n.tr("bar.audio-visualizer.width-description")
+    label: "Width"
+    description: "Custom component width."
     text: widgetData.width || widgetMetadata.width
-    placeholderText: I18n.tr("placeholders.enter-width-pixels")
+    placeholderText: "Enter width in pixels"
     onTextChanged: saveSettings()
     defaultValue: String(widgetMetadata.width)
   }
 
   NColorChoice {
     Layout.fillWidth: true
-    label: I18n.tr("bar.audio-visualizer.color-name-label")
-    description: I18n.tr("bar.audio-visualizer.color-name-description")
+    label: "Fill color"
+    description: "Select the color for the visualizer."
     currentKey: root.valueColorName
     onSelected: key => {
                   root.valueColorName = key;
@@ -51,8 +51,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.audio-visualizer.hide-when-idle-label")
-    description: I18n.tr("bar.audio-visualizer.hide-when-idle-description")
+    label: "Hide when no media is playing"
+    description: "When enabled, the visualizer is hidden unless a player is actively playing."
     checked: valueHideWhenIdle
     onToggled: checked => {
                  valueHideWhenIdle = checked;

@@ -16,27 +16,27 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-workspace-scroll-label")
-    description: I18n.tr("panels.bar.behavior-workspace-scroll-description")
+    label: "Bar mouse wheel action"
+    description: "Choose what the mouse wheel does on empty areas of the bar."
     model: {
       var items = [
             {
               "key": "none",
-              "name": I18n.tr("common.none")
+              "name": "None"
             },
             {
               "key": "volume",
-              "name": I18n.tr("common.volume")
+              "name": "Volume"
             },
             {
               "key": "workspace",
-              "name": I18n.tr("panels.bar.behavior-workspace-scroll-option-workspace")
+              "name": "Workspace"
             }
           ];
       if (CompositorService.isNiri) {
         items.push({
                      "key": "content",
-                     "name": I18n.tr("panels.bar.behavior-workspace-scroll-option-content")
+                     "name": "Content"
                    });
       }
       return items;
@@ -48,8 +48,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.reverse-scrolling-label")
-    description: I18n.tr("panels.general.reverse-scrolling-description")
+    label: "Reverse scrolling"
+    description: "Reverse the interpreted scroll direction"
     checked: Settings.data.bar.reverseScroll
     defaultValue: Settings.getDefaultValue("bar.reverseScroll")
     onToggled: checked => Settings.data.bar.reverseScroll = checked
@@ -58,8 +58,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-wheel-wrap-label")
-    description: I18n.tr("panels.bar.behavior-wheel-wrap-description")
+    label: "Wrap around"
+    description: "When enabled, scrolling continues from the last item to the first."
     checked: Settings.data.bar.mouseWheelWrap
     defaultValue: Settings.getDefaultValue("bar.mouseWheelWrap")
     onToggled: checked => Settings.data.bar.mouseWheelWrap = checked
@@ -68,28 +68,28 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-middle-click-label")
-    description: I18n.tr("panels.bar.behavior-middle-click-description")
+    label: "Bar middle click action"
+    description: "Choose what middle click does on empty areas of the bar."
     model: [
       {
         "key": "none",
-        "name": I18n.tr("common.none")
+        "name": "None"
       },
       {
         "key": "controlCenter",
-        "name": I18n.tr("tooltips.open-control-center")
+        "name": "Control center"
       },
       {
         "key": "settings",
-        "name": I18n.tr("tooltips.open-settings")
+        "name": "Settings"
       },
       {
         "key": "launcherPanel",
-        "name": I18n.tr("actions.open-launcher")
+        "name": "Open launcher"
       },
       {
         "key": "command",
-        "name": I18n.tr("actions.run-custom-command")
+        "name": "Run custom command"
       }
     ]
     currentKey: root.effectiveMiddleClickAction
@@ -99,9 +99,9 @@ ColumnLayout {
 
   NTextInput {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-middle-click-command-label")
-    description: I18n.tr("panels.bar.behavior-middle-click-command-description")
-    placeholderText: I18n.tr("panels.bar.behavior-middle-click-command-placeholder")
+    label: "Middle click command"
+    description: "Command to execute on middle click."
+    placeholderText: "niri msg action toggle-overview"
     text: Settings.data.bar.middleClickCommand
     fontFamily: Settings.data.ui.fontFixed
     onTextChanged: Settings.data.bar.middleClickCommand = text
@@ -110,8 +110,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-middle-click-follow-mouse-label")
-    description: I18n.tr("panels.bar.behavior-middle-click-follow-mouse-description")
+    label: "Middle click follow mouse"
+    description: "Open the selected middle-click panel at the cursor position."
     checked: Settings.data.bar.middleClickFollowMouse
     defaultValue: Settings.getDefaultValue("bar.middleClickFollowMouse")
     onToggled: checked => Settings.data.bar.middleClickFollowMouse = checked
@@ -120,28 +120,28 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-right-click-label")
-    description: I18n.tr("panels.bar.behavior-right-click-description")
+    label: "Bar right click action"
+    description: "Choose what right click does on empty areas of the bar."
     model: [
       {
         "key": "none",
-        "name": I18n.tr("common.none")
+        "name": "None"
       },
       {
         "key": "controlCenter",
-        "name": I18n.tr("tooltips.open-control-center")
+        "name": "Control center"
       },
       {
         "key": "settings",
-        "name": I18n.tr("tooltips.open-settings")
+        "name": "Settings"
       },
       {
         "key": "launcherPanel",
-        "name": I18n.tr("actions.open-launcher")
+        "name": "Open launcher"
       },
       {
         "key": "command",
-        "name": I18n.tr("actions.run-custom-command")
+        "name": "Run custom command"
       }
     ]
     currentKey: root.effectiveRightClickAction
@@ -151,9 +151,9 @@ ColumnLayout {
 
   NTextInput {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-right-click-command-label")
-    description: I18n.tr("panels.bar.behavior-right-click-command-description")
-    placeholderText: I18n.tr("panels.bar.behavior-right-click-command-placeholder")
+    label: "Right click command"
+    description: "Command to execute on right click."
+    placeholderText: "notify-send \"Right click\""
     text: Settings.data.bar.rightClickCommand
     fontFamily: Settings.data.ui.fontFixed
     onTextChanged: Settings.data.bar.rightClickCommand = text
@@ -162,8 +162,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.behavior-right-click-follow-mouse-label")
-    description: I18n.tr("panels.bar.behavior-right-click-follow-mouse-description")
+    label: "Right click follow mouse"
+    description: "Open the selected right-click panel at the cursor position."
     checked: Settings.data.bar.rightClickFollowMouse
     defaultValue: Settings.getDefaultValue("bar.rightClickFollowMouse")
     onToggled: checked => Settings.data.bar.rightClickFollowMouse = checked

@@ -63,7 +63,7 @@ NIconButton {
     if (PanelService.getPanel("notificationHistoryPanel", screen)?.isPanelOpen) {
       return "";
     } else {
-      return I18n.tr("tooltips.open-notification-history-enable-dnd");
+      return "Notification history";
     }
   }
   tooltipDirection: BarService.getTooltipDirection(screen?.name)
@@ -79,17 +79,17 @@ NIconButton {
 
     model: [
       {
-        "label": NotificationService.doNotDisturb ? I18n.tr("actions.disable-dnd") : I18n.tr("actions.enable-dnd"),
+        "label": NotificationService.doNotDisturb ? "Disable Do Not Disturb" : "Enable Do Not Disturb",
         "action": "toggle-dnd",
         "icon": NotificationService.doNotDisturb ? "bell" : "bell-off"
       },
       {
-        "label": I18n.tr("actions.clear-history"),
+        "label": "Clear history",
         "action": "clear-history",
         "icon": "trash"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

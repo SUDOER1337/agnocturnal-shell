@@ -54,7 +54,7 @@ SmartPanel {
           }
 
            NText {
-             text: I18n.tr("system-monitor.title")
+             text: "System Monitor"
              pointSize: Style.fontSizeL
              font.weight: Style.fontWeightBold
              color: Color.mOnSurface
@@ -110,7 +110,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("system-monitor.cpu-usage")
+              text: "CPU usage"
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
             }
@@ -168,7 +168,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("common.memory")
+              text: "Memory"
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
             }
@@ -236,7 +236,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("common.network")
+              text: "Network"
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
             }
@@ -288,7 +288,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("system-monitor.load-average") + ":"
+              text: "Load average" + ":"
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
             }
@@ -315,7 +315,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("system-monitor.gpu-temp") + ":"
+              text: "GPU temp" + ":"
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
             }
@@ -341,7 +341,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("system-monitor.disk") + ":"
+              text: "Disk" + ":"
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
             }
@@ -374,7 +374,7 @@ SmartPanel {
             }
 
             NText {
-              text: I18n.tr("bar.system-monitor.swap-usage-label") + ":"
+              text: "Swap usage" + ":"
               pointSize: Style.fontSizeXS
               color: Color.mOnSurfaceVariant
             }

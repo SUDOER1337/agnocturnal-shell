@@ -103,9 +103,7 @@ Singleton {
       // Only show toast if we have a valid profile name (not "Unknown")
       const profileName = root.getName();
       if (profileName !== "Unknown") {
-        ToastService.showNotice(I18n.tr("toast.power-profile.profile-name", {
-                                          "profile": profileName
-                                        }), I18n.tr("toast.power-profile.changed"), profileName.toLowerCase().replace(" ", ""));
+        ToastService.showNotice("{profile}", "Power profile changed", profileName.toLowerCase().replace(" ", ""));
       }
     }
   }
@@ -124,9 +122,9 @@ Singleton {
 
   onNoctaliaPerformanceModeChanged: {
     if (noctaliaPerformanceMode) {
-      ToastService.showNotice(I18n.tr("toast.noctalia-performance.label"), I18n.tr("toast.noctalia-performance.enabled"), "rocket");
+      ToastService.showNotice("Noctalia Performance", "Performance mode enabled", "rocket");
     } else {
-      ToastService.showNotice(I18n.tr("toast.noctalia-performance.label"), I18n.tr("toast.noctalia-performance.disabled"), "rocket-off");
+      ToastService.showNotice("Noctalia Performance", "Performance mode disabled", "rocket-off");
     }
   }
 }

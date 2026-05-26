@@ -27,7 +27,7 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-icon-color")
+    label: "Select icon color"
     currentKey: root.valueIconColor
     onSelected: key => {
                   root.valueIconColor = key;

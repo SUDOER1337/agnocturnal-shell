@@ -41,7 +41,7 @@ NIconButton {
     if (PanelService.getPanel("sessionMenuPanel", screen)?.isPanelOpen)
       return "";
     else
-      return I18n.tr("tooltips.session-menu");
+      return "Session menu";
   }
   tooltipDirection: BarService.getTooltipDirection(screenName)
   colorBg: Style.capsuleColor
@@ -54,7 +54,7 @@ NIconButton {
 
     model: [
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

@@ -33,8 +33,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.notification-history.show-unread-badge-label")
-    description: I18n.tr("bar.notification-history.show-unread-badge-description")
+    label: "Show unread badge"
+    description: "Display a badge showing the number of unread notifications."
     checked: valueShowUnreadBadge
     onToggled: checked => {
                  valueShowUnreadBadge = checked;
@@ -44,7 +44,7 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-icon-color")
+    label: "Select icon color"
     currentKey: valueIconColor
     onSelected: key => {
                   valueIconColor = key;
@@ -54,8 +54,8 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("bar.notification-history.unread-badge-color-label")
-    description: I18n.tr("bar.notification-history.unread-badge-color-description")
+    label: "Unread badge color"
+    description: "Select the color for the unread notification badge."
     currentKey: valueUnreadBadgeColor
     onSelected: key => {
                   valueUnreadBadgeColor = key;
@@ -66,8 +66,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.notification-history.hide-widget-when-zero-label")
-    description: I18n.tr("bar.notification-history.hide-widget-when-zero-description")
+    label: "Hide icon when no notifications"
+    description: "Hide the notification icon when there are no notifications."
     checked: valueHideWhenZero
     onToggled: checked => {
                  valueHideWhenZero = checked;
@@ -78,8 +78,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("bar.notification-history.hide-widget-when-zero-unread-label")
-    description: I18n.tr("bar.notification-history.hide-widget-when-zero-unread-description")
+    label: "Hide icon when no unread notifications"
+    description: "Hide the notification icon when there are no unread notifications."
     checked: valueHideWhenZeroUnread
     onToggled: checked => {
                  valueHideWhenZeroUnread = checked;

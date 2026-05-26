@@ -15,8 +15,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.dock.enabled-label")
-    description: I18n.tr("panels.dock.enabled-description")
+    label: "Enable dock"
+    description: "Show or hide the dock entirely."
     checked: Settings.data.dock.enabled
     defaultValue: Settings.getDefaultValue("dock.enabled")
     onToggled: checked => Settings.data.dock.enabled = checked
@@ -28,24 +28,24 @@ ColumnLayout {
 
     NComboBox {
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-position-label")
-      description: I18n.tr("panels.dock.appearance-position-description")
+      label: "Position"
+      description: "Choose where the dock appears on screen."
       model: [
         {
           "key": "top",
-          "name": I18n.tr("positions.top")
+          "name": "Top"
         },
         {
           "key": "bottom",
-          "name": I18n.tr("positions.bottom")
+          "name": "Bottom"
         },
         {
           "key": "left",
-          "name": I18n.tr("positions.left")
+          "name": "Left"
         },
         {
           "key": "right",
-          "name": I18n.tr("positions.right")
+          "name": "Right"
         }
       ]
       currentKey: Settings.data.dock.position
@@ -55,16 +55,16 @@ ColumnLayout {
 
     NComboBox {
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-type-label")
-      description: I18n.tr("panels.dock.appearance-type-description")
+      label: "Dock style"
+      description: "Choose between a floating pill or a static bar attached to the edge."
       model: [
         {
           "key": "floating",
-          "name": I18n.tr("panels.dock.appearance-type-floating")
+          "name": "Floating"
         },
         {
           "key": "attached",
-          "name": I18n.tr("panels.dock.appearance-type-attached")
+          "name": "Attached"
         }
       ]
       currentKey: Settings.data.dock.dockType
@@ -75,20 +75,20 @@ ColumnLayout {
     NComboBox {
       visible: Settings.data.dock.dockType === "floating"
       Layout.fillWidth: true
-      label: I18n.tr("panels.display.title")
-      description: I18n.tr("panels.dock.appearance-display-description")
+      label: "Display"
+      description: "Choose how the dock behaves."
       model: [
         {
           "key": "always_visible",
-          "name": I18n.tr("hide-modes.visible")
+          "name": "Always visible"
         },
         {
           "key": "auto_hide",
-          "name": I18n.tr("panels.dock.appearance-display-auto-hide")
+          "name": "Auto hide"
         },
         {
           "key": "exclusive",
-          "name": I18n.tr("panels.dock.appearance-display-exclusive")
+          "name": "Exclusive"
         }
       ]
       currentKey: Settings.data.dock.displayMode
@@ -101,8 +101,8 @@ ColumnLayout {
     NToggle {
       Layout.fillWidth: true
       visible: Settings.data.dock.dockType === "attached" && Settings.data.bar.barType === "framed"
-      label: I18n.tr("panels.dock.appearance-sit-on-frame-label")
-      description: I18n.tr("panels.dock.appearance-sit-on-frame-description")
+      label: "Dock sits on frame"
+      description: "Align the dock inside the frame border instead of sitting on top."
       checked: Settings.data.dock.sitOnFrame
       defaultValue: Settings.getDefaultValue("dock.sitOnFrame")
       onToggled: checked => Settings.data.dock.sitOnFrame = checked
@@ -110,8 +110,8 @@ ColumnLayout {
 
     NToggle {
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-dock-indicator-label")
-      description: I18n.tr("panels.dock.appearance-dock-indicator-description")
+      label: "Dock indicator"
+      description: "Show a small indicator when the dock is hidden."
       checked: Settings.data.dock.showDockIndicator
       defaultValue: Settings.getDefaultValue("dock.showDockIndicator")
       onToggled: checked => Settings.data.dock.showDockIndicator = checked
@@ -120,8 +120,8 @@ ColumnLayout {
     NToggle {
       Layout.fillWidth: true
       visible: Settings.data.dock.showDockIndicator
-      label: I18n.tr("panels.dock.appearance-indicator-thickness-label")
-      description: I18n.tr("panels.dock.appearance-indicator-thickness-description")
+      label: "Thicker indicator"
+      description: "Toggle a thicker hidden dock indicator (6px instead of 3px)."
       checked: (Settings.data.dock.indicatorThickness || 3) >= 6
       defaultValue: (Settings.getDefaultValue("dock.indicatorThickness") || 3) >= 6
       onToggled: checked => Settings.data.dock.indicatorThickness = checked ? 6 : 3
@@ -130,8 +130,8 @@ ColumnLayout {
     NColorChoice {
       Layout.fillWidth: true
       visible: Settings.data.dock.showDockIndicator
-      label: I18n.tr("panels.dock.appearance-indicator-color-label")
-      description: I18n.tr("panels.dock.appearance-indicator-color-description")
+      label: "Indicator color"
+      description: "Choose the color of the hidden dock indicator."
       currentKey: Settings.data.dock.indicatorColor || "primary"
       defaultValue: Settings.getDefaultValue("dock.indicatorColor")
       onSelected: key => Settings.data.dock.indicatorColor = key
@@ -140,8 +140,8 @@ ColumnLayout {
     NValueSlider {
       Layout.fillWidth: true
       visible: Settings.data.dock.showDockIndicator
-      label: I18n.tr("panels.dock.appearance-indicator-opacity-label")
-      description: I18n.tr("panels.dock.appearance-indicator-opacity-description")
+      label: "Indicator opacity"
+      description: "Adjust the opacity of the hidden dock indicator."
       from: 0.1
       to: 1
       stepSize: 0.01
@@ -154,8 +154,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.osd.background-opacity-label")
-      description: I18n.tr("panels.dock.appearance-background-opacity-description")
+      label: "Background opacity"
+      description: "Adjust the dock's background opacity."
       from: 0
       to: 1
       stepSize: 0.01
@@ -168,8 +168,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-dead-opacity-label")
-      description: I18n.tr("panels.dock.appearance-dead-opacity-description")
+      label: "Dead opacity"
+      description: "Adjust the opacity of app icons that are not running."
       from: 0
       to: 1
       stepSize: 0.01
@@ -183,8 +183,8 @@ ColumnLayout {
     NValueSlider {
       Layout.fillWidth: true
       visible: Settings.data.dock.dockType === "floating"
-      label: I18n.tr("panels.dock.appearance-floating-distance-label")
-      description: I18n.tr("panels.dock.appearance-floating-distance-description")
+      label: "Dock floating distance"
+      description: "Set the distance between the dock and the edge of the screen."
       from: 0
       to: 4
       stepSize: 0.01
@@ -197,8 +197,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-icon-size-label")
-      description: I18n.tr("panels.dock.appearance-icon-size-description")
+      label: "Dock size"
+      description: "Adjust the overall size of the dock."
       from: 0
       to: 2
       stepSize: 0.01
@@ -212,8 +212,8 @@ ColumnLayout {
     NValueSlider {
       visible: Settings.data.dock.dockType === "floating" && Settings.data.dock.displayMode === "auto_hide"
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-hide-show-speed-label")
-      description: I18n.tr("panels.dock.appearance-hide-show-speed-description")
+      label: "Hide/show speed"
+      description: "Adjust the speed of the dock hide/show animation."
       from: 0.1
       to: 2.0
       stepSize: 0.01
@@ -225,24 +225,24 @@ ColumnLayout {
     }
 
     NToggle {
-      label: I18n.tr("panels.dock.appearance-inactive-indicators-label")
-      description: I18n.tr("panels.dock.appearance-inactive-indicators-description")
+      label: "Running indicators"
+      description: "Display indicator pills for all apps, not just the currently active one."
       checked: Settings.data.dock.inactiveIndicators
       defaultValue: Settings.getDefaultValue("dock.inactiveIndicators")
       onToggled: checked => Settings.data.dock.inactiveIndicators = checked
     }
 
     NToggle {
-      label: I18n.tr("panels.dock.appearance-pinned-static-label")
-      description: I18n.tr("panels.dock.appearance-pinned-static-description")
+      label: "Static pinned apps"
+      description: "Always push pinned app icons to the left in static order."
       checked: Settings.data.dock.pinnedStatic
       defaultValue: Settings.getDefaultValue("dock.pinnedStatic")
       onToggled: checked => Settings.data.dock.pinnedStatic = checked
     }
 
     NToggle {
-      label: I18n.tr("panels.dock.appearance-group-apps-label")
-      description: I18n.tr("panels.dock.appearance-group-apps-description")
+      label: "Group same apps"
+      description: "Group multiple windows from the same app into one dock entry."
       checked: Settings.data.dock.groupApps
       defaultValue: Settings.getDefaultValue("dock.groupApps")
       onToggled: checked => Settings.data.dock.groupApps = checked
@@ -251,16 +251,16 @@ ColumnLayout {
     NComboBox {
       Layout.fillWidth: true
       visible: Settings.data.dock.groupApps
-      label: I18n.tr("panels.dock.appearance-group-click-action-label")
-      description: I18n.tr("panels.dock.appearance-group-click-action-description")
+      label: "Grouped app click action"
+      description: "Choose what left-click does for grouped apps."
       model: [
         {
           "key": "cycle",
-          "name": I18n.tr("panels.dock.appearance-group-click-action-cycle")
+          "name": "Cycle windows"
         },
         {
           "key": "list",
-          "name": I18n.tr("panels.dock.appearance-group-click-action-list")
+          "name": "Open window list"
         }
       ]
       currentKey: Settings.data.dock.groupClickAction
@@ -271,16 +271,16 @@ ColumnLayout {
     NComboBox {
       Layout.fillWidth: true
       visible: Settings.data.dock.groupApps
-      label: I18n.tr("panels.dock.appearance-group-context-menu-mode-label")
-      description: I18n.tr("panels.dock.appearance-group-context-menu-mode-description")
+      label: "Grouped app menu mode"
+      description: "Choose how the context menu behaves for grouped apps."
       model: [
         {
           "key": "list",
-          "name": I18n.tr("panels.dock.appearance-group-context-menu-mode-list")
+          "name": "Window list"
         },
         {
           "key": "extended",
-          "name": I18n.tr("panels.dock.appearance-group-context-menu-mode-extended")
+          "name": "Extended"
         }
       ]
       currentKey: Settings.data.dock.groupContextMenuMode
@@ -291,16 +291,16 @@ ColumnLayout {
     NComboBox {
       Layout.fillWidth: true
       visible: Settings.data.dock.groupApps
-      label: I18n.tr("panels.dock.appearance-group-indicator-style-label")
-      description: I18n.tr("panels.dock.appearance-group-indicator-style-description")
+      label: "Grouped indicator style"
+      description: "Choose how grouped running indicators display focused window state."
       model: [
         {
           "key": "number",
-          "name": I18n.tr("panels.dock.appearance-group-indicator-style-number")
+          "name": "Number"
         },
         {
           "key": "dots",
-          "name": I18n.tr("panels.dock.appearance-group-indicator-style-dots")
+          "name": "Dots"
         }
       ]
       currentKey: Settings.data.dock.groupIndicatorStyle
@@ -309,8 +309,8 @@ ColumnLayout {
     }
 
     NToggle {
-      label: I18n.tr("panels.dock.monitors-only-same-monitor-label")
-      description: I18n.tr("panels.dock.monitors-only-same-monitor-description")
+      label: "Only apps from same monitor"
+      description: "Show only apps from the monitor where the dock is located."
       checked: Settings.data.dock.onlySameOutput
       defaultValue: Settings.getDefaultValue("dock.onlySameOutput")
       onToggled: checked => Settings.data.dock.onlySameOutput = checked
@@ -318,8 +318,8 @@ ColumnLayout {
 
     NToggle {
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-colorize-icons-label")
-      description: I18n.tr("panels.dock.appearance-colorize-icons-description")
+      label: "Colorize icons"
+      description: "Apply theme colors to dock app icons (non-focused apps only)."
       checked: Settings.data.dock.colorizeIcons
       defaultValue: Settings.getDefaultValue("dock.colorizeIcons")
       onToggled: checked => Settings.data.dock.colorizeIcons = checked
@@ -327,8 +327,8 @@ ColumnLayout {
 
     NToggle {
       Layout.fillWidth: true
-      label: I18n.tr("panels.dock.appearance-show-launcher-icon-label")
-      description: I18n.tr("panels.dock.appearance-show-launcher-icon-description")
+      label: "Show app launcher"
+      description: "Show the application launcher icon in the dock."
       checked: Settings.data.dock.showLauncherIcon
       defaultValue: Settings.getDefaultValue("dock.showLauncherIcon")
       onToggled: checked => Settings.data.dock.showLauncherIcon = checked
@@ -337,16 +337,16 @@ ColumnLayout {
     NComboBox {
       Layout.fillWidth: true
       visible: Settings.data.dock.showLauncherIcon
-      label: I18n.tr("panels.dock.appearance-launcher-position-label")
-      description: I18n.tr("panels.dock.appearance-launcher-position-description")
+      label: "Launcher position"
+      description: "Choose where the launcher icon appears in the dock."
       model: [
         {
           "key": "start",
-          "name": I18n.tr("panels.dock.appearance-launcher-position-start")
+          "name": "Start"
         },
         {
           "key": "end",
-          "name": I18n.tr("panels.dock.appearance-launcher-position-end")
+          "name": "End"
         }
       ]
       currentKey: Settings.data.dock.launcherPosition
@@ -357,8 +357,8 @@ ColumnLayout {
     NToggle {
       Layout.fillWidth: true
       visible: Settings.data.dock.showLauncherIcon
-      label: I18n.tr("panels.dock.appearance-launcher-use-distro-logo-label")
-      description: I18n.tr("panels.dock.appearance-launcher-use-distro-logo-description")
+      label: "Use distro logo instead of icon"
+      description: "Use your distribution logo as the dock launcher icon."
       checked: Settings.data.dock.launcherUseDistroLogo
       defaultValue: Settings.getDefaultValue("dock.launcherUseDistroLogo")
       onToggled: checked => Settings.data.dock.launcherUseDistroLogo = checked
@@ -370,8 +370,8 @@ ColumnLayout {
 
       NLabel {
         Layout.fillWidth: true
-        label: I18n.tr("panels.dock.appearance-launcher-icon-label")
-        description: I18n.tr("panels.dock.appearance-launcher-icon-description")
+        label: "Launcher icon"
+        description: "Choose the icon used for the dock launcher."
       }
 
       NIconButton {
@@ -380,7 +380,7 @@ ColumnLayout {
         icon: (Settings.data.dock.launcherIcon && Settings.data.dock.launcherIcon !== "") ? Settings.data.dock.launcherIcon : "search"
         colorFg: root.launcherPreviewColor
         colorFgHover: root.launcherPreviewColor
-        tooltipText: I18n.tr("bar.control-center.browse-library")
+        tooltipText: "Browse Library"
         onClicked: launcherIconPicker.open()
       }
 
@@ -424,7 +424,7 @@ ColumnLayout {
     NColorChoice {
       Layout.fillWidth: true
       visible: Settings.data.dock.showLauncherIcon
-      label: I18n.tr("common.select-icon-color")
+      label: "Select icon color"
       currentKey: Settings.data.dock.launcherIconColor
       defaultValue: Settings.getDefaultValue("dock.launcherIconColor")
       onSelected: key => Settings.data.dock.launcherIconColor = key

@@ -120,7 +120,7 @@ SmartPanel {
           }
 
            NText {
-             text: I18n.tr("panels.display.title")
+             text: "Display"
              pointSize: Style.fontSizeL
              font.weight: Style.fontWeightBold
              color: Color.mOnSurface
@@ -158,8 +158,8 @@ SmartPanel {
               spacing: Style.marginS
 
               NLabel {
-                label: I18n.tr("panels.display.monitors-global-brightness-label")
-                description: I18n.tr("panels.display.monitors-global-brightness-description")
+                label: "All monitors"
+                description: "Adjust brightness for all monitors at once."
               }
 
               RowLayout {
@@ -226,12 +226,7 @@ SmartPanel {
                   label: modelData.name || "Unknown"
                   labelColor: Color.mPrimary
                   description: {
-                    I18n.tr("system.monitor-description", {
-                              "model": modelData.model,
-                              "width": modelData.width * compositorScale,
-                              "height": modelData.height * compositorScale,
-                              "scale": compositorScale
-                            });
+                    "{model} ({width}x{height} @ {scale}x)";
                   }
                 }
 

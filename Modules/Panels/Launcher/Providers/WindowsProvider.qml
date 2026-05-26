@@ -6,7 +6,7 @@ import qs.Services.Compositor
 Item {
   id: root
 
-  property string name: I18n.tr("common.windows")
+  property string name: "Windows"
   property var launcher: null
   property bool handleSearch: Settings.data.appLauncher.enableWindowsSearch
   property string supportedLayouts: "list"
@@ -26,7 +26,7 @@ Item {
     return [
           {
             "name": ">win",
-            "description": I18n.tr("launcher.providers.windows-search-description"),
+            "description": "Search and focus open windows",
             "icon": iconMode === "tabler" ? "app-window" : "preferences-system-windows",
             "isTablerIcon": true,
             "isImage": false,

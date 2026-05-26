@@ -15,40 +15,40 @@ ColumnLayout {
   property var removeMonitor
 
   NComboBox {
-    label: I18n.tr("common.position")
-    description: I18n.tr("panels.osd.location-description")
+    label: "Position"
+    description: "Where on-screen displays appear."
     model: [
       {
         "key": "top",
-        "name": I18n.tr("positions.top-center")
+        "name": "Top center"
       },
       {
         "key": "top_left",
-        "name": I18n.tr("positions.top-left")
+        "name": "Top left"
       },
       {
         "key": "top_right",
-        "name": I18n.tr("positions.top-right")
+        "name": "Top right"
       },
       {
         "key": "bottom",
-        "name": I18n.tr("positions.bottom-center")
+        "name": "Bottom center"
       },
       {
         "key": "bottom_left",
-        "name": I18n.tr("positions.bottom-left")
+        "name": "Bottom left"
       },
       {
         "key": "bottom_right",
-        "name": I18n.tr("positions.bottom-right")
+        "name": "Bottom right"
       },
       {
         "key": "left",
-        "name": I18n.tr("positions.center-left")
+        "name": "Left center"
       },
       {
         "key": "right",
-        "name": I18n.tr("positions.center-right")
+        "name": "Right center"
       }
     ]
     currentKey: Settings.data.osd.location || "top_right"
@@ -57,16 +57,16 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.osd.enabled-label")
-    description: I18n.tr("panels.osd.enabled-description")
+    label: "Enable on-screen display"
+    description: "Show volume and brightness changes in real-time."
     checked: Settings.data.osd.enabled
     defaultValue: Settings.getDefaultValue("osd.enabled")
     onToggled: checked => Settings.data.osd.enabled = checked
   }
 
   NToggle {
-    label: I18n.tr("panels.osd.always-on-top-label")
-    description: I18n.tr("panels.osd.always-on-top-description")
+    label: "Always on top"
+    description: "Display OSD above fullscreen windows and other layers."
     checked: Settings.data.osd.overlayLayer
     defaultValue: Settings.getDefaultValue("osd.overlayLayer")
     onToggled: checked => Settings.data.osd.overlayLayer = checked
@@ -74,8 +74,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.osd.background-opacity-label")
-    description: I18n.tr("panels.osd.background-opacity-description")
+    label: "Background opacity"
+    description: "Controls the transparency of the OSD background."
     from: 0
     to: 100
     stepSize: 1
@@ -88,8 +88,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.osd.duration-auto-hide-label")
-    description: I18n.tr("panels.osd.duration-auto-hide-description")
+    label: "Auto-hide after"
+    description: "Adjust the time before OSD disappears."
     from: 500
     to: 5000
     stepSize: 100
@@ -105,7 +105,7 @@ ColumnLayout {
   }
 
   NText {
-    text: I18n.tr("panels.osd.monitors-desc")
+    text: "Show OSD on specific monitors. Defaults to all if none are chosen."
     wrapMode: Text.WordWrap
     Layout.fillWidth: true
   }
@@ -118,14 +118,9 @@ ColumnLayout {
         const info = CompositorService.displayScales[modelData.name];
         return (info && info.scale) ? info.scale : 1.0;
       }
-      label: modelData.name || I18n.tr("common.unknown")
+      label: modelData.name || "Unknown"
       description: {
-        I18n.tr("system.monitor-description", {
-                  "model": modelData.model,
-                  "width": modelData.width * compositorScale,
-                  "height": modelData.height * compositorScale,
-                  "scale": compositorScale
-                });
+        "{model} ({width}x{height} @ {scale}x)";
       }
       checked: (Settings.data.osd.monitors || []).indexOf(modelData.name) !== -1
       onToggled: checked => {

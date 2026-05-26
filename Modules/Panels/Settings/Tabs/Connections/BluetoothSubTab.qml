@@ -158,7 +158,7 @@ Item {
           spacing: Style.marginM
 
           NToggle {
-            label: I18n.tr("common.bluetooth")
+            label: "Bluetooth"
             icon: BluetoothService.enabled ? "bluetooth" : "bluetooth-off"
             checked: BluetoothService.enabled
             enabled: !NetworkService.airplaneModeEnabled && BluetoothService.bluetoothAvailable && !BluetoothService.blocked
@@ -175,9 +175,7 @@ Item {
         NText {
           visible: BluetoothService.enabled && isDiscoverable
           Layout.fillWidth: true
-          text: I18n.tr("panels.connections.bluetooth-discoverable", {
-                          hostName: HostService.hostName
-                        })
+          text: "This device is discoverable as <b>" + (HostService.hostName) + "</b> while this settings tab is open."
           color: Color.mOnSurfaceVariant
           richTextEnabled: true
           wrapMode: Text.WordWrap
@@ -210,7 +208,7 @@ Item {
         spacing: Style.marginM
 
         NLabel {
-          label: I18n.tr("bluetooth.panel.connected-devices")
+          label: "Connected devices"
           Layout.fillWidth: true
           Layout.leftMargin: Style.marginS
         }
@@ -241,7 +239,7 @@ Item {
         spacing: Style.marginM
 
         NLabel {
-          label: I18n.tr("bluetooth.panel.paired-devices")
+          label: "Paired devices"
           Layout.fillWidth: true
           Layout.leftMargin: Style.marginS
         }
@@ -275,8 +273,8 @@ Item {
           spacing: Style.marginS
 
           NLabel {
-            label: I18n.tr("bluetooth.panel.available-devices")
-            description: BluetoothService.scanningActive ? I18n.tr("bluetooth.panel.scanning") : ""
+            label: "Available devices"
+            description: BluetoothService.scanningActive ? "Scanning for devices..." : ""
             Layout.fillWidth: true
           }
         }
@@ -288,7 +286,7 @@ Item {
 
         NText {
           visible: root.availableDevices.length === 0 && root.unnamedAvailableDevices.length > 0
-          text: I18n.tr("panels.connections.bluetooth-devices-unnamed")
+          text: "Unnamed devices are not shown."
           pointSize: Style.fontSizeS
           color: Color.mOnSurfaceVariant
           horizontalAlignment: Text.AlignHCenter
@@ -317,22 +315,22 @@ Item {
         spacing: Style.marginM
 
         NToggle {
-          label: I18n.tr("panels.connections.bluetooth-auto-connect-label")
-          description: I18n.tr("panels.connections.bluetooth-auto-connect-description")
+          label: "Auto-connect paired devices"
+          description: "Automatically connect to trusted paired devices when Bluetooth is enabled."
           checked: Settings.data.network.bluetoothAutoConnect
           onToggled: checked => Settings.data.network.bluetoothAutoConnect = checked
         }
 
         NToggle {
-          label: I18n.tr("panels.connections.hide-unnamed-devices-label")
-          description: I18n.tr("panels.connections.hide-unnamed-devices-description")
+          label: "Hide unnamed devices"
+          description: "Hide devices that appear only as Bluetooth addresses."
           checked: Settings.data.network.bluetoothHideUnnamedDevices
           onToggled: checked => Settings.data.network.bluetoothHideUnnamedDevices = checked
         }
 
         NToggle {
-          label: I18n.tr("panels.connections.disable-discoverability-label")
-          description: I18n.tr("panels.connections.disable-discoverability-description")
+          label: "Disable device visibility"
+          description: "Hide your device from nearby Bluetooth devices."
           checked: Settings.data.network.disableDiscoverability
           onToggled: checked => {
                        Settings.data.network.disableDiscoverability = checked;
@@ -342,14 +340,14 @@ Item {
 
         // RSSI Polling
         NToggle {
-          label: I18n.tr("panels.connections.bluetooth-rssi-polling-label")
-          description: I18n.tr("panels.connections.bluetooth-rssi-polling-description")
+          label: "Bluetooth signal polling"
+          description: "Periodically sample RSSI for connected devices via bluetoothctl. May not be available for all devices; uses minimal resources when enabled."
           checked: Settings.data.network.bluetoothRssiPollingEnabled
           onToggled: checked => Settings.data.network.bluetoothRssiPollingEnabled = checked
         }
         NSpinBox {
-          label: I18n.tr("panels.connections.bluetooth-rssi-polling-interval-label")
-          description: I18n.tr("panels.connections.bluetooth-rssi-polling-interval-description")
+          label: "Polling interval"
+          description: "Configure how often to update signal strength for connected devices."
           from: 10000
           to: 120000
           stepSize: 1000
@@ -433,13 +431,13 @@ Item {
               text: {
                 const k = BluetoothService.getStatusKey(modelData);
                 if (k === "pairing")
-                  return I18n.tr("common.pairing");
+                  return "Pairing...";
                 if (k === "blocked")
-                  return I18n.tr("bluetooth.panel.blocked");
+                  return "Blocked";
                 if (k === "connecting")
-                  return I18n.tr("common.connecting");
+                  return "Connecting...";
                 if (k === "disconnecting")
-                  return I18n.tr("common.disconnecting");
+                  return "Disconnecting...";
                 return "";
               }
               visible: text !== ""
@@ -486,7 +484,7 @@ Item {
             NIconButton {
               visible: modelData.connected && modelData.state !== BluetoothDeviceState.Disconnecting
               icon: "info"
-              tooltipText: I18n.tr("common.info")
+              tooltipText: "Info"
               baseSize: Style.baseWidgetSize * 0.75
               colorBg: Color.mSurfaceVariant
               colorFg: Color.mOnSurface
@@ -501,7 +499,7 @@ Item {
             NIconButton {
               visible: !root.showOnlyLists && (modelData.paired || modelData.trusted) && !modelData.connected && !isBusy && !modelData.blocked
               icon: "trash"
-              tooltipText: I18n.tr("common.unpair")
+              tooltipText: "Unpair"
               baseSize: Style.baseWidgetSize * 0.75
               colorBg: Color.mPrimary
               colorFg: Color.mOnPrimary
@@ -519,14 +517,14 @@ Item {
               textColor: modelData.connected ? Color.mOnSurface : Color.mOnPrimary
               text: {
                 if (modelData.pairing)
-                  return I18n.tr("common.pairing");
+                  return "Pairing...";
                 if (modelData.blocked)
-                  return I18n.tr("bluetooth.panel.blocked");
+                  return "Blocked";
                 if (modelData.connected)
-                  return I18n.tr("common.disconnect");
+                  return "Disconnect";
                 if (!root.showOnlyLists && device.canPair)
-                  return I18n.tr("common.pair");
-                return I18n.tr("common.connect");
+                  return "Pair";
+                return "Connect";
               }
               onClicked: {
                 if (modelData.connected) {
@@ -559,7 +557,7 @@ Item {
             anchors.right: parent.right
             anchors.margins: Style.marginS
             icon: root.detailsGrid ? "layout-list" : "layout-grid"
-            tooltipText: root.detailsGrid ? I18n.tr("tooltips.list-view") : I18n.tr("tooltips.grid-view")
+            tooltipText: root.detailsGrid ? "List view" : "Grid view"
             baseSize: Style.baseWidgetSize * 0.65
             onClicked: {
               root.detailsGrid = !root.detailsGrid;
@@ -630,7 +628,7 @@ Item {
                 color: Color.mOnSurface
               }
               NText {
-                text: modelData.paired ? I18n.tr("common.yes") : I18n.tr("common.no")
+                text: modelData.paired ? "Yes" : "No"
                 pointSize: Style.fontSizeXS
                 color: Color.mOnSurface
                 Layout.fillWidth: true
@@ -647,7 +645,7 @@ Item {
                 color: Color.mOnSurface
               }
               NText {
-                text: modelData.trusted ? I18n.tr("common.yes") : I18n.tr("common.no")
+                text: modelData.trusted ? "Yes" : "No"
                 pointSize: Style.fontSizeXS
                 color: Color.mOnSurface
                 Layout.fillWidth: true
@@ -682,7 +680,7 @@ Item {
                 pointSize: Style.fontSizeXS
               }
               NCheckbox {
-                label: I18n.tr("common.auto-connect")
+                label: "Auto-connect"
                 labelSize: Style.fontSizeXS
                 baseSize: Style.baseWidgetSize * 0.5
                 checked: BluetoothService.getDeviceAutoConnect(modelData)
@@ -728,7 +726,7 @@ Item {
         Layout.alignment: Qt.AlignHCenter
       }
       NText {
-        text: I18n.tr("panels.connections.authentication-required")
+        text: "Authentication required"
         pointSize: Style.fontSizeXL
         font.weight: Style.fontWeightBold
         color: Color.mOnSurface
@@ -736,7 +734,7 @@ Item {
         Layout.fillWidth: true
       }
       NText {
-        text: I18n.tr("panels.connections.pin-instructions")
+        text: "Please enter the PIN code displayed on your device."
         pointSize: Style.fontSizeM
         color: Color.mOnSurfaceVariant
         wrapMode: Text.WordWrap
@@ -765,12 +763,12 @@ Item {
         Layout.alignment: Qt.AlignHCenter
         spacing: Style.marginM
         NButton {
-          text: I18n.tr("common.cancel")
+          text: "Cancel"
           icon: "x"
           onClicked: BluetoothService.cancelPairing()
         }
         NButton {
-          text: I18n.tr("common.confirm")
+          text: "Confirm"
           icon: "check"
           backgroundColor: Color.mPrimary
           textColor: Color.mOnPrimary

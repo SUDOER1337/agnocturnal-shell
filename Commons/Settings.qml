@@ -5,7 +5,6 @@ import Quickshell
 import Quickshell.Io
 import "../Helpers/QtObj2JS.js" as QtObj2JS
 import qs.Commons
-import qs.Commons.Migrations
 import qs.Modules.OSD
 import qs.Services.Agnocturnal
 import qs.Services.UI
@@ -126,8 +125,7 @@ Singleton {
           Logger.w("Settings", "Could not parse raw JSON for migrations");
         }
 
-        // Run versioned migrations immediately, don't move it in upgradeSettings
-        runVersionedMigrations(rawJson);
+        // Migrations have been removed — skipping versioned migrations
 
         // Finally, update our local settings version
         adapter.settingsVersion = settingsVersion;
@@ -1117,50 +1115,7 @@ Singleton {
   }
 
   // -----------------------------------------------------
-  // Run versioned migrations using MigrationRegistry
-  // rawJson is the parsed JSON file content (before adapter filtering)
-  function runVersionedMigrations(rawJson) {
-    // Skip migrations on fresh installs (no prior settings file)
-    if (!rawJson || root.isFreshInstall) {
-      Logger.i("Settings", "Fresh install detected, skipping migrations");
-      return;
-    }
-
-    const currentVersion = adapter.settingsVersion;
-    const migrations = MigrationRegistry.migrations;
-
-    Logger.i("Settings", "adapter.settingsVersion:", adapter.settingsVersion);
-
-    // Get all migration versions and sort them
-    const versions = Object.keys(migrations).map(v => parseInt(v)).sort((a, b) => a - b);
-
-    // Run migrations in order for versions newer than current
-    for (var i = 0; i < versions.length; i++) {
-      const version = versions[i];
-
-      if (currentVersion < version) {
-        // Create migration instance and run it
-        const migrationComponent = migrations[version];
-        const migration = migrationComponent.createObject(root);
-
-        if (migration && typeof migration.migrate === "function") {
-          const success = migration.migrate(adapter, Logger, rawJson);
-          if (!success) {
-            Logger.e("Settings", "Migration to v" + version + " failed");
-          }
-        } else {
-          Logger.e("Settings", "Invalid migration for v" + version);
-        }
-
-        // Clean up migration instance
-        if (migration) {
-          migration.destroy();
-        }
-      }
-    }
-  }
-
-  // -----------------------------------------------------
+  // Migrations removed — settings version is current on fresh installs
   // If the settings structure has changed, ensure
   // backward compatibility by upgrading the settings
   function upgradeSettings() {

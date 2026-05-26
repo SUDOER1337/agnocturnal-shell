@@ -10,7 +10,7 @@ NIconButtonHot {
 
   icon: !NetworkService.airplaneModeEnabled ? "plane-off" : "plane"
   hot: NetworkService.airplaneModeEnabled
-  tooltipText: I18n.tr("toast.airplane-mode.title")
+  tooltipText: "Airplane Mode"
   onClicked: {
     NetworkService.setAirplaneMode(!NetworkService.airplaneModeEnabled);
   }

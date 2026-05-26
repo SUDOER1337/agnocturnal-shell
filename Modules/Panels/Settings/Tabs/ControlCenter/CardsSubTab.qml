@@ -28,7 +28,7 @@ ColumnLayout {
   }
 
     NText {
-      text: I18n.tr("panels.control-center.cards-desc")
+      text: "Customize which controls appear in the control center and in what order."
       wrapMode: Text.WordWrap
       Layout.fillWidth: true
     }

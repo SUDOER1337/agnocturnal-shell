@@ -46,20 +46,20 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.hide-mode-label")
-    description: I18n.tr("bar.active-window.hide-mode-description")
+    label: "Hiding mode"
+    description: "Controls how the widget behaves when no window is active."
     model: [
       {
         "key": "visible",
-        "name": I18n.tr("hide-modes.visible")
+        "name": "Always visible"
       },
       {
         "key": "hidden",
-        "name": I18n.tr("hide-modes.hidden")
+        "name": "Hide when empty"
       },
       {
         "key": "transparent",
-        "name": I18n.tr("hide-modes.transparent")
+        "name": "Transparent when empty"
       }
     ]
     currentKey: root.valueHideMode
@@ -71,7 +71,7 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-color")
+    label: "Select color"
     currentKey: valueTextColor
     onSelected: key => {
                   valueTextColor = key;
@@ -82,8 +82,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.active-window.show-app-text-label")
-    description: I18n.tr("bar.active-window.show-app-text-description")
+    label: "Show window title"
+    description: "Display the window title."
     checked: root.valueShowText
     onToggled: checked => {
                  root.valueShowText = checked;
@@ -94,8 +94,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.active-window.show-app-icon-label")
-    description: I18n.tr("bar.active-window.show-app-icon-description")
+    label: "Show app icon"
+    description: "Display the application icon next to the window title."
     checked: root.valueShowIcon
     onToggled: checked => {
                  root.valueShowIcon = checked;
@@ -106,8 +106,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.tray.colorize-icons-label")
-    description: I18n.tr("bar.active-window.colorize-icons-description")
+    label: "Colorize icons"
+    description: "Apply theme colors to active window icon."
     checked: root.valueColorizeIcons
     onToggled: checked => {
                  root.valueColorizeIcons = checked;
@@ -120,8 +120,8 @@ ColumnLayout {
   NTextInput {
     id: widthInput
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.max-width-label")
-    description: I18n.tr("bar.media-mini.max-width-description")
+    label: "Maximum width"
+    description: "Sets the maximum horizontal size of the widget. The widget will shrink to fit shorter content."
     placeholderText: widgetMetadata.maxWidth
     text: valueMaxWidth
     onTextChanged: saveSettings()
@@ -130,8 +130,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.media-mini.use-fixed-width-label")
-    description: I18n.tr("bar.media-mini.use-fixed-width-description")
+    label: "Use fixed width"
+    description: "When enabled, the widget will always use the maximum width instead of dynamically adjusting to content."
     checked: valueUseFixedWidth
     onToggled: checked => {
                  valueUseFixedWidth = checked;
@@ -141,20 +141,20 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("bar.media-mini.scrolling-mode-label")
-    description: I18n.tr("bar.active-window.scrolling-mode-description")
+    label: "Scrolling mode"
+    description: "Control when text scrolling is enabled for long window titles."
     model: [
       {
         "key": "always",
-        "name": I18n.tr("options.scrolling-modes.always")
+        "name": "Scroll always"
       },
       {
         "key": "hover",
-        "name": I18n.tr("options.scrolling-modes.hover")
+        "name": "Scroll on hover"
       },
       {
         "key": "never",
-        "name": I18n.tr("options.scrolling-modes.never")
+        "name": "Never scroll"
       }
     ]
     currentKey: valueScrollingMode

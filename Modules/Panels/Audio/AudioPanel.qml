@@ -179,7 +179,7 @@ SmartPanel {
             }
 
              NText {
-               text: I18n.tr("panels.audio.title")
+               text: "Audio"
                pointSize: Style.fontSizeL
                font.weight: Style.fontWeightBold
                color: Color.mOnSurface
@@ -196,13 +196,13 @@ SmartPanel {
             onCurrentIndexChanged: panelContent.currentTabIndex = currentIndex
 
             NTabButton {
-              text: I18n.tr("common.volumes")
+              text: "Volumes"
               tabIndex: 0
               checked: tabBar.currentIndex === 0
             }
 
             NTabButton {
-              text: I18n.tr("common.devices")
+              text: "Devices"
               tabIndex: 1
               checked: tabBar.currentIndex === 1
             }
@@ -247,7 +247,7 @@ SmartPanel {
                   spacing: Style.marginXS
 
                   NText {
-                    text: I18n.tr("common.output")
+                    text: "Output"
                     pointSize: Style.fontSizeM
                     color: Color.mPrimary
                   }
@@ -294,7 +294,7 @@ SmartPanel {
 
                   NIconButton {
                     icon: AudioService.getOutputIcon()
-                    tooltipText: I18n.tr("tooltips.output-muted")
+                    tooltipText: "Toggle output mute"
                     baseSize: Style.baseWidgetSize * 0.7
                     onClicked: {
                       AudioService.suppressOutputOSD();
@@ -323,7 +323,7 @@ SmartPanel {
                   spacing: Style.marginXS
 
                   NText {
-                    text: I18n.tr("common.input")
+                    text: "Input"
                     pointSize: Style.fontSizeM
                     color: Color.mPrimary
                   }
@@ -370,7 +370,7 @@ SmartPanel {
 
                   NIconButton {
                     icon: AudioService.getInputIcon()
-                    tooltipText: I18n.tr("tooltips.input-muted")
+                    tooltipText: "Toggle input mute"
                     baseSize: Style.baseWidgetSize * 0.7
                     onClicked: {
                       AudioService.suppressInputOSD();
@@ -695,7 +695,7 @@ SmartPanel {
                       // Mute Button
                       NIconButton {
                         icon: (appBox.appMuted === true) ? "volume-mute" : "volume-high"
-                        tooltipText: (appBox.appMuted === true) ? I18n.tr("tooltips.unmute") : I18n.tr("tooltips.mute")
+                        tooltipText: (appBox.appMuted === true) ? "Unmute" : "Mute"
                         baseSize: Style.baseWidgetSize * 0.7
                         enabled: !!(appBox.nodeAudio && appBox.modelData && appBox.modelData.ready === true)
                         onClicked: {
@@ -715,7 +715,7 @@ SmartPanel {
             // Empty state
             NText {
               visible: panelContent.appStreams.length === 0
-              text: I18n.tr("panels.audio.panel-applications-empty")
+              text: "No applications are currently playing audio"
               pointSize: Style.fontSizeM
               color: Color.mOnSurfaceVariant
               horizontalAlignment: Text.AlignHCenter
@@ -758,7 +758,7 @@ SmartPanel {
                 spacing: Style.marginS
 
                 NText {
-                  text: I18n.tr("panels.audio.devices-output-device-label")
+                  text: "Output device"
                   pointSize: Style.fontSizeL
                   color: Color.mPrimary
                 }
@@ -801,7 +801,7 @@ SmartPanel {
                 spacing: Style.marginS
 
                 NText {
-                  text: I18n.tr("panels.audio.devices-input-device-label")
+                  text: "Input device"
                   pointSize: Style.fontSizeL
                   color: Color.mPrimary
                 }

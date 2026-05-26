@@ -290,7 +290,7 @@ Item {
 
       NText {
         text: {
-          var t = Settings.data.location.use12hourFormat ? I18n.locale.toString(now, "hh AP") : I18n.locale.toString(now, "HH");
+          var t = Settings.data.location.use12hourFormat ? Qt.locale().toString(now, "hh AP") : Qt.locale().toString(now, "HH");
           return t.split(" ")[0];
         }
 

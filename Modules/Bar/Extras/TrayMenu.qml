@@ -523,7 +523,7 @@ PopupWindow {
           NText {
             Layout.fillWidth: true
             color: Color.mPrimary
-            text: root.isPinned ? I18n.tr("panels.bar.tray-unpin-application") : I18n.tr("panels.bar.tray-pin-application")
+            text: root.isPinned ? "Unpin Application" : "Pin Application"
             pointSize: Style.fontSizeS
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight

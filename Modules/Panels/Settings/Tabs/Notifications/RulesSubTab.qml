@@ -59,8 +59,8 @@ ColumnLayout {
   }
 
   NLabel {
-    label: I18n.tr("panels.notifications.rules-label")
-    description: I18n.tr("panels.notifications.rules-description")
+    label: "Filter rules"
+    description: "Match app name or content. Rules are checked in order, and the first match is applied."
   }
 
   NDivider {
@@ -87,26 +87,26 @@ ColumnLayout {
       NLabel {
         Layout.fillWidth: true
         label: (entryDelegate.isRegex ? "regex: " : "") + entryDelegate.pattern
-        description: entryDelegate.action === "block" ? I18n.tr("panels.notifications.rules-action-block") : (entryDelegate.action === "mute" ? I18n.tr("panels.notifications.rules-action-mute") : I18n.tr("panels.notifications.rules-action-hide"))
+        description: entryDelegate.action === "block" ? "Block" : (entryDelegate.action === "mute" ? "Mute" : "Hide")
         labelColor: entryDelegate.pattern ? Color.mPrimary : Color.mOnSurface
       }
 
       NIconButton {
         icon: "settings"
-        tooltipText: I18n.tr("common.edit")
+        tooltipText: "Edit"
         onClicked: root.openEdit(entryDelegate.index, entryDelegate.pattern, entryDelegate.action)
       }
 
       NIconButton {
         icon: "trash"
-        tooltipText: I18n.tr("panels.notifications.rules-delete")
+        tooltipText: "Delete rule"
         onClicked: root._removeRule(entryDelegate.index)
       }
     }
   }
 
   NButton {
-    text: I18n.tr("panels.notifications.rules-add")
+    text: "Add rule"
     icon: "add"
     enabled: Settings.data.notifications.enabled
     onClicked: root.openEdit(-1, "", "block")

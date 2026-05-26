@@ -34,21 +34,21 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("common.display-mode")
-    description: I18n.tr("bar.volume.display-mode-description")
+    label: "Display mode"
+    description: "Choose how you'd like this value to appear."
     minimumWidth: 200
     model: [
       {
         "key": "onhover",
-        "name": I18n.tr("display-modes.on-hover")
+        "name": "On hover"
       },
       {
         "key": "alwaysShow",
-        "name": I18n.tr("display-modes.always-show")
+        "name": "Always show"
       },
       {
         "key": "alwaysHide",
-        "name": I18n.tr("display-modes.always-hide")
+        "name": "Always hide"
       }
     ]
     currentKey: valueDisplayMode
@@ -60,7 +60,7 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-icon-color")
+    label: "Select icon color"
     currentKey: valueIconColor
     onSelected: key => {
                   valueIconColor = key;
@@ -81,8 +81,8 @@ ColumnLayout {
   NToggle {
     visible: hasMultipleMonitors
     Layout.fillWidth: true
-    label: I18n.tr("bar.brightness.apply-all-label")
-    description: I18n.tr("bar.brightness.apply-all-description")
+    label: "Apply scroll changes to all monitors"
+    description: "Change brightness for every monitor when using the scroll wheel."
     checked: valueApplyToAllMonitors
     onToggled: checked => {
                  valueApplyToAllMonitors = checked;

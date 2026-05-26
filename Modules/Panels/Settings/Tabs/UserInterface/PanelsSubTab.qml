@@ -13,8 +13,8 @@ ColumnLayout {
   Layout.fillWidth: true
 
   NToggle {
-    label: I18n.tr("panels.user-interface.panels-attached-to-bar-label")
-    description: I18n.tr("panels.user-interface.panels-attached-to-bar-description")
+    label: "Snap panels to edges"
+    description: "Panels lock to the bar and screen edges, creating a seamless look with stylish inverted corners."
     checked: Settings.data.ui.panelsAttachedToBar
     defaultValue: Settings.getDefaultValue("ui.panelsAttachedToBar")
     onToggled: checked => Settings.data.ui.panelsAttachedToBar = checked
@@ -22,8 +22,8 @@ ColumnLayout {
 
   NToggle {
     visible: (Quickshell.screens.length > 1)
-    label: I18n.tr("panels.user-interface.allow-panels-without-bar-label")
-    description: I18n.tr("panels.user-interface.allow-panels-without-bar-description")
+    label: "Allow panels on screens without a bar"
+    description: "When enabled, panels can open on any screen. When disabled, panels will only open on screens that have a bar, which can reduce memory usage."
     checked: Settings.data.general.allowPanelsOnScreenWithoutBar
     defaultValue: Settings.getDefaultValue("general.allowPanelsOnScreenWithoutBar")
     onToggled: checked => Settings.data.general.allowPanelsOnScreenWithoutBar = checked
@@ -31,8 +31,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.user-interface.panel-background-opacity-label")
-    description: I18n.tr("panels.user-interface.panel-background-opacity-description")
+    label: "Panel background opacity"
+    description: "Set the background opacity for all panels (bar, launcher, settings, etc...)."
     from: 0
     to: 1
     stepSize: 0.01
@@ -45,8 +45,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.user-interface.dimmer-opacity-label")
-    description: I18n.tr("panels.user-interface.dimmer-opacity-description")
+    label: "Dimmed desktop opacity"
+    description: "Set the opacity level for desktop dimming."
     from: 0
     to: 1
     stepSize: 0.01
@@ -62,26 +62,26 @@ ColumnLayout {
   }
 
   NHeader {
-    label: I18n.tr("panels.user-interface.settings-panel-header")
+    label: "Settings panel"
   }
 
   NComboBox {
-    label: I18n.tr("panels.user-interface.settings-panel-mode-label")
-    description: I18n.tr("panels.user-interface.settings-panel-mode-description")
+    label: "Settings panel mode"
+    description: "Choose settings layout (may require reopening)."
     Layout.fillWidth: true
     minimumWidth: 220 * Style.uiScaleRatio
     model: [
       {
         "key": "attached",
-        "name": I18n.tr("options.settings-panel-mode.attached")
+        "name": "Panel attached to bar"
       },
       {
         "key": "centered",
-        "name": I18n.tr("options.settings-panel-mode.centered")
+        "name": "Centered panel"
       },
       {
         "key": "window",
-        "name": I18n.tr("options.settings-panel-mode.window")
+        "name": "Separate window"
       }
     ]
     currentKey: Settings.data.ui.settingsPanelMode
@@ -104,8 +104,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.user-interface.settings-panel-sidebar-card-style-label")
-    description: I18n.tr("panels.user-interface.settings-panel-sidebar-card-style-description")
+    label: "Sidebar card style"
+    description: "Wraps the settings sidebar in a filled background with rounded corners."
     checked: Settings.data.ui.settingsPanelSideBarCardStyle
     defaultValue: Settings.getDefaultValue("ui.settingsPanelSideBarCardStyle")
     onToggled: checked => Settings.data.ui.settingsPanelSideBarCardStyle = checked

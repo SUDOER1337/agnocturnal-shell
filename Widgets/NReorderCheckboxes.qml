@@ -253,7 +253,7 @@ Item {
           // Required indicator
           NText {
             visible: delegateItem.required
-            text: I18n.tr("common.required")
+            text: "(required)"
             color: Color.mOnSurfaceVariant
             verticalAlignment: Text.AlignVCenter
           }

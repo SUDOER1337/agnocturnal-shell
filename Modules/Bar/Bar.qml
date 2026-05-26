@@ -7,6 +7,7 @@ import Quickshell.Wayland
 import qs.Commons
 import qs.Modules.Bar.Extras
 import qs.Modules.Notification
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.Compositor
 import qs.Services.Media
@@ -366,8 +367,12 @@ Item {
             controlCenterPanel?.toggle(null, followMouse ? mapToItem(null, mouse.x, mouse.y) : "ControlCenter");
             mouse.accepted = true;
           } else if (action === "settings") {
-            var settingsPanel = PanelService.getPanel("settingsPanel", screen);
-            settingsPanel?.toggle(null, followMouse ? mapToItem(null, mouse.x, mouse.y) : null);
+            var ccPanel = PanelService.getPanel("controlCenterPanel", screen);
+            if (ccPanel?.isPanelOpen) {
+              ccPanel.close();
+            } else {
+              ccPanel?.openToTab(ControlCenterV5Panel.Tab.General);
+            }
             mouse.accepted = true;
           } else if (action === "launcherPanel") {
             var launcherPanel = PanelService.getPanel("launcherPanel", screen);
@@ -391,10 +396,7 @@ Item {
 
             processObj.exited.connect(function (exitCode) {
               if (exitCode !== 0) {
-                ToastService.showError(I18n.tr("toast.custom-command-failed.title"), I18n.tr("toast.custom-command-failed.description", {
-                                                                                               command: command,
-                                                                                               code: exitCode
-                                                                                             }));
+                ToastService.showError("Custom command failed", "Command failed: " + (command) + "\nExit code: " + (exitCode));
               }
               processObj.destroy();
             });
@@ -402,10 +404,7 @@ Item {
             processObj.running = true;
           } catch (e) {
             Logger.e("Bar", "Failed to start custom command:", e);
-            ToastService.showError(I18n.tr("toast.custom-command-failed.title"), I18n.tr("toast.custom-command-failed.description", {
-                                                                                           command: command,
-                                                                                           code: "start_error"
-                                                                                         }));
+            ToastService.showError("Custom command failed", "Command failed: " + (command) + "\nExit code: " + ("start_error"));
           }
         }
 

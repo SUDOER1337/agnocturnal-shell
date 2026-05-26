@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.Commons
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.Agnocturnal
 import qs.Services.UI
@@ -114,7 +115,7 @@ Singleton {
     target: I18n
 
     function onLanguageChanged() {
-      Logger.d("PluginService", "Language changed to:", I18n.langCode, "- reloading plugin translations");
+      Logger.d("PluginService", "Language changed to:", "en", "- reloading plugin translations");
 
       // Reload translations for all loaded plugins
       for (var pluginId in root.loadedPlugins) {
@@ -122,14 +123,14 @@ Singleton {
         (function (id, plugin) {
           if (plugin && plugin.api && plugin.manifest) {
             // Update current language
-            plugin.api.currentLanguage = I18n.langCode;
+            plugin.api.currentLanguage = "en";
 
             // Reload translations
-            loadPluginTranslationsAsync(id, plugin.manifest, I18n.langCode, function (translations) {
+            loadPluginTranslationsAsync(id, plugin.manifest, "en", function (translations) {
               plugin.api.pluginTranslations = translations;
 
               // Reload English fallback for non-English languages
-              if (I18n.langCode !== "en") {
+              if ("en" !== "en") {
                 loadPluginTranslationsAsync(id, plugin.manifest, "en", function (fallbackTranslations) {
                   plugin.api.pluginFallbackTranslations = fallbackTranslations;
                   plugin.api.translationVersion++;
@@ -189,9 +190,7 @@ Singleton {
                              }
                            }, false, function (success, error, registeredKey) {
                              if (success) {
-                               ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.install-success", {
-                                                                                                  "plugin": registeredKey
-                                                                                                }));
+                               ToastService.showNotice("Plugins", "Successfully installed {plugin}");
                                // Load the plugin since it was already enabled (state persisted but files were missing)
                                loadPlugin(registeredKey);
 
@@ -202,9 +201,7 @@ Singleton {
                                  addWidgetToBar(widgetId, "right");
                                }
                              } else {
-                               ToastService.showError(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.install-error", {
-                                                                                                 "error": error || "Unknown error"
-                                                                                               }));
+                               ToastService.showError("Plugins", "Failed to install: {error}");
                              }
                            });
       }
@@ -352,7 +349,7 @@ Singleton {
         collision: true,
         reason: "already_installed",
         existingKey: compositeKey,
-        message: I18n.tr("panels.plugins.collision-already-installed")
+        message: "This plugin is already installed"
       };
     }
 
@@ -362,14 +359,12 @@ Singleton {
       for (var i = 0; i < allInstalled.length; i++) {
         var parsed = PluginRegistry.parseCompositeKey(allInstalled[i]);
         if (parsed.pluginId === pluginMetadata.id && !parsed.isOfficial) {
-          var sourceName = PluginRegistry.getSourceNameByHash(parsed.sourceHash) || I18n.tr("panels.plugins.source-custom");
+          var sourceName = PluginRegistry.getSourceNameByHash(parsed.sourceHash) || "Custom source";
           return {
             collision: true,
             reason: "custom_version_exists",
             existingKey: allInstalled[i],
-            message: I18n.tr("panels.plugins.collision-custom-version-exists", {
-                               source: sourceName
-                             })
+            message: "A custom version from \"" + (sourceName) + "\" is already installed"
           };
         }
       }
@@ -382,7 +377,7 @@ Singleton {
           collision: true,
           reason: "official_version_exists",
           existingKey: pluginMetadata.id,
-          message: I18n.tr("panels.plugins.collision-official-version-exists")
+          message: "The official version of this plugin is already installed"
         };
       }
     }
@@ -409,7 +404,7 @@ Singleton {
       var collision = checkPluginCollision(pluginMetadata);
       if (collision.collision) {
         Logger.w("PluginService", "Plugin collision detected:", collision.message);
-        ToastService.showError(I18n.tr("panels.plugins.title"), collision.message);
+        ToastService.showError("Plugins", collision.message);
         if (callback)
           callback(false, collision.message);
         return;
@@ -419,10 +414,7 @@ Singleton {
       if (pluginMetadata.minNoctaliaVersion) {
         var noctaliaVersion = UpdateService.baseVersion;
         if (compareVersions(pluginMetadata.minNoctaliaVersion, noctaliaVersion) > 0) {
-          var incompatibleMsg = I18n.tr("panels.plugins.install-incompatible", {
-                                          "plugin": pluginMetadata.name,
-                                          "version": pluginMetadata.minNoctaliaVersion
-                                        });
+          var incompatibleMsg = "{plugin} requires Noctalia v{version} or higher";
           Logger.w("PluginService", "Plugin incompatible:", incompatibleMsg);
           if (callback)
             callback(false, incompatibleMsg);
@@ -758,9 +750,9 @@ Singleton {
     // Load settings first
     loadPluginSettings(pluginId, function (settings) {
       // Then load translations
-      loadPluginTranslationsAsync(pluginId, manifest, I18n.langCode, function (translations) {
+      loadPluginTranslationsAsync(pluginId, manifest, "en", function (translations) {
         // Load English fallback for non-English languages
-        if (I18n.langCode !== "en") {
+        if ("en" !== "en") {
           loadPluginTranslationsAsync(pluginId, manifest, "en", function (fallbackTranslations) {
             callback(settings, translations, fallbackTranslations);
           });
@@ -1022,7 +1014,7 @@ Singleton {
     api.manifest = manifest;
 
     // Set current language (can't use binding in Qt.createQmlObject string)
-    api.currentLanguage = I18n.langCode;
+    api.currentLanguage = "en";
 
     // Merge manifest defaults with loaded settings (user settings take priority)
     var defaults = (manifest.metadata && manifest.metadata.defaultSettings) || {};
@@ -1454,22 +1446,20 @@ Singleton {
       Logger.i("PluginService", updateCount, "plugin update(s) available");
 
       if (Settings.data.plugins.notifyUpdates) {
-        ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.trp("panels.plugins.update-available", updateCount) + "\n\n" + updatesDescription, "plugin", 5000, I18n.tr("panels.plugins.open-plugins-tab"), function () {
+        ToastService.showNotice("Plugins", (updateCount === 1 ? "New plugin update available" : "Plugin updates available ({count})") + "\n\n" + updatesDescription, "plugin", 5000, "Open plugins settings", function () {
           // Open settings panel to Plugins tab on the screen where the cursor is
           if (root.screenDetector) {
             root.screenDetector.withCurrentScreen(function (screen) {
-              var panel = PanelService.getPanel("settingsPanel", screen);
+              var panel = PanelService.getPanel("controlCenterPanel", screen);
               if (panel) {
-                panel.requestedTab = SettingsPanel.Tab.Plugins;
-                panel.open();
+                panel.openToTab(ControlCenterV5Panel.Tab.Plugins);
               }
             });
           } else {
             // Fallback to primary screen if screen detector is not available
-            var panel = PanelService.getPanel("settingsPanel", Quickshell.screens[0]);
+            var panel = PanelService.getPanel("controlCenterPanel", Quickshell.screens[0]);
             if (panel) {
-              panel.requestedTab = SettingsPanel.Tab.Plugins;
-              panel.open();
+              panel.openToTab(ControlCenterV5Panel.Tab.Plugins);
             }
           }
         });
@@ -1497,7 +1487,7 @@ Singleton {
 
     function updateNext() {
       if (currentIndex >= pluginIds.length) {
-        ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.update-all-success"));
+        ToastService.showNotice("Plugins", "All plugins updated successfully");
         if (callback)
           callback();
         return;
@@ -1891,7 +1881,7 @@ Singleton {
     translationDebounceTimer.reloadCallback = root.reloadPluginTranslations;
 
     // Watch the current language's translation file
-    var translationWatcher = createTranslationWatcher(pluginId, pluginDir, I18n.langCode, translationDebounceTimer);
+    var translationWatcher = createTranslationWatcher(pluginId, pluginDir, "en", translationDebounceTimer);
 
     root.pluginFileWatchers[pluginId] = {
       watchers: watchers,
@@ -1937,9 +1927,9 @@ Singleton {
       }
 
       // Create new watcher for current language
-      watcherData.translationWatcher = createTranslationWatcher(pluginId, watcherData.pluginDir, I18n.langCode, watcherData.translationDebounceTimer);
+      watcherData.translationWatcher = createTranslationWatcher(pluginId, watcherData.pluginDir, "en", watcherData.translationDebounceTimer);
     }
-    Logger.d("PluginService", "Updated translation watchers for language:", I18n.langCode);
+    Logger.d("PluginService", "Updated translation watchers for language:", "en");
   }
 
   // Remove file watcher for a plugin
@@ -2016,9 +2006,7 @@ Singleton {
 
       // Show toast notification
       var pluginName = manifest.name || pluginId;
-      ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.hot-reloaded", {
-                                                                         "name": pluginName
-                                                                       }));
+      ToastService.showNotice("Plugins", "Reloaded plugin: {name}");
 
       Logger.i("PluginService", "Hot reload complete for plugin:", pluginId);
     });
@@ -2036,19 +2024,17 @@ Singleton {
 
     Logger.i("PluginService", "Hot reloading translations for plugin:", pluginId);
 
-    loadPluginTranslationsAsync(pluginId, plugin.manifest, I18n.langCode, function (translations) {
+    loadPluginTranslationsAsync(pluginId, plugin.manifest, "en", function (translations) {
       plugin.api.pluginTranslations = translations;
 
       // Also reload English fallback for non-English languages
-      if (I18n.langCode !== "en") {
+      if ("en" !== "en") {
         loadPluginTranslationsAsync(pluginId, plugin.manifest, "en", function (fallbackTranslations) {
           plugin.api.pluginFallbackTranslations = fallbackTranslations;
           plugin.api.translationVersion++;
 
           var pluginName = plugin.manifest.name || pluginId;
-          ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.translations-reloaded", {
-                                                                             "name": pluginName
-                                                                           }));
+          ToastService.showNotice("Plugins", "Reloaded translations: {name}");
           Logger.i("PluginService", "Translation hot reload complete for plugin:", pluginId);
         });
       } else {
@@ -2056,9 +2042,7 @@ Singleton {
         plugin.api.translationVersion++;
 
         var pluginName = plugin.manifest.name || pluginId;
-        ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.translations-reloaded", {
-                                                                           "name": pluginName
-                                                                         }));
+        ToastService.showNotice("Plugins", "Reloaded translations: {name}");
         Logger.i("PluginService", "Translation hot reload complete for plugin:", pluginId);
       }
     });

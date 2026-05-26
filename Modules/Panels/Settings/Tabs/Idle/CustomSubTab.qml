@@ -107,8 +107,8 @@ ColumnLayout {
   }
 
   NLabel {
-    label: I18n.tr("panels.idle.custom-label")
-    description: I18n.tr("panels.idle.custom-description")
+    label: "Custom idle commands"
+    description: "Run a shell command after a period of inactivity."
   }
 
   NDivider {
@@ -133,27 +133,27 @@ ColumnLayout {
 
       NLabel {
         Layout.fillWidth: true
-        label: entryDelegate.name || I18n.tr("panels.idle.custom-entry-unnamed")
-        description: I18n.trp("common.second", entryDelegate.timeout)
+        label: entryDelegate.name || "Unnamed command"
+        description: (entryDelegate.timeout === 1 ? "{count} second" : "{count} seconds")
         labelColor: (entryDelegate.command || entryDelegate.resumeCommand) ? Color.mPrimary : Color.mOnSurface
       }
 
       NIconButton {
         icon: "settings"
-        tooltipText: I18n.tr("common.edit")
+        tooltipText: "Edit"
         onClicked: root.openEdit(entryDelegate.index, entryDelegate.name, entryDelegate.timeout, entryDelegate.command, entryDelegate.resumeCommand)
       }
 
       NIconButton {
         icon: "trash"
-        tooltipText: I18n.tr("panels.idle.custom-entry-delete")
+        tooltipText: "Delete"
         onClicked: root._removeEntry(entryDelegate.index)
       }
     }
   }
 
   NButton {
-    text: I18n.tr("panels.idle.custom-add")
+    text: "Add command"
     icon: "add"
     enabled: Settings.data.idle.enabled
     onClicked: {

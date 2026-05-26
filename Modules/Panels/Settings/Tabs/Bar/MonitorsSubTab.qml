@@ -17,7 +17,7 @@ ColumnLayout {
   property var removeMonitor
 
   NText {
-    text: I18n.tr("panels.bar.monitors-desc-new")
+    text: "Configure which monitors display the bar and customize settings per monitor."
     wrapMode: Text.WordWrap
     Layout.fillWidth: true
   }
@@ -71,12 +71,7 @@ ColumnLayout {
 
             NText {
               text: {
-                return I18n.tr("system.monitor-description", {
-                                 "model": monitorCard.modelData.model || I18n.tr("common.unknown"),
-                                 "width": Math.round(monitorCard.modelData.width * monitorCard.compositorScale),
-                                 "height": Math.round(monitorCard.modelData.height * monitorCard.compositorScale),
-                                 "scale": monitorCard.compositorScale
-                               });
+                return "{model} ({width}x{height} @ {scale}x)";
               }
               pointSize: Style.fontSizeS
               color: Color.mOnSurfaceVariant
@@ -111,8 +106,8 @@ ColumnLayout {
           // Override toggle
           NToggle {
             Layout.fillWidth: true
-            label: I18n.tr("panels.bar.monitor-override-settings")
-            description: I18n.tr("panels.bar.monitor-override-settings-description")
+            label: "Override global settings"
+            description: "Use custom settings for this monitor."
             checked: monitorCard.overrideEnabled
             onToggled: checked => {
                          Settings.setScreenOverride(monitorCard.screenName, "enabled", checked);
@@ -133,24 +128,24 @@ ColumnLayout {
 
               NComboBox {
                 Layout.fillWidth: true
-                label: I18n.tr("panels.bar.appearance-position-label")
-                description: I18n.tr("panels.bar.appearance-position-description")
+                label: "Bar position"
+                description: "Choose where to place the bar on the screen."
                 model: [
                   {
                     "key": "top",
-                    "name": I18n.tr("positions.top")
+                    "name": "Top"
                   },
                   {
                     "key": "bottom",
-                    "name": I18n.tr("positions.bottom")
+                    "name": "Bottom"
                   },
                   {
                     "key": "left",
-                    "name": I18n.tr("positions.left")
+                    "name": "Left"
                   },
                   {
                     "key": "right",
-                    "name": I18n.tr("positions.right")
+                    "name": "Right"
                   }
                 ]
                 currentKey: monitorCard.effectivePosition
@@ -165,28 +160,28 @@ ColumnLayout {
 
               NComboBox {
                 Layout.fillWidth: true
-                label: I18n.tr("panels.bar.appearance-density-label")
-                description: I18n.tr("panels.bar.appearance-density-description")
+                label: "Bar density"
+                description: "Adjust the bar's padding for a compact or spacious look."
                 model: [
                   {
                     "key": "mini",
-                    "name": I18n.tr("options.bar.density-mini")
+                    "name": "Mini"
                   },
                   {
                     "key": "compact",
-                    "name": I18n.tr("options.bar.density-compact")
+                    "name": "Compact"
                   },
                   {
                     "key": "default",
-                    "name": I18n.tr("options.bar.density-default")
+                    "name": "Default"
                   },
                   {
                     "key": "comfortable",
-                    "name": I18n.tr("options.bar.density-comfortable")
+                    "name": "Comfortable"
                   },
                   {
                     "key": "spacious",
-                    "name": I18n.tr("options.bar.density-spacious")
+                    "name": "Spacious"
                   }
                 ]
                 currentKey: monitorCard.effectiveDensity
@@ -201,20 +196,20 @@ ColumnLayout {
 
               NComboBox {
                 Layout.fillWidth: true
-                label: I18n.tr("common.display-mode")
-                description: I18n.tr("panels.bar.appearance-display-mode-description")
+                label: "Display mode"
+                description: "Choose when the bar is visible."
                 model: [
                   {
                     "key": "always_visible",
-                    "name": I18n.tr("hide-modes.visible")
+                    "name": "Always visible"
                   },
                   {
                     "key": "non_exclusive",
-                    "name": I18n.tr("hide-modes.non-exclusive")
+                    "name": "Non-exclusive"
                   },
                   {
                     "key": "auto_hide",
-                    "name": I18n.tr("hide-modes.auto-hide")
+                    "name": "Auto-hide"
                   }
                 ]
                 currentKey: Settings.getBarDisplayModeForScreen(monitorCard.screenName)
@@ -232,7 +227,7 @@ ColumnLayout {
                 property bool expanded: false
                 Layout.fillWidth: true
                 fontSize: Style.fontSizeS
-                text: I18n.tr("panels.bar.monitor-configure-widgets")
+                text: "Configure widgets"
                 icon: expanded ? "chevron-up" : "layout-grid"
                 onClicked: expanded = !expanded
               }
@@ -241,7 +236,7 @@ ColumnLayout {
                 visible: Settings.hasScreenOverride(monitorCard.screenName, "widgets")
                 Layout.fillWidth: true
                 fontSize: Style.fontSizeS
-                text: I18n.tr("panels.bar.use-global-widgets")
+                text: "Use global widgets"
                 icon: "refresh"
                 onClicked: {
                   Settings.clearScreenOverride(monitorCard.screenName, "widgets");
@@ -252,7 +247,7 @@ ColumnLayout {
               NButton {
                 Layout.fillWidth: true
                 fontSize: Style.fontSizeS
-                text: I18n.tr("panels.bar.monitor-reset-all")
+                text: "Reset all"
                 icon: "restore"
                 onClicked: {
                   Settings.clearScreenOverride(monitorCard.screenName);

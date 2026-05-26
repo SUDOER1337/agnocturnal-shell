@@ -11,24 +11,24 @@ ColumnLayout {
 
   NCheckbox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.toast-media-label")
-    description: I18n.tr("panels.notifications.toast-media-description")
+    label: "Media"
+    description: "Show a toast when media playback state changes."
     checked: Settings.data.notifications.enableMediaToast
     onToggled: checked => Settings.data.notifications.enableMediaToast = checked
   }
 
   NCheckbox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.toast-keyboard-label")
-    description: I18n.tr("panels.notifications.toast-keyboard-description")
+    label: "Keyboard layout"
+    description: "Show a toast when the keyboard layout changes."
     checked: Settings.data.notifications.enableKeyboardLayoutToast
     onToggled: checked => Settings.data.notifications.enableKeyboardLayoutToast = checked
   }
 
   NCheckbox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.toast-battery-label")
-    description: I18n.tr("panels.notifications.toast-battery-description")
+    label: "Battery warning"
+    description: "Show a warning when the battery level falls below this percentage."
     checked: Settings.data.notifications.enableBatteryToast
     onToggled: checked => Settings.data.notifications.enableBatteryToast = checked
   }

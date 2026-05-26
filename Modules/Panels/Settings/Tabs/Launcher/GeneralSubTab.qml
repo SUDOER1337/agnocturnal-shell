@@ -10,41 +10,41 @@ ColumnLayout {
   Layout.fillWidth: true
 
   NComboBox {
-    label: I18n.tr("common.position")
-    description: I18n.tr("panels.launcher.settings-position-description")
+    label: "Position"
+    description: "Choose where the launcher panel appears."
     Layout.fillWidth: true
     model: [
       {
         "key": "follow_bar",
-        "name": I18n.tr("positions.follow-bar")
+        "name": "Follow bar"
       },
       {
         "key": "center",
-        "name": I18n.tr("positions.center")
+        "name": "Center"
       },
       {
         "key": "top_center",
-        "name": I18n.tr("positions.top-center")
+        "name": "Top center"
       },
       {
         "key": "top_left",
-        "name": I18n.tr("positions.top-left")
+        "name": "Top left"
       },
       {
         "key": "top_right",
-        "name": I18n.tr("positions.top-right")
+        "name": "Top right"
       },
       {
         "key": "bottom_left",
-        "name": I18n.tr("positions.bottom-left")
+        "name": "Bottom left"
       },
       {
         "key": "bottom_right",
-        "name": I18n.tr("positions.bottom-right")
+        "name": "Bottom right"
       },
       {
         "key": "bottom_center",
-        "name": I18n.tr("positions.bottom-center")
+        "name": "Bottom center"
       }
     ]
     currentKey: Settings.data.appLauncher.position
@@ -56,25 +56,25 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-overlay-layer-label")
-    description: I18n.tr("panels.launcher.settings-overlay-layer-description")
+    label: "Show above fullscreen"
+    description: "Display the launcher on the overlay layer, above fullscreen windows. When enabled, the launcher will not attach to the bar."
     checked: Settings.data.appLauncher.overviewLayer
     onToggled: checked => Settings.data.appLauncher.overviewLayer = checked
     defaultValue: Settings.getDefaultValue("appLauncher.overviewLayer")
   }
 
   NComboBox {
-    label: I18n.tr("panels.launcher.settings-view-mode-label")
-    description: I18n.tr("panels.launcher.settings-view-mode-description")
+    label: "View mode"
+    description: "Choose the layout for the launcher entries."
     Layout.fillWidth: true
     model: [
       {
         "key": "list",
-        "name": I18n.tr("options.launcher-view-mode.list")
+        "name": "List"
       },
       {
         "key": "grid",
-        "name": I18n.tr("options.launcher-view-mode.grid")
+        "name": "Grid"
       }
     ]
     currentKey: Settings.data.appLauncher.viewMode
@@ -85,21 +85,21 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("panels.launcher.settings-density-label")
-    description: I18n.tr("panels.launcher.settings-density-description")
+    label: "Density"
+    description: "Adjust the size of application icons and the density of the launcher."
     Layout.fillWidth: true
     model: [
       {
         "key": "compact",
-        "name": I18n.tr("options.launcher-density.compact")
+        "name": "Compact"
       },
       {
         "key": "default",
-        "name": I18n.tr("options.launcher-density.default")
+        "name": "Default"
       },
       {
         "key": "comfortable",
-        "name": I18n.tr("options.launcher-density.comfortable")
+        "name": "Comfortable"
       }
     ]
     currentKey: Settings.data.appLauncher.density || "compact"
@@ -110,24 +110,24 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-show-categories-label")
-    description: I18n.tr("panels.launcher.settings-show-categories-description")
+    label: "Show categories"
+    description: "Show category tabs for filtering applications."
     checked: Settings.data.appLauncher.showCategories
     onToggled: checked => Settings.data.appLauncher.showCategories = checked
     defaultValue: Settings.getDefaultValue("appLauncher.showCategories")
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-icon-mode-label")
-    description: I18n.tr("panels.launcher.settings-icon-mode-description")
+    label: "Use native icons"
+    description: "Use native system icons instead of Tabler icons."
     checked: Settings.data.appLauncher.iconMode === "native"
     onToggled: checked => Settings.data.appLauncher.iconMode = checked ? "native" : "tabler"
     defaultValue: Settings.getDefaultValue("appLauncher.iconMode") === "native"
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-show-icon-background-label")
-    description: I18n.tr("panels.launcher.settings-show-icon-background-description")
+    label: "Show icon background"
+    description: "Show a rounded rectangle background behind icons."
     checked: Settings.data.appLauncher.showIconBackground
     onToggled: checked => Settings.data.appLauncher.showIconBackground = checked
     defaultValue: Settings.getDefaultValue("appLauncher.showIconBackground")
@@ -138,40 +138,40 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-sort-by-usage-label")
-    description: I18n.tr("panels.launcher.settings-sort-by-usage-description")
+    label: "Sort by most used"
+    description: "When enabled, frequently launched apps appear first in the list."
     checked: Settings.data.appLauncher.sortByMostUsed
     onToggled: checked => Settings.data.appLauncher.sortByMostUsed = checked
     defaultValue: Settings.getDefaultValue("appLauncher.sortByMostUsed")
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-enable-settings-search-label")
-    description: I18n.tr("panels.launcher.settings-enable-settings-search-description")
+    label: "Enable settings search"
+    description: "Show settings results when searching in the launcher."
     checked: Settings.data.appLauncher.enableSettingsSearch
     onToggled: checked => Settings.data.appLauncher.enableSettingsSearch = checked
     defaultValue: Settings.getDefaultValue("appLauncher.enableSettingsSearch")
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-enable-windows-search-label")
-    description: I18n.tr("panels.launcher.settings-enable-windows-search-description")
+    label: "Enable windows search"
+    description: "Search and focus active windows."
     checked: Settings.data.appLauncher.enableWindowsSearch
     onToggled: checked => Settings.data.appLauncher.enableWindowsSearch = checked
     defaultValue: Settings.getDefaultValue("appLauncher.enableWindowsSearch")
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-enable-session-search-label")
-    description: I18n.tr("panels.launcher.settings-enable-session-search-description")
+    label: "Enable session search"
+    description: "Show session actions (lock, shutdown, reboot, etc.) when searching in the launcher."
     checked: Settings.data.appLauncher.enableSessionSearch
     onToggled: checked => Settings.data.appLauncher.enableSessionSearch = checked
     defaultValue: Settings.getDefaultValue("appLauncher.enableSessionSearch")
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-ignore-mouse-input-label")
-    description: I18n.tr("panels.launcher.settings-ignore-mouse-input-description")
+    label: "Ignore mouse input"
+    description: "Disable mouse interaction and scrollwheel in the launcher."
     checked: Settings.data.appLauncher.ignoreMouseInput
     onToggled: checked => Settings.data.appLauncher.ignoreMouseInput = checked
     defaultValue: Settings.getDefaultValue("appLauncher.ignoreMouseInput")

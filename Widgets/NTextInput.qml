@@ -35,9 +35,7 @@ ColumnLayout {
   spacing: Style.marginS
 
   readonly property bool isValueChanged: (defaultValue !== undefined) && (text !== defaultValue)
-  readonly property string indicatorTooltip: defaultValue !== undefined ? I18n.tr("panels.indicator.default-value", {
-                                                                                    "value": defaultValue === "" ? "(empty)" : String(defaultValue)
-                                                                                  }) : ""
+  readonly property string indicatorTooltip: defaultValue !== undefined ? "Default: {value}" : ""
 
   NLabel {
     label: root.label
@@ -213,7 +211,7 @@ ColumnLayout {
           NIconButton {
             id: clearButton
             icon: "x"
-            tooltipText: (input.text.length > 0 && !root.readOnly && root.enabled) ? I18n.tr("common.clear") : ""
+            tooltipText: (input.text.length > 0 && !root.readOnly && root.enabled) ? "Clear" : ""
 
             Layout.alignment: Qt.AlignVCenter
             border.width: 0

@@ -9,40 +9,40 @@ ColumnLayout {
   spacing: Style.marginL
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.lock-on-suspend-label")
-    description: I18n.tr("panels.lock-screen.lock-on-suspend-description")
+    label: "Lock on suspend"
+    description: "Automatically lock the screen when suspending the system."
     checked: Settings.data.general.lockOnSuspend
     onToggled: checked => Settings.data.general.lockOnSuspend = checked
     defaultValue: Settings.getDefaultValue("general.lockOnSuspend")
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.auto-start-auth-label")
-    description: I18n.tr("panels.lock-screen.auto-start-auth-description")
+    label: "Auto-start authentication"
+    description: "Automatically starts fingerprint authentication without requiring a key press or button click."
     checked: Settings.data.general.autoStartAuth
     onToggled: checked => Settings.data.general.autoStartAuth = checked
     defaultValue: Settings.getDefaultValue("general.autoStartAuth")
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.allow-password-with-fprintd-label")
-    description: I18n.tr("panels.lock-screen.allow-password-with-fprintd-description")
+    label: "Allow password login with fprintd"
+    description: "When fprintd (fingerprint authentication) is active, this option lets you still login using your password instead of a fingerprint"
     checked: Settings.data.general.allowPasswordWithFprintd
     onToggled: checked => Settings.data.general.allowPasswordWithFprintd = checked
     defaultValue: Settings.getDefaultValue("general.allowPasswordWithFprintd")
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.show-session-buttons-label")
-    description: I18n.tr("panels.lock-screen.show-session-buttons-description")
+    label: "Power controls"
+    description: "Allow access to power settings from the lock screen."
     checked: Settings.data.general.showSessionButtonsOnLockScreen
     onToggled: checked => Settings.data.general.showSessionButtonsOnLockScreen = checked
     defaultValue: Settings.getDefaultValue("general.showSessionButtonsOnLockScreen")
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.show-hibernate-label")
-    description: I18n.tr("panels.lock-screen.show-hibernate-description")
+    label: "Show hibernate"
+    description: "Show the option 'hibernate' in the power controls."
     checked: Settings.data.general.showHibernateOnLockScreen
     onToggled: checked => Settings.data.general.showHibernateOnLockScreen = checked
     visible: Settings.data.general.showSessionButtonsOnLockScreen
@@ -50,8 +50,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.session-menu.enable-countdown-label")
-    description: I18n.tr("panels.session-menu.enable-countdown-description")
+    label: "Enable countdown timer"
+    description: "Show a countdown timer before executing power actions."
     checked: Settings.data.general.enableLockScreenCountdown
     onToggled: checked => Settings.data.general.enableLockScreenCountdown = checked
     visible: Settings.data.general.showSessionButtonsOnLockScreen
@@ -61,8 +61,8 @@ ColumnLayout {
   NValueSlider {
     visible: Settings.data.general.showSessionButtonsOnLockScreen && Settings.data.general.enableLockScreenCountdown
     Layout.fillWidth: true
-    label: I18n.tr("panels.session-menu.countdown-duration-label")
-    description: I18n.tr("panels.session-menu.countdown-duration-description")
+    label: "Countdown duration"
+    description: "Set how long the countdown timer lasts before executing power actions."
     from: 1000
     to: 30000
     stepSize: 1000

@@ -45,7 +45,7 @@ Popup {
     RowLayout {
       Layout.fillWidth: true
       NText {
-        text: editIndex >= 0 ? I18n.tr("panels.notifications.rules-edit") : I18n.tr("panels.notifications.rules-add")
+        text: editIndex >= 0 ? "Edit rule" : "Add rule"
         font.weight: Style.fontWeightBold
         pointSize: Style.fontSizeL
         Layout.fillWidth: true
@@ -63,27 +63,27 @@ Popup {
       NTextInput {
         id: patternInput
         Layout.fillWidth: true
-        label: I18n.tr("panels.notifications.rules-pattern-label")
-        placeholderText: I18n.tr("panels.notifications.rules-pattern-placeholder")
+        label: "Pattern"
+        placeholderText: "firefox, discord, or /regex/"
         fontFamily: Settings.data.ui.fontFixed
       }
 
       NComboBox {
         id: actionCombo
         Layout.fillWidth: true
-        label: I18n.tr("panels.notifications.rules-action-label")
+        label: "Action"
         model: [
           {
             "key": "block",
-            "name": I18n.tr("panels.notifications.rules-action-block")
+            "name": "Block"
           },
           {
             "key": "mute",
-            "name": I18n.tr("panels.notifications.rules-action-mute")
+            "name": "Mute"
           },
           {
             "key": "hide",
-            "name": I18n.tr("panels.notifications.rules-action-hide")
+            "name": "Hide"
           }
         ]
         currentKey: actionValue
@@ -95,7 +95,7 @@ Popup {
 
       NLabel {
         Layout.fillWidth: true
-        label: _selectedAction === "block" ? I18n.tr("panels.notifications.rules-action-block-desc") : (_selectedAction === "mute" ? I18n.tr("panels.notifications.rules-action-mute-desc") : I18n.tr("panels.notifications.rules-action-hide-desc"))
+        label: _selectedAction === "block" ? "Skips completely." : (_selectedAction === "mute" ? "No sound, still shows popup and in history." : "No popup, no sound, adds to history.")
         labelColor: Color.mOnSurfaceVariant
       }
     }
@@ -109,13 +109,13 @@ Popup {
       }
 
       NButton {
-        text: I18n.tr("common.cancel")
+        text: "Cancel"
         outlined: true
         onClicked: root.close()
       }
 
       NButton {
-        text: I18n.tr("common.save")
+        text: "Save"
         icon: "check"
         backgroundColor: Color.mPrimary
         textColor: Color.mOnPrimary

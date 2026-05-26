@@ -92,11 +92,11 @@ Singleton {
 
     availableFonts.append({
                             "key": Qt.application.font.family,
-                            "name": I18n.tr("panels.indicator.system-default")
+                            "name": "System Default"
                           });
     monospaceFonts.append({
                             "key": "monospace",
-                            "name": I18n.tr("panels.indicator.system-default")
+                            "name": "System Default"
                           });
 
     for (var m = 0; m < allBatch.length; m++)

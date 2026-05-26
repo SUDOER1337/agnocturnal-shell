@@ -132,7 +132,7 @@ Scope {
           unlockInProgress = true;
         } else {
           root.waitingForPassword = true;
-          infoMessage = I18n.tr("lock-screen.password");
+          infoMessage = "Enter your password...";
           showInfo = true;
         }
       } else if (messageIsError) {
@@ -152,7 +152,7 @@ Scope {
                    } else {
                      Logger.i("LockContext", "Authentication failed");
                      root.currentText = "";
-                     errorMessage = I18n.tr("authentication.failed");
+                     errorMessage = "Authentication failed";
                      showFailure = true;
                      root.failed();
                    }

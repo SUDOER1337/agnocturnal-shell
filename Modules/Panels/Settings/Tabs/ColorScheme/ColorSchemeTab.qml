@@ -74,12 +74,12 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.colors")
+      text: "Colors"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.templates")
+      text: "Templates"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }

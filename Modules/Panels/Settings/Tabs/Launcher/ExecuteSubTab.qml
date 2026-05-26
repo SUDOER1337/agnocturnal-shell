@@ -11,24 +11,24 @@ ColumnLayout {
   Layout.fillWidth: true
 
   NTextInput {
-    label: I18n.tr("panels.launcher.settings-terminal-command-label")
-    description: I18n.tr("panels.launcher.settings-terminal-command-description")
+    label: "Terminal command"
+    description: "Command to launch a terminal. E.g. 'kitty -e' or 'gnome-terminal --'."
     Layout.fillWidth: true
     text: Settings.data.appLauncher.terminalCommand
     onTextChanged: Settings.data.appLauncher.terminalCommand = text
   }
 
   NToggle {
-    label: I18n.tr("panels.launcher.settings-custom-launch-prefix-enabled-label")
-    description: I18n.tr("panels.launcher.settings-custom-launch-prefix-enabled-description")
+    label: "Enable custom launch prefix"
+    description: "Use a custom prefix for launching applications instead of the default method."
     checked: Settings.data.appLauncher.customLaunchPrefixEnabled
     onToggled: checked => Settings.data.appLauncher.customLaunchPrefixEnabled = checked
     defaultValue: Settings.getDefaultValue("appLauncher.customLaunchPrefixEnabled")
   }
 
   NTextInput {
-    label: I18n.tr("panels.launcher.settings-custom-launch-prefix-label")
-    description: I18n.tr("panels.launcher.settings-custom-launch-prefix-description")
+    label: "Custom launch prefix"
+    description: "Prefix commands with a custom launcher (e.g. 'runapp' for systemd integration)."
     Layout.fillWidth: true
     text: Settings.data.appLauncher.customLaunchPrefix
     enabled: Settings.data.appLauncher.customLaunchPrefixEnabled
@@ -37,11 +37,11 @@ ColumnLayout {
   }
 
   NTextInput {
-    label: I18n.tr("panels.launcher.settings-annotation-tool-label")
-    description: I18n.tr("panels.launcher.settings-annotation-tool-description")
+    label: "Annotation tool"
+    description: "Command to run when clicking the annotate button in clipboard history. The image will be piped to this command."
     Layout.fillWidth: true
     text: Settings.data.appLauncher.screenshotAnnotationTool
-    placeholderText: I18n.tr("panels.launcher.settings-annotation-tool-placeholder")
+    placeholderText: "e.g. 'gradia', 'satty -f -'"
     onTextChanged: Settings.data.appLauncher.screenshotAnnotationTool = text
   }
 }

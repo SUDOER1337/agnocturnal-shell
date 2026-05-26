@@ -99,7 +99,7 @@ SmartPanel {
              Layout.fillWidth: true
 
              NText {
-               text: I18n.tr("common.battery")
+               text: "Battery"
                pointSize: Style.fontSizeL
                font.weight: Style.fontWeightBold
                color: Color.mOnSurface
@@ -154,7 +154,7 @@ SmartPanel {
 
                         NText {
                           readonly property string dName: BatteryService.getDeviceName(modelData)
-                          text: dName ? dName : I18n.tr("common.battery")
+                          text: dName ? dName : "Battery"
                           color: (BatteryService.isCharging(modelData) || BatteryService.isPluggedIn(modelData)) ? Color.mPrimary : (BatteryService.isCriticalBattery(modelData) || BatteryService.isLowBattery(modelData)) ? Color.mError : Color.mOnSurface
                           pointSize: Style.fontSizeS
                         }
@@ -165,7 +165,7 @@ SmartPanel {
                         hoverEnabled: true
                         onEntered: {
                           if (modelData.healthSupported) {
-                            TooltipService.show(batteryInfoItem, `${I18n.tr("battery.battery-health")}: ${Math.round(modelData.healthPercentage)}%`);
+                            TooltipService.show(batteryInfoItem, `${"Battery health"}: ${Math.round(modelData.healthPercentage)}%`);
                           }
                         }
                         onExited: TooltipService.hide(batteryInfoItem)
@@ -241,7 +241,7 @@ SmartPanel {
 
                 NText {
                   readonly property string dName: BatteryService.getDeviceName(modelData)
-                  text: dName ? dName : I18n.tr("common.bluetooth")
+                  text: dName ? dName : "Bluetooth"
                   color: (BatteryService.isCharging(modelData) || BatteryService.isPluggedIn(modelData)) ? Color.mPrimary : (BatteryService.isCriticalBattery(modelData) || BatteryService.isLowBattery(modelData)) ? Color.mError : Color.mOnSurface
                   pointSize: Style.fontSizeS
                 }
@@ -302,7 +302,7 @@ SmartPanel {
               spacing: Style.marginS
 
               NText {
-                text: I18n.tr("battery.power-profile")
+                text: "Power profile"
                 font.weight: Style.fontWeightBold
                 color: Color.mOnSurface
                 Layout.fillWidth: true
@@ -369,7 +369,7 @@ SmartPanel {
             visible: showNoctaliaPerformance
 
             NText {
-              text: I18n.tr("toast.noctalia-performance.label")
+              text: "Noctalia Performance"
               pointSize: Style.fontSizeM
               font.weight: Style.fontWeightBold
               color: Color.mOnSurface

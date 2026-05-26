@@ -127,12 +127,12 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("actions.cycle-visualizer"),
+        "label": "Cycle visualizer",
         "action": "cycle-visualizer",
         "icon": "chart-column"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

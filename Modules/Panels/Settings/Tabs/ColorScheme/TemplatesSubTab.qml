@@ -15,9 +15,7 @@ ColumnLayout {
 
   // Helper to format path description
   function getDesc(fallbackPath) {
-    return I18n.tr("panels.color-scheme.templates-write-path", {
-                     "filepath": fallbackPath
-                   });
+    return "Writes: {filepath}";
   }
 
   // Build a combined list of all available templates from TemplateRegistry, sorted alphabetically
@@ -57,7 +55,7 @@ ColumnLayout {
           }
           path = emacsPaths.join("\n");
         } else {
-          path = I18n.tr("panels.color-scheme.templates-none-detected");
+          path = "None detected";
         }
       } else if (app.clients && app.clients.length > 0) {
         var validClients = [];
@@ -87,7 +85,7 @@ ColumnLayout {
         if (validClients.length > 0) {
           path = validClients.join("\n");
         } else {
-          path = I18n.tr("panels.color-scheme.templates-none-detected");
+          path = "None detected";
         }
       }
 
@@ -187,7 +185,7 @@ ColumnLayout {
   }
 
   NText {
-    text: I18n.tr("panels.color-scheme.templates-desc")
+    text: "Apply colors to external applications."
     wrapMode: Text.WordWrap
     Layout.fillWidth: true
   }
@@ -197,8 +195,8 @@ ColumnLayout {
     tags: root.availableCategories
     selectedTag: root.selectedCategory
     onSelectedTagChanged: root.selectedCategory = selectedTag
-    label: I18n.tr("panels.color-scheme.templates-filter-label")
-    description: I18n.tr("panels.color-scheme.templates-filter-description")
+    label: "Filter by category"
+    description: "Show templates from a specific category."
     expanded: true
   }
 
@@ -209,14 +207,14 @@ ColumnLayout {
 
     NTextInput {
       Layout.fillWidth: true
-      placeholderText: I18n.tr("placeholders.search")
+      placeholderText: "Search..."
       text: root.searchText
       onTextChanged: root.searchText = text
     }
 
     NIconButton {
       icon: "filter"
-      tooltipText: root.showOnlyActive ? I18n.tr("actions.show-all") : I18n.tr("actions.show-active-only")
+      tooltipText: root.showOnlyActive ? "Show all" : "Show active only"
 
       colorBg: root.showOnlyActive ? Color.mPrimary : Color.mSurface
       colorFg: root.showOnlyActive ? Color.mOnPrimary : Color.mOnSurface
@@ -293,7 +291,7 @@ ColumnLayout {
   // No results message
   NText {
     visible: filteredTemplates.length === 0 && searchText.trim() !== ""
-    text: I18n.tr("common.no-results")
+    text: "No results"
     color: Color.mOnSurfaceVariant
   }
 
@@ -304,8 +302,8 @@ ColumnLayout {
 
   // User templates checkbox
   NCheckbox {
-    label: I18n.tr("panels.color-scheme.templates-misc-user-templates-label")
-    description: I18n.tr("panels.color-scheme.templates-misc-user-templates-description")
+    label: "Enable user templates"
+    description: "Only enable if you know what you are doing — refer to our online documentation."
     checked: Settings.data.templates.enableUserTheming
     onToggled: checked => {
                  Settings.data.templates.enableUserTheming = checked;

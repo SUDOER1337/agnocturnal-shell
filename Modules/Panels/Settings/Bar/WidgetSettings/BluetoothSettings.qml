@@ -28,21 +28,21 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("common.display-mode")
-    description: I18n.tr("bar.volume.display-mode-description")
+    label: "Display mode"
+    description: "Choose how you'd like this value to appear."
     minimumWidth: 200
     model: [
       {
         "key": "onhover",
-        "name": I18n.tr("display-modes.on-hover")
+        "name": "On hover"
       },
       {
         "key": "alwaysShow",
-        "name": I18n.tr("display-modes.always-show")
+        "name": "Always show"
       },
       {
         "key": "alwaysHide",
-        "name": I18n.tr("display-modes.always-hide")
+        "name": "Always hide"
       }
     ]
     currentKey: root.valueDisplayMode
@@ -54,7 +54,7 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("common.select-icon-color")
+    label: "Select icon color"
     currentKey: valueIconColor
     onSelected: key => {
                   valueIconColor = key;

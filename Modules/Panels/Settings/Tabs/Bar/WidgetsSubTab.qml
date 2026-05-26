@@ -36,14 +36,14 @@ ColumnLayout {
   }
 
   NText {
-    text: I18n.tr("panels.bar.widgets-desc")
+    text: "Drag widgets to change their order. Use the right-click menu to transfer widgets between sections or remove them."
     wrapMode: Text.WordWrap
     Layout.fillWidth: true
   }
 
   // Left Section
   NSectionEditor {
-    sectionName: root.barIsVertical ? I18n.tr("positions.top") : I18n.tr("positions.left")
+    sectionName: root.barIsVertical ? "Top" : "Left"
     sectionId: "left"
     barIsVertical: root.barIsVertical
     settingsDialogComponent: Qt.resolvedUrl(Quickshell.shellDir + "/Modules/Panels/Settings/Bar/BarWidgetSettingsDialog.qml")
@@ -61,7 +61,7 @@ ColumnLayout {
 
   // Center Section
   NSectionEditor {
-    sectionName: I18n.tr("positions.center")
+    sectionName: "Center"
     sectionId: "center"
     barIsVertical: root.barIsVertical
     settingsDialogComponent: Qt.resolvedUrl(Quickshell.shellDir + "/Modules/Panels/Settings/Bar/BarWidgetSettingsDialog.qml")
@@ -79,7 +79,7 @@ ColumnLayout {
 
   // Right Section
   NSectionEditor {
-    sectionName: root.barIsVertical ? I18n.tr("positions.bottom") : I18n.tr("positions.right")
+    sectionName: root.barIsVertical ? "Bottom" : "Right"
     sectionId: "right"
     barIsVertical: root.barIsVertical
     settingsDialogComponent: Qt.resolvedUrl(Quickshell.shellDir + "/Modules/Panels/Settings/Bar/BarWidgetSettingsDialog.qml")

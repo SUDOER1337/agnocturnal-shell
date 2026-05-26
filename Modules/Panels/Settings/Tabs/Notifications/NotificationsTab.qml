@@ -44,32 +44,32 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.appearance")
+      text: "Appearance"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.duration")
+      text: "Duration"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }
     NTabButton {
-      text: I18n.tr("common.history")
+      text: "History"
       tabIndex: 2
       checked: subTabBar.currentIndex === 2
     }
     NTabButton {
-      text: I18n.tr("common.sound")
+      text: "Sound"
       tabIndex: 3
       checked: subTabBar.currentIndex === 3
     }
     NTabButton {
-      text: I18n.tr("common.toast")
+      text: "Toast"
       tabIndex: 4
       checked: subTabBar.currentIndex === 4
     }
     NTabButton {
-      text: I18n.tr("panels.notifications.rules-tab")
+      text: "Rules"
       tabIndex: 5
       checked: subTabBar.currentIndex === 5
     }
@@ -103,7 +103,7 @@ ColumnLayout {
   // File Pickers for Sound Files
   NFilePicker {
     id: unifiedSoundFilePicker
-    title: I18n.tr("panels.notifications.sounds-files-unified-select-title")
+    title: "Select notification sound file"
     selectionMode: "files"
     initialPath: Quickshell.env("HOME")
     nameFilters: ["*.wav", "*.mp3", "*.ogg", "*.flac", "*.m4a", "*.aac"]
@@ -119,7 +119,7 @@ ColumnLayout {
 
   NFilePicker {
     id: lowSoundFilePicker
-    title: I18n.tr("panels.notifications.sounds-files-low-select-title")
+    title: "Select low urgency sound file"
     selectionMode: "files"
     initialPath: Quickshell.env("HOME")
     nameFilters: ["*.wav", "*.mp3", "*.ogg", "*.flac", "*.m4a", "*.aac"]
@@ -132,7 +132,7 @@ ColumnLayout {
 
   NFilePicker {
     id: normalSoundFilePicker
-    title: I18n.tr("panels.notifications.sounds-files-normal-select-title")
+    title: "Select normal urgency sound file"
     selectionMode: "files"
     initialPath: Quickshell.env("HOME")
     nameFilters: ["*.wav", "*.mp3", "*.ogg", "*.flac", "*.m4a", "*.aac"]
@@ -145,7 +145,7 @@ ColumnLayout {
 
   NFilePicker {
     id: criticalSoundFilePicker
-    title: I18n.tr("panels.notifications.sounds-files-critical-select-title")
+    title: "Select critical urgency sound file"
     selectionMode: "files"
     initialPath: Quickshell.env("HOME")
     nameFilters: ["*.wav", "*.mp3", "*.ogg", "*.flac", "*.m4a", "*.aac"]

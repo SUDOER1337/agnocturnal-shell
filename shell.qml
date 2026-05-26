@@ -42,7 +42,6 @@ import qs.Services.UI
 ShellRoot {
   id: shellRoot
 
-  property bool i18nLoaded: false
   property bool settingsLoaded: false
   property bool shellStateLoaded: false
 
@@ -67,13 +66,6 @@ ShellRoot {
   }
 
   Connections {
-    target: I18n ? I18n : null
-    function onTranslationsLoaded() {
-      i18nLoaded = true;
-    }
-  }
-
-  Connections {
     target: Settings ? Settings : null
     function onSettingsLoaded() {
       settingsLoaded = true;
@@ -90,7 +82,7 @@ ShellRoot {
   }
 
   Loader {
-    active: i18nLoaded && settingsLoaded && shellStateLoaded
+    active: settingsLoaded && shellStateLoaded
 
     sourceComponent: Item {
       Component.onCompleted: {
@@ -112,8 +104,8 @@ ShellRoot {
           PowerProfileService.init();
           HostService.init();
           NotificationRulesService.init();
-          GitHubService.init();
-          SupporterService.init();
+          // GitHubService.init();    // removed
+          // SupporterService.init(); // removed
           CustomButtonIPCService.init();
           IPCService.init(screenDetector);
 
@@ -179,7 +171,7 @@ ShellRoot {
       HooksService.init();
       FontService.init();
       UpdateService.init();
-      TelemetryService.init();
+      // TelemetryService.init(); // removed
     }
   }
 }

@@ -9,7 +9,7 @@ NIconButtonHot {
 
   enabled: Settings.data.wallpaper.enabled
   icon: "wallpaper-selector"
-  tooltipText: I18n.tr("wallpaper.panel.title")
+  tooltipText: "Wallpaper Selector"
   onClicked: PanelService.getPanel("wallpaperPanel", screen)?.toggle()
   onRightClicked: WallpaperService.setRandomWallpaper()
 }

@@ -140,24 +140,18 @@ Singleton {
       return "";
     const diff = Date.now() - date.getTime();
     if (diff < 60000)
-      return I18n.tr("notifications.time.now");
+      return "now";
     if (diff < 120000)
-      return I18n.tr("notifications.time.diff-m");
+      return "1 minute ago";
     if (diff < 3600000)
-      return I18n.tr("notifications.time.diff-mm", {
-                       "diff": Math.floor(diff / 60000)
-                     });
+      return "{diff} minutes ago";
     if (diff < 7200000)
-      return I18n.tr("notifications.time.diff-h");
+      return "1 hour ago";
     if (diff < 86400000)
-      return I18n.tr("notifications.time.diff-hh", {
-                       "diff": Math.floor(diff / 3600000)
-                     });
+      return "{diff} hours ago";
     if (diff < 172800000)
-      return I18n.tr("notifications.time.diff-d");
-    return I18n.tr("notifications.time.diff-dd", {
-                     "diff": Math.floor(diff / 86400000)
-                   });
+      return "1 day ago";
+    return "{diff} days ago";
   }
 
   // Timer functions

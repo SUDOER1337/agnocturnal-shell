@@ -26,7 +26,7 @@ ColumnLayout {
   }
 
   NText {
-    text: I18n.tr("panels.lock-screen.monitors-desc")
+    text: "Show lock screen on specific monitors. Defaults to all if none are chosen."
     wrapMode: Text.WordWrap
     Layout.fillWidth: true
   }
@@ -41,12 +41,7 @@ ColumnLayout {
       }
       label: modelData.name || "Unknown"
       description: {
-        I18n.tr("system.monitor-description", {
-                  "model": modelData.model,
-                  "width": modelData.width * compositorScale,
-                  "height": modelData.height * compositorScale,
-                  "scale": compositorScale
-                });
+        "{model} ({width}x{height} @ {scale}x)";
       }
       checked: (Settings.data.general.lockScreenMonitors || []).indexOf(modelData.name) !== -1
       onToggled: checked => {

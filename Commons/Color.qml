@@ -371,23 +371,23 @@ Singleton {
   readonly property var colorKeyModel: [
     {
       "key": "none",
-      "name": I18n.tr("common.none")
+      "name": "None"
     },
     {
       "key": "primary",
-      "name": I18n.tr("common.primary")
+      "name": "Primary"
     },
     {
       "key": "secondary",
-      "name": I18n.tr("common.secondary")
+      "name": "Secondary"
     },
     {
       "key": "tertiary",
-      "name": I18n.tr("common.tertiary")
+      "name": "Tertiary"
     },
     {
       "key": "error",
-      "name": I18n.tr("common.error")
+      "name": "Error"
     }
   ]
 

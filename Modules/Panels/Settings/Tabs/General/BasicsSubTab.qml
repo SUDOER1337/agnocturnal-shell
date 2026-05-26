@@ -28,12 +28,12 @@ ColumnLayout {
       Layout.fillWidth: true
 
       NSearchableComboBox {
-        label: I18n.tr("panels.general.fonts-default-label")
-        description: I18n.tr("panels.general.fonts-default-description")
+        label: "Default font"
+        description: "Main font used throughout the interface."
         model: FontService.availableFonts
         currentKey: Settings.data.ui.fontDefault
-        placeholder: I18n.tr("panels.general.fonts-default-placeholder")
-        searchPlaceholder: I18n.tr("panels.general.fonts-default-search-placeholder")
+        placeholder: "Select default font..."
+        searchPlaceholder: "Search font..."
         popupHeight: 420
         defaultValue: Settings.getDefaultValue("ui.fontDefault")
         settingsPath: "ui.fontDefault"
@@ -41,12 +41,12 @@ ColumnLayout {
       }
 
       NSearchableComboBox {
-        label: I18n.tr("panels.general.fonts-monospace-label")
-        description: I18n.tr("panels.general.fonts-monospace-description")
+        label: "Monospaced font"
+        description: "Monospaced font used for numbers and stats display."
         model: FontService.monospaceFonts
         currentKey: Settings.data.ui.fontFixed
-        placeholder: I18n.tr("panels.general.fonts-monospace-placeholder")
-        searchPlaceholder: I18n.tr("panels.general.fonts-monospace-search-placeholder")
+        placeholder: "Select monospace font..."
+        searchPlaceholder: "Search monospace font..."
         popupHeight: 320
         defaultValue: Settings.getDefaultValue("ui.fontFixed")
         settingsPath: "ui.fontFixed"
@@ -55,8 +55,8 @@ ColumnLayout {
 
       NValueSlider {
         Layout.fillWidth: true
-        label: I18n.tr("panels.general.fonts-default-scale-label")
-        description: I18n.tr("panels.general.fonts-default-scale-description")
+        label: "Default font size"
+        description: "Increase or decrease the size of the standard text."
         from: 0.75
         to: 1.25
         stepSize: 0.01
@@ -69,8 +69,8 @@ ColumnLayout {
 
       NValueSlider {
         Layout.fillWidth: true
-        label: I18n.tr("panels.general.fonts-monospace-scale-label")
-        description: I18n.tr("panels.general.fonts-monospace-scale-description")
+        label: "Monospaced font size"
+        description: "Increase or decrease the size of the monospaced text."
         from: 0.75
         to: 1.25
         stepSize: 0.01
@@ -91,8 +91,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.reverse-scrolling-label")
-    description: I18n.tr("panels.general.reverse-scrolling-description")
+    label: "Reverse scrolling"
+    description: "Reverse the interpreted scroll direction"
     checked: Settings.data.general.reverseScroll
     defaultValue: Settings.getDefaultValue("general.reverseScroll")
     onToggled: checked => Settings.data.general.reverseScroll = checked
@@ -100,8 +100,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.general.smooth-scrolling-label")
-    description: I18n.tr("panels.general.smooth-scrolling-description")
+    label: "Smooth scrolling"
+    description: "Animate list scrolling for a smoother wheel experience."
     checked: Settings.data.general.smoothScrollEnabled
     defaultValue: Settings.getDefaultValue("general.smoothScrollEnabled")
     onToggled: checked => Settings.data.general.smoothScrollEnabled = checked
@@ -119,7 +119,7 @@ ColumnLayout {
 
     NButton {
       icon: "external-link"
-      text: I18n.tr("common.documentation")
+      text: "Documentation"
       outlined: true
       Layout.fillWidth: true
       onClicked: {
@@ -129,14 +129,14 @@ ColumnLayout {
 
     NButton {
       icon: "json"
-      text: I18n.tr("panels.general.copy-settings")
+      text: "Copy settings"
       outlined: true
       Layout.fillWidth: true
       onClicked: {
         var plainData = QtObj2JS.qtObjectToPlainObject(Settings.data);
         var json = JSON.stringify(plainData, null, 2);
         Quickshell.execDetached(["wl-copy", json]);
-        ToastService.showNotice(I18n.tr("panels.general.settings-copied"));
+        ToastService.showNotice("Settings copied to clipboard");
       }
     }
   }

@@ -19,41 +19,41 @@ ColumnLayout {
 
     NComboBox {
       id: controlCenterPosition
-      label: I18n.tr("common.position")
-      description: I18n.tr("panels.control-center.position-description")
+      label: "Position"
+      description: "Choose where the control center panel appears when opened."
       Layout.fillWidth: true
       model: [
         {
           "key": "close_to_bar_button",
-          "name": I18n.tr("positions.close-to-bar")
+          "name": "Close to bar button"
         },
         {
           "key": "center",
-          "name": I18n.tr("positions.center")
+          "name": "Center"
         },
         {
           "key": "top_center",
-          "name": I18n.tr("positions.top-center")
+          "name": "Top center"
         },
         {
           "key": "top_left",
-          "name": I18n.tr("positions.top-left")
+          "name": "Top left"
         },
         {
           "key": "top_right",
-          "name": I18n.tr("positions.top-right")
+          "name": "Top right"
         },
         {
           "key": "bottom_center",
-          "name": I18n.tr("positions.bottom-center")
+          "name": "Bottom center"
         },
         {
           "key": "bottom_left",
-          "name": I18n.tr("positions.bottom-left")
+          "name": "Bottom left"
         },
         {
           "key": "bottom_right",
-          "name": I18n.tr("positions.bottom-right")
+          "name": "Bottom right"
         }
       ]
       currentKey: Settings.data.controlCenter.position
@@ -66,8 +66,8 @@ ColumnLayout {
     NComboBox {
       id: diskPathComboBox
       Layout.fillWidth: true
-      label: I18n.tr("panels.control-center.system-monitor-disk-path-label")
-      description: I18n.tr("panels.control-center.system-monitor-disk-path-description")
+      label: "System monitor disk path"
+      description: "Select which disk mount point the system monitor card in the control center should monitor."
       model: {
         const paths = Object.keys(SystemStatService.diskPercents).sort();
         return paths.map(path => ({

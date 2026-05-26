@@ -39,17 +39,11 @@ RowLayout {
     if (typeof defaultVal === "number") {
       // If it's a decimal between 0 and 1, format as percentage
       if (defaultVal > 0 && defaultVal <= 1 && from >= 0 && from < 1) {
-        return I18n.tr("panels.indicator.default-value", {
-                         "value": Math.floor(defaultVal * 100) + "%"
-                       });
+        return "Default: {value}";
       }
-      return I18n.tr("panels.indicator.default-value", {
-                       "value": String(defaultVal)
-                     });
+      return "Default: {value}";
     }
-    return I18n.tr("panels.indicator.default-value", {
-                     "value": String(defaultVal)
-                   });
+    return "Default: {value}";
   }
 
   ColumnLayout {
@@ -107,7 +101,7 @@ RowLayout {
       icon: "restore"
       enabled: root.enabled
       baseSize: Style.baseWidgetSize * 0.8
-      tooltipText: I18n.tr("common.reset")
+      tooltipText: "Reset"
       onClicked: root.moved(root.defaultValue)
       anchors.right: parent.right
       anchors.verticalCenter: parent.verticalCenter

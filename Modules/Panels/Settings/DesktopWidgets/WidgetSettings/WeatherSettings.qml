@@ -25,8 +25,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.clock-show-background-label")
-    description: I18n.tr("panels.desktop-widgets.weather-show-background-description")
+    label: "Show background"
+    description: "Show the background container for the weather widget."
     checked: valueShowBackground
     onToggled: checked => {
                  valueShowBackground = checked;
@@ -38,8 +38,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     visible: valueShowBackground
-    label: I18n.tr("panels.desktop-widgets.clock-rounded-corners-label")
-    description: I18n.tr("panels.desktop-widgets.clock-rounded-corners-description")
+    label: "Rounded corners"
+    description: "Use rounded corners for the widget background."
     checked: valueRoundedCorners
     onToggled: checked => {
                  valueRoundedCorners = checked;

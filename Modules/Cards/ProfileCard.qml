@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import qs.Commons
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -60,9 +61,7 @@ NBox {
       NText {
         Layout.fillWidth: true
         Layout.minimumWidth: 0
-        text: I18n.tr("system.uptime", {
-                        "uptime": uptimeText
-                      })
+        text: "Uptime: {uptime}"
         pointSize: Style.fontSizeS
         color: Color.mOnSurfaceVariant
       }
@@ -77,20 +76,19 @@ NBox {
       }
       NIconButton {
         icon: "settings"
-        tooltipText: I18n.tr("tooltips.open-settings")
+        tooltipText: "Settings"
         onClicked: {
           // Better close the control center in case the settings open in a separate window
           PanelService.openedPanel?.close();
 
-          var panel = PanelService.getPanel("settingsPanel", screen);
-          panel.requestedTab = SettingsPanel.Tab.General;
-          panel.open();
+          var panel = PanelService.getPanel("controlCenterPanel", screen);
+          panel.openToTab(ControlCenterV5Panel.Tab.General);
         }
       }
 
       NIconButton {
         icon: "power"
-        tooltipText: I18n.tr("tooltips.session-menu")
+        tooltipText: "Session menu"
         onClicked: {
           PanelService.getPanel("sessionMenuPanel", screen)?.open();
           PanelService.getPanel("controlCenterPanel", screen)?.close();

@@ -16,8 +16,8 @@ ColumnLayout {
   property var removeMonitor
 
   NToggle {
-    label: I18n.tr("panels.notifications.settings-enabled-label")
-    description: I18n.tr("panels.notifications.settings-enabled-description")
+    label: "Enable notifications"
+    description: "Enable or disable the notification daemon, requires a restart of Noctalia shell."
     checked: Settings.data.notifications.enabled !== false
     onToggled: checked => Settings.data.notifications.enabled = checked
     defaultValue: Settings.getDefaultValue("notifications.enabled")
@@ -28,16 +28,16 @@ ColumnLayout {
     enabled: Settings.data.notifications.enabled
 
     NComboBox {
-      label: I18n.tr("panels.notifications.settings-density-label")
-      description: I18n.tr("panels.notifications.settings-density-description")
+      label: "Density"
+      description: "Choose the notification card density."
       model: [
         {
           "key": "default",
-          "name": I18n.tr("options.notification-density.default")
+          "name": "Default"
         },
         {
           "key": "compact",
-          "name": I18n.tr("options.notification-density.compact")
+          "name": "Compact"
         }
       ]
       currentKey: Settings.data.notifications.density || "default"
@@ -46,39 +46,39 @@ ColumnLayout {
     }
 
     NToggle {
-      label: I18n.tr("tooltips.do-not-disturb-enabled")
-      description: I18n.tr("panels.notifications.settings-do-not-disturb-description")
+      label: "Do Not Disturb"
+      description: "Disable all notification popups when enabled."
       checked: NotificationService.doNotDisturb
       onToggled: checked => NotificationService.doNotDisturb = checked
     }
 
     NComboBox {
-      label: I18n.tr("common.position")
-      description: I18n.tr("panels.notifications.settings-location-description")
+      label: "Position"
+      description: "Where notifications appear on screen."
       model: [
         {
           "key": "top",
-          "name": I18n.tr("positions.top-center")
+          "name": "Top center"
         },
         {
           "key": "top_left",
-          "name": I18n.tr("positions.top-left")
+          "name": "Top left"
         },
         {
           "key": "top_right",
-          "name": I18n.tr("positions.top-right")
+          "name": "Top right"
         },
         {
           "key": "bottom",
-          "name": I18n.tr("positions.bottom-center")
+          "name": "Bottom center"
         },
         {
           "key": "bottom_left",
-          "name": I18n.tr("positions.bottom-left")
+          "name": "Bottom left"
         },
         {
           "key": "bottom_right",
-          "name": I18n.tr("positions.bottom-right")
+          "name": "Bottom right"
         }
       ]
       currentKey: Settings.data.notifications.location || "top_right"
@@ -87,8 +87,8 @@ ColumnLayout {
     }
 
     NToggle {
-      label: I18n.tr("panels.osd.always-on-top-label")
-      description: I18n.tr("panels.notifications.settings-always-on-top-description")
+      label: "Always on top"
+      description: "Display notifications above fullscreen windows and other layers."
       checked: Settings.data.notifications.overlayLayer
       onToggled: checked => Settings.data.notifications.overlayLayer = checked
       defaultValue: Settings.getDefaultValue("notifications.overlayLayer")
@@ -96,8 +96,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.osd.background-opacity-label")
-      description: I18n.tr("panels.notifications.settings-background-opacity-description")
+      label: "Background opacity"
+      description: "Adjust the opacity of notification backgrounds."
       from: 0
       to: 1
       stepSize: 0.01
@@ -113,7 +113,7 @@ ColumnLayout {
     }
 
     NText {
-      text: I18n.tr("panels.notifications.monitors-desc")
+      text: "Show notification on specific monitors. Defaults to all if none are chosen."
       wrapMode: Text.WordWrap
       Layout.fillWidth: true
     }
@@ -126,14 +126,9 @@ ColumnLayout {
           const info = CompositorService.displayScales[modelData.name];
           return (info && info.scale) ? info.scale : 1.0;
         }
-        label: modelData.name || I18n.tr("common.unknown")
+        label: modelData.name || "Unknown"
         description: {
-          I18n.tr("system.monitor-description", {
-                    "model": modelData.model,
-                    "width": modelData.width * compositorScale,
-                    "height": modelData.height * compositorScale,
-                    "scale": compositorScale
-                  });
+          "{model} ({width}x{height} @ {scale}x)";
         }
         checked: (Settings.data.notifications.monitors || []).indexOf(modelData.name) !== -1
         onToggled: checked => {

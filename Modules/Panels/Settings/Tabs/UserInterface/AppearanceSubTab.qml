@@ -10,48 +10,48 @@ ColumnLayout {
   Layout.fillWidth: true
 
   NToggle {
-    label: I18n.tr("panels.user-interface.tooltips-label")
-    description: I18n.tr("panels.user-interface.tooltips-description")
+    label: "Show tooltips"
+    description: "Enable or disable tooltips throughout the interface."
     checked: Settings.data.ui.tooltipsEnabled
     defaultValue: Settings.getDefaultValue("ui.tooltipsEnabled")
     onToggled: checked => Settings.data.ui.tooltipsEnabled = checked
   }
 
   NToggle {
-    label: I18n.tr("panels.user-interface.box-border-label")
-    description: I18n.tr("panels.user-interface.box-border-description")
+    label: "Container outline"
+    description: "Display an outline around content areas."
     checked: Settings.data.ui.boxBorderEnabled
     defaultValue: Settings.getDefaultValue("ui.boxBorderEnabled")
     onToggled: checked => Settings.data.ui.boxBorderEnabled = checked
   }
 
   NToggle {
-    label: I18n.tr("panels.user-interface.scrollbar-always-visible-label")
-    description: I18n.tr("panels.user-interface.scrollbar-always-visible-description")
+    label: "Always show scrollbars"
+    description: "Keep scrollbars visible whenever content is scrollable, instead of only showing them on hover."
     checked: Settings.data.ui.scrollbarAlwaysVisible
     defaultValue: Settings.getDefaultValue("ui.scrollbarAlwaysVisible")
     onToggled: checked => Settings.data.ui.scrollbarAlwaysVisible = checked
   }
 
   NToggle {
-    label: I18n.tr("panels.user-interface.shadows-label")
-    description: I18n.tr("panels.user-interface.shadows-description")
+    label: "Drop shadows"
+    description: "Enables drop shadows under bars and panels."
     checked: Settings.data.general.enableShadows
     defaultValue: Settings.getDefaultValue("general.enableShadows")
     onToggled: checked => Settings.data.general.enableShadows = checked
   }
 
   NToggle {
-    label: I18n.tr("panels.user-interface.blur-behind-label")
-    description: I18n.tr("panels.user-interface.blur-behind-description")
+    label: "Blur behind"
+    description: "Blurs the area behind bars and panels using the compositor blur protocol."
     checked: Settings.data.general.enableBlurBehind
     defaultValue: Settings.getDefaultValue("general.enableBlurBehind")
     onToggled: checked => Settings.data.general.enableBlurBehind = checked
   }
 
   NToggle {
-    label: I18n.tr("panels.user-interface.translucent-widgets-label")
-    description: I18n.tr("panels.user-interface.translucent-widgets-description")
+    label: "Translucent widgets"
+    description: "Make buttons, tabs, and other widgets inside panels semi-transparent."
     checked: Settings.data.ui.translucentWidgets
     defaultValue: Settings.getDefaultValue("ui.translucentWidgets")
     onToggled: checked => Settings.data.ui.translucentWidgets = checked
@@ -59,45 +59,45 @@ ColumnLayout {
 
   NComboBox {
     visible: Settings.data.general.enableShadows
-    label: I18n.tr("panels.user-interface.shadows-direction-label")
-    description: I18n.tr("panels.user-interface.shadows-direction-description")
+    label: "Shadow direction"
+    description: "Choose where the shadow is cast to."
     Layout.fillWidth: true
 
     readonly property var shadowOptionsMap: ({
                                                "top_left": {
-                                                 "name": I18n.tr("positions.top-left"),
+                                                 "name": "Top left",
                                                  "p": Qt.point(-2, -2)
                                                },
                                                "top": {
-                                                 "name": I18n.tr("positions.top"),
+                                                 "name": "Top",
                                                  "p": Qt.point(0, -3)
                                                },
                                                "top_right": {
-                                                 "name": I18n.tr("positions.top-right"),
+                                                 "name": "Top right",
                                                  "p": Qt.point(2, -2)
                                                },
                                                "left": {
-                                                 "name": I18n.tr("positions.left"),
+                                                 "name": "Left",
                                                  "p": Qt.point(-3, 0)
                                                },
                                                "center": {
-                                                 "name": I18n.tr("positions.center"),
+                                                 "name": "Center",
                                                  "p": Qt.point(0, 0)
                                                },
                                                "right": {
-                                                 "name": I18n.tr("positions.right"),
+                                                 "name": "Right",
                                                  "p": Qt.point(3, 0)
                                                },
                                                "bottom_left": {
-                                                 "name": I18n.tr("positions.bottom-left"),
+                                                 "name": "Bottom left",
                                                  "p": Qt.point(-2, 2)
                                                },
                                                "bottom": {
-                                                 "name": I18n.tr("positions.bottom"),
+                                                 "name": "Bottom",
                                                  "p": Qt.point(0, 3)
                                                },
                                                "bottom_right": {
-                                                 "name": I18n.tr("positions.bottom-right"),
+                                                 "name": "Bottom right",
                                                  "p": Qt.point(2, 3)
                                                }
                                              })
@@ -128,8 +128,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.user-interface.scaling-label")
-    description: I18n.tr("panels.user-interface.scaling-description")
+    label: "Interface scaling"
+    description: "Changes the size of the general user interface, excluding the bar."
     from: 0.8
     to: 1.2
     stepSize: 0.05
@@ -146,8 +146,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.user-interface.box-border-radius-label")
-    description: I18n.tr("panels.user-interface.box-border-radius-description")
+    label: "Container radius"
+    description: "Adjusts the corner roundness of major layout sections, such as sidebars, cards, and content panels."
     from: 0
     to: 2
     stepSize: 0.01
@@ -160,8 +160,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.user-interface.control-border-radius-label")
-    description: I18n.tr("panels.user-interface.control-border-radius-description")
+    label: "Input radius"
+    description: "Controls the curvature of interactive elements, including buttons, toggles, and text fields."
     from: 0
     to: 2
     stepSize: 0.01
@@ -181,8 +181,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NToggle {
-      label: I18n.tr("panels.user-interface.animation-disable-label")
-      description: I18n.tr("panels.user-interface.animation-disable-description")
+      label: "Disable UI animations"
+      description: "Disable all animations for a faster, more responsive experience."
       checked: Settings.data.general.animationDisabled
       defaultValue: Settings.getDefaultValue("general.animationDisabled")
       onToggled: checked => Settings.data.general.animationDisabled = checked
@@ -195,8 +195,8 @@ ColumnLayout {
 
       NValueSlider {
         Layout.fillWidth: true
-        label: I18n.tr("panels.user-interface.animation-speed-label")
-        description: I18n.tr("panels.user-interface.animation-speed-description")
+        label: "Animation speed"
+        description: "Adjust global animation speed."
         from: 0
         to: 2.0
         stepSize: 0.01

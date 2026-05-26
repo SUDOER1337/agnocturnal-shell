@@ -822,7 +822,7 @@ Item {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onEntered: {
-                  TooltipService.show(sidebarToggle, root.sidebarExpanded ? I18n.tr("tooltips.collapse") : I18n.tr("tooltips.expand"));
+                  TooltipService.show(sidebarToggle, root.sidebarExpanded ? "Collapse sidebar" : "Expand sidebar");
                 }
                 onExited: {
                   TooltipService.hide();
@@ -847,7 +847,7 @@ Item {
               anchors.left: parent.left
               anchors.right: parent.right
               anchors.verticalCenter: parent.verticalCenter
-              placeholderText: I18n.tr("common.search")
+              placeholderText: "Search"
               inputIconName: "search"
               visible: opacity > 0
               opacity: root.sidebarExpanded ? 1.0 : 0.0
@@ -924,7 +924,7 @@ Item {
                     Qt.callLater(() => searchInput.inputItem.forceActiveFocus());
                   }
                   onEntered: {
-                    TooltipService.show(searchCollapsedButton, I18n.tr("common.search"));
+                    TooltipService.show(searchCollapsedButton, "Search");
                   }
                   onExited: {
                     TooltipService.hide();
@@ -1206,7 +1206,7 @@ Item {
 
             NIconButton {
               icon: "close"
-              tooltipText: I18n.tr("common.close")
+              tooltipText: "Close"
               Layout.alignment: Qt.AlignVCenter
               onClicked: root.closeRequested()
             }

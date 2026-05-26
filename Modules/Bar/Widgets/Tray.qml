@@ -319,7 +319,7 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -353,7 +353,7 @@ Item {
         if (PanelService.getPanel("trayDrawerPanel", root.screen)?.isPanelOpen) {
           return "";
         } else {
-          return I18n.tr("tooltips.open-tray-dropdown");
+          return "System tray";
         }
       }
       tooltipDirection: BarService.getTooltipDirection(root.screen?.name)
@@ -551,7 +551,7 @@ Item {
       visible: root.drawerEnabled && dropdownItems.length > 0 && !BarService.getPillDirection(root)
       width: isVertical ? barHeight : capsuleHeight
       height: isVertical ? capsuleHeight : barHeight
-      tooltipText: I18n.tr("tooltips.open-tray-dropdown")
+      tooltipText: "System tray"
       tooltipDirection: BarService.getTooltipDirection(root.screen?.name)
       baseSize: capsuleHeight
       applyUiScale: false

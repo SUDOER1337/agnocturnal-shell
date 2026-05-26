@@ -14,8 +14,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     Layout.topMargin: Style.marginM
-    label: I18n.tr("panels.system-monitor.enable-dgpu-monitoring-label")
-    description: I18n.tr("panels.system-monitor.enable-dgpu-monitoring-description")
+    label: "Enable discrete GPU monitoring"
+    description: "Warning: This will wake up your discrete GPU (NVIDIA/AMD), which may significantly impact battery life on laptops with hybrid graphics."
     checked: Settings.data.systemMonitor.enableDgpuMonitoring
     defaultValue: Settings.getDefaultValue("systemMonitor.enableDgpuMonitoring")
     onToggled: checked => Settings.data.systemMonitor.enableDgpuMonitoring = checked
@@ -27,8 +27,8 @@ ColumnLayout {
     spacing: Style.marginM
 
     NToggle {
-      label: I18n.tr("panels.system-monitor.use-custom-highlight-colors-label")
-      description: I18n.tr("panels.system-monitor.use-custom-highlight-colors-description")
+      label: "Use custom highlight colors"
+      description: "When disabled, theme default highlight colors are used."
       checked: Settings.data.systemMonitor.useCustomColors
       defaultValue: Settings.getDefaultValue("systemMonitor.useCustomColors")
       onToggled: checked => {
@@ -56,7 +56,7 @@ ColumnLayout {
       spacing: Style.marginM
 
       NText {
-        text: I18n.tr("panels.system-monitor.warning-color-label")
+        text: "Warning color"
         pointSize: Style.fontSizeM
       }
 
@@ -75,7 +75,7 @@ ColumnLayout {
       spacing: Style.marginM
 
       NText {
-        text: I18n.tr("panels.system-monitor.critical-color-label")
+        text: "Critical color"
         pointSize: Style.fontSizeM
       }
 
@@ -95,9 +95,9 @@ ColumnLayout {
   }
 
   NTextInput {
-    label: I18n.tr("panels.system-monitor.external-monitor-label")
-    description: I18n.tr("panels.system-monitor.external-monitor-description")
-    placeholderText: I18n.tr("panels.system-monitor.external-monitor-placeholder")
+    label: "External system monitor command"
+    description: "Enter the command or application path to launch when activating the external system monitor application."
+    placeholderText: "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor"
     text: Settings.data.systemMonitor.externalMonitor
     defaultValue: Settings.getDefaultValue("systemMonitor.externalMonitor")
     onTextChanged: Settings.data.systemMonitor.externalMonitor = text

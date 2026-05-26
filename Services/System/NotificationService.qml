@@ -1117,7 +1117,7 @@ Singleton {
   signal animateAndRemove(string notificationId)
 
   onDoNotDisturbChanged: {
-    ToastService.showNotice(doNotDisturb ? I18n.tr("toast.do-not-disturb.enabled") : I18n.tr("toast.do-not-disturb.disabled"), doNotDisturb ? I18n.tr("toast.do-not-disturb.enabled-desc") : I18n.tr("toast.do-not-disturb.disabled-desc"), doNotDisturb ? "bell-off" : "bell");
+    ToastService.showNotice(doNotDisturb ? "Do Not Disturb enabled" : "Do Not Disturb disabled", doNotDisturb ? "You'll find these notifications in your history" : "Showing all notifications", doNotDisturb ? "bell-off" : "bell");
   }
 
   // Media toast functionality
@@ -1199,7 +1199,7 @@ Singleton {
       }
 
       if (message !== "") {
-        const toastTitle = isPlaying ? I18n.tr("common.play") : I18n.tr("common.pause");
+        const toastTitle = isPlaying ? "Play" : "Pause";
         ToastService.showNotice(toastTitle, message, icon, 3000);
       }
     }

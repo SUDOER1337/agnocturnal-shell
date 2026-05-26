@@ -11,8 +11,8 @@ ColumnLayout {
   enabled: Settings.data.notifications.enabled
 
   NToggle {
-    label: I18n.tr("panels.notifications.duration-respect-expire-label")
-    description: I18n.tr("panels.notifications.duration-respect-expire-description")
+    label: "Respect expire timeout"
+    description: "Use the expire timeout set in the notification."
     checked: Settings.data.notifications.respectExpireTimeout
     onToggled: checked => Settings.data.notifications.respectExpireTimeout = checked
     defaultValue: Settings.getDefaultValue("notifications.respectExpireTimeout")
@@ -20,8 +20,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.duration-low-urgency-label")
-    description: I18n.tr("panels.notifications.duration-low-urgency-description")
+    label: "Low urgency"
+    description: "How long low priority notifications stay visible."
     from: 1
     to: 30
     stepSize: 1
@@ -34,8 +34,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.duration-normal-urgency-label")
-    description: I18n.tr("panels.notifications.duration-normal-urgency-description")
+    label: "Normal urgency"
+    description: "How long normal priority notifications stay visible."
     from: 1
     to: 30
     stepSize: 1
@@ -48,8 +48,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.duration-critical-urgency-label")
-    description: I18n.tr("panels.notifications.duration-critical-urgency-description")
+    label: "Critical urgency"
+    description: "How long critical priority notifications stay visible."
     from: 1
     to: 30
     stepSize: 1

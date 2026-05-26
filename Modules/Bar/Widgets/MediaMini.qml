@@ -67,7 +67,7 @@ Item {
   // Title
   readonly property string title: {
     if (!hasPlayer)
-      return I18n.tr("bar.media-mini.no-active-player");
+      return "No active player";
     var artist = MediaService.trackArtist;
     var track = MediaService.trackTitle;
     return showArtistFirst ? (artist ? `${artist} - ${track}` : track) : (artist ? `${track} - ${artist}` : track);
@@ -165,21 +165,21 @@ Item {
       var items = [];
       if (hasPlayer && MediaService.canPlay) {
         items.push({
-                     "label": MediaService.isPlaying ? I18n.tr("common.pause") : I18n.tr("common.play"),
+                     "label": MediaService.isPlaying ? "Pause" : "Play",
                      "action": "play-pause",
                      "icon": MediaService.isPlaying ? "media-pause" : "media-play"
                    });
       }
       if (hasPlayer && MediaService.canGoPrevious) {
         items.push({
-                     "label": I18n.tr("common.previous"),
+                     "label": "Previous",
                      "action": "previous",
                      "icon": "media-prev"
                    });
       }
       if (hasPlayer && MediaService.canGoNext) {
         items.push({
-                     "label": I18n.tr("common.next"),
+                     "label": "Next",
                      "action": "next",
                      "icon": "media-next"
                    });
@@ -201,7 +201,7 @@ Item {
       }
 
       items.push({
-                   "label": I18n.tr("actions.widget-settings"),
+                   "label": "Widget settings",
                    "action": "widget-settings",
                    "icon": "settings"
                  });

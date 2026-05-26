@@ -92,7 +92,7 @@ Rectangle {
 
       // Welcome back + Username on one line
       NText {
-        text: I18n.tr("system.welcome-back") + " " + HostService.displayName + "!"
+        text: "Welcome back," + " " + HostService.displayName + "!"
         pointSize: Style.fontSizeXXL
         color: Color.mOnSurface
         horizontalAlignment: Text.AlignLeft
@@ -101,7 +101,7 @@ Rectangle {
       // Date below
       NText {
         text: {
-          var dateString = I18n.locale.toString(root.currentDate, I18n.dateFormat());
+          var dateString = Qt.locale().toString(root.currentDate, "dddd, MMMM d");
           return dateString.charAt(0).toUpperCase() + dateString.slice(1);
         }
         pointSize: Style.fontSizeXL
@@ -160,7 +160,7 @@ Rectangle {
         spacing: -3
 
         Repeater {
-          model: I18n.locale.toString(root.currentTime, (Settings.data.general.clockFormat || "hh\\nmm").replace(/\\n/g, "\n")).split("\n")
+          model: Qt.locale().toString(root.currentTime, (Settings.data.general.clockFormat || "hh\\nmm").replace(/\\n/g, "\n")).split("\n")
           NText {
             text: modelData
             pointSize: Style.fontSizeL

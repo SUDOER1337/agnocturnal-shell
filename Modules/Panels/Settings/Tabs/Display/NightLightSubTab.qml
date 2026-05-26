@@ -16,8 +16,8 @@ ColumnLayout {
   signal checkWlsunset
 
   NToggle {
-    label: I18n.tr("panels.display.night-light-enable-label")
-    description: I18n.tr("panels.display.night-light-enable-description")
+    label: "Enable Night Light"
+    description: "Apply a warm color filter to reduce blue light emission."
     checked: Settings.data.nightLight.enabled
     onToggled: checked => {
                  if (checked) {
@@ -26,7 +26,7 @@ ColumnLayout {
                    Settings.data.nightLight.enabled = false;
                    Settings.data.nightLight.forced = false;
                    NightLightService.apply();
-                   ToastService.showNotice(I18n.tr("common.night-light"), I18n.tr("common.disabled"), "nightlight-off");
+                   ToastService.showNotice("Night Light", "Disabled", "nightlight-off");
                  }
                }
   }
@@ -37,8 +37,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NLabel {
-      label: I18n.tr("panels.display.night-light-temperature-night")
-      description: I18n.tr("panels.display.night-light-temperature-night-description")
+      label: "Night"
+      description: "Controls the temperature during nighttime."
       Layout.fillWidth: true
     }
 
@@ -90,8 +90,8 @@ ColumnLayout {
     }
 
     NLabel {
-      label: I18n.tr("panels.display.night-light-temperature-day")
-      description: I18n.tr("panels.display.night-light-temperature-day-description")
+      label: "Day"
+      description: "Controls the temperature during daytime."
       Layout.fillWidth: true
     }
 
@@ -143,10 +143,8 @@ ColumnLayout {
     }
 
     NToggle {
-      label: I18n.tr("panels.display.night-light-auto-schedule-label")
-      description: I18n.tr("panels.display.night-light-auto-schedule-description", {
-                             "location": LocationService.stableName
-                           })
+      label: "Automatic scheduling"
+      description: "Based on the sunset and sunrise time in <i>{location}</i> — recommended."
       checked: Settings.data.nightLight.autoSchedule
       onToggled: checked => Settings.data.nightLight.autoSchedule = checked
     }
@@ -157,8 +155,8 @@ ColumnLayout {
       visible: !Settings.data.nightLight.autoSchedule && !Settings.data.nightLight.forced
 
       NLabel {
-        label: I18n.tr("panels.display.night-light-manual-schedule-label")
-        description: I18n.tr("panels.display.night-light-manual-schedule-description")
+        label: "Manual scheduling"
+        description: "Set custom times for sunrise and sunset."
       }
 
       RowLayout {
@@ -166,7 +164,7 @@ ColumnLayout {
         spacing: Style.marginS
 
         NText {
-          text: I18n.tr("panels.display.night-light-manual-schedule-sunrise")
+          text: "Sunrise time"
           pointSize: Style.fontSizeM
           color: Color.mOnSurfaceVariant
           Layout.alignment: Qt.AlignVCenter
@@ -175,7 +173,7 @@ ColumnLayout {
         NComboBox {
           model: root.timeOptions
           currentKey: Settings.data.nightLight.manualSunrise
-          placeholder: I18n.tr("panels.display.night-light-manual-schedule-select-start")
+          placeholder: "Select start time"
           onSelected: key => Settings.data.nightLight.manualSunrise = key
           Layout.fillWidth: true
         }
@@ -186,7 +184,7 @@ ColumnLayout {
         spacing: Style.marginS
 
         NText {
-          text: I18n.tr("panels.display.night-light-manual-schedule-sunset")
+          text: "Sunset time"
           pointSize: Style.fontSizeM
           color: Color.mOnSurfaceVariant
           Layout.alignment: Qt.AlignVCenter
@@ -195,7 +193,7 @@ ColumnLayout {
         NComboBox {
           model: root.timeOptions
           currentKey: Settings.data.nightLight.manualSunset
-          placeholder: I18n.tr("panels.display.night-light-manual-schedule-select-stop")
+          placeholder: "Select stop time"
           onSelected: key => Settings.data.nightLight.manualSunset = key
           Layout.fillWidth: true
         }
@@ -203,8 +201,8 @@ ColumnLayout {
     }
 
     NToggle {
-      label: I18n.tr("panels.display.night-light-force-activation-label")
-      description: I18n.tr("panels.display.night-light-force-activation-description")
+      label: "Force activation"
+      description: "Ignores the schedule and applies the night filter immediately."
       checked: Settings.data.nightLight.forced
       onToggled: checked => {
                    Settings.data.nightLight.forced = checked;

@@ -35,8 +35,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.clock-show-background-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-show-background-description")
+    label: "Show background"
+    description: "Show the background container."
     checked: valueShowBackground
     onToggled: checked => {
                  valueShowBackground = checked;
@@ -47,8 +47,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.clock-rounded-corners-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-rounded-corners-description")
+    label: "Rounded corners"
+    description: "Enable rounded corners on the widget edges."
     checked: valueRoundedCorners
     onToggled: checked => {
                  valueRoundedCorners = checked;
@@ -59,8 +59,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.media-player-show-album-art-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-show-album-art-description")
+    label: "Show album art & title"
+    description: "Show the album artwork and track information (title and artist)."
     checked: valueShowAlbumArt
     onToggled: checked => {
                  valueShowAlbumArt = checked;
@@ -71,8 +71,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.media-mini.show-visualizer-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-show-visualizer-description")
+    label: "Show visualizer"
+    description: "Show the audio visualizer overlay."
     checked: valueShowVisualizer
     onToggled: checked => {
                  valueShowVisualizer = checked;
@@ -83,8 +83,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.desktop-widgets.media-player-show-buttons-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-show-buttons-description")
+    label: "Show buttons"
+    description: "Show media control buttons (play/pause, previous, next)."
     checked: valueShowButtons
     onToggled: checked => {
                  valueShowButtons = checked;
@@ -95,21 +95,21 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.audio.visualizer-type-label")
-    description: I18n.tr("panels.desktop-widgets.media-player-visualizer-type-description")
+    label: "Visualization type"
+    description: "Choose a visualization type."
     enabled: valueShowVisualizer
     model: [
       {
         "key": "linear",
-        "name": I18n.tr("options.visualizer-types.linear")
+        "name": "Linear"
       },
       {
         "key": "mirrored",
-        "name": I18n.tr("options.visualizer-types.mirrored")
+        "name": "Mirrored"
       },
       {
         "key": "wave",
-        "name": I18n.tr("options.visualizer-types.wave")
+        "name": "Wave"
       }
     ]
     currentKey: valueVisualizerType
@@ -122,20 +122,20 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("bar.taskbar.hide-mode-label")
-    description: I18n.tr("bar.media-mini.hide-mode-description")
+    label: "Hiding mode"
+    description: "Controls how the widget behaves when no media is playing."
     model: [
       {
         "key": "hidden",
-        "name": I18n.tr("hide-modes.hidden")
+        "name": "Hide when empty"
       },
       {
         "key": "idle",
-        "name": I18n.tr("hide-modes.idle")
+        "name": "Hide when idle"
       },
       {
         "key": "visible",
-        "name": I18n.tr("hide-modes.visible")
+        "name": "Always visible"
       }
     ]
     currentKey: valueHideMode

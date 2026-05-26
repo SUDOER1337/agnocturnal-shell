@@ -20,35 +20,35 @@ Singleton {
   readonly property var supportedSecurityTypes: [
     {
       key: "open",
-      name: I18n.tr("wifi.panel.security-open")
+      name: "Open"
     },
     {
       key: "wep",
-      name: I18n.tr("wifi.panel.security-wep")
+      name: "WEP"
     },
     {
       key: "wpa-psk",
-      name: I18n.tr("wifi.panel.security-wpa")
+      name: "WPA"
     },
     {
       key: "wpa2-psk",
-      name: I18n.tr("wifi.panel.security-wpa23")
+      name: "WPA2/WPA3"
     },
     {
       key: "sae",
-      name: I18n.tr("wifi.panel.security-wpa3")
+      name: "WPA3"
     },
     {
       key: "wpa-eap",
-      name: I18n.tr("wifi.panel.security-wpa-ent")
+      name: "WPA Enterprise"
     },
     {
       key: "wpa2-eap",
-      name: I18n.tr("wifi.panel.security-wpa2-ent")
+      name: "WPA2 Enterprise"
     },
     {
       key: "wpa3-eap",
-      name: I18n.tr("wifi.panel.security-wpa3-ent")
+      name: "WPA3 Enterprise"
     }
   ]
 
@@ -156,10 +156,10 @@ Singleton {
         return;
       }
       if (root.wifiEnabled) {
-        ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("common.enabled"), "wifi");
+        ToastService.showNotice("Wi-Fi", "Enabled", "wifi");
         scan();
       } else {
-        ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("common.disabled"), "wifi-off");
+        ToastService.showNotice("Wi-Fi", "Disabled", "wifi-off");
         root.networks = ({});
       }
     }
@@ -332,7 +332,7 @@ Singleton {
         icon = "wifi-question";
       }
     }
-    const label = signal >= 80 ? I18n.tr("wifi.signal.excellent") : signal >= 60 ? I18n.tr("wifi.signal.good") : signal >= 35 ? I18n.tr("wifi.signal.fair") : signal >= 15 ? I18n.tr("wifi.signal.poor") : I18n.tr("wifi.signal.weak");
+    const label = signal >= 80 ? "Excellent" : signal >= 60 ? "Good" : signal >= 35 ? "Fair" : signal >= 15 ? "Poor" : "Weak";
     if (!icon) {
       icon = signal >= 80 ? "wifi" : signal >= 60 ? "wifi-3" : signal >= 35 ? "wifi-2" : signal >= 15 ? "wifi-1" : "wifi-0";
     }
@@ -425,11 +425,11 @@ Singleton {
   function getStatusText(showSpeed = false) {
     // This variable can be tied to a toggle
     if (root.connecting) {
-      return root.connectingTo ? I18n.tr("common.connecting") + " " + root.connectingTo : I18n.tr("common.connecting");
+      return root.connectingTo ? "Connecting..." + " " + root.connectingTo : "Connecting...";
     }
 
     if (NetworkService.airplaneModeEnabled) {
-      return I18n.tr("toast.airplane-mode.title");
+      return "Airplane Mode";
     }
     if (!root.wifiEnabled) {
       return "";
@@ -966,9 +966,7 @@ Singleton {
         root.connecting = false;
         root.connectingTo = "";
         Logger.i("Network", "Connected to network: '" + connectProcess.ssid + "' (" + connectProcess.mode + ")");
-        ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("toast.wifi.connected", {
-                                                                  "ssid": connectProcess.ssid
-                                                                }), root.getIcon(false));
+        ToastService.showNotice("Wi-Fi", "Connected to '{ssid}'", root.getIcon(false));
 
         delayedScanTimer.interval = 5000;
         delayedScanTimer.restart();
@@ -982,18 +980,18 @@ Singleton {
           root.connectingTo = "";
 
           if (text.indexOf("Secrets were required") !== -1 || text.indexOf("no secrets provided") !== -1) {
-            root.lastError = I18n.tr("toast.wifi.incorrect-password");
+            root.lastError = "Incorrect password";
             forget(connectProcess.ssid);
           } else if (text.indexOf("No network with SSID") !== -1) {
-            root.lastError = I18n.tr("toast.wifi.network-not-found");
+            root.lastError = "Network not found";
           } else if (text.indexOf("Timeout") !== -1) {
-            root.lastError = I18n.tr("toast.wifi.connection-timeout");
+            root.lastError = "Connection timeout";
           } else {
-            root.lastError = I18n.tr("toast.wifi.connection-failed");
+            root.lastError = "Connection failed";
           }
 
           Logger.w("Network", "Connect error (" + connectProcess.mode + "): " + text);
-          ToastService.showWarning(I18n.tr("common.wifi"), root.lastError || I18n.tr("toast.wifi.connection-failed"), "wifi-exclamation");
+          ToastService.showWarning("Wi-Fi", root.lastError || "Connection failed", "wifi-exclamation");
           wifiConnected = false;
         }
       }
@@ -1011,9 +1009,7 @@ Singleton {
       onStreamFinished: {
         Logger.i("Network", "Disconnected from network: '" + disconnectProcess.ssid + "'");
         root.wifiConnected = false;
-        ToastService.showNotice(I18n.tr("common.wifi"), I18n.tr("toast.wifi.disconnected", {
-                                                                  "ssid": disconnectProcess.ssid
-                                                                }), "wifi-off");
+        ToastService.showNotice("Wi-Fi", "Disconnected from '{ssid}'", "wifi-off");
 
         // Immediately update UI on successful disconnect
         root.updateNetworkStatus(disconnectProcess.ssid, false);

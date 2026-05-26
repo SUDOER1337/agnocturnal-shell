@@ -67,7 +67,7 @@ NBox {
       BarService.widgetsRevision++;
 
       if (removedWidgets[0].id === "ControlCenter" && BarService.lookupWidget("ControlCenter") === undefined) {
-        ToastService.showWarning(I18n.tr("toast.missing-control-center.label"), I18n.tr("toast.missing-control-center.description"), 12000);
+        ToastService.showWarning("Last control center widget removed", "The control center widget has been removed from the bar. To access it from the bar again, you will need to re-add the widget. You can open it with right clicking on the bar too", 12000);
       }
     }
   }
@@ -161,14 +161,14 @@ NBox {
     spacing: Style.marginM
 
     NText {
-      text: I18n.tr("panels.bar.widgets-desc")
+      text: "Drag widgets to change their order. Use the right-click menu to transfer widgets between sections or remove them."
       wrapMode: Text.WordWrap
       Layout.fillWidth: true
     }
 
     // Left Section
     NSectionEditor {
-      sectionName: root.barIsVertical ? I18n.tr("positions.top") : I18n.tr("positions.left")
+      sectionName: root.barIsVertical ? "Top" : "Left"
       sectionId: "left"
       barIsVertical: root.barIsVertical
       screen: root.screen
@@ -186,7 +186,7 @@ NBox {
 
     // Center Section
     NSectionEditor {
-      sectionName: I18n.tr("positions.center")
+      sectionName: "Center"
       sectionId: "center"
       barIsVertical: root.barIsVertical
       screen: root.screen
@@ -204,7 +204,7 @@ NBox {
 
     // Right Section
     NSectionEditor {
-      sectionName: root.barIsVertical ? I18n.tr("positions.bottom") : I18n.tr("positions.right")
+      sectionName: root.barIsVertical ? "Bottom" : "Right"
       sectionId: "right"
       barIsVertical: root.barIsVertical
       screen: root.screen

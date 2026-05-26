@@ -10,16 +10,16 @@ ColumnLayout {
   Layout.fillWidth: true
 
   NToggle {
-    label: I18n.tr("panels.general.screen-corners-show-corners-label")
-    description: I18n.tr("panels.general.screen-corners-show-corners-description")
+    label: "Show screen corners"
+    description: "Display rounded corners on the edge of the screen."
     checked: Settings.data.general.showScreenCorners
     defaultValue: Settings.getDefaultValue("general.showScreenCorners")
     onToggled: checked => Settings.data.general.showScreenCorners = checked
   }
 
   NToggle {
-    label: I18n.tr("panels.general.screen-corners-solid-black-label")
-    description: I18n.tr("panels.general.screen-corners-solid-black-description")
+    label: "Solid black corners"
+    description: "Use solid black instead of the bar background color."
     checked: Settings.data.general.forceBlackScreenCorners
     defaultValue: Settings.getDefaultValue("general.forceBlackScreenCorners")
     onToggled: checked => Settings.data.general.forceBlackScreenCorners = checked
@@ -31,8 +31,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.general.screen-corners-radius-label")
-      description: I18n.tr("panels.general.screen-corners-radius-description")
+      label: "Screen corners radius"
+      description: "Adjust the rounded corners of the screen."
       from: 0
       to: 2
       stepSize: 0.01

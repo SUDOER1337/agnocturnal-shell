@@ -47,10 +47,10 @@ ColumnLayout {
 
   // Startup Hook
   HookRow {
-    label: I18n.tr("panels.hooks.noctalia-started-label")
-    description: I18n.tr("panels.hooks.noctalia-started-description")
+    label: "Noctalia started"
+    description: "Command to execute when Noctalia has finished loading."
     value: Settings.data.hooks.startup
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.noctalia-started-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send 'Noctalia Loaded'", value, newValue => {
                               Settings.data.hooks.startup = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -60,10 +60,10 @@ ColumnLayout {
 
   // Wallpaper Hook
   HookRow {
-    label: I18n.tr("panels.hooks.wallpaper-changed-label")
-    description: I18n.tr("panels.hooks.wallpaper-changed-description")
+    label: "Wallpaper changed"
+    description: "Command to be executed when wallpaper changes."
     value: Settings.data.hooks.wallpaperChange
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.wallpaper-changed-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send \"Wallpaper\" \"Changed\"", value, newValue => {
                               Settings.data.hooks.wallpaperChange = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -74,10 +74,10 @@ ColumnLayout {
 
   // Color Generation Hook
   HookRow {
-    label: I18n.tr("panels.hooks.color-generation-label")
-    description: I18n.tr("panels.hooks.color-generation-description")
+    label: "Colors generated"
+    description: "Command to be executed when color generation completes (e.g. after wallpaper-based theming)."
     value: Settings.data.hooks.colorGeneration
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.color-generation-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send \"Colors\" \"Generated\"", value, newValue => {
                               Settings.data.hooks.colorGeneration = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -88,10 +88,10 @@ ColumnLayout {
 
   // Theme Hook
   HookRow {
-    label: I18n.tr("panels.hooks.theme-changed-label")
-    description: I18n.tr("panels.hooks.theme-changed-description")
+    label: "Theme changed"
+    description: "Command to be executed when theme toggles between Dark and Light Mode."
     value: Settings.data.hooks.darkModeChange
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.theme-changed-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send \"Theme\" \"Toggled\"", value, newValue => {
                               Settings.data.hooks.darkModeChange = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -102,10 +102,10 @@ ColumnLayout {
 
   // Screen Lock Hook
   HookRow {
-    label: I18n.tr("panels.hooks.screen-lock-label")
-    description: I18n.tr("panels.hooks.screen-lock-description")
+    label: "Screen locked"
+    description: "Command to be executed when the screen is locked."
     value: Settings.data.hooks.screenLock
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.screen-lock-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send \"Screen\" \"Locked\"", value, newValue => {
                               Settings.data.hooks.screenLock = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -116,10 +116,10 @@ ColumnLayout {
 
   // Screen Unlock Hook
   HookRow {
-    label: I18n.tr("panels.hooks.screen-unlock-label")
-    description: I18n.tr("panels.hooks.screen-unlock-description")
+    label: "Screen unlocked"
+    description: "Command to be executed when the lock screen is unlocked."
     value: Settings.data.hooks.screenUnlock
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.screen-unlock-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send \"Screen\" \"Unlocked\"", value, newValue => {
                               Settings.data.hooks.screenUnlock = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -130,10 +130,10 @@ ColumnLayout {
 
   // Performance Mode Enabled Hook
   HookRow {
-    label: I18n.tr("panels.hooks.performance-mode-enabled-label")
-    description: I18n.tr("panels.hooks.performance-mode-enabled-description")
+    label: "Performance mode enabled"
+    description: "Command to be executed when Noctalia performance mode is enabled."
     value: Settings.data.hooks.performanceModeEnabled
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.performance-mode-enabled-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g., notify-send \"Performance\" \"Mode enabled\"", value, newValue => {
                               Settings.data.hooks.performanceModeEnabled = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -144,10 +144,10 @@ ColumnLayout {
 
   // Performance Mode Disabled Hook
   HookRow {
-    label: I18n.tr("panels.hooks.performance-mode-disabled-label")
-    description: I18n.tr("panels.hooks.performance-mode-disabled-description")
+    label: "Performance mode disabled"
+    description: "Command to be executed when Noctalia performance mode is disabled."
     value: Settings.data.hooks.performanceModeDisabled
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.performance-mode-disabled-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send \"Performance\" \"Mode disabled\"", value, newValue => {
                               Settings.data.hooks.performanceModeDisabled = newValue;
                               Settings.saveImmediate();
                             }, val => {
@@ -158,10 +158,10 @@ ColumnLayout {
 
   // Session Hook
   HookRow {
-    label: I18n.tr("panels.hooks.session-label")
-    description: I18n.tr("panels.hooks.session-description")
+    label: "Session end"
+    description: "Command to be executed before shutdown or reboot. Receives action type as $1 (shutdown/reboot)."
     value: Settings.data.hooks.session
-    onEditClicked: openEdit(label, description, I18n.tr("panels.hooks.session-placeholder"), value, newValue => {
+    onEditClicked: openEdit(label, description, "e.g. notify-send \"Session\" \"$1\"", value, newValue => {
                               Settings.data.hooks.session = newValue;
                               Settings.saveImmediate();
                             }, val => {

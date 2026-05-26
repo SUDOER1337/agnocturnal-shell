@@ -193,12 +193,12 @@ Singleton {
       apply();
       // Toast: night light toggled
       const enabled = !!Settings.data.nightLight.enabled;
-      ToastService.showNotice(I18n.tr("common.night-light"), enabled ? I18n.tr("common.enabled") : I18n.tr("common.disabled"), enabled ? "nightlight-on" : "nightlight-off");
+      ToastService.showNotice("Night Light", enabled ? "Enabled" : "Disabled", enabled ? "nightlight-on" : "nightlight-off");
     }
     function onForcedChanged() {
       apply();
       if (Settings.data.nightLight.enabled) {
-        ToastService.showNotice(I18n.tr("common.night-light"), Settings.data.nightLight.forced ? I18n.tr("toast.night-light.forced") : I18n.tr("toast.night-light.normal"), Settings.data.nightLight.forced ? "nightlight-forced" : "nightlight-on");
+        ToastService.showNotice("Night Light", Settings.data.nightLight.forced ? "Forced activation" : "Normal mode", Settings.data.nightLight.forced ? "nightlight-forced" : "nightlight-on");
       }
     }
     function onNightTempChanged() {

@@ -91,9 +91,9 @@ Rectangle {
               if (!Settings.data.location.weatherEnabled)
                 return "";
               if (!LocationService.locationConfigured)
-                return I18n.tr("common.weather-no-location");
+                return "Set a location in Settings to see weather";
               if (!root.weatherReady)
-                return I18n.tr("common.weather-loading");
+                return "Loading weather...";
               if (Settings.data.location.hideWeatherCityName)
                 return "";
               const chunks = Settings.data.location.name.split(",");

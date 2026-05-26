@@ -202,7 +202,7 @@ Item {
         }
 
         NText {
-          text: I18n.tr("bar.lock-keys.show-caps-lock-label")
+          text: "Caps Lock"
           color: LockKeysService.capsLockOn ? Color.mOnSurfaceVariant : Qt.alpha(Color.mOnSurfaceVariant, 0.65)
           pointSize: Style.fontSizeM
           elide: Text.ElideRight
@@ -594,7 +594,7 @@ Item {
               NText {
                 text: {
                   var weatherDate = new Date(LocationService.data.weather.daily.time[index].replace(/-/g, "/"));
-                  return I18n.locale.toString(weatherDate, "ddd");
+                  return Qt.locale().toString(weatherDate, "ddd");
                 }
                 pointSize: Style.fontSizeM
                 color: Color.mOnSurfaceVariant
@@ -713,7 +713,7 @@ Item {
             }
 
             NText {
-              text: I18n.tr("bar.lock-keys.show-caps-lock-label")
+              text: "Caps Lock"
               color: LockKeysService.capsLockOn ? Color.mOnSurfaceVariant : Qt.alpha(Color.mOnSurfaceVariant, 0.65)
               pointSize: Style.fontSizeM
               elide: Text.ElideRight
@@ -1122,7 +1122,7 @@ Item {
           NButton {
             anchors.fill: parent
             icon: "logout"
-            text: I18n.tr("common.logout")
+            text: "Logout"
             outlined: true
             backgroundColor: Color.mOnSurfaceVariant
             textColor: Color.mOnPrimary
@@ -1141,7 +1141,7 @@ Item {
           NButton {
             anchors.fill: parent
             icon: "suspend"
-            text: I18n.tr("common.suspend")
+            text: "Suspend"
             outlined: true
             backgroundColor: Color.mOnSurfaceVariant
             textColor: Color.mOnPrimary
@@ -1161,7 +1161,7 @@ Item {
           NButton {
             anchors.fill: parent
             icon: "hibernate"
-            text: I18n.tr("common.hibernate")
+            text: "Hibernate"
             outlined: true
             backgroundColor: Color.mOnSurfaceVariant
             textColor: Color.mOnPrimary
@@ -1180,7 +1180,7 @@ Item {
           NButton {
             anchors.fill: parent
             icon: "reboot"
-            text: I18n.tr("common.reboot")
+            text: "Reboot"
             outlined: true
             backgroundColor: Color.mOnSurfaceVariant
             textColor: Color.mOnPrimary
@@ -1199,7 +1199,7 @@ Item {
           NButton {
             anchors.fill: parent
             icon: "shutdown"
-            text: I18n.tr("common.shutdown")
+            text: "Shutdown"
             outlined: true
             backgroundColor: Color.mError
             textColor: Color.mOnError

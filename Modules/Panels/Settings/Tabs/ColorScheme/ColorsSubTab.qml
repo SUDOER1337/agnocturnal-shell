@@ -109,8 +109,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("tooltips.switch-to-dark-mode")
-    description: I18n.tr("panels.color-scheme.dark-mode-switch-description")
+    label: "Dark Mode"
+    description: "Switches to a darker theme for easier viewing at night."
     checked: Settings.data.colorSchemes.darkMode
     onToggled: checked => {
                  Settings.data.colorSchemes.darkMode = checked;
@@ -119,8 +119,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.color-scheme.sync-gsettings-label")
-    description: I18n.tr("panels.color-scheme.sync-gsettings-description")
+    label: "Sync system theme"
+    description: "Match the system theme to the active light or dark variant."
     checked: Settings.data.colorSchemes.syncGsettings
     defaultValue: Settings.getDefaultValue("colorSchemes.syncGsettings")
     onToggled: checked => {
@@ -131,20 +131,20 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("panels.color-scheme.dark-mode-mode-label")
-    description: I18n.tr("panels.color-scheme.dark-mode-mode-description")
+    label: "Dark Mode schedule"
+    description: "Enables automatic switching between Light and Dark Mode."
 
     model: [
       {
-        "name": I18n.tr("panels.color-scheme.dark-mode-mode-off"),
+        "name": "Off",
         "key": "off"
       },
       {
-        "name": I18n.tr("panels.color-scheme.dark-mode-mode-manual"),
+        "name": "Manual",
         "key": "manual"
       },
       {
-        "name": I18n.tr("common.location"),
+        "name": "Location",
         "key": "location"
       }
     ]
@@ -163,8 +163,8 @@ ColumnLayout {
     visible: Settings.data.colorSchemes.schedulingMode === "manual"
 
     NLabel {
-      label: I18n.tr("panels.display.night-light-manual-schedule-label")
-      description: I18n.tr("panels.display.night-light-manual-schedule-description")
+      label: "Manual scheduling"
+      description: "Set custom times for sunrise and sunset."
     }
 
     RowLayout {
@@ -172,7 +172,7 @@ ColumnLayout {
       spacing: Style.marginS
 
       NText {
-        text: I18n.tr("panels.display.night-light-manual-schedule-sunrise")
+        text: "Sunrise time"
         pointSize: Style.fontSizeM
         color: Color.mOnSurfaceVariant
       }
@@ -180,7 +180,7 @@ ColumnLayout {
       NComboBox {
         model: root.timeOptions
         currentKey: Settings.data.colorSchemes.manualSunrise
-        placeholder: I18n.tr("panels.display.night-light-manual-schedule-select-start")
+        placeholder: "Select start time"
         onSelected: key => Settings.data.colorSchemes.manualSunrise = key
         minimumWidth: 120
       }
@@ -190,7 +190,7 @@ ColumnLayout {
       }
 
       NText {
-        text: I18n.tr("panels.display.night-light-manual-schedule-sunset")
+        text: "Sunset time"
         pointSize: Style.fontSizeM
         color: Color.mOnSurfaceVariant
       }
@@ -198,7 +198,7 @@ ColumnLayout {
       NComboBox {
         model: root.timeOptions
         currentKey: Settings.data.colorSchemes.manualSunset
-        placeholder: I18n.tr("panels.display.night-light-manual-schedule-select-stop")
+        placeholder: "Select stop time"
         onSelected: key => Settings.data.colorSchemes.manualSunset = key
         minimumWidth: 120
       }
@@ -210,8 +210,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.color-scheme.color-source-use-wallpaper-colors-label")
-    description: I18n.tr("panels.color-scheme.color-source-use-wallpaper-colors-description")
+    label: "Use wallpaper colors"
+    description: "Generate color schemes from your wallpaper. Automatically extracts colors to create a cohesive theme."
     checked: Settings.data.colorSchemes.useWallpaperColors
     defaultValue: Settings.getDefaultValue("colorSchemes.useWallpaperColors")
     onToggled: checked => {
@@ -219,7 +219,7 @@ ColumnLayout {
                  if (checked) {
                    AppThemeService.generate();
                  } else {
-                   ToastService.showNotice(I18n.tr("toast.wallpaper-colors.label"), I18n.tr("toast.wallpaper-colors.disabled"), "settings-color-scheme");
+                   ToastService.showNotice("Wallpaper colors", "Wallpaper colors disabled", "settings-color-scheme");
                    if (Settings.data.colorSchemes.predefinedScheme) {
                      ColorSchemeService.applyScheme(Settings.data.colorSchemes.predefinedScheme);
                    }
@@ -229,8 +229,8 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.color-scheme.wallpaper-monitor-source-label")
-    description: I18n.tr("panels.color-scheme.wallpaper-monitor-source-description")
+    label: "Color generation source"
+    description: "Select which monitor to use for extracting wallpaper colors."
     enabled: Settings.data.colorSchemes.useWallpaperColors
     model: {
       var m = [];
@@ -256,8 +256,8 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.color-scheme.wallpaper-method-label")
-    description: I18n.tr("panels.color-scheme.wallpaper-method-description")
+    label: "Palette generation method"
+    description: "Choose your favorite palette generation method."
     enabled: Settings.data.colorSchemes.useWallpaperColors
     model: TemplateProcessor.schemeTypes
     currentKey: Settings.data.colorSchemes.generationMethod
@@ -319,8 +319,8 @@ ColumnLayout {
     enabled: !Settings.data.colorSchemes.useWallpaperColors
 
     NHeader {
-      label: I18n.tr("panels.color-scheme.predefined-title")
-      description: I18n.tr("panels.color-scheme.predefined-desc")
+      label: "Predefined color schemes"
+      description: "Choose from a collection of predefined color schemes."
       Layout.fillWidth: true
     }
 
@@ -450,7 +450,7 @@ ColumnLayout {
     }
 
     NButton {
-      text: I18n.tr("panels.color-scheme.download-button")
+      text: "Download more"
       icon: "download"
       onClicked: root.openDownloadPopup()
       Layout.alignment: Qt.AlignRight

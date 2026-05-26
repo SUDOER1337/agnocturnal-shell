@@ -12,24 +12,24 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-position-label")
-    description: I18n.tr("panels.bar.appearance-position-description")
+    label: "Bar position"
+    description: "Choose where to place the bar on the screen."
     model: [
       {
         "key": "top",
-        "name": I18n.tr("positions.top")
+        "name": "Top"
       },
       {
         "key": "bottom",
-        "name": I18n.tr("positions.bottom")
+        "name": "Bottom"
       },
       {
         "key": "left",
-        "name": I18n.tr("positions.left")
+        "name": "Left"
       },
       {
         "key": "right",
-        "name": I18n.tr("positions.right")
+        "name": "Right"
       }
     ]
     currentKey: Settings.data.bar.position
@@ -39,28 +39,28 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-density-label")
-    description: I18n.tr("panels.bar.appearance-density-description")
+    label: "Bar density"
+    description: "Adjust the bar's padding for a compact or spacious look."
     model: [
       {
         "key": "mini",
-        "name": I18n.tr("options.bar.density-mini")
+        "name": "Mini"
       },
       {
         "key": "compact",
-        "name": I18n.tr("options.bar.density-compact")
+        "name": "Compact"
       },
       {
         "key": "default",
-        "name": I18n.tr("options.bar.density-default")
+        "name": "Default"
       },
       {
         "key": "comfortable",
-        "name": I18n.tr("options.bar.density-comfortable")
+        "name": "Comfortable"
       },
       {
         "key": "spacious",
-        "name": I18n.tr("options.bar.density-spacious")
+        "name": "Spacious"
       }
     ]
     currentKey: Settings.data.bar.density
@@ -70,20 +70,20 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-type-label")
-    description: I18n.tr("panels.bar.appearance-type-description")
+    label: "Bar type"
+    description: "Choose the style of the bar: Simple, Floating or Framed."
     model: [
       {
         "key": "simple",
-        "name": I18n.tr("options.bar.type-simple")
+        "name": "Simple"
       },
       {
         "key": "floating",
-        "name": I18n.tr("options.bar.type-floating")
+        "name": "Floating"
       },
       {
         "key": "framed",
-        "name": I18n.tr("options.bar.type-framed")
+        "name": "Framed"
       }
     ]
     currentKey: Settings.data.bar.barType
@@ -95,20 +95,20 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: I18n.tr("common.display-mode")
-    description: I18n.tr("panels.bar.appearance-display-mode-description")
+    label: "Display mode"
+    description: "Choose when the bar is visible."
     model: [
       {
         "key": "always_visible",
-        "name": I18n.tr("hide-modes.visible")
+        "name": "Always visible"
       },
       {
         "key": "non_exclusive",
-        "name": I18n.tr("hide-modes.non-exclusive")
+        "name": "Non-exclusive"
       },
       {
         "key": "auto_hide",
-        "name": I18n.tr("hide-modes.auto-hide")
+        "name": "Auto-hide"
       }
     ]
     currentKey: Settings.data.bar.displayMode
@@ -117,8 +117,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.bar.appearance-use-separate-opacity-label")
-    description: I18n.tr("panels.bar.appearance-use-separate-opacity-description")
+    label: "Use separate bar opacity"
+    description: "Enable to use a separate opacity value for the bar background."
     checked: Settings.data.bar.useSeparateOpacity
     defaultValue: Settings.getDefaultValue("bar.useSeparateOpacity")
     onToggled: checked => Settings.data.bar.useSeparateOpacity = checked
@@ -127,8 +127,8 @@ ColumnLayout {
   NValueSlider {
     Layout.fillWidth: true
     visible: Settings.data.bar.useSeparateOpacity
-    label: I18n.tr("panels.bar.appearance-background-opacity-label")
-    description: I18n.tr("panels.bar.appearance-background-opacity-description")
+    label: "Bar background opacity"
+    description: "Set the background opacity specifically for the bar."
     from: 0
     to: 1
     stepSize: 0.01
@@ -141,8 +141,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-font-scale-label")
-    description: I18n.tr("panels.bar.appearance-font-scale-description")
+    label: "Font scale"
+    description: "Adjust the font size scale for text displayed in the bar."
     from: 0.5
     to: 2.0
     stepSize: 0.01
@@ -155,8 +155,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-widget-spacing-label")
-    description: I18n.tr("panels.bar.appearance-widget-spacing-description")
+    label: "Widget spacing"
+    description: "Adjust the spacing between each widget in the bar."
     from: 0
     to: 30
     stepSize: 1
@@ -169,8 +169,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-content-padding-label")
-    description: I18n.tr("panels.bar.appearance-content-padding-description")
+    label: "Content padding"
+    description: "Adjust the padding between bar edges and widgets."
     from: 0
     to: 30
     stepSize: 1
@@ -183,8 +183,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-show-outline-label")
-    description: I18n.tr("panels.bar.appearance-show-outline-description")
+    label: "Show widget outlines"
+    description: "Displays a visible border around every widget."
     checked: Settings.data.bar.showOutline
     defaultValue: Settings.getDefaultValue("bar.showOutline")
     onToggled: checked => Settings.data.bar.showOutline = checked
@@ -192,8 +192,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-show-capsule-label")
-    description: I18n.tr("panels.bar.appearance-show-capsule-description")
+    label: "Show capsule"
+    description: "Show widget backgrounds."
     checked: Settings.data.bar.showCapsule
     defaultValue: Settings.getDefaultValue("bar.showCapsule")
     onToggled: checked => Settings.data.bar.showCapsule = checked
@@ -202,8 +202,8 @@ ColumnLayout {
   NColorChoice {
     Layout.fillWidth: true
     visible: Settings.data.bar.showCapsule
-    label: I18n.tr("panels.bar.appearance-capsule-color-label")
-    description: I18n.tr("panels.bar.appearance-capsule-color-description")
+    label: "Capsule color"
+    description: "Choose a color for bar capsules, or use none for the default surface color."
     noneColor: Color.mSurfaceVariant
     noneOnColor: Color.mOnSurfaceVariant
     currentKey: Settings.data.bar.capsuleColorKey
@@ -213,8 +213,8 @@ ColumnLayout {
   NValueSlider {
     Layout.fillWidth: true
     visible: Settings.data.bar.showCapsule
-    label: I18n.tr("panels.bar.appearance-capsule-opacity-label")
-    description: I18n.tr("panels.bar.appearance-capsule-opacity-description")
+    label: "Capsule opacity"
+    description: "Set the opacity level for widget backgrounds when capsule is shown."
     from: 0
     to: 1
     stepSize: 0.01
@@ -227,8 +227,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-enable-exclusion-zone-inset-label")
-    description: I18n.tr("panels.bar.appearance-enable-exclusion-zone-inset-description")
+    label: "Inset exclusion zone"
+    description: "Reduce the exclusion zone by 1 physical pixel so flush windows bleed perfectly under the bar edge."
     checked: Settings.data.bar.enableExclusionZoneInset
     defaultValue: Settings.getDefaultValue("bar.enableExclusionZoneInset")
     onToggled: checked => Settings.data.bar.enableExclusionZoneInset = checked
@@ -237,8 +237,8 @@ ColumnLayout {
   NToggle {
     Layout.fillWidth: true
     visible: CompositorService.isNiri
-    label: I18n.tr("panels.bar.appearance-hide-on-overview-label")
-    description: I18n.tr("panels.bar.appearance-hide-on-overview-description")
+    label: "Hide bar on overview"
+    description: "Hide the bar and close panels when the compositor overview is active."
     checked: Settings.data.bar.hideOnOverview
     defaultValue: Settings.getDefaultValue("bar.hideOnOverview")
     onToggled: checked => Settings.data.bar.hideOnOverview = checked
@@ -246,8 +246,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.bar.appearance-outer-corners-label")
-    description: I18n.tr("panels.bar.appearance-outer-corners-description")
+    label: "Outer corners"
+    description: "Display outwardly curved corners on the bar."
     checked: Settings.data.bar.outerCorners
     visible: Settings.data.bar.barType === "simple"
     defaultValue: Settings.getDefaultValue("bar.outerCorners")
@@ -260,8 +260,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NLabel {
-      label: I18n.tr("panels.bar.appearance-frame-settings-label")
-      description: I18n.tr("panels.bar.appearance-frame-settings-description")
+      label: "Frame Settings"
+      description: "Adjust frame thickness and inner corner radius"
     }
 
     RowLayout {
@@ -270,7 +270,7 @@ ColumnLayout {
 
       NValueSlider {
         Layout.fillWidth: true
-        label: I18n.tr("panels.bar.appearance-frame-thickness")
+        label: "Thickness"
         from: 4
         to: 24
         stepSize: 1
@@ -283,7 +283,7 @@ ColumnLayout {
 
       NValueSlider {
         Layout.fillWidth: true
-        label: I18n.tr("panels.bar.appearance-frame-radius")
+        label: "Inner Radius"
         from: 4
         to: 24
         stepSize: 1
@@ -306,8 +306,8 @@ ColumnLayout {
     }
 
     NSpinBox {
-      label: I18n.tr("panels.bar.appearance-margins-vertical")
-      description: I18n.tr("panels.bar.appearance-margins-description")
+      label: "Vertical Margin"
+      description: "Adjust the margins around the floating bar."
       from: 0
       to: 500
       suffix: "px"
@@ -317,8 +317,8 @@ ColumnLayout {
     }
 
     NSpinBox {
-      label: I18n.tr("panels.bar.appearance-margins-horizontal")
-      description: I18n.tr("panels.bar.appearance-margins-description")
+      label: "Horizontal Margin "
+      description: "Adjust the margins around the floating bar."
       from: 0
       to: 500
       suffix: "px"
@@ -341,8 +341,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.bar.appearance-auto-hide-delay-label")
-      description: I18n.tr("panels.bar.appearance-auto-hide-delay-description")
+      label: "Hide Delay"
+      description: "Time before bar hides after mouse leaves"
       from: 100
       to: 2000
       stepSize: 100
@@ -355,8 +355,8 @@ ColumnLayout {
 
     NValueSlider {
       Layout.fillWidth: true
-      label: I18n.tr("panels.bar.appearance-auto-show-delay-label")
-      description: I18n.tr("panels.bar.appearance-auto-show-delay-description")
+      label: "Show Delay"
+      description: "Time before bar shows when mouse enters edge"
       from: 0
       to: 500
       stepSize: 50
@@ -369,8 +369,8 @@ ColumnLayout {
 
     NToggle {
       Layout.fillWidth: true
-      label: I18n.tr("panels.bar.appearance-show-on-workspace-switch-label")
-      description: I18n.tr("panels.bar.appearance-show-on-workspace-switch-description")
+      label: "Show bar on workspace switch"
+      description: "Automatically show the bar briefly when the workspace changes."
       checked: Settings.data.bar.showOnWorkspaceSwitch
       defaultValue: Settings.getDefaultValue("bar.showOnWorkspaceSwitch")
       onToggled: checked => Settings.data.bar.showOnWorkspaceSwitch = checked

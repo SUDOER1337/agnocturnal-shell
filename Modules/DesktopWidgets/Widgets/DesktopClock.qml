@@ -51,7 +51,7 @@ DraggableDesktopWidget {
       opacity: root.widgetOpacity
 
       Repeater {
-        model: I18n.locale.toString(root.now, root.format.trim()).split("\\n")
+        model: Qt.locale().toString(root.now, root.format.trim()).split("\\n")
         delegate: NText {
           visible: text !== ""
           text: modelData

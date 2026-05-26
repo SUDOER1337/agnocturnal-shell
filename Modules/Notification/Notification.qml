@@ -666,7 +666,7 @@ Variants {
                     }
 
                     NText {
-                      text: model.summary || I18n.tr("common.no-summary")
+                      text: model.summary || "No summary"
                       pointSize: Style.fontSizeM
                       font.weight: Style.fontWeightMedium
                       color: Color.mOnSurface
@@ -743,7 +743,7 @@ Variants {
               NIconButton {
                 visible: !notifWindow.isCompact
                 icon: "close"
-                tooltipText: I18n.tr("tooltips.dismiss-notification")
+                tooltipText: "Dismiss notification"
                 baseSize: Style.baseWidgetSize * 0.6
                 anchors.top: cardBackground.top
                 anchors.topMargin: Style.marginXL
@@ -780,7 +780,7 @@ Variants {
                   spacing: Style.marginXS
 
                   NText {
-                    text: model.summary || I18n.tr("common.no-summary")
+                    text: model.summary || "No summary"
                     pointSize: Style.fontSizeM
                     font.weight: Style.fontWeightMedium
                     color: Color.mOnSurface

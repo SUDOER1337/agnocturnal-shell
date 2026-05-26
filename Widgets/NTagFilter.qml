@@ -17,7 +17,7 @@ NCollapsible {
   // Formatting function for tag display (optional override)
   property var formatTag: function (tag) {
     if (tag === "")
-      return I18n.tr("launcher.categories.all");
+      return "All";
     // Default: capitalize first letter
     return tag.charAt(0).toUpperCase() + tag.slice(1);
   }

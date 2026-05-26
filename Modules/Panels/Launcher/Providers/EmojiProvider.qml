@@ -7,7 +7,7 @@ Item {
   id: root
 
   // Provider metadata
-  property string name: I18n.tr("launcher.providers.emoji")
+  property string name: "Emoji picker"
   property var launcher: null
   property string iconMode: Settings.data.appLauncher.iconMode
   property bool handleSearch: false
@@ -21,7 +21,7 @@ Item {
   property bool showsCategories: true // Default to showing categories
 
   // Empty state message for category view
-  readonly property string emptyBrowsingMessage: selectedCategory === "recent" ? I18n.tr("launcher.providers.emoji-no-recent") : ""
+  readonly property string emptyBrowsingMessage: selectedCategory === "recent" ? "No recent emojis yet" : ""
 
   property var categoryIcons: ({
                                  "all": "apps",
@@ -41,17 +41,17 @@ Item {
 
   function getCategoryName(category) {
     const names = {
-      "all": I18n.tr("launcher.categories.all"),
-      "recent": I18n.tr("launcher.categories.emoji-recent"),
-      "people": I18n.tr("launcher.categories.emoji-people"),
-      "animals": I18n.tr("launcher.categories.emoji-animals"),
-      "nature": I18n.tr("launcher.categories.emoji-nature"),
-      "food": I18n.tr("launcher.categories.emoji-food"),
-      "activity": I18n.tr("launcher.categories.emoji-activity"),
-      "travel": I18n.tr("launcher.categories.emoji-travel"),
-      "objects": I18n.tr("launcher.categories.emoji-objects"),
-      "symbols": I18n.tr("launcher.categories.emoji-symbols"),
-      "flags": I18n.tr("launcher.categories.emoji-flags")
+      "all": "All",
+      "recent": "Recent",
+      "people": "People & Body",
+      "animals": "Animals",
+      "nature": "Nature",
+      "food": "Food & Drink",
+      "activity": "Activity",
+      "travel": "Travel & Places",
+      "objects": "Objects",
+      "symbols": "Symbols",
+      "flags": "Flags"
     };
     return names[category] || category;
   }
@@ -93,7 +93,7 @@ Item {
     return [
           {
             "name": ">emoji",
-            "description": I18n.tr("launcher.providers.emoji-search-description"),
+            "description": "Search and copy emojis",
             "icon": iconMode === "tabler" ? "mood-smile" : "face-smile",
             "isTablerIcon": true,
             "isImage": false,
@@ -113,8 +113,8 @@ Item {
     if (!EmojiService.loaded) {
       return [
             {
-              "name": I18n.tr("launcher.providers.emoji-loading"),
-              "description": I18n.tr("launcher.providers.emoji-loading-description"),
+              "name": "Loading emojis...",
+              "description": "Please wait",
               "icon": iconMode === "tabler" ? "refresh" : "view-refresh",
               "isTablerIcon": true,
               "isImage": false,

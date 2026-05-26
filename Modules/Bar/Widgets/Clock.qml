@@ -82,7 +82,7 @@ Item {
           spacing: Settings.data.bar.showCapsule ? -5 : -3
           Repeater {
             id: repeater
-            model: I18n.locale.toString(now, formatHorizontal.trim()).split("\\n")
+            model: Qt.locale().toString(now, formatHorizontal.trim()).split("\\n")
             NText {
               visible: text !== ""
               text: modelData
@@ -122,7 +122,7 @@ Item {
           anchors.centerIn: parent
           spacing: -2
           Repeater {
-            model: I18n.locale.toString(now, formatVertical.trim()).split(" ")
+            model: Qt.locale().toString(now, formatVertical.trim()).split(" ")
             delegate: NText {
               visible: text !== ""
               text: modelData
@@ -147,12 +147,12 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("actions.open-calendar"),
+        "label": "Open calendar",
         "action": "open-calendar",
         "icon": "calendar"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -174,10 +174,10 @@ Item {
   // Build tooltip text with formatted time/date
   function buildTooltipText() {
     if (tooltipFormat && tooltipFormat.trim() !== "") {
-      return I18n.locale.toString(now, tooltipFormat.trim());
+      return Qt.locale().toString(now, tooltipFormat.trim());
     }
     // Fallback to default if no format is set
-    return I18n.tr("common.calendar"); // Defaults to "Calendar"
+    return "Calendar"; // Defaults to "Calendar"
   }
 
   MouseArea {

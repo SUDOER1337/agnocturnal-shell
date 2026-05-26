@@ -34,9 +34,7 @@ SmartPanel {
       const color = Color.mPrimary;
       return text.replace(/^# (.*)$/gm, `<br/><h1 style="color:${color}">$1</h1><br/>`).replace(/^## (.*)$/gm, `<br/><h2 style="color:${color}">$1</h2><br/>`);
     }
-    readonly property string subtitleText: hasPreviousVersion ? I18n.tr("changelog.panel.subtitle-updated", {
-                                                                          "previousVersion": previousVersion
-                                                                        }) : I18n.tr("changelog.panel.subtitle-fresh")
+    readonly property string subtitleText: hasPreviousVersion ? "Updated from {previousVersion}" : "Thanks for installing Noctalia! Here is what’s included in this build."
 
     ColumnLayout {
       anchors.fill: parent
@@ -58,9 +56,7 @@ SmartPanel {
           spacing: Style.marginXS
 
           NText {
-            text: I18n.tr("changelog.panel.title", {
-                            "version": currentVersion || UpdateService.currentVersion
-                          })
+            text: "What's new in {version}"
             pointSize: Style.fontSizeXL
             font.weight: Style.fontWeightBold
             color: Color.mPrimary
@@ -94,7 +90,7 @@ SmartPanel {
           spacing: Style.marginS
 
           NText {
-            text: hasPreviousVersion ? previousVersion : I18n.tr("changelog.panel.version-new-user")
+            text: hasPreviousVersion ? previousVersion : "Fresh install"
             font.weight: Style.fontWeightSemiBold
             color: Color.mPrimary
           }
@@ -147,7 +143,7 @@ SmartPanel {
 
           NText {
             visible: releaseContent.length === 0
-            text: I18n.tr("changelog.panel.empty")
+            text: "Release notes are not available yet."
             color: Color.mOnSurfaceVariant
             wrapMode: Text.WordWrap
           }
@@ -161,7 +157,7 @@ SmartPanel {
         NButton {
           Layout.fillWidth: true
           icon: "brand-discord"
-          text: I18n.tr("changelog.panel.buttons-discord")
+          text: "Join our Discord"
           outlined: true
           onClicked: UpdateService.openDiscord()
         }
@@ -170,7 +166,7 @@ SmartPanel {
           Layout.fillWidth: true
           visible: UpdateService.feedbackUrl !== ""
           icon: "forms"
-          text: I18n.tr("changelog.panel.buttons-feedback")
+          text: "Give feedback"
           outlined: true
           onClicked: UpdateService.openFeedbackForm()
         }
@@ -178,7 +174,7 @@ SmartPanel {
         NButton {
           Layout.fillWidth: true
           icon: "check"
-          text: I18n.tr("changelog.panel.buttons-dismiss")
+          text: "OK"
           onClicked: root.close()
         }
       }

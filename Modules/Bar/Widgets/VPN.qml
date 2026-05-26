@@ -48,9 +48,7 @@ Item {
       for (let i = 0; i < active.length; ++i) {
         const conn = active[i];
         items.push({
-                     "label": I18n.tr("actions.disconnect-vpn", {
-                                        "name": conn.name
-                                      }),
+                     "label": "Disconnect {name}",
                      "action": "disconnect:" + conn.uuid,
                      "icon": "shield-off"
                    });
@@ -59,15 +57,13 @@ Item {
       for (let i = 0; i < inactive.length; ++i) {
         const conn = inactive[i];
         items.push({
-                     "label": I18n.tr("actions.connect-vpn", {
-                                        "name": conn.name
-                                      }),
+                     "label": "Connect to {name}",
                      "action": "connect:" + conn.uuid,
                      "icon": "shield-lock"
                    });
       }
       items.push({
-                   "label": I18n.tr("actions.widget-settings"),
+                   "label": "Widget settings",
                    "action": "widget-settings",
                    "icon": "settings"
                  });
@@ -133,7 +129,7 @@ Item {
       if (pill.text !== "") {
         return pill.text;
       }
-      return I18n.tr("tooltips.manage-vpn");
+      return "VPN connections";
     }
   }
 }

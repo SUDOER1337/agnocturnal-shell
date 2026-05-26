@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Widgets
 import qs.Commons
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -45,7 +46,7 @@ NIconButton {
 
   // If we have a custom path or are using distro logo, don't show the theme icon.
   icon: (customIconPath === "" && !useDistroLogo) ? customIcon : ""
-  tooltipText: I18n.tr("actions.open-launcher")
+  tooltipText: "Open launcher"
   tooltipDirection: BarService.getTooltipDirection(screenName)
   baseSize: Style.getCapsuleHeightForScreen(screenName)
   applyUiScale: false
@@ -62,12 +63,12 @@ NIconButton {
 
     model: [
       {
-        "label": I18n.tr("actions.launcher-settings"),
+        "label": "Launcher settings",
         "action": "launcher-settings",
         "icon": "adjustments"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       }
@@ -77,10 +78,13 @@ NIconButton {
                    contextMenu.close();
                    PanelService.closeContextMenu(screen);
 
-                   if (action === "launcher-settings") {
-                     var panel = PanelService.getPanel("settingsPanel", screen);
-                     panel.requestedTab = SettingsPanel.Tab.Launcher;
-                     panel.toggle();
+                    if (action === "launcher-settings") {
+                      var panel = PanelService.getPanel("controlCenterPanel", screen);
+                      if (panel.isPanelOpen) {
+                        panel.close();
+                      } else {
+                        panel.openToTab(ControlCenterV5Panel.Tab.Launcher);
+                      }
                    } else if (action === "widget-settings") {
                      BarService.openWidgetSettings(screen, section, sectionWidgetIndex, widgetId, widgetSettings);
                    }

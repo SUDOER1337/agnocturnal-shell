@@ -156,7 +156,7 @@ NBox {
               anchors.centerIn: parent
               text: {
                 let dayIndex = (root.firstDayOfWeek + index) % 7;
-                const dayName = I18n.locale.dayName(dayIndex, Locale.ShortFormat);
+                const dayName = Qt.locale().dayName(dayIndex, Locale.ShortFormat);
                 return dayName.substring(0, 2).toUpperCase();
               }
               color: Color.mPrimary
@@ -393,9 +393,9 @@ NBox {
                                                    } else {
                                                      const timeFormat = Settings.data.location.use12hourFormat ? "hh:mm AP" : "HH:mm";
                                                      const start = new Date(event.start * 1000);
-                                                     const startFormatted = I18n.locale.toString(start, timeFormat);
+                                                     const startFormatted = Qt.locale().toString(start, timeFormat);
                                                      const end = new Date(event.end * 1000);
-                                                     const endFormatted = I18n.locale.toString(end, timeFormat);
+                                                     const endFormatted = Qt.locale().toString(end, timeFormat);
                                                      return `${startFormatted}-${endFormatted} ${event.summary}`;
                                                    }
                                                  }).join('\n');

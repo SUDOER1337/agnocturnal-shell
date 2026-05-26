@@ -16,7 +16,7 @@ RowLayout {
   property ListModel model: {}
   property string currentKey: ""
   property string placeholder: ""
-  property string searchPlaceholder: I18n.tr("placeholders.search")
+  property string searchPlaceholder: "Search..."
   property Component delegate: null
   property var defaultValue: undefined
   property string settingsPath: ""
@@ -39,16 +39,16 @@ RowLayout {
         for (var i = 0; i < model.count; i++) {
           var item = model.get(i);
           if (item && item.key === "") {
-            displayValue = item.name || I18n.tr("panels.indicator.system-default");
+            displayValue = item.name || "System Default";
             break;
           }
         }
         // If not found in model, show "System Default" instead of "(empty)"
         if (displayValue === "") {
-          displayValue = I18n.tr("panels.indicator.system-default");
+          displayValue = "System Default";
         }
       } else {
-        displayValue = I18n.tr("panels.indicator.system-default");
+        displayValue = "System Default";
       }
     } else {
       // Try to find the display name for the default key in the model
@@ -67,9 +67,7 @@ RowLayout {
         displayValue = String(defaultValue);
       }
     }
-    return I18n.tr("panels.indicator.default-value", {
-                     "value": displayValue
-                   });
+    return "Default: {value}";
   }
 
   // Filtered model for search results

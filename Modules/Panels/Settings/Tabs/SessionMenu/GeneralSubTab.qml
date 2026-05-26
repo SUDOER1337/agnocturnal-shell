@@ -11,8 +11,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.session-menu.large-buttons-style-label")
-    description: I18n.tr("panels.session-menu.large-buttons-style-description")
+    label: "Large buttons style"
+    description: "Display the session menu with large buttons in a grid layout."
     checked: Settings.data.sessionMenu.largeButtonsStyle
     onToggled: checked => Settings.data.sessionMenu.largeButtonsStyle = checked
   }
@@ -20,16 +20,16 @@ ColumnLayout {
   NComboBox {
     visible: Settings.data.sessionMenu.largeButtonsStyle
     Layout.fillWidth: true
-    label: I18n.tr("panels.session-menu.large-buttons-layout-label")
-    description: I18n.tr("panels.session-menu.large-buttons-layout-description")
+    label: "Large buttons layout"
+    description: "Choose how session menu buttons are displayed."
     model: [
       {
         "key": "grid",
-        "name": I18n.tr("options.session-menu-grid-layout.grid")
+        "name": "Grid"
       },
       {
         "key": "single-row",
-        "name": I18n.tr("options.session-menu-grid-layout.single-row")
+        "name": "Single row"
       }
     ]
     currentKey: Settings.data.sessionMenu.largeButtonsLayout
@@ -38,37 +38,37 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("common.position")
-    description: I18n.tr("panels.session-menu.position-description")
+    label: "Position"
+    description: "Choose where the session menu panel appears when opened."
     Layout.fillWidth: true
     model: [
       {
         "key": "center",
-        "name": I18n.tr("positions.center")
+        "name": "Center"
       },
       {
         "key": "top_center",
-        "name": I18n.tr("positions.top-center")
+        "name": "Top center"
       },
       {
         "key": "top_left",
-        "name": I18n.tr("positions.top-left")
+        "name": "Top left"
       },
       {
         "key": "top_right",
-        "name": I18n.tr("positions.top-right")
+        "name": "Top right"
       },
       {
         "key": "bottom_center",
-        "name": I18n.tr("positions.bottom-center")
+        "name": "Bottom center"
       },
       {
         "key": "bottom_left",
-        "name": I18n.tr("positions.bottom-left")
+        "name": "Bottom left"
       },
       {
         "key": "bottom_right",
-        "name": I18n.tr("positions.bottom-right")
+        "name": "Bottom right"
       }
     ]
     currentKey: Settings.data.sessionMenu.position
@@ -79,8 +79,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.session-menu.show-header-label")
-    description: I18n.tr("panels.session-menu.show-header-description")
+    label: "Show header"
+    description: "Display the title and close button at the top of the session menu."
     checked: Settings.data.sessionMenu.showHeader
     onToggled: checked => Settings.data.sessionMenu.showHeader = checked
     visible: !Settings.data.sessionMenu.largeButtonsStyle
@@ -89,8 +89,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.session-menu.show-keybinds-label")
-    description: I18n.tr("panels.session-menu.show-keybinds-description")
+    label: "Show keybinds"
+    description: "Display keybind hints on session options."
     checked: Settings.data.sessionMenu.showKeybinds
     onToggled: checked => Settings.data.sessionMenu.showKeybinds = checked
     defaultValue: Settings.getDefaultValue("sessionMenu.showKeybinds")
@@ -98,8 +98,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("panels.session-menu.enable-countdown-label")
-    description: I18n.tr("panels.session-menu.enable-countdown-description")
+    label: "Enable countdown timer"
+    description: "Show a countdown timer before executing power actions."
     checked: Settings.data.sessionMenu.enableCountdown
     onToggled: checked => Settings.data.sessionMenu.enableCountdown = checked
     defaultValue: Settings.getDefaultValue("sessionMenu.enableCountdown")
@@ -108,8 +108,8 @@ ColumnLayout {
   NValueSlider {
     visible: Settings.data.sessionMenu.enableCountdown
     Layout.fillWidth: true
-    label: I18n.tr("panels.session-menu.countdown-duration-label")
-    description: I18n.tr("panels.session-menu.countdown-duration-description")
+    label: "Countdown duration"
+    description: "Set how long the countdown timer lasts before executing power actions."
     from: 1000
     to: 30000
     stepSize: 1000

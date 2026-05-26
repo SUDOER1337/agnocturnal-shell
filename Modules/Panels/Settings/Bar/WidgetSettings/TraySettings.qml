@@ -41,8 +41,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.tray.drawer-enabled-label")
-    description: I18n.tr("bar.tray.drawer-enabled-description")
+    label: "Enable drawer"
+    description: "When enabled, unpinned tray items are shown in a drawer panel.<br>When disabled, all tray items are shown inline."
     checked: root.valueDrawerEnabled
     onToggled: checked => {
                  root.valueDrawerEnabled = checked;
@@ -52,8 +52,8 @@ ColumnLayout {
   }
 
   NColorChoice {
-    label: I18n.tr("bar.tray.chevron-color-label")
-    description: I18n.tr("bar.tray.chevron-color-description")
+    label: "Chevron color"
+    description: "Apply theme colors to the drawer chevron icon."
     currentKey: root.valueChevronColor
     onSelected: key => {
                   root.valueChevronColor = key;
@@ -65,8 +65,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.tray.colorize-icons-label")
-    description: I18n.tr("bar.tray.colorize-icons-description")
+    label: "Colorize icons"
+    description: "Apply theme colors to tray icons."
     checked: root.valueColorizeIcons
     onToggled: checked => {
                  root.valueColorizeIcons = checked;
@@ -77,8 +77,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.tray.hide-passive-label")
-    description: I18n.tr("bar.tray.hide-passive-description")
+    label: "Hide passive items"
+    description: "When enabled, tray items with 'Passive' status will be hidden."
     checked: root.valueHidePassive
     onToggled: checked => {
                  root.valueHidePassive = checked;
@@ -92,8 +92,8 @@ ColumnLayout {
     spacing: Style.marginS
 
     NLabel {
-      label: I18n.tr("panels.bar.tray-blacklist-label")
-      description: I18n.tr("panels.bar.tray-blacklist-description")
+      label: "Blacklist"
+      description: "Add tray exclusion rules, supports wildcards (*)."
     }
 
     RowLayout {
@@ -103,7 +103,7 @@ ColumnLayout {
       NTextInputButton {
         id: newRuleInput
         Layout.fillWidth: true
-        placeholderText: I18n.tr("panels.bar.tray-blacklist-placeholder")
+        placeholderText: "e.g. nm-applet, Fcitx*"
         buttonIcon: "add"
         onButtonClicked: {
           if (newRuleInput.text.length > 0) {

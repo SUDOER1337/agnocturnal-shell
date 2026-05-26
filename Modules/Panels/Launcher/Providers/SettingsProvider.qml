@@ -6,7 +6,7 @@ Item {
   id: root
 
   // Provider metadata
-  property string name: I18n.tr("common.settings")
+  property string name: "Settings"
   property var launcher: null
   property bool handleSearch: Settings.data.appLauncher.enableSettingsSearch
   property string supportedLayouts: "list"
@@ -26,7 +26,7 @@ Item {
     return [
           {
             "name": ">settings",
-            "description": I18n.tr("launcher.providers.settings-search-description"),
+            "description": "Search and navigate to settings",
             "icon": iconMode === "tabler" ? "settings" : "preferences-system",
             "isTablerIcon": true,
             "isImage": false,

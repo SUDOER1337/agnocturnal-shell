@@ -21,20 +21,20 @@ ColumnLayout {
   }
 
   NComboBox {
-    label: I18n.tr("panels.lock-screen.clock-style-label")
-    description: I18n.tr("panels.lock-screen.clock-style-description")
+    label: "Clock style"
+    description: "Choose the visual style of the clock on the lock screen."
     model: [
       {
         "key": "analog",
-        "name": I18n.tr("panels.lock-screen.clock-style-analog")
+        "name": "Analog"
       },
       {
         "key": "digital",
-        "name": I18n.tr("panels.lock-screen.clock-style-digital")
+        "name": "Digital"
       },
       {
         "key": "custom",
-        "name": I18n.tr("panels.lock-screen.clock-style-custom")
+        "name": "Custom"
       }
     ]
     currentKey: Settings.data.general.clockStyle
@@ -45,8 +45,8 @@ ColumnLayout {
 
   NTextInput {
     id: formatInput
-    label: I18n.tr("panels.lock-screen.clock-format-label")
-    description: I18n.tr("panels.lock-screen.clock-format-description")
+    label: "Clock format"
+    description: "Customize the clock format using date/time syntax tokens."
     text: Settings.data.general.clockFormat
     onTextChanged: Settings.data.general.clockFormat = text
     visible: Settings.data.general.clockStyle === "custom"
@@ -61,24 +61,24 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.password-chars-label")
-    description: I18n.tr("panels.lock-screen.password-chars-description")
+    label: "Random password icons"
+    description: "Cute icons used to hide your password."
     checked: Settings.data.general.passwordChars
     onToggled: checked => Settings.data.general.passwordChars = checked
     defaultValue: Settings.getDefaultValue("general.passwordChars")
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.compact-lockscreen-label")
-    description: I18n.tr("panels.lock-screen.compact-lockscreen-description")
+    label: "Compact lock screen"
+    description: "Show only the login input and system controls, hiding weather and media widgets."
     checked: Settings.data.general.compactLockScreen
     onToggled: checked => Settings.data.general.compactLockScreen = checked
     defaultValue: Settings.getDefaultValue("general.compactLockScreen")
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.enable-lockscreen-media-controls-label")
-    description: I18n.tr("panels.lock-screen.enable-lockscreen-media-controls-description")
+    label: "Lock screen media controls"
+    description: "Show interactive media playback controls on the lock screen."
     checked: Settings.data.general.enableLockScreenMediaControls
     onToggled: checked => Settings.data.general.enableLockScreenMediaControls = checked
     visible: !Settings.data.general.compactLockScreen
@@ -86,8 +86,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.lock-screen.lock-screen-animations-label")
-    description: I18n.tr("panels.lock-screen.lock-screen-animations-description")
+    label: "Lockscreen animations"
+    description: "Enable or disable lockscreen animations."
     checked: Settings.data.general.lockScreenAnimations
     onToggled: checked => Settings.data.general.lockScreenAnimations = checked
     defaultValue: Settings.getDefaultValue("general.lockScreenAnimations")
@@ -95,8 +95,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.lock-screen.lock-screen-blur-strength-label")
-    description: I18n.tr("panels.lock-screen.lock-screen-blur-strength-description")
+    label: "Lock screen blur strength"
+    description: "Applies a blur effect to the lock screen wallpaper."
     from: 0.0
     to: 1.0
     stepSize: 0.01
@@ -109,8 +109,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.lock-screen.lock-screen-tint-strength-label")
-    description: I18n.tr("panels.lock-screen.lock-screen-tint-strength-description")
+    label: "Lock screen tint strength"
+    description: "Applies a tint overlay to the lock screen wallpaper."
     from: 0.0
     to: 1.0
     stepSize: 0.01

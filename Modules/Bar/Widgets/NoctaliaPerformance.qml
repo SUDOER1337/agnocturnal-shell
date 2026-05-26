@@ -43,7 +43,7 @@ NIconButton {
   border.width: Style.capsuleBorderWidth
 
   icon: PowerProfileService.noctaliaPerformanceMode ? "rocket" : "rocket-off"
-  tooltipText: PowerProfileService.noctaliaPerformanceMode ? I18n.tr("tooltips.noctalia-performance-enabled") : I18n.tr("tooltips.noctalia-performance-enabled")
+  tooltipText: "Noctalia performance mode"
   tooltipDirection: BarService.getTooltipDirection(screen?.name)
   onClicked: PowerProfileService.toggleNoctaliaPerformance()
 
@@ -52,7 +52,7 @@ NIconButton {
 
     model: [
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },

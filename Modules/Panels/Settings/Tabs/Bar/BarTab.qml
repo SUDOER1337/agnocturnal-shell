@@ -52,7 +52,7 @@ ColumnLayout {
       BarService.widgetsRevision++;
 
       if (removedWidgets[0].id === "ControlCenter" && BarService.lookupWidget("ControlCenter") === undefined) {
-        ToastService.showWarning(I18n.tr("toast.missing-control-center.label"), I18n.tr("toast.missing-control-center.description"), 6000);
+        ToastService.showWarning("Last control center widget removed", "The control center widget has been removed from the bar. To access it from the bar again, you will need to re-add the widget. You can open it with right clicking on the bar too", 6000);
       }
     }
   }
@@ -179,22 +179,22 @@ ColumnLayout {
     currentIndex: tabView.currentIndex
 
     NTabButton {
-      text: I18n.tr("common.appearance")
+      text: "Appearance"
       tabIndex: 0
       checked: subTabBar.currentIndex === 0
     }
     NTabButton {
-      text: I18n.tr("common.widgets")
+      text: "Widgets"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }
     NTabButton {
-      text: I18n.tr("common.behavior")
+      text: "Behavior"
       tabIndex: 2
       checked: subTabBar.currentIndex === 2
     }
     NTabButton {
-      text: I18n.tr("common.monitors")
+      text: "Monitors"
       tabIndex: 3
       checked: subTabBar.currentIndex === 3
     }

@@ -14,8 +14,8 @@ ColumnLayout {
   property var screen
 
   NComboBox {
-    label: I18n.tr("panels.wallpaper.look-feel-fill-mode-label")
-    description: I18n.tr("panels.wallpaper.look-feel-fill-mode-description")
+    label: "Fill mode"
+    description: "Select how the image should scale to match your monitor's resolution."
     model: WallpaperService.fillModeModel
     currentKey: Settings.data.wallpaper.fillMode
     onSelected: key => Settings.data.wallpaper.fillMode = key
@@ -24,8 +24,8 @@ ColumnLayout {
 
   RowLayout {
     NLabel {
-      label: I18n.tr("bar.audio-visualizer.color-name-label")
-      description: I18n.tr("panels.wallpaper.look-feel-fill-color-description")
+      label: "Fill color"
+      description: "Choose a fill color that may appear behind the wallpaper."
       Layout.alignment: Qt.AlignTop
     }
 
@@ -45,8 +45,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NLabel {
-      label: I18n.tr("panels.wallpaper.look-feel-transition-type-label")
-      description: I18n.tr("panels.wallpaper.look-feel-transition-type-description")
+      label: "Transition type"
+      description: "Animation type when switching between wallpapers."
     }
 
     Repeater {
@@ -79,16 +79,16 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.wallpaper.look-feel-skip-startup-transition-label")
-    description: I18n.tr("panels.wallpaper.look-feel-skip-startup-transition-description")
+    label: "Skip startup transition"
+    description: "Skip the wallpaper animation when the shell starts."
     checked: Settings.data.wallpaper.skipStartupTransition
     onToggled: Settings.data.wallpaper.skipStartupTransition = checked
   }
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.wallpaper.look-feel-transition-duration-label")
-    description: I18n.tr("panels.wallpaper.look-feel-transition-duration-description")
+    label: "Transition duration"
+    description: "Duration of transition animations in seconds."
     from: 500
     to: 10000
     stepSize: 100
@@ -101,8 +101,8 @@ ColumnLayout {
 
   NValueSlider {
     Layout.fillWidth: true
-    label: I18n.tr("panels.wallpaper.look-feel-edge-smoothness-label")
-    description: I18n.tr("panels.wallpaper.look-feel-edge-smoothness-description")
+    label: "Soften transition edge"
+    description: "Applies a soft, feathered effect to the edge of transitions."
     from: 0.0
     to: 1.0
     showReset: true

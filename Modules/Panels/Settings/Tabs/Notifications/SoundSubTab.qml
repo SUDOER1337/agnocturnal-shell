@@ -38,16 +38,16 @@ ColumnLayout {
 
       NLabel {
         Layout.fillWidth: true
-        label: I18n.tr("panels.notifications.sounds-unavailable-label")
-        description: I18n.tr("panels.notifications.sounds-unavailable-description")
+        label: "Notification sounds unavailable"
+        description: "Install Qt6 Multimedia to enable notification sounds."
       }
     }
   }
 
   NToggle {
     enabled: SoundService.multimediaAvailable
-    label: I18n.tr("panels.notifications.sounds-enabled-label")
-    description: I18n.tr("panels.notifications.sounds-enabled-description")
+    label: "Enable notification sounds"
+    description: "Enable sound effects for incoming notifications."
     checked: Settings.data.notifications?.sounds?.enabled ?? false
     onToggled: checked => Settings.data.notifications.sounds.enabled = checked
     defaultValue: Settings.getDefaultValue("notifications.sounds.enabled")
@@ -57,8 +57,8 @@ ColumnLayout {
   NValueSlider {
     enabled: SoundService.multimediaAvailable && (Settings.data.notifications?.sounds?.enabled ?? false)
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.sounds-volume-label")
-    description: I18n.tr("panels.notifications.sounds-volume-description")
+    label: "Sound volume"
+    description: "Adjust the volume level for notification sounds."
     from: 0
     to: 1
     stepSize: 0.01
@@ -73,8 +73,8 @@ ColumnLayout {
   NToggle {
     enabled: SoundService.multimediaAvailable && (Settings.data.notifications?.sounds?.enabled ?? false)
     Layout.fillWidth: true
-    label: I18n.tr("panels.notifications.sounds-separate-label")
-    description: I18n.tr("panels.notifications.sounds-separate-description")
+    label: "Use different sounds per priority"
+    description: "Use different sound files for low, normal, and critical priority notifications."
     checked: Settings.data.notifications?.sounds?.separateSounds ?? false
     onToggled: checked => Settings.data.notifications.sounds.separateSounds = checked
     defaultValue: Settings.getDefaultValue("notifications.sounds.separateSounds")
@@ -88,17 +88,17 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NLabel {
-      label: I18n.tr("panels.notifications.sounds-files-unified-label")
-      description: I18n.tr("panels.notifications.sounds-files-unified-description")
+      label: "Notification sound"
+      description: "Path to the sound file played for notifications."
     }
 
     NTextInputButton {
       enabled: parent.enabled
       Layout.fillWidth: true
-      placeholderText: I18n.tr("panels.notifications.sounds-files-placeholder")
+      placeholderText: "Enter path to sound file"
       text: Settings.data.notifications?.sounds?.normalSoundFile ?? ""
       buttonIcon: "folder-open"
-      buttonTooltip: I18n.tr("panels.notifications.sounds-files-select-file")
+      buttonTooltip: "Select sound file"
       onInputTextChanged: text => {
                             // When separate sounds are enabled, this row is hidden but still
                             // bound to normalSoundFile; user edits to normal still update that
@@ -127,17 +127,17 @@ ColumnLayout {
       Layout.fillWidth: true
 
       NLabel {
-        label: I18n.tr("panels.notifications.sounds-files-low-label")
-        description: I18n.tr("panels.notifications.sounds-files-low-description")
+        label: "Low urgency sound"
+        description: "Path to the sound file played for low priority notifications."
       }
 
       NTextInputButton {
         enabled: parent.enabled
         Layout.fillWidth: true
-        placeholderText: I18n.tr("panels.notifications.sounds-files-placeholder")
+        placeholderText: "Enter path to sound file"
         text: Settings.data.notifications?.sounds?.lowSoundFile ?? ""
         buttonIcon: "folder-open"
-        buttonTooltip: I18n.tr("panels.notifications.sounds-files-select-file")
+        buttonTooltip: "Select sound file"
         onInputTextChanged: text => Settings.data.notifications.sounds.lowSoundFile = text
         onButtonClicked: root.openLowPicker()
       }
@@ -149,17 +149,17 @@ ColumnLayout {
       Layout.fillWidth: true
 
       NLabel {
-        label: I18n.tr("panels.notifications.sounds-files-normal-label")
-        description: I18n.tr("panels.notifications.sounds-files-normal-description")
+        label: "Normal urgency sound"
+        description: "Path to the sound file played for normal priority notifications."
       }
 
       NTextInputButton {
         enabled: parent.enabled
         Layout.fillWidth: true
-        placeholderText: I18n.tr("panels.notifications.sounds-files-placeholder")
+        placeholderText: "Enter path to sound file"
         text: Settings.data.notifications?.sounds?.normalSoundFile ?? ""
         buttonIcon: "folder-open"
-        buttonTooltip: I18n.tr("panels.notifications.sounds-files-select-file")
+        buttonTooltip: "Select sound file"
         onInputTextChanged: text => Settings.data.notifications.sounds.normalSoundFile = text
         onButtonClicked: root.openNormalPicker()
       }
@@ -171,17 +171,17 @@ ColumnLayout {
       Layout.fillWidth: true
 
       NLabel {
-        label: I18n.tr("panels.notifications.sounds-files-critical-label")
-        description: I18n.tr("panels.notifications.sounds-files-critical-description")
+        label: "Critical urgency sound"
+        description: "Path to the sound file played for critical priority notifications."
       }
 
       NTextInputButton {
         enabled: parent.enabled
         Layout.fillWidth: true
-        placeholderText: I18n.tr("panels.notifications.sounds-files-placeholder")
+        placeholderText: "Enter path to sound file"
         text: Settings.data.notifications?.sounds?.criticalSoundFile ?? ""
         buttonIcon: "folder-open"
-        buttonTooltip: I18n.tr("panels.notifications.sounds-files-select-file")
+        buttonTooltip: "Select sound file"
         onInputTextChanged: text => Settings.data.notifications.sounds.criticalSoundFile = text
         onButtonClicked: root.openCriticalPicker()
       }
@@ -195,14 +195,14 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NLabel {
-      label: I18n.tr("panels.notifications.sounds-excluded-apps-label")
-      description: I18n.tr("panels.notifications.sounds-excluded-apps-description")
+      label: "Excluded applications"
+      description: "Skip playing the configured notification sound for specific applications that have their own built-in sounds."
     }
 
     NTextInput {
       enabled: parent.enabled
       Layout.fillWidth: true
-      placeholderText: I18n.tr("panels.notifications.sounds-excluded-apps-placeholder")
+      placeholderText: "discord,firefox,chrome,chromium,edge"
       text: Settings.data.notifications?.sounds?.excludedApps ?? ""
       onTextChanged: Settings.data.notifications.sounds.excludedApps = text
     }

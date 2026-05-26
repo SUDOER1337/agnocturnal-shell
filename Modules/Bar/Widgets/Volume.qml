@@ -111,17 +111,17 @@ Item {
 
     model: [
       {
-        "label": I18n.tr("actions.toggle-mute"),
+        "label": "Toggle mute",
         "action": "toggle-mute",
         "icon": AudioService.muted ? "volume-off" : "volume"
       },
       {
-        "label": I18n.tr("actions.run-custom-command"),
+        "label": "Run custom command",
         "action": "custom-command",
         "icon": "adjustments"
       },
       {
-        "label": I18n.tr("actions.widget-settings"),
+        "label": "Widget settings",
         "action": "widget-settings",
         "icon": "settings"
       },
@@ -163,13 +163,7 @@ Item {
         return "";
       } else {
         const nick = AudioService.sink?.nickname ?? "";
-        const volumeText = I18n.tr("tooltips.volume-at", {
-                                     "volume": (() => {
-                                                  const maxVolume = Settings.data.audio.volumeOverdrive ? 1.5 : 1.0;
-                                                  const displayVolume = Math.min(maxVolume, AudioService.volume);
-                                                  return Math.round(displayVolume * 100);
-                                                })()
-                                   });
+        const volumeText = "Output volume: {volume}%";
         return nick ? volumeText + "\n" + nick : volumeText;
       }
     }

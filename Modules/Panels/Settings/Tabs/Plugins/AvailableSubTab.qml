@@ -47,19 +47,19 @@ ColumnLayout {
     tags: root.pseudoTags.concat(root.availableTags)
     selectedTag: root.selectedTag
     onSelectedTagChanged: root.selectedTag = selectedTag
-    label: I18n.tr("panels.plugins.filter-tags-label")
-    description: I18n.tr("panels.plugins.filter-tags-description")
+    label: "Tags"
+    description: "Filter plugins by category or download status."
     expanded: true
 
     formatTag: function (tag) {
       if (tag === "")
-        return I18n.tr("launcher.categories.all");
+        return "All";
       if (tag === "official")
-        return I18n.tr("common.official");
+        return "Official";
       if (tag === "downloaded")
-        return I18n.tr("panels.plugins.filter-downloaded");
+        return "Downloaded";
       if (tag === "notDownloaded")
-        return I18n.tr("panels.plugins.filter-not-downloaded");
+        return "Not Downloaded";
       return tag;
     }
   }
@@ -70,7 +70,7 @@ ColumnLayout {
     spacing: Style.marginM
 
     NTextInput {
-      placeholderText: I18n.tr("placeholders.search")
+      placeholderText: "Search..."
       inputIconName: "search"
       text: root.pluginSearchText
       onTextChanged: root.pluginSearchText = text
@@ -79,12 +79,12 @@ ColumnLayout {
 
     NIconButton {
       icon: "refresh"
-      tooltipText: I18n.tr("panels.plugins.refresh-tooltip")
+      tooltipText: "Refresh available plugins"
       baseSize: Style.baseWidgetSize * 0.9
       onClicked: {
         PluginService.refreshAvailablePlugins();
         checkUpdatesTimer.restart();
-        ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.refresh-refreshing"));
+        ToastService.showNotice("Plugins", "Refreshing plugins list...");
       }
     }
   }
@@ -220,7 +220,7 @@ ColumnLayout {
                 }
 
                 NText {
-                  text: I18n.tr("common.official")
+                  text: "Official"
                   font.pointSize: Style.fontSizeXXS
                   font.weight: Style.fontWeightMedium
                   color: Color.mOnSecondary
@@ -237,7 +237,7 @@ ColumnLayout {
             NIconButton {
               icon: "external-link"
               baseSize: Style.baseWidgetSize * 0.7
-              tooltipText: I18n.tr("panels.plugins.open-plugin-page")
+              tooltipText: "Open plugin page"
               onClicked: {
                 var sourceUrl = modelData.source?.url || "";
                 Qt.openUrlExternally(sourceUrl && !PluginRegistry.isMainSource(sourceUrl) ? sourceUrl : "https://noctalia.dev/plugins/" + modelData.id + "/");
@@ -257,7 +257,7 @@ ColumnLayout {
               visible: modelData.downloaded === false && !PluginService.installingPlugins[modelData.id]
               icon: "download"
               baseSize: Style.baseWidgetSize * 0.7
-              tooltipText: I18n.tr("common.install")
+              tooltipText: "Install"
               onClicked: installPlugin(modelData)
             }
 
@@ -340,8 +340,8 @@ ColumnLayout {
 
     NLabel {
       visible: availablePluginsRepeater.count === 0
-      label: I18n.tr("panels.plugins.available-no-plugins-label")
-      description: I18n.tr("panels.plugins.available-no-plugins-description")
+      label: "No plugins available"
+      description: "Check your plugin sources or refresh the list."
       Layout.fillWidth: true
     }
   }
@@ -356,21 +356,15 @@ ColumnLayout {
   }
 
   function installPlugin(pluginMetadata) {
-    ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.installing", {
-                                                                       "plugin": pluginMetadata.name
-                                                                     }));
+    ToastService.showNotice("Plugins", "Installing {plugin}...");
 
     PluginService.installPlugin(pluginMetadata, false, function (success, error, registeredKey) {
       if (success) {
-        ToastService.showNotice(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.install-success", {
-                                                                           "plugin": pluginMetadata.name
-                                                                         }));
+        ToastService.showNotice("Plugins", "Successfully installed {plugin}");
         // Auto-enable the plugin after installation (use registered key which may be composite)
         PluginService.enablePlugin(registeredKey);
       } else {
-        ToastService.showError(I18n.tr("panels.plugins.title"), I18n.tr("panels.plugins.install-error", {
-                                                                          "error": error || "Unknown error"
-                                                                        }));
+        ToastService.showError("Plugins", "Failed to install: {error}");
       }
     });
   }

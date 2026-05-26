@@ -18,8 +18,8 @@ ColumnLayout {
   signal openMonitorFolderPicker(string monitorName)
 
   NToggle {
-    label: I18n.tr("panels.wallpaper.settings-enable-management-label")
-    description: I18n.tr("panels.wallpaper.settings-enable-management-description")
+    label: "Enable wallpaper management"
+    description: "Manage wallpapers with Noctalia. Uncheck if you prefer using another application."
     checked: Settings.data.wallpaper.enabled
     onToggled: checked => Settings.data.wallpaper.enabled = checked
     defaultValue: Settings.getDefaultValue("wallpaper.enabled")
@@ -33,54 +33,54 @@ ColumnLayout {
     RowLayout {
 
       NLabel {
-        label: I18n.tr("tooltips.wallpaper-selector")
-        description: I18n.tr("panels.wallpaper.settings-selector-description")
+        label: "Wallpaper selector"
+        description: "Choose your wallpaper."
         Layout.alignment: Qt.AlignTop
       }
 
       NIconButton {
         icon: "wallpaper-selector"
-        tooltipText: I18n.tr("tooltips.wallpaper-selector")
+        tooltipText: "Wallpaper selector"
         onClicked: PanelService.getPanel("wallpaperPanel", root.screen)?.toggle()
       }
     }
 
     NComboBox {
-      label: I18n.tr("common.position")
-      description: I18n.tr("panels.wallpaper.settings-selector-position-description")
+      label: "Position"
+      description: "Choose where the wallpaper selector panel appears."
       Layout.fillWidth: true
       model: [
         {
           "key": "follow_bar",
-          "name": I18n.tr("positions.follow-bar")
+          "name": "Follow bar"
         },
         {
           "key": "center",
-          "name": I18n.tr("positions.center")
+          "name": "Center"
         },
         {
           "key": "top_center",
-          "name": I18n.tr("positions.top-center")
+          "name": "Top center"
         },
         {
           "key": "top_left",
-          "name": I18n.tr("positions.top-left")
+          "name": "Top left"
         },
         {
           "key": "top_right",
-          "name": I18n.tr("positions.top-right")
+          "name": "Top right"
         },
         {
           "key": "bottom_left",
-          "name": I18n.tr("positions.bottom-left")
+          "name": "Bottom left"
         },
         {
           "key": "bottom_right",
-          "name": I18n.tr("positions.bottom-right")
+          "name": "Bottom right"
         },
         {
           "key": "bottom_center",
-          "name": I18n.tr("positions.bottom-center")
+          "name": "Bottom center"
         }
       ]
       currentKey: Settings.data.wallpaper.panelPosition
@@ -89,21 +89,21 @@ ColumnLayout {
     }
 
     NComboBox {
-      label: I18n.tr("panels.wallpaper.settings-view-mode-label")
-      description: I18n.tr("panels.wallpaper.settings-view-mode-description")
+      label: "Viewing mode"
+      description: "Choose how wallpapers are displayed from your directory."
       Layout.fillWidth: true
       model: [
         {
           "key": "single",
-          "name": I18n.tr("panels.wallpaper.view-mode-single")
+          "name": "Root directory"
         },
         {
           "key": "recursive",
-          "name": I18n.tr("panels.wallpaper.view-mode-recursive")
+          "name": "Flattened subdirectories"
         },
         {
           "key": "browse",
-          "name": I18n.tr("panels.wallpaper.view-mode-browse")
+          "name": "Browse directories"
         }
       ]
       currentKey: Settings.data.wallpaper.viewMode
@@ -113,19 +113,19 @@ ColumnLayout {
 
     NTextInputButton {
       id: wallpaperPathInput
-      label: I18n.tr("panels.wallpaper.settings-folder-label")
-      description: I18n.tr("panels.wallpaper.settings-folder-description")
+      label: "Wallpaper folder"
+      description: "Path to your main wallpaper folder."
       text: Settings.data.wallpaper.directory
       buttonIcon: "folder-open"
-      buttonTooltip: I18n.tr("panels.wallpaper.settings-folder-label")
+      buttonTooltip: "Wallpaper folder"
       Layout.fillWidth: true
       onInputTextChanged: text => Settings.data.wallpaper.directory = text
       onButtonClicked: root.openMainFolderPicker()
     }
 
     NToggle {
-      label: I18n.tr("panels.wallpaper.settings-monitor-specific-label")
-      description: I18n.tr("panels.wallpaper.settings-monitor-specific-description")
+      label: "Monitor-specific directories"
+      description: "Set a different wallpaper folder for each monitor."
       checked: Settings.data.wallpaper.enableMultiMonitorDirectories
       onToggled: checked => Settings.data.wallpaper.enableMultiMonitorDirectories = checked
       defaultValue: Settings.getDefaultValue("wallpaper.enableMultiMonitorDirectories")
@@ -163,7 +163,7 @@ ColumnLayout {
               id: monitorDirInput
               text: WallpaperService.getMonitorDirectory(modelData.name)
               buttonIcon: "folder-open"
-              buttonTooltip: I18n.tr("panels.wallpaper.settings-monitor-specific-tooltip")
+              buttonTooltip: "Monitor wallpaper folder"
               Layout.fillWidth: true
               onInputEditingFinished: WallpaperService.setMonitorDirectory(modelData.name, monitorDirInput.text)
               onButtonClicked: root.openMonitorFolderPicker(modelData.name)
@@ -179,8 +179,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: I18n.tr("panels.wallpaper.settings-use-original-images-label")
-    description: I18n.tr("panels.wallpaper.settings-use-original-images-description")
+    label: "Use original images"
+    description: "Skip resizing wallpapers before display. Saves disk space and reduces CPU usage during wallpaper changes, but may use more memory for very large images."
     checked: Settings.data.wallpaper.useOriginalImages
     enabled: Settings.data.wallpaper.enabled
     onToggled: checked => Settings.data.wallpaper.useOriginalImages = checked
@@ -193,18 +193,18 @@ ColumnLayout {
     enabled: Settings.data.wallpaper.enabled
 
     NLabel {
-      label: I18n.tr("panels.wallpaper.settings-clear-cache-label")
-      description: I18n.tr("panels.wallpaper.settings-clear-cache-description")
+      label: "Wallpaper cache"
+      description: "Clear cached resized wallpapers to free disk space."
       Layout.fillWidth: true
     }
 
     NButton {
       icon: "trash"
-      text: I18n.tr("panels.wallpaper.settings-clear-cache-button")
+      text: "Clear cache"
       outlined: true
       onClicked: {
         ImageCacheService.clearLarge();
-        ToastService.showNotice(I18n.tr("panels.wallpaper.settings-clear-cache-toast"));
+        ToastService.showNotice("Wallpaper cache cleared");
       }
     }
   }
@@ -221,8 +221,8 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NToggle {
-      label: I18n.tr("panels.wallpaper.settings-enable-overview-label")
-      description: I18n.tr("panels.wallpaper.settings-enable-overview-description")
+      label: "Enable overview wallpaper"
+      description: "Applies a blurred and dimmed wallpaper to the overview screen."
       checked: Settings.data.wallpaper.enabled && Settings.data.wallpaper.overviewEnabled
       onToggled: checked => Settings.data.wallpaper.overviewEnabled = checked
       defaultValue: Settings.getDefaultValue("wallpaper.overviewEnabled")
@@ -231,8 +231,8 @@ ColumnLayout {
     NValueSlider {
       Layout.fillWidth: true
       visible: Settings.data.wallpaper.overviewEnabled
-      label: I18n.tr("panels.wallpaper.settings-overview-blur-strength-label")
-      description: I18n.tr("panels.wallpaper.settings-overview-blur-strength-description")
+      label: "Overview blur strength"
+      description: "Applies the blur strength to the overview."
       from: 0.0
       to: 1.0
       stepSize: 0.01
@@ -246,8 +246,8 @@ ColumnLayout {
     NValueSlider {
       Layout.fillWidth: true
       visible: Settings.data.wallpaper.overviewEnabled
-      label: I18n.tr("panels.wallpaper.settings-overview-tint-label")
-      description: I18n.tr("panels.wallpaper.settings-overview-tint-description")
+      label: "Overview tint strength"
+      description: "Applies the tint strength to the overview."
       from: 0.0
       to: 1.0
       stepSize: 0.01

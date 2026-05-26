@@ -9,7 +9,7 @@ Item {
   id: root
 
   // Provider metadata
-  property string name: I18n.tr("launcher.providers.calculator")
+  property string name: "Calculator"
   property var launcher: null
   property string iconMode: Settings.data.appLauncher.iconMode
   property bool handleSearch: true // Contribute to regular search
@@ -35,7 +35,7 @@ Item {
       return [
             {
               "name": formattedResult,
-              "description": I18n.tr("launcher.providers.calculator-press-enter-to-copy"),
+              "description": "Press Enter to copy result",
               "icon": iconMode === "tabler" ? "calculator" : "accessories-calculator",
               "isTablerIcon": true,
               "isImage": false,
@@ -43,7 +43,7 @@ Item {
               "onActivate": function () {
                 // Copy result to clipboard via xclip
                 Quickshell.execDetached(["sh", "-c", "echo -n '" + formattedResult.replace(/'/g, "'\\''") + "' | wl-copy"]);
-                ToastService.showNotice(I18n.tr("common.copied-to-clipboard"), formattedResult);
+                ToastService.showNotice("Copied to clipboard", formattedResult);
                 if (launcher)
                   launcher.close();
               }

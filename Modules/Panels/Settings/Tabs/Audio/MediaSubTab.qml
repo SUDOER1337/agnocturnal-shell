@@ -12,9 +12,9 @@ ColumnLayout {
 
   // Preferred player
   NTextInput {
-    label: I18n.tr("panels.audio.media-primary-player-label")
-    description: I18n.tr("panels.audio.media-primary-player-description")
-    placeholderText: I18n.tr("panels.audio.media-primary-player-placeholder")
+    label: "Primary player"
+    description: "Enter a keyword to identify your main player."
+    placeholderText: "e.g. spotify, vlc, mpv"
     text: Settings.data.audio.preferredPlayer
     defaultValue: Settings.getDefaultValue("audio.preferredPlayer")
     onTextChanged: {
@@ -30,9 +30,9 @@ ColumnLayout {
 
     NTextInputButton {
       id: blacklistInput
-      label: I18n.tr("panels.audio.media-excluded-player-label")
-      description: I18n.tr("panels.audio.media-excluded-player-description")
-      placeholderText: I18n.tr("panels.audio.media-excluded-player-placeholder")
+      label: "Excluded player"
+      description: "Add keywords for players you want the system to ignore. Each keyword should be on a new line."
+      placeholderText: "type substring and press +"
       buttonIcon: "add"
       Layout.fillWidth: true
       onButtonClicked: {

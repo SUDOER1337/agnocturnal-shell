@@ -472,7 +472,7 @@ Variants {
               NIconButton {
                 id: addWidgetButton
                 icon: "layout-grid-add"
-                tooltipText: I18n.tr("tooltips.add-widget")
+                tooltipText: "Add widget"
                 onClicked: {
                   var popupMenuWindow = PanelService.getPopupMenuWindow(window.screen);
                   if (popupMenuWindow) {
@@ -498,7 +498,7 @@ Variants {
               NIconButton {
                 icon: "grid-3x3"
                 visible: Settings.data.desktopWidgets.gridSnap
-                tooltipText: I18n.tr("panels.desktop-widgets.edit-mode-grid-snap-scale-label")
+                tooltipText: "Grid snap scale"
                 colorBg: Settings.data.desktopWidgets.gridSnapScale ? Color.mPrimary : Color.mSurfaceVariant
                 colorFg: Settings.data.desktopWidgets.gridSnapScale ? Color.mOnPrimary : Color.mPrimary
                 onClicked: Settings.data.desktopWidgets.gridSnapScale = !Settings.data.desktopWidgets.gridSnapScale
@@ -506,7 +506,7 @@ Variants {
 
               NIconButton {
                 icon: "grid-4x4"
-                tooltipText: I18n.tr("panels.desktop-widgets.edit-mode-grid-snap-label")
+                tooltipText: "Grid snap"
                 colorBg: Settings.data.desktopWidgets.gridSnap ? Color.mPrimary : Color.mSurfaceVariant
                 colorFg: Settings.data.desktopWidgets.gridSnap ? Color.mOnPrimary : Color.mPrimary
                 onClicked: Settings.data.desktopWidgets.gridSnap = !Settings.data.desktopWidgets.gridSnap
@@ -514,14 +514,14 @@ Variants {
 
               NIconButton {
                 icon: "settings"
-                tooltipText: I18n.tr("actions.open-settings")
+                tooltipText: "Open settings"
                 onClicked: {
                   SettingsPanelService.toggle(SettingsPanel.Tab.DesktopWidgets, -1, screenLoader.modelData);
                 }
               }
 
               NButton {
-                text: I18n.tr("panels.desktop-widgets.edit-mode-exit-button")
+                text: "Exit edit mode"
                 icon: "logout"
                 outlined: false
                 fontSize: Style.fontSizeS
@@ -533,7 +533,7 @@ Variants {
             NText {
               Layout.alignment: Qt.AlignRight
               Layout.maximumWidth: 300 * Style.uiScaleRatio
-              text: I18n.tr("panels.desktop-widgets.edit-mode-controls-explanation")
+              text: "Left-click & drag: Move or resize the widget.\nRight-click: Open the context menu options."
               pointSize: Style.fontSizeS
               color: Color.mOnSurfaceVariant
               horizontalAlignment: Text.AlignRight

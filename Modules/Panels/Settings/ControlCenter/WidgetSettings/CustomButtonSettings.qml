@@ -107,8 +107,8 @@ ColumnLayout {
     spacing: Style?.marginM ?? 8
 
     NLabel {
-      label: I18n.tr("common.icon")
-      description: I18n.tr("panels.control-center.shortcuts-custom-button-icon-description")
+      label: "Icon"
+      description: "Select an icon from the library."
     }
 
     NIcon {
@@ -119,7 +119,7 @@ ColumnLayout {
     }
 
     NButton {
-      text: I18n.tr("common.browse")
+      text: "Browse"
       onClicked: iconPicker.open()
     }
   }
@@ -135,9 +135,9 @@ ColumnLayout {
 
   NTextInput {
     Layout.fillWidth: true
-    label: I18n.tr("bar.custom-button.general-tooltip-text-label")
-    description: I18n.tr("bar.custom-button.general-tooltip-text-description")
-    placeholderText: I18n.tr("placeholders.enter-tooltip")
+    label: "Custom tooltip text"
+    description: "Custom text to display in the button's tooltip."
+    placeholderText: "Enter tooltip"
     text: _settings.generalTooltipText
     onTextChanged: {
       _settings.generalTooltipText = text;
@@ -148,8 +148,8 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: I18n.tr("bar.custom-button.show-exec-tooltip-label")
-    description: I18n.tr("bar.custom-button.show-exec-tooltip-description")
+    label: "Show command tooltips"
+    description: "Show tooltips with command details (left/right/middle click, wheel)."
     checked: _settings.showExecTooltip
     onToggled: checked => {
                  _settings.showExecTooltip = checked;
@@ -160,9 +160,9 @@ ColumnLayout {
 
   NTextInput {
     Layout.fillWidth: true
-    label: I18n.tr("bar.custom-button.left-click-label")
-    description: I18n.tr("bar.custom-button.left-click-description")
-    placeholderText: I18n.tr("placeholders.enter-command")
+    label: "Left click"
+    description: "Command to execute when the button is left-clicked."
+    placeholderText: "Enter command to execute (app or custom script)"
     text: _settings.onClicked
     onTextChanged: {
       _settings.onClicked = text;
@@ -173,9 +173,9 @@ ColumnLayout {
 
   NTextInput {
     Layout.fillWidth: true
-    label: I18n.tr("bar.custom-button.right-click-label")
-    description: I18n.tr("bar.custom-button.right-click-description")
-    placeholderText: I18n.tr("placeholders.enter-command")
+    label: "Right click"
+    description: "Command to execute when the button is right-clicked."
+    placeholderText: "Enter command to execute (app or custom script)"
     text: _settings.onRightClicked
     onTextChanged: {
       _settings.onRightClicked = text;
@@ -186,9 +186,9 @@ ColumnLayout {
 
   NTextInput {
     Layout.fillWidth: true
-    label: I18n.tr("bar.custom-button.middle-click-label")
-    description: I18n.tr("bar.custom-button.middle-click-description")
-    placeholderText: I18n.tr("placeholders.enter-command")
+    label: "Middle click"
+    description: "Command to execute when the button is middle-clicked."
+    placeholderText: "Enter command to execute (app or custom script)"
     text: _settings.onMiddleClicked
     onTextChanged: {
       _settings.onMiddleClicked = text;
@@ -202,8 +202,8 @@ ColumnLayout {
   NToggle {
     id: enableOnStateLogicToggle
     Layout.fillWidth: true
-    label: I18n.tr("panels.control-center.shortcuts-custom-button-enable-on-state-logic-label")
-    description: I18n.tr("panels.control-center.shortcuts-custom-button-enable-on-state-logic-description")
+    label: "Enable on-state logic"
+    description: "Enable a second icon and 'hot' state based on a check command."
     checked: _settings.enableOnStateLogic
     onToggled: checked => {
                  _settings.enableOnStateLogic = checked;
@@ -218,7 +218,7 @@ ColumnLayout {
     spacing: Style?.marginM ?? 8
 
     NLabel {
-      label: I18n.tr("panels.control-center.shortcuts-custom-button-state-checks-label")
+      label: "State checks"
     }
 
     Repeater {
@@ -236,7 +236,7 @@ ColumnLayout {
 
           NTextInput {
             Layout.fillWidth: true
-            placeholderText: I18n.tr("panels.control-center.shortcuts-custom-button-state-checks-command")
+            placeholderText: "Command to execute for this state check"
             text: model.command
             onTextChanged: {
               updateStateCheck(currentIndex, text, model.icon);
@@ -255,14 +255,14 @@ ColumnLayout {
 
             NIconButton {
               icon: "folder"
-              tooltipText: I18n.tr("common.browse")
+              tooltipText: "Browse"
               baseSize: Style?.buttonSizeS ?? 24
               onClicked: iconPickerDelegate.open()
             }
 
             NIconButton {
               icon: "close"
-              tooltipText: I18n.tr("panels.control-center.shortcuts-custom-button-state-checks-remove")
+              tooltipText: "Remove"
               baseSize: Style?.buttonSizeS ?? 24
               colorBorder: Qt.alpha(Color.mOutline, Style.opacityLight)
               colorBg: Color.mError
@@ -295,7 +295,7 @@ ColumnLayout {
       spacing: Style?.marginM ?? 8
 
       NButton {
-        text: I18n.tr("panels.control-center.shortcuts-custom-button-state-checks-add")
+        text: "Add state check"
         onClicked: addStateCheck()
       }
     }

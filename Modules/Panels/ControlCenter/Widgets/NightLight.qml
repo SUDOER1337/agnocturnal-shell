@@ -1,6 +1,7 @@
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
+import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -12,7 +13,7 @@ NIconButtonHot {
   enabled: ProgramCheckerService.wlsunsetAvailable
   icon: Settings.data.nightLight.enabled ? (Settings.data.nightLight.forced ? "nightlight-forced" : "nightlight-on") : "nightlight-off"
   hot: Settings.data.nightLight.enabled
-  tooltipText: I18n.tr("common.night-light")
+  tooltipText: "Night Light"
 
   onClicked: {
     if (!Settings.data.nightLight.enabled) {
@@ -27,8 +28,7 @@ NIconButtonHot {
   }
 
   onRightClicked: {
-    var settingsPanel = PanelService.getPanel("settingsPanel", screen);
-    settingsPanel.requestedTab = SettingsPanel.Tab.Display;
-    settingsPanel.open();
+    var panel = PanelService.getPanel("controlCenterPanel", screen);
+    panel.openToTab(ControlCenterV5Panel.Tab.Display);
   }
 }

@@ -88,42 +88,42 @@ SmartPanel {
   readonly property var actionMetadata: {
     "lock": {
       "icon": "lock",
-      "title": I18n.tr("common.lock"),
+      "title": "Lock",
       "isShutdown": false
     },
     "suspend": {
       "icon": "suspend",
-      "title": I18n.tr("common.suspend"),
+      "title": "Suspend",
       "isShutdown": false
     },
     "hibernate": {
       "icon": "hibernate",
-      "title": I18n.tr("common.hibernate"),
+      "title": "Hibernate",
       "isShutdown": false
     },
     "reboot": {
       "icon": "reboot",
-      "title": I18n.tr("common.reboot"),
+      "title": "Reboot",
       "isShutdown": false
     },
     "userspaceReboot": {
       "icon": "rotate",
-      "title": I18n.tr("common.userspace-reboot"),
+      "title": "Userspace Reboot",
       "isShutdown": false
     },
     "rebootToUefi": {
       "icon": "reboot",
-      "title": I18n.tr("common.reboot-to-uefi"),
+      "title": "Reboot to UEFI",
       "isShutdown": false
     },
     "logout": {
       "icon": "logout",
-      "title": I18n.tr("common.logout"),
+      "title": "Logout",
       "isShutdown": false
     },
     "shutdown": {
       "icon": "shutdown",
-      "title": I18n.tr("common.shutdown"),
+      "title": "Shutdown",
       "isShutdown": true
     }
   }
@@ -596,10 +596,7 @@ SmartPanel {
       NText {
         id: timerText
         anchors.centerIn: parent
-        text: I18n.tr("session-menu.action-in-seconds", {
-                        "action": root.actionMetadata[pendingAction] ? root.actionMetadata[pendingAction].title : "",
-                        "seconds": Math.ceil(timeRemaining / 1000)
-                      })
+        text: "{action} in {seconds} seconds..."
         font.weight: Style.fontWeightBold
         pointSize: Style.fontSizeL
         color: Color.mOnSurfaceVariant
@@ -663,10 +660,7 @@ SmartPanel {
           Layout.preferredHeight: Style.baseWidgetSize * 0.6
 
           NText {
-            text: timerActive ? I18n.tr("session-menu.action-in-seconds", {
-                                          "action": root.actionMetadata[pendingAction] ? root.actionMetadata[pendingAction].title : "",
-                                          "seconds": Math.ceil(timeRemaining / 1000)
-                                        }) : I18n.tr("session-menu.title")
+            text: timerActive ? "{action} in {seconds} seconds..." : "Session Menu"
             font.weight: Style.fontWeightBold
             pointSize: Style.fontSizeL
             color: timerActive ? Color.mPrimary : Color.mOnSurface
@@ -680,7 +674,7 @@ SmartPanel {
 
           NIconButton {
             icon: timerActive ? "stop" : "close"
-            tooltipText: timerActive ? I18n.tr("session-menu.cancel-timer") : I18n.tr("common.close")
+            tooltipText: timerActive ? "Cancel timer" : "Close"
             Layout.alignment: Qt.AlignVCenter
             baseSize: Style.baseWidgetSize * 0.7
             colorBg: timerActive ? Qt.alpha(Color.mError, 0.08) : "transparent"
