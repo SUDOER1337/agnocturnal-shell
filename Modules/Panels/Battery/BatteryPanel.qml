@@ -30,7 +30,6 @@ SmartPanel {
     readonly property bool profilesAvailable: PowerProfileService.available
     property int profileIndex: profileToIndex(PowerProfileService.profile)
     readonly property bool showPowerProfiles: panelID ? panelID.showPowerProfiles : resolveWidgetSetting("showPowerProfiles", false)
-    readonly property bool showNoctaliaPerformance: panelID ? panelID.showNoctaliaPerformance : resolveWidgetSetting("showNoctaliaPerformance", false)
     readonly property bool isLowBattery: BatteryService.isLowBattery
     readonly property bool isCriticalBattery: BatteryService.isCriticalBattery
     readonly property var primaryDevice: BatteryService.primaryDevice
@@ -286,7 +285,7 @@ SmartPanel {
       NBox {
         Layout.fillWidth: true
         height: controlsLayout.implicitHeight + Style.margin2L
-        visible: showPowerProfiles || showNoctaliaPerformance
+        visible: showPowerProfiles
 
         ColumnLayout {
           id: controlsLayout
@@ -355,36 +354,6 @@ SmartPanel {
                 pointSize: Style.fontSizeS
                 color: PowerProfileService.getIcon() === "performance" ? Color.mPrimary : Color.mOnSurfaceVariant
               }
-            }
-          }
-
-          NDivider {
-            Layout.fillWidth: true
-            visible: showPowerProfiles && PowerProfileService.available && showNoctaliaPerformance
-          }
-
-          RowLayout {
-            Layout.fillWidth: true
-            spacing: Style.marginS
-            visible: showNoctaliaPerformance
-
-            NText {
-              text: "Noctalia Performance"
-              pointSize: Style.fontSizeM
-              font.weight: Style.fontWeightBold
-              color: Color.mOnSurface
-              Layout.fillWidth: true
-            }
-
-            NIcon {
-              icon: PowerProfileService.noctaliaPerformanceMode ? "rocket" : "rocket-off"
-              pointSize: Style.fontSizeL
-              color: PowerProfileService.noctaliaPerformanceMode ? Color.mPrimary : Color.mOnSurfaceVariant
-            }
-
-            NToggle {
-              checked: PowerProfileService.noctaliaPerformanceMode
-              onToggled: checked => PowerProfileService.noctaliaPerformanceMode = checked
             }
           }
         }

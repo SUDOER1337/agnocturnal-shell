@@ -260,6 +260,20 @@ Singleton {
       property color mShadow: "#000000"
       property color mHover: "#000000"
       property color mOnHover: "#000000"
+      property color mPrimaryContainer: "#000000"
+      property color mOnPrimaryContainer: "#000000"
+      property color mSecondaryContainer: "#000000"
+      property color mOnSecondaryContainer: "#000000"
+      property color mTertiaryContainer: "#000000"
+      property color mOnTertiaryContainer: "#000000"
+      property color mErrorContainer: "#000000"
+      property color mOnErrorContainer: "#000000"
+      property color mSurfaceContainerLow: "#000000"
+      property color mSurfaceContainer: "#000000"
+      property color mSurfaceContainerHigh: "#000000"
+      property color mBackground: "#000000"
+      property color mOnBackground: "#000000"
+      property color mOutlineVariant: "#000000"
     }
   }
 
@@ -283,6 +297,22 @@ Singleton {
     out.mShadow = pick(obj, "mShadow", "shadow", out.mShadow);
     out.mHover = pick(obj, "mHover", "hover", out.mHover);
     out.mOnHover = pick(obj, "mOnHover", "onHover", out.mOnHover);
+
+    // New tokens (containers, background, outline variant, surface levels)
+    out.mPrimaryContainer = pick(obj, "mPrimaryContainer", "primaryContainer", out.mPrimaryContainer);
+    out.mOnPrimaryContainer = pick(obj, "mOnPrimaryContainer", "onPrimaryContainer", out.mOnPrimaryContainer);
+    out.mSecondaryContainer = pick(obj, "mSecondaryContainer", "secondaryContainer", out.mSecondaryContainer);
+    out.mOnSecondaryContainer = pick(obj, "mOnSecondaryContainer", "onSecondaryContainer", out.mOnSecondaryContainer);
+    out.mTertiaryContainer = pick(obj, "mTertiaryContainer", "tertiaryContainer", out.mTertiaryContainer);
+    out.mOnTertiaryContainer = pick(obj, "mOnTertiaryContainer", "onTertiaryContainer", out.mOnTertiaryContainer);
+    out.mErrorContainer = pick(obj, "mErrorContainer", "errorContainer", out.mErrorContainer);
+    out.mOnErrorContainer = pick(obj, "mOnErrorContainer", "onErrorContainer", out.mOnErrorContainer);
+    out.mSurfaceContainerLow = pick(obj, "mSurfaceContainerLow", "surfaceContainerLow", out.mSurfaceContainerLow);
+    out.mSurfaceContainer = pick(obj, "mSurfaceContainer", "surfaceContainer", out.mSurfaceContainer);
+    out.mSurfaceContainerHigh = pick(obj, "mSurfaceContainerHigh", "surfaceContainerHigh", out.mSurfaceContainerHigh);
+    out.mBackground = pick(obj, "mBackground", "background", out.mBackground);
+    out.mOnBackground = pick(obj, "mOnBackground", "onBackground", out.mOnBackground);
+    out.mOutlineVariant = pick(obj, "mOutlineVariant", "outlineVariant", out.mOutlineVariant);
 
     // Force a rewrite by updating the path
     colorsWriter.path = "";

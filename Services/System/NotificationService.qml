@@ -10,7 +10,6 @@ import "../../Helpers/sha256.js" as Checksum
 import qs.Commons
 import qs.Services.Compositor
 import qs.Services.Media
-import qs.Services.Power
 import qs.Services.System
 import qs.Services.UI
 
@@ -24,7 +23,7 @@ Singleton {
 
   // State
   property real lastSeenTs: 0
-  // Volatile property that doesn't persist to settings (similar to noctaliaPerformanceMode)
+  // Volatile property that doesn't persist to settings
   property bool doNotDisturb: false
 
   // Models
@@ -150,7 +149,7 @@ Singleton {
 
     trySaveToHistory(data, notification);
 
-    if (root.doNotDisturb || PowerProfileService.noctaliaPerformanceMode)
+    if (root.doNotDisturb)
       return;
 
     // Check if this is a replacement notification
@@ -1150,7 +1149,7 @@ Singleton {
     if (!Settings.data.notifications.enableMediaToast || !mediaToastInitialized)
       return;
 
-    if (doNotDisturb || PowerProfileService.noctaliaPerformanceMode)
+    if (doNotDisturb)
       return;
 
     // Re-evaluate player identity here to handle race conditions where

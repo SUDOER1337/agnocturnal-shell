@@ -750,17 +750,6 @@ Singleton {
       }
     }
 
-    function toggleNoctaliaPerformance() {
-      PowerProfileService.toggleNoctaliaPerformance();
-    }
-
-    function enableNoctaliaPerformance() {
-      PowerProfileService.setNoctaliaPerformance(true);
-    }
-
-    function disableNoctaliaPerformance() {
-      PowerProfileService.setNoctaliaPerformance(false);
-    }
   }
 
   IpcHandler {

@@ -1,5 +1,7 @@
 # ControlCenter V5 Redesign Plan
 
+
+Note: possibly make the main appearance of the ControlCenter on the bar as a MiniPlayer
 ## Goal
 
 Replace the current vertical-card ControlCenter (~440px, `ControlCenterPanel.qml`) and the

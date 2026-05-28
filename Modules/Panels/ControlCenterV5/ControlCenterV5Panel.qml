@@ -75,7 +75,7 @@ SmartPanel {
   // === SIZING & SPACING - ADJUST HERE ===
   // Main panel width (default 480px, scales with UI zoom)
   // Adjust the multiplier (480) to change panel width: smaller = narrower, larger = wider
-  preferredWidth: Math.round(480 * Style.uiScaleRatio)
+  preferredWidth: Math.round(770 * Style.uiScaleRatio)
 
   // Settings compatibility
   property int requestedTab: ControlCenterV5Panel.Tab.General

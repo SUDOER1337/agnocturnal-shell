@@ -4,7 +4,6 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.Commons
-import qs.Services.Power
 import qs.Services.Theming
 import qs.Services.UI
 
@@ -1605,7 +1604,7 @@ Singleton {
   Timer {
     id: randomWallpaperTimer
     interval: Settings.data.wallpaper.randomIntervalSec * 1000
-    running: Settings.data.wallpaper.automationEnabled && !PowerProfileService.noctaliaPerformanceMode
+    running: Settings.data.wallpaper.automationEnabled
     repeat: true
     onTriggered: setNextWallpaper()
     triggeredOnStart: false

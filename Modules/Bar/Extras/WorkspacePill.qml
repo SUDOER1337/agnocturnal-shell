@@ -210,19 +210,4 @@ Item {
       CompositorService.switchToWorkspace(workspace);
     }
   }
-
-  // Burst effect overlay for focused pill
-  Rectangle {
-    id: pillBurst
-    anchors.centerIn: pill
-    width: pillContainer.pillWidth + 18 * masterProgress * scale
-    height: pillContainer.pillHeight + 18 * masterProgress * scale
-    radius: width / 2
-    color: "transparent"
-    border.color: effectColor
-    border.width: Math.max(1, Math.round((2 + 6 * (1.0 - masterProgress))))
-    opacity: effectsActive && workspace.isFocused ? (1.0 - masterProgress) * 0.7 : 0
-    visible: effectsActive && workspace.isFocused
-    z: 1
-  }
 }

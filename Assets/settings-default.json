@@ -277,9 +277,6 @@
         },
         {
           "id": "WallpaperSelector"
-        },
-        {
-          "id": "NoctaliaPerformance"
         }
       ],
       "right": [
@@ -346,10 +343,6 @@
     "warningColor": "",
     "criticalColor": "",
     "externalMonitor": "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor"
-  },
-  "agnocturnalPerformance": {
-    "disableWallpaper": true,
-    "disableDesktopWidgets": true
   },
   "dock": {
     "enabled": true,
@@ -508,7 +501,16 @@
     "manualSunset": "18:30",
     "generationMethod": "tonal-spot",
     "monitorForColors": "",
-    "syncGsettings": true
+    "syncGsettings": true,
+    "saturation": {
+      "primary": 1.0,
+      "secondary": 1.0,
+      "tertiary": 1.0,
+      "surface": 0.9,
+      "background": 0.85,
+      "error": 1.0,
+      "outline": 0.7
+    }
   },
   "templates": {
     "activeTemplates": [],
@@ -529,8 +531,6 @@
     "darkModeChange": "",
     "screenLock": "",
     "screenUnlock": "",
-    "performanceModeEnabled": "",
-    "performanceModeDisabled": "",
     "startup": "",
     "session": "",
     "colorGeneration": ""

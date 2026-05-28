@@ -3,7 +3,6 @@ import QtQuick.Effects
 import Quickshell
 import qs.Commons
 import qs.Services.Compositor
-import qs.Services.Power
 import qs.Services.UI
 
 Item {
@@ -111,7 +110,7 @@ Item {
 
   Image {
     id: lockBgImage
-    visible: source !== "" && Settings.data.wallpaper.enabled && !Settings.data.wallpaper.useSolidColor && (!PowerProfileService.noctaliaPerformanceMode || !Settings.data.noctaliaPerformance.disableWallpaper)
+    visible: source !== "" && Settings.data.wallpaper.enabled && !Settings.data.wallpaper.useSolidColor
     anchors.fill: parent
     fillMode: Image.PreserveAspectCrop
     source: resolvedWallpaperPath
@@ -120,7 +119,7 @@ Item {
     mipmap: false
     antialiasing: true
 
-    layer.enabled: Settings.data.general.lockScreenBlur > 0 && !PowerProfileService.noctaliaPerformanceMode
+    layer.enabled: Settings.data.general.lockScreenBlur > 0
     layer.smooth: false
     layer.effect: MultiEffect {
       blurEnabled: true

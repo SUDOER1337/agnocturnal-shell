@@ -128,34 +128,6 @@ ColumnLayout {
                             })
   }
 
-  // Performance Mode Enabled Hook
-  HookRow {
-    label: "Performance mode enabled"
-    description: "Command to be executed when Noctalia performance mode is enabled."
-    value: Settings.data.hooks.performanceModeEnabled
-    onEditClicked: openEdit(label, description, "e.g., notify-send \"Performance\" \"Mode enabled\"", value, newValue => {
-                              Settings.data.hooks.performanceModeEnabled = newValue;
-                              Settings.saveImmediate();
-                            }, val => {
-                              if (val)
-                              Quickshell.execDetached(["sh", "-lc", val]);
-                            })
-  }
-
-  // Performance Mode Disabled Hook
-  HookRow {
-    label: "Performance mode disabled"
-    description: "Command to be executed when Noctalia performance mode is disabled."
-    value: Settings.data.hooks.performanceModeDisabled
-    onEditClicked: openEdit(label, description, "e.g. notify-send \"Performance\" \"Mode disabled\"", value, newValue => {
-                              Settings.data.hooks.performanceModeDisabled = newValue;
-                              Settings.saveImmediate();
-                            }, val => {
-                              if (val)
-                              Quickshell.execDetached(["sh", "-lc", val]);
-                            })
-  }
-
   // Session Hook
   HookRow {
     label: "Session end"

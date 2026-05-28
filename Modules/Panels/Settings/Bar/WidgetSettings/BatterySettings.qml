@@ -20,7 +20,6 @@ ColumnLayout {
   property string valueDisplayMode: widgetData.displayMode !== undefined ? widgetData.displayMode : widgetMetadata.displayMode
   property string valueDeviceNativePath: widgetData.deviceNativePath !== undefined ? widgetData.deviceNativePath : widgetMetadata.deviceNativePath
   property bool valueShowPowerProfiles: widgetData.showPowerProfiles !== undefined ? widgetData.showPowerProfiles : widgetMetadata.showPowerProfiles
-  property bool valueShowNoctaliaPerformance: widgetData.showNoctaliaPerformance !== undefined ? widgetData.showNoctaliaPerformance : widgetMetadata.showNoctaliaPerformance
   property bool valueHideIfNotDetected: widgetData.hideIfNotDetected !== undefined ? widgetData.hideIfNotDetected : widgetMetadata.hideIfNotDetected
   property bool valueHideIfIdle: widgetData.hideIfIdle !== undefined ? widgetData.hideIfIdle : widgetMetadata.hideIfIdle
 
@@ -31,7 +30,6 @@ ColumnLayout {
     }
     settings.displayMode = valueDisplayMode;
     settings.showPowerProfiles = valueShowPowerProfiles;
-    settings.showNoctaliaPerformance = valueShowNoctaliaPerformance;
     settings.hideIfNotDetected = valueHideIfNotDetected;
     settings.hideIfIdle = valueHideIfIdle;
     settings.deviceNativePath = valueDeviceNativePath;
@@ -125,14 +123,4 @@ ColumnLayout {
     defaultValue: widgetMetadata.showPowerProfiles
   }
 
-  NToggle {
-    label: "Show Noctalia Performance toggle"
-    description: "Display the Noctalia performance mode toggle inside the battery panel.<br>Disables shadows and animations in Noctalia to reduce resource usage."
-    checked: valueShowNoctaliaPerformance
-    onToggled: checked => {
-                 valueShowNoctaliaPerformance = checked;
-                 saveSettings();
-               }
-    defaultValue: widgetMetadata.showNoctaliaPerformance
-  }
 }

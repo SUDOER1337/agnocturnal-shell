@@ -29,8 +29,7 @@ Singleton {
                            "Microphone": microphoneComponent,
                            "Network": networkComponent,
                            "NightLight": nightLightComponent,
-                           "NoctaliaPerformance": noctaliaPerformanceComponent,
-                           "NotificationHistory": notificationHistoryComponent,
+                            "NotificationHistory": notificationHistoryComponent,
                            "PowerProfile": powerProfileComponent,
                            "SessionMenu": sessionMenuComponent,
                            "Settings": settingsComponent,
@@ -62,8 +61,7 @@ Singleton {
                                      "Microphone": "WidgetSettings/MicrophoneSettings.qml",
                                      "Network": "WidgetSettings/NetworkSettings.qml",
                                      "NightLight": "WidgetSettings/NightLightSettings.qml",
-                                     "NoctaliaPerformance": "WidgetSettings/NoctaliaPerformanceSettings.qml",
-                                     "NotificationHistory": "WidgetSettings/NotificationHistorySettings.qml",
+                                      "NotificationHistory": "WidgetSettings/NotificationHistorySettings.qml",
                                      "PowerProfile": "WidgetSettings/PowerProfileSettings.qml",
                                      "SessionMenu": "WidgetSettings/SessionMenuSettings.qml",
                                      "Settings": "WidgetSettings/SettingsSettings.qml",
@@ -97,7 +95,6 @@ Singleton {
                                     "displayMode": "graphic-clean",
                                     "deviceNativePath": "__default__",
                                     "showPowerProfiles": false,
-                                    "showNoctaliaPerformance": false,
                                     "hideIfNotDetected": true,
                                     "hideIfIdle": false
                                   },
@@ -285,9 +282,6 @@ Singleton {
                                   "NightLight": {
                                     "iconColor": "none"
                                   },
-                                  "NoctaliaPerformance": {
-                                    "iconColor": "none"
-                                  },
                                   "PowerProfile": {
                                     "iconColor": "none"
                                   },
@@ -367,9 +361,6 @@ Singleton {
   }
   property Component nightLightComponent: Component {
     NightLight {}
-  }
-  property Component noctaliaPerformanceComponent: Component {
-    NoctaliaPerformance {}
   }
   property Component notificationHistoryComponent: Component {
     NotificationHistory {}

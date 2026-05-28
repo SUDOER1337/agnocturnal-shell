@@ -83,6 +83,11 @@ ColumnLayout {
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
     }
+    NTabButton {
+      text: "Saturation"
+      tabIndex: 2
+      checked: subTabBar.currentIndex === 2
+    }
   }
 
   Item {
@@ -100,5 +105,6 @@ ColumnLayout {
       onOpenDownloadPopup: downloadPopupLoader.open()
     }
     TemplatesSubTab {}
+    SaturationSubTab {}
   }
 }

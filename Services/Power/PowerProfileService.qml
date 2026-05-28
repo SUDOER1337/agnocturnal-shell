@@ -13,9 +13,6 @@ Singleton {
   readonly property bool available: powerProfiles && powerProfiles.hasPerformanceProfile
   property int profile: powerProfiles ? powerProfiles.profile : PowerProfile.Balanced
 
-  // Not a power profile but a volatile property to quickly disable shadows, animations, etc..
-  property bool noctaliaPerformanceMode: false
-
   function getName(p) {
     if (!available)
       return "Unknown";
@@ -105,26 +102,6 @@ Singleton {
       if (profileName !== "Unknown") {
         ToastService.showNotice("{profile}", "Power profile changed", profileName.toLowerCase().replace(" ", ""));
       }
-    }
-  }
-
-  // Noctalia Performance Mode
-  // - Turning shadow off
-  // - Turning animation off
-  // - Do Not Disturb
-  function toggleNoctaliaPerformance() {
-    noctaliaPerformanceMode = !noctaliaPerformanceMode;
-  }
-
-  function setNoctaliaPerformance(value) {
-    noctaliaPerformanceMode = value;
-  }
-
-  onNoctaliaPerformanceModeChanged: {
-    if (noctaliaPerformanceMode) {
-      ToastService.showNotice("Noctalia Performance", "Performance mode enabled", "rocket");
-    } else {
-      ToastService.showNotice("Noctalia Performance", "Performance mode disabled", "rocket-off");
     }
   }
 }

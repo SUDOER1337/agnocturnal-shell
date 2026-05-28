@@ -201,6 +201,14 @@ function adjustSaturation(hex, amount) {
   return hslToHex(hsl.h, hsl.s, hsl.l);
 }
 
+// Apply a saturation multiplier to a hex color (0.0 = grayscale, 1.0 = full source saturation)
+function applySaturation(hex, multiplier) {
+  const hsl = hexToHSL(hex);
+  if (!hsl) return hex;
+  hsl.s = Math.max(0, Math.min(100, hsl.s * multiplier));
+  return hslToHex(hsl.h, hsl.s, hsl.l);
+}
+
 // Adjust both lightness and saturation
 function adjustLightnessAndSaturation(hex, lightnessAmount, saturationAmount) {
   const hsl = hexToHSL(hex);

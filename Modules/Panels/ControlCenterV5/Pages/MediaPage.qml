@@ -14,10 +14,10 @@ Rectangle {
 
   color: "transparent"
 
-  readonly property string visualizerType: "linear"
+  readonly property string visualizerType: "none"
   readonly property bool showArtistFirst: true
   readonly property bool showAlbumArt: true
-  readonly property bool showVisualizer: true
+  readonly property bool showVisualizer: false
   readonly property bool compactMode: false
   readonly property string scrollingMode: "hover"
   readonly property bool isSideBySide: false

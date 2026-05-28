@@ -47,16 +47,17 @@ Item {
       anchors.margins: Style.marginS
       spacing: Style.marginXS
 
-      // Toggle button
+      // Toggle button — floats left via Layout.alignment, no anchors
       Item {
-        Layout.fillWidth: true
+        Layout.fillWidth: false
+        Layout.preferredWidth: Math.round(toggleRow.implicitWidth + Style.margin2S)
         Layout.preferredHeight: Math.round(toggleRow.implicitHeight + Style.margin2S)
+        Layout.alignment: Qt.AlignLeft
+        clip: true
 
         Rectangle {
           id: toggleBtn
-          width: Math.round(toggleRow.implicitWidth + Style.margin2S)
-          height: parent.height
-          anchors.left: parent.left
+          anchors.fill: parent
           radius: Style.radiusS
           color: toggleMouse.containsMouse ? Color.mHover : "transparent"
 
@@ -117,41 +118,46 @@ Item {
         }
       }
 
-      // Search button for collapsed sidebar
-      Rectangle {
+      // Search button for collapsed sidebar — Layout sized, no anchors
+      Item {
         id: searchCollapsedBtn
         visible: !root.expanded
-        width: Math.round(searchCollapsedRow.implicitWidth + Style.margin2S)
-        height: parent.height > 0 ? Math.round(searchCollapsedRow.implicitHeight + Style.margin2S) : 0
-        anchors.left: parent.left
-        radius: Style.radiusS
-        color: searchCollapsedMouse.containsMouse ? Color.mHover : "transparent"
+        Layout.preferredWidth: Math.round(searchCollapsedRow.implicitWidth + Style.margin2S)
+        Layout.preferredHeight: Math.round(searchCollapsedRow.implicitHeight + Style.margin2S)
+        Layout.alignment: Qt.AlignLeft
+        clip: true
 
-        RowLayout {
-          id: searchCollapsedRow
-          anchors.verticalCenter: parent.verticalCenter
-          anchors.left: parent.left
-          anchors.leftMargin: Style.marginS
-          spacing: 0
-
-          NIcon {
-            icon: "search"
-            color: searchCollapsedMouse.containsMouse ? Color.mOnHover : Color.mOnSurface
-            pointSize: Style.fontSizeXL
-          }
-        }
-
-        MouseArea {
-          id: searchCollapsedMouse
+        Rectangle {
           anchors.fill: parent
-          hoverEnabled: true
-          cursorShape: Qt.PointingHandCursor
-          onClicked: {
-            root.expanded = true;
-            Qt.callLater(() => searchInput.inputItem?.forceActiveFocus());
+          radius: Style.radiusS
+          color: searchCollapsedMouse.containsMouse ? Color.mHover : "transparent"
+
+          RowLayout {
+            id: searchCollapsedRow
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: Style.marginS
+            spacing: 0
+
+            NIcon {
+              icon: "search"
+              color: searchCollapsedMouse.containsMouse ? Color.mOnHover : Color.mOnSurface
+              pointSize: Style.fontSizeXL
+            }
           }
-          onEntered: TooltipService.show(searchCollapsedBtn, "Search")
-          onExited: TooltipService.hide()
+
+          MouseArea {
+            id: searchCollapsedMouse
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: {
+              root.expanded = true;
+              Qt.callLater(() => searchInput.inputItem?.forceActiveFocus());
+            }
+            onEntered: TooltipService.show(searchCollapsedBtn, "Search")
+            onExited: TooltipService.hide()
+          }
         }
       }
 

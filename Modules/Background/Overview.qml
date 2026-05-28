@@ -4,11 +4,10 @@ import Quickshell
 import Quickshell.Wayland
 import qs.Commons
 import qs.Services.Compositor
-import qs.Services.Power
 import qs.Services.UI
 
 Loader {
-  active: CompositorService.isNiri && Settings.data.wallpaper.enabled && Settings.data.wallpaper.overviewEnabled && (!PowerProfileService.noctaliaPerformanceMode || !Settings.data.noctaliaPerformance.disableWallpaper)
+  active: CompositorService.isNiri && Settings.data.wallpaper.enabled && Settings.data.wallpaper.overviewEnabled
 
   sourceComponent: Variants {
     model: Quickshell.screens
@@ -101,7 +100,7 @@ Loader {
         cache: true // Shares texture with Background's currentWallpaper
         asynchronous: true
 
-        layer.enabled: Settings.data.wallpaper.overviewBlur > 0 && !PowerProfileService.noctaliaPerformanceMode
+        layer.enabled: Settings.data.wallpaper.overviewBlur > 0
         layer.smooth: false
         layer.effect: MultiEffect {
           blurEnabled: true

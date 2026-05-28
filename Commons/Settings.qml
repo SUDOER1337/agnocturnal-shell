@@ -558,12 +558,6 @@ Singleton {
       property string externalMonitor: "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor"
     }
 
-    // performance
-    property JsonObject agnocturalPerformance: JsonObject {
-      property bool disableWallpaper: true
-      property bool disableDesktopWidgets: true
-    }
-
     // dock
     property JsonObject dock: JsonObject {
       property bool enabled: true
@@ -733,6 +727,15 @@ Singleton {
       property string generationMethod: "tonal-spot"
       property string monitorForColors: ""
       property bool syncGsettings: true
+      property JsonObject saturation: JsonObject {
+        property real primary: 1.0
+        property real secondary: 1.0
+        property real tertiary: 1.0
+        property real surface: 0.9
+        property real background: 0.85
+        property real error: 1.0
+        property real outline: 0.7
+      }
     }
 
     // templates toggles
@@ -760,8 +763,6 @@ Singleton {
       property string darkModeChange: ""
       property string screenLock: ""
       property string screenUnlock: ""
-      property string performanceModeEnabled: ""
-      property string performanceModeDisabled: ""
       property string startup: ""
       property string session: ""
       property string colorGeneration: ""

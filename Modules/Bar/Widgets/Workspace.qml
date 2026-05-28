@@ -118,10 +118,6 @@ Item {
 
   property ListModel localWorkspaces: ListModel {}
   property int lastFocusedWorkspaceId: -1
-  property real masterProgress: 0.0
-  property bool effectsActive: false
-  property color effectColor: Color.mPrimary
-
   property int horizontalPadding: Style.marginS
   property int spacingBetweenPills: Style.marginXS
 
@@ -398,49 +394,14 @@ Item {
     updateWorkspaceFocus();
   }
 
-  function triggerUnifiedWave() {
-    effectColor = Color.mPrimary;
-    masterAnimation.restart();
-  }
-
   function updateWorkspaceFocus() {
     for (var i = 0; i < localWorkspaces.count; i++) {
       const ws = localWorkspaces.get(i);
       if (ws.isFocused === true) {
-        if (root.lastFocusedWorkspaceId !== -1 && root.lastFocusedWorkspaceId !== ws.id) {
-          root.triggerUnifiedWave();
-        }
         root.lastFocusedWorkspaceId = ws.id;
         root.workspaceChanged(ws.id, Color.mPrimary);
         break;
       }
-    }
-  }
-
-  SequentialAnimation {
-    id: masterAnimation
-    PropertyAction {
-      target: root
-      property: "effectsActive"
-      value: true
-    }
-    NumberAnimation {
-      target: root
-      property: "masterProgress"
-      from: 0.0
-      to: 1.0
-      duration: Style.animationSlow * 2
-      easing.type: Easing.OutQuint
-    }
-    PropertyAction {
-      target: root
-      property: "effectsActive"
-      value: false
-    }
-    PropertyAction {
-      target: root
-      property: "masterProgress"
-      value: 0.0
     }
   }
 
@@ -905,21 +866,6 @@ Item {
               easing.type: Easing.InOutCubic
             }
           }
-        }
-
-        // Burst effect overlay for focused workspace number
-        Rectangle {
-          id: groupedWorkspaceNumberBurst
-          anchors.centerIn: groupedWorkspaceNumberContainer
-          width: groupedWorkspaceNumberContainer.width + 12 * root.masterProgress
-          height: groupedWorkspaceNumberContainer.height + 12 * root.masterProgress
-          radius: width / 2
-          color: "transparent"
-          border.color: root.effectColor
-          border.width: Math.max(1, Math.round((2 + 4 * (1.0 - root.masterProgress))))
-          opacity: root.effectsActive && groupedContainer.workspaceModel.isFocused ? (1.0 - root.masterProgress) * 0.7 : 0
-          visible: root.effectsActive && groupedContainer.workspaceModel.isFocused
-          z: 1
         }
 
         NText {

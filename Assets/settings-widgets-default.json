@@ -19,7 +19,6 @@
       "displayMode": "graphic-clean",
       "deviceNativePath": "__default__",
       "showPowerProfiles": false,
-      "showNoctaliaPerformance": false,
       "hideIfNotDetected": true,
       "hideIfIdle": false
     },
@@ -203,9 +202,6 @@
       "textColor": "none"
     },
     "NightLight": {
-      "iconColor": "none"
-    },
-    "NoctaliaPerformance": {
       "iconColor": "none"
     },
     "PowerProfile": {

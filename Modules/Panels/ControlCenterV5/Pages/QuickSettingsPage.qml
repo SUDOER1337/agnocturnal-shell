@@ -3,7 +3,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
-import qs.Modules.Bar
 import qs.Modules.Panels.ControlCenter
 import qs.Services.Location
 import qs.Services.Media
@@ -40,6 +39,7 @@ Rectangle {
           spacing: 0
 
           NText {
+            id: timeText
             text: new Date().toLocaleTimeString(Locale.ShortFormat)
             pointSize: Style.fontSizeXXL
             font.weight: Style.fontWeightBold
@@ -47,6 +47,7 @@ Rectangle {
           }
 
           NText {
+            id: dateText
             text: new Date().toLocaleDateString(Locale.LongFormat)
             pointSize: Style.fontSizeS
             color: Color.mOnSurfaceVariant
@@ -57,17 +58,19 @@ Rectangle {
             running: true
             repeat: true
             onTriggered: {
-              parent.children[0].text = new Date().toLocaleTimeString(Locale.ShortFormat);
-              parent.children[1].text = new Date().toLocaleDateString(Locale.LongFormat);
+              timeText.text = new Date().toLocaleTimeString(Locale.ShortFormat);
+              dateText.text = new Date().toLocaleDateString(Locale.LongFormat);
             }
           }
         }
 
         Item { Layout.fillWidth: true }
 
-        // Weather
+        // Weather (via LocationService — matches WeatherCard pattern)
         Rectangle {
-          visible: Settings.data.location.weatherEnabled && WeatherService.lastUpdate !== null
+          readonly property bool weatherReady: Settings.data.location.weatherEnabled && LocationService.data.weather !== null
+
+          visible: weatherReady
           implicitWidth: weatherRow.implicitWidth + Style.marginM
           implicitHeight: weatherRow.implicitHeight + Style.marginS
           radius: Style.radiusS
@@ -79,7 +82,9 @@ Rectangle {
             spacing: Style.marginXS
 
             NIcon {
-              icon: WeatherService.icon || "weather-cloud-sun"
+              icon: weatherReady
+                ? LocationService.weatherSymbolFromCode(LocationService.data.weather.current_weather.weathercode)
+                : "weather-cloud-sun"
               pointSize: Style.fontSizeXL
               color: Color.mOnSurfaceVariant
             }
@@ -88,17 +93,11 @@ Rectangle {
               spacing: 0
 
               NText {
-                text: WeatherService.temperature || "--°"
+                readonly property real rawTemp: weatherReady ? LocationService.data.weather.current_weather.temperature : 0
+                text: weatherReady ? `${Math.round(rawTemp)}°` : "--°"
                 pointSize: Style.fontSizeM
                 font.weight: Style.fontWeightBold
                 color: Color.mOnSurface
-              }
-
-              NText {
-                text: WeatherService.condition || ""
-                pointSize: Style.fontSizeXS
-                color: Color.mOnSurfaceVariant
-                visible: WeatherService.condition !== ""
               }
             }
           }
