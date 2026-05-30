@@ -93,20 +93,20 @@ SmartPanel {
             icon: BatteryService.getIcon(BatteryService.getPercentage(primaryDevice), BatteryService.isCharging(primaryDevice), BatteryService.isPluggedIn(primaryDevice), BatteryService.isDeviceReady(primaryDevice))
           }
 
-           ColumnLayout {
-             spacing: Style.marginXXS
-             Layout.fillWidth: true
+          ColumnLayout {
+            spacing: Style.marginXXS
+            Layout.fillWidth: true
 
-             NText {
-               text: "Battery"
-               pointSize: Style.fontSizeL
-               font.weight: Style.fontWeightBold
-               color: Color.mOnSurface
-               Layout.fillWidth: true
-               elide: Text.ElideRight
-             }
-           }
-         }
+            NText {
+              text: "Battery"
+              pointSize: Style.fontSizeL
+              font.weight: Style.fontWeightBold
+              color: Color.mOnSurface
+              Layout.fillWidth: true
+              elide: Text.ElideRight
+            }
+          }
+        }
       }
 
       // Charge level + health/time
@@ -323,13 +323,13 @@ SmartPanel {
               value: profileIndex
               enabled: profilesAvailable
               onPressedChanged: (pressed, v) => {
-                                  if (!pressed) {
-                                    setProfileByIndex(v);
-                                  }
-                                }
+                if (!pressed) {
+                  setProfileByIndex(v);
+                }
+              }
               onMoved: v => {
-                         profileIndex = v;
-                       }
+                profileIndex = v;
+              }
             }
 
             RowLayout {

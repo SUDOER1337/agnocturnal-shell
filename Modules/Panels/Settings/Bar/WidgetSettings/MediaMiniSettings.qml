@@ -79,9 +79,9 @@ ColumnLayout {
     ]
     currentKey: root.valueHideMode
     onSelected: key => {
-                  root.valueHideMode = key;
-                  saveSettings();
-                }
+      root.valueHideMode = key;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.hideMode
   }
 
@@ -90,9 +90,9 @@ ColumnLayout {
     description: "Display the album artwork for the currently playing track."
     checked: valueShowAlbumArt
     onToggled: checked => {
-                 valueShowAlbumArt = checked;
-                 saveSettings();
-               }
+      valueShowAlbumArt = checked;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.showAlbumArt
   }
 
@@ -101,9 +101,9 @@ ColumnLayout {
     description: "Display artist - title instead of title - artist."
     checked: valueShowArtistFirst
     onToggled: checked => {
-                 valueShowArtistFirst = checked;
-                 saveSettings();
-               }
+      valueShowArtistFirst = checked;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.showArtistFirst
   }
 
@@ -112,9 +112,9 @@ ColumnLayout {
     description: "Display an audio visualizer when music is playing."
     checked: valueShowVisualizer
     onToggled: checked => {
-                 valueShowVisualizer = checked;
-                 saveSettings();
-               }
+      valueShowVisualizer = checked;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.showVisualizer
   }
 
@@ -138,9 +138,9 @@ ColumnLayout {
     ]
     currentKey: valueVisualizerType
     onSelected: key => {
-                  valueVisualizerType = key;
-                  saveSettings();
-                }
+      valueVisualizerType = key;
+      saveSettings();
+    }
     minimumWidth: 200
     defaultValue: widgetMetadata.visualizerType
   }
@@ -161,9 +161,9 @@ ColumnLayout {
     description: "When enabled, the widget will always use the maximum width instead of dynamically adjusting to content."
     checked: valueUseFixedWidth
     onToggled: checked => {
-                 valueUseFixedWidth = checked;
-                 saveSettings();
-               }
+      valueUseFixedWidth = checked;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.useFixedWidth
   }
 
@@ -172,18 +172,18 @@ ColumnLayout {
     description: "Display a circular progress indicator showing track progress."
     checked: valueShowProgressRing
     onToggled: checked => {
-                 valueShowProgressRing = checked;
-                 saveSettings();
-               }
+      valueShowProgressRing = checked;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.showProgressRing
   }
 
   NColorChoice {
     currentKey: valueTextColor
     onSelected: key => {
-                  valueTextColor = key;
-                  saveSettings();
-                }
+      valueTextColor = key;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.textColor
   }
 
@@ -206,9 +206,9 @@ ColumnLayout {
     ]
     currentKey: valueScrollingMode
     onSelected: key => {
-                  valueScrollingMode = key;
-                  saveSettings();
-                }
+      valueScrollingMode = key;
+      saveSettings();
+    }
     minimumWidth: 200
     defaultValue: widgetMetadata.scrollingMode
   }
@@ -229,9 +229,9 @@ ColumnLayout {
     description: "Display the album artwork for the currently playing track."
     checked: valuePanelShowAlbumArt
     onToggled: checked => {
-                 valuePanelShowAlbumArt = checked;
-                 saveSettings();
-               }
+      valuePanelShowAlbumArt = checked;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.panelShowAlbumArt
   }
 
@@ -240,9 +240,9 @@ ColumnLayout {
     description: "Enable a space-saving layout for the media player panel."
     checked: valueCompactMode
     onToggled: checked => {
-                 valueCompactMode = checked;
-                 saveSettings();
-               }
+      valueCompactMode = checked;
+      saveSettings();
+    }
     defaultValue: widgetMetadata.compactMode
   }
 }

@@ -66,19 +66,19 @@ SmartPanel {
 
       var total = 0;
       monitors.forEach(m => {
-                         var brightnessValue = isNaN(m.brightness) ? 0 : m.brightness;
-                         total += brightnessValue;
-                       });
+        var brightnessValue = isNaN(m.brightness) ? 0 : m.brightness;
+        total += brightnessValue;
+      });
       panelContent.globalBrightness = total / monitors.length;
     }
 
     function applyGlobalBrightness(value) {
       var monitors = BrightnessService.monitors || [];
       monitors.forEach(m => {
-                         if (m && m.brightnessControlAvailable) {
-                           m.setBrightness(value);
-                         }
-                       });
+        if (m && m.brightnessControlAvailable) {
+          m.setBrightness(value);
+        }
+      });
     }
 
     Component.onCompleted: updateGlobalBrightness()
@@ -119,14 +119,14 @@ SmartPanel {
             color: Color.mPrimary
           }
 
-           NText {
-             text: "Display"
-             pointSize: Style.fontSizeL
-             font.weight: Style.fontWeightBold
-             color: Color.mOnSurface
-             Layout.fillWidth: true
-           }
-         }
+          NText {
+            text: "Display"
+            pointSize: Style.fontSizeL
+            font.weight: Style.fontWeightBold
+            color: Color.mOnSurface
+            Layout.fillWidth: true
+          }
+        }
       }
 
       NScrollView {
@@ -180,14 +180,14 @@ SmartPanel {
                   stepSize: 0.01
                   enabled: panelContent.globalBrightnessCapableMonitors > 0
                   onMoved: value => {
-                             panelContent.globalBrightness = value;
-                             panelContent.applyGlobalBrightness(value);
-                           }
+                    panelContent.globalBrightness = value;
+                    panelContent.applyGlobalBrightness(value);
+                  }
                   onPressedChanged: (pressed, value) => {
-                                      panelContent.globalBrightnessChanging = pressed;
-                                      panelContent.globalBrightness = value;
-                                      panelContent.applyGlobalBrightness(value);
-                                    }
+                    panelContent.globalBrightnessChanging = pressed;
+                    panelContent.globalBrightness = value;
+                    panelContent.applyGlobalBrightness(value);
+                  }
                   Layout.fillWidth: true
                   text: ""
                 }
@@ -248,15 +248,15 @@ SmartPanel {
                     stepSize: 0.01
                     enabled: brightnessMonitor ? brightnessMonitor.brightnessControlAvailable : false
                     onMoved: value => {
-                               if (brightnessMonitor && brightnessMonitor.brightnessControlAvailable) {
-                                 brightnessMonitor.setBrightness(value);
-                               }
-                             }
+                      if (brightnessMonitor && brightnessMonitor.brightnessControlAvailable) {
+                        brightnessMonitor.setBrightness(value);
+                      }
+                    }
                     onPressedChanged: (pressed, value) => {
-                                        if (brightnessMonitor && brightnessMonitor.brightnessControlAvailable) {
-                                          brightnessMonitor.setBrightness(value);
-                                        }
-                                      }
+                      if (brightnessMonitor && brightnessMonitor.brightnessControlAvailable) {
+                        brightnessMonitor.setBrightness(value);
+                      }
+                    }
                     Layout.fillWidth: true
                     text: brightnessMonitor ? Math.round(brightnessSlider.value * 100) + "%" : "N/A"
                   }

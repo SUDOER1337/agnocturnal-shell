@@ -101,7 +101,10 @@ Item {
         color: "transparent"
 
         Behavior on opacity {
-          NumberAnimation { duration: Style.animationFast; easing.type: Easing.InOutQuad }
+          NumberAnimation {
+            duration: Style.animationFast
+            easing.type: Easing.InOutQuad
+          }
         }
 
         NTextInput {
@@ -171,10 +174,26 @@ Item {
           id: navList
           anchors.fill: parent
           model: [
-            { icon: "settings-general", labelKey: "common.general", label: "Quick Settings" },
-            { icon: "music", labelKey: "panels.media.title", label: "Media" },
-            { icon: "device-analytics", labelKey: "panels.system.title", label: "System" },
-            { icon: "adjustments", labelKey: "panels.settings.title", label: "Settings" },
+            {
+              icon: "settings-general",
+              labelKey: "common.general",
+              label: "Quick Settings"
+            },
+            {
+              icon: "music",
+              labelKey: "panels.media.title",
+              label: "Media"
+            },
+            {
+              icon: "device-analytics",
+              labelKey: "panels.system.title",
+              label: "System"
+            },
+            {
+              icon: "adjustments",
+              labelKey: "panels.settings.title",
+              label: "Settings"
+            },
           ]
           spacing: Style.marginXS
           interactive: contentHeight > height
@@ -209,7 +228,10 @@ Item {
 
             Behavior on color {
               enabled: !Color.isTransitioning
-              ColorAnimation { duration: Style.animationFast; easing.type: Easing.InOutQuad }
+              ColorAnimation {
+                duration: Style.animationFast
+                easing.type: Easing.InOutQuad
+              }
             }
 
             RowLayout {
@@ -237,7 +259,10 @@ Item {
                 opacity: root.expanded ? 1 : 0
 
                 Behavior on opacity {
-                  NumberAnimation { duration: Style.animationFast; easing.type: Easing.InOutQuad }
+                  NumberAnimation {
+                    duration: Style.animationFast
+                    easing.type: Easing.InOutQuad
+                  }
                 }
               }
             }
@@ -255,16 +280,19 @@ Item {
               }
               onExited: {
                 delegateItem.hovering = false;
-                if (!root.expanded) TooltipService.hide();
+                if (!root.expanded)
+                  TooltipService.hide();
               }
               onCanceled: {
                 delegateItem.hovering = false;
-                if (!root.expanded) TooltipService.hide();
+                if (!root.expanded)
+                  TooltipService.hide();
               }
               onClicked: {
                 root.currentIndex = delegateItem.index;
                 root.tabSelected(delegateItem.index);
-                if (!root.expanded) TooltipService.hide();
+                if (!root.expanded)
+                  TooltipService.hide();
               }
             }
           }

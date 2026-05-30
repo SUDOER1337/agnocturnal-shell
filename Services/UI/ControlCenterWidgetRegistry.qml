@@ -20,7 +20,7 @@ Singleton {
                            "PowerProfile": powerProfileComponent,
                            "WiFi": networkComponent,
                            "Network": networkComponent,
-                            "WallpaperSelector": wallpaperSelectorComponent
+                           "WallpaperSelector": wallpaperSelectorComponent
                          })
 
   property var widgetMetadata: ({

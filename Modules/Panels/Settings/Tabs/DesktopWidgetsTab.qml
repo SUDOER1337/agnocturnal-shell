@@ -3,8 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
-import qs.Services.Compositor
 import qs.Services.Agnocturnal
+import qs.Services.Compositor
 import qs.Services.UI
 import qs.Widgets
 

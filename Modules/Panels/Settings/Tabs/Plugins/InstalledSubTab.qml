@@ -293,12 +293,12 @@ ColumnLayout {
               checked: modelData.enabled
               baseSize: Style.baseWidgetSize * 0.7
               onToggled: checked => {
-                           if (checked) {
-                             PluginService.enablePlugin(modelData.compositeKey);
-                           } else {
-                             PluginService.disablePlugin(modelData.compositeKey);
-                           }
-                         }
+                if (checked) {
+                  PluginService.enablePlugin(modelData.compositeKey);
+                } else {
+                  PluginService.disablePlugin(modelData.compositeKey);
+                }
+              }
             }
           }
 

@@ -28,7 +28,8 @@ ColumnLayout {
 
     NLabel {
       label: "Available parameters"
-      description: "• Wallpaper hook: $1 = wallpaper path, $2 = screen name, $3 = theme (dark/light)<br>• Color generation hook: $1 = theme (dark/light)<br>• Theme toggle hook: $1 = true/false (Dark Mode state)<br>• Screen lock/unlock hooks: $1 = lock/unlock (screen lock state)<br>• Performance mode hooks: No parameters<br>• Session hook: $1 = action (shutdown/reboot)"
+      description:
+        "• Wallpaper hook: $1 = wallpaper path, $2 = screen name, $3 = theme (dark/light)<br>• Color generation hook: $1 = theme (dark/light)<br>• Theme toggle hook: $1 = true/false (Dark Mode state)<br>• Screen lock/unlock hooks: $1 = lock/unlock (screen lock state)<br>• Performance mode hooks: No parameters<br>• Session hook: $1 = action (shutdown/reboot)"
     }
   }
 }

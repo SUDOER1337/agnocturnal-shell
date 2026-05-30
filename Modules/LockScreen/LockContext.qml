@@ -145,19 +145,19 @@ Scope {
     }
 
     onCompleted: result => {
-                   Logger.i("LockContext", "PAM completed with result:", result);
-                   if (result === PamResult.Success) {
-                     Logger.i("LockContext", "Authentication successful");
-                     root.unlocked();
-                   } else {
-                     Logger.i("LockContext", "Authentication failed");
-                     root.currentText = "";
-                     errorMessage = "Authentication failed";
-                     showFailure = true;
-                     root.failed();
-                   }
-                   root.unlockInProgress = false;
-                 }
+      Logger.i("LockContext", "PAM completed with result:", result);
+      if (result === PamResult.Success) {
+        Logger.i("LockContext", "Authentication successful");
+        root.unlocked();
+      } else {
+        Logger.i("LockContext", "Authentication failed");
+        root.currentText = "";
+        errorMessage = "Authentication failed";
+        showFailure = true;
+        root.failed();
+      }
+      root.unlockInProgress = false;
+    }
 
     onError: {
       Logger.i("LockContext", "PAM error:", error, "message:", message);

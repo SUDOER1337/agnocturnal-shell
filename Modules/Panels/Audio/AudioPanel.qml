@@ -178,14 +178,14 @@ SmartPanel {
               color: Color.mPrimary
             }
 
-             NText {
-               text: "Audio"
-               pointSize: Style.fontSizeL
-               font.weight: Style.fontWeightBold
-               color: Color.mOnSurface
-               Layout.fillWidth: true
-             }
-           }
+            NText {
+              text: "Audio"
+              pointSize: Style.fontSizeL
+              font.weight: Style.fontWeightBold
+              color: Color.mOnSurface
+              Layout.fillWidth: true
+            }
+          }
 
           NTabBar {
             id: tabBar

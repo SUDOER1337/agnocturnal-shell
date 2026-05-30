@@ -64,7 +64,9 @@ Rectangle {
           }
         }
 
-        Item { Layout.fillWidth: true }
+        Item {
+          Layout.fillWidth: true
+        }
 
         // Weather (via LocationService — matches WeatherCard pattern)
         Rectangle {
@@ -82,9 +84,7 @@ Rectangle {
             spacing: Style.marginXS
 
             NIcon {
-              icon: weatherReady
-                ? LocationService.weatherSymbolFromCode(LocationService.data.weather.current_weather.weathercode)
-                : "weather-cloud-sun"
+              icon: weatherReady ? LocationService.weatherSymbolFromCode(LocationService.data.weather.current_weather.weathercode) : "weather-cloud-sun"
               pointSize: Style.fontSizeXL
               color: Color.mOnSurfaceVariant
             }

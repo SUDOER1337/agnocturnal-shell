@@ -35,8 +35,8 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.Commons
 import "../Helpers/ColorsConvert.js" as CC
+import qs.Commons
 
 Singleton {
   id: root
@@ -127,36 +127,216 @@ Singleton {
   property color mOnHover: defaultColors.mOnHover
 
   // === Behavior: Color Transition Animations (all 30 tokens) ===
-  Behavior on mPrimary { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnPrimary { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mPrimaryContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnPrimaryContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mSecondary { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnSecondary { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mSecondaryContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnSecondaryContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mTertiary { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnTertiary { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mTertiaryContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnTertiaryContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mError { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnError { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mErrorContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnErrorContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mSurface { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnSurface { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mSurfaceVariant { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnSurfaceVariant { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mSurfaceContainerLow { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mSurfaceContainer { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mSurfaceContainerHigh { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mBackground { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnBackground { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOutline { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOutlineVariant { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mShadow { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mHover { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
-  Behavior on mOnHover { enabled: !root.skipTransition; ColorAnimation { duration: Style.animationSlowest; easing.type: Easing.OutCubic } }
+  Behavior on mPrimary {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnPrimary {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mPrimaryContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnPrimaryContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mSecondary {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnSecondary {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mSecondaryContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnSecondaryContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mTertiary {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnTertiary {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mTertiaryContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnTertiaryContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mError {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnError {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mErrorContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnErrorContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mSurface {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnSurface {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mSurfaceVariant {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnSurfaceVariant {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mSurfaceContainerLow {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mSurfaceContainer {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mSurfaceContainerHigh {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mBackground {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnBackground {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOutline {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOutlineVariant {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mShadow {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mHover {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on mOnHover {
+    enabled: !root.skipTransition
+    ColorAnimation {
+      duration: Style.animationSlowest
+      easing.type: Easing.OutCubic
+    }
+  }
 
   function startTransition() {
     root.isTransitioning = true;
@@ -168,16 +348,19 @@ Singleton {
   // Apply saturation from ColorSaturation then assign to root property
   function _refreshToken(token, maybeRaw) {
     const raw = maybeRaw !== undefined ? maybeRaw : customColorsData[token];
-    if (raw === undefined) return;
+    if (raw === undefined)
+      return;
 
-    if (!root.skipTransition) startTransition();
+    if (!root.skipTransition)
+      startTransition();
     root[token] = ColorSaturation.apply(token, raw);
   }
 
   // Refresh all tokens in a slot (called when ColorSaturation values change)
   function _refreshSlot(slot) {
     const tokens = ColorSaturation.slotTokens[slot];
-    if (!tokens) return;
+    if (!tokens)
+      return;
     for (let i = 0; i < tokens.length; i++) {
       _refreshToken(tokens[i]);
     }
@@ -187,85 +370,174 @@ Singleton {
   Connections {
     target: customColorsData
 
-    function onMPrimaryChanged() { _refreshToken("mPrimary"); }
-    function onMOnPrimaryChanged() { _refreshToken("mOnPrimary"); }
-    function onMPrimaryContainerChanged() { _refreshToken("mPrimaryContainer"); }
-    function onMOnPrimaryContainerChanged() { _refreshToken("mOnPrimaryContainer"); }
+    function onMPrimaryChanged() {
+      _refreshToken("mPrimary");
+    }
+    function onMOnPrimaryChanged() {
+      _refreshToken("mOnPrimary");
+    }
+    function onMPrimaryContainerChanged() {
+      _refreshToken("mPrimaryContainer");
+    }
+    function onMOnPrimaryContainerChanged() {
+      _refreshToken("mOnPrimaryContainer");
+    }
 
-    function onMSecondaryChanged() { _refreshToken("mSecondary"); }
-    function onMOnSecondaryChanged() { _refreshToken("mOnSecondary"); }
-    function onMSecondaryContainerChanged() { _refreshToken("mSecondaryContainer"); }
-    function onMOnSecondaryContainerChanged() { _refreshToken("mOnSecondaryContainer"); }
+    function onMSecondaryChanged() {
+      _refreshToken("mSecondary");
+    }
+    function onMOnSecondaryChanged() {
+      _refreshToken("mOnSecondary");
+    }
+    function onMSecondaryContainerChanged() {
+      _refreshToken("mSecondaryContainer");
+    }
+    function onMOnSecondaryContainerChanged() {
+      _refreshToken("mOnSecondaryContainer");
+    }
 
-    function onMTertiaryChanged() { _refreshToken("mTertiary"); }
-    function onMOnTertiaryChanged() { _refreshToken("mOnTertiary"); }
-    function onMTertiaryContainerChanged() { _refreshToken("mTertiaryContainer"); }
-    function onMOnTertiaryContainerChanged() { _refreshToken("mOnTertiaryContainer"); }
+    function onMTertiaryChanged() {
+      _refreshToken("mTertiary");
+    }
+    function onMOnTertiaryChanged() {
+      _refreshToken("mOnTertiary");
+    }
+    function onMTertiaryContainerChanged() {
+      _refreshToken("mTertiaryContainer");
+    }
+    function onMOnTertiaryContainerChanged() {
+      _refreshToken("mOnTertiaryContainer");
+    }
 
-    function onMErrorChanged() { _refreshToken("mError"); }
-    function onMOnErrorChanged() { _refreshToken("mOnError"); }
-    function onMErrorContainerChanged() { _refreshToken("mErrorContainer"); }
-    function onMOnErrorContainerChanged() { _refreshToken("mOnErrorContainer"); }
+    function onMErrorChanged() {
+      _refreshToken("mError");
+    }
+    function onMOnErrorChanged() {
+      _refreshToken("mOnError");
+    }
+    function onMErrorContainerChanged() {
+      _refreshToken("mErrorContainer");
+    }
+    function onMOnErrorContainerChanged() {
+      _refreshToken("mOnErrorContainer");
+    }
 
-    function onMSurfaceChanged() { _refreshToken("mSurface"); }
-    function onMOnSurfaceChanged() { _refreshToken("mOnSurface"); }
-    function onMSurfaceVariantChanged() { _refreshToken("mSurfaceVariant"); }
-    function onMOnSurfaceVariantChanged() { _refreshToken("mOnSurfaceVariant"); }
-    function onMSurfaceContainerLowChanged() { _refreshToken("mSurfaceContainerLow"); }
-    function onMSurfaceContainerChanged() { _refreshToken("mSurfaceContainer"); }
-    function onMSurfaceContainerHighChanged() { _refreshToken("mSurfaceContainerHigh"); }
+    function onMSurfaceChanged() {
+      _refreshToken("mSurface");
+    }
+    function onMOnSurfaceChanged() {
+      _refreshToken("mOnSurface");
+    }
+    function onMSurfaceVariantChanged() {
+      _refreshToken("mSurfaceVariant");
+    }
+    function onMOnSurfaceVariantChanged() {
+      _refreshToken("mOnSurfaceVariant");
+    }
+    function onMSurfaceContainerLowChanged() {
+      _refreshToken("mSurfaceContainerLow");
+    }
+    function onMSurfaceContainerChanged() {
+      _refreshToken("mSurfaceContainer");
+    }
+    function onMSurfaceContainerHighChanged() {
+      _refreshToken("mSurfaceContainerHigh");
+    }
 
-    function onMBackgroundChanged() { _refreshToken("mBackground"); }
-    function onMOnBackgroundChanged() { _refreshToken("mOnBackground"); }
+    function onMBackgroundChanged() {
+      _refreshToken("mBackground");
+    }
+    function onMOnBackgroundChanged() {
+      _refreshToken("mOnBackground");
+    }
 
-    function onMOutlineChanged() { _refreshToken("mOutline"); }
-    function onMOutlineVariantChanged() { _refreshToken("mOutlineVariant"); }
+    function onMOutlineChanged() {
+      _refreshToken("mOutline");
+    }
+    function onMOutlineVariantChanged() {
+      _refreshToken("mOutlineVariant");
+    }
 
-    function onMShadowChanged() { _refreshToken("mShadow"); }
-    function onMHoverChanged() { _refreshToken("mHover"); }
-    function onMOnHoverChanged() { _refreshToken("mOnHover"); }
+    function onMShadowChanged() {
+      _refreshToken("mShadow");
+    }
+    function onMHoverChanged() {
+      _refreshToken("mHover");
+    }
+    function onMOnHoverChanged() {
+      _refreshToken("mOnHover");
+    }
   }
 
   // === Connections: ColorSaturation changes → refresh affected tokens ===
   Connections {
     target: ColorSaturation
-    function onSaturationPrimaryChanged() { _refreshSlot("primary"); }
-    function onSaturationSecondaryChanged() { _refreshSlot("secondary"); }
-    function onSaturationTertiaryChanged() { _refreshSlot("tertiary"); }
-    function onSaturationErrorChanged() { _refreshSlot("error"); }
-    function onSaturationSurfaceChanged() { _refreshSlot("surface"); }
-    function onSaturationBackgroundChanged() { _refreshSlot("background"); }
-    function onSaturationOutlineChanged() { _refreshSlot("outline"); }
+    function onSaturationPrimaryChanged() {
+      _refreshSlot("primary");
+    }
+    function onSaturationSecondaryChanged() {
+      _refreshSlot("secondary");
+    }
+    function onSaturationTertiaryChanged() {
+      _refreshSlot("tertiary");
+    }
+    function onSaturationErrorChanged() {
+      _refreshSlot("error");
+    }
+    function onSaturationSurfaceChanged() {
+      _refreshSlot("surface");
+    }
+    function onSaturationBackgroundChanged() {
+      _refreshSlot("background");
+    }
+    function onSaturationOutlineChanged() {
+      _refreshSlot("outline");
+    }
   }
 
   // === Public: Color resolution helpers ===
   function resolveColorKey(key) {
     switch (key) {
-    case "primary":   return root.mPrimary;
-    case "secondary": return root.mSecondary;
-    case "tertiary":  return root.mTertiary;
-    case "error":     return root.mError;
-    default:          return root.mOnSurface;
+    case "primary":
+      return root.mPrimary;
+    case "secondary":
+      return root.mSecondary;
+    case "tertiary":
+      return root.mTertiary;
+    case "error":
+      return root.mError;
+    default:
+      return root.mOnSurface;
     }
   }
 
   function resolveOnColorKey(key) {
     switch (key) {
-    case "primary":   return root.mOnPrimary;
-    case "secondary": return root.mOnSecondary;
-    case "tertiary":  return root.mOnTertiary;
-    case "error":     return root.mOnError;
-    default:          return root.mSurface;
+    case "primary":
+      return root.mOnPrimary;
+    case "secondary":
+      return root.mOnSecondary;
+    case "tertiary":
+      return root.mOnTertiary;
+    case "error":
+      return root.mOnError;
+    default:
+      return root.mSurface;
     }
   }
 
   function resolveColorKeyOptional(key) {
     switch (key) {
-    case "primary":   return root.mPrimary;
-    case "secondary": return root.mSecondary;
-    case "tertiary":  return root.mTertiary;
-    case "error":     return root.mError;
-    default:          return "transparent";
+    case "primary":
+      return root.mPrimary;
+    case "secondary":
+      return root.mSecondary;
+    case "tertiary":
+      return root.mTertiary;
+    case "error":
+      return root.mError;
+    default:
+      return "transparent";
     }
   }
 
@@ -279,11 +551,26 @@ Singleton {
   }
 
   readonly property var colorKeyModel: [
-    { "key": "none",     "name": "None" },
-    { "key": "primary",   "name": "Primary" },
-    { "key": "secondary", "name": "Secondary" },
-    { "key": "tertiary",  "name": "Tertiary" },
-    { "key": "error",     "name": "Error" }
+    {
+      "key": "none",
+      "name": "None"
+    },
+    {
+      "key": "primary",
+      "name": "Primary"
+    },
+    {
+      "key": "secondary",
+      "name": "Secondary"
+    },
+    {
+      "key": "tertiary",
+      "name": "Tertiary"
+    },
+    {
+      "key": "error",
+      "name": "Error"
+    }
   ]
 
   // === Default colors: Agnoctural (default) dark ===

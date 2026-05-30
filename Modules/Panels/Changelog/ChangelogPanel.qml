@@ -71,10 +71,10 @@ SmartPanel {
           }
         }
 
-         Item {
-           Layout.fillWidth: true
-         }
-       }
+        Item {
+          Layout.fillWidth: true
+        }
+      }
 
       Rectangle {
         clip: true

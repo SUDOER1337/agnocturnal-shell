@@ -35,10 +35,10 @@ Singleton {
 
   Component.onCompleted: {
     Qt.callLater(() => {
-                   if (typeof ShellState !== 'undefined' && ShellState.isLoaded) {
-                     loadDisplayScalesFromState();
-                   }
-                 });
+      if (typeof ShellState !== 'undefined' && ShellState.isLoaded) {
+        loadDisplayScalesFromState();
+      }
+    });
     detectCompositor();
   }
 
@@ -106,35 +106,40 @@ Singleton {
   }
 
   function setupBackendConnections() {
-    if (!backend) return;
+    if (!backend)
+      return;
 
     backend.workspaceChanged.connect(() => {
-                                       syncWorkspaces();
-                                       workspaceChanged();
-                                     });
+      syncWorkspaces();
+      workspaceChanged();
+    });
 
     backend.activeWindowChanged.connect(() => {
-                                          syncFocusedWindow();
-                                          activeWindowChanged();
-                                        });
+      syncFocusedWindow();
+      activeWindowChanged();
+    });
 
-    backend.windowListChanged.connect(() => { syncWindows(); });
+    backend.windowListChanged.connect(() => {
+      syncWindows();
+    });
 
     backend.focusedWindowIndexChanged.connect(() => {
-                                                focusedWindowIndex = backend.focusedWindowIndex;
-                                              });
+      focusedWindowIndex = backend.focusedWindowIndex;
+    });
 
     if (backend.overviewActiveChanged) {
       backend.overviewActiveChanged.connect(() => {
-                                              overviewActive = backend.overviewActive;
-                                            });
+        overviewActive = backend.overviewActive;
+      });
     }
 
     syncWorkspaces();
     syncWindows();
     focusedWindowIndex = backend.focusedWindowIndex;
-    if (backend.overviewActive !== undefined) overviewActive = backend.overviewActive;
-    if (backend.globalWorkspaces !== undefined) globalWorkspaces = backend.globalWorkspaces;
+    if (backend.overviewActive !== undefined)
+      overviewActive = backend.overviewActive;
+    if (backend.globalWorkspaces !== undefined)
+      globalWorkspaces = backend.globalWorkspaces;
   }
 
   function syncWorkspaces() {
@@ -189,12 +194,14 @@ Singleton {
   }
 
   function getDisplayScale(displayName) {
-    if (!displayName || !displayScales[displayName]) return 1.0;
+    if (!displayName || !displayScales[displayName])
+      return 1.0;
     return displayScales[displayName].scale || 1.0;
   }
 
   function getDisplayInfo(displayName) {
-    if (!displayName || !displayScales[displayName]) return null;
+    if (!displayName || !displayScales[displayName])
+      return null;
     return displayScales[displayName];
   }
 
@@ -206,14 +213,16 @@ Singleton {
   }
 
   function getFocusedScreen() {
-    if (backend && backend.getFocusedScreen) return backend.getFocusedScreen();
+    if (backend && backend.getFocusedScreen)
+      return backend.getFocusedScreen();
     return null;
   }
 
   function getFocusedWindowTitle() {
     if (focusedWindowIndex >= 0 && focusedWindowIndex < windows.count) {
       var title = windows.get(focusedWindowIndex).title;
-      if (title !== undefined) title = title.replace(/(\r\n|\n|\r)/g, "");
+      if (title !== undefined)
+        title = title.replace(/(\r\n|\n|\r)/g, "");
       return title || "";
     }
     return "";
@@ -229,7 +238,14 @@ Singleton {
     for (var i = 0; i < windows.count; i++) {
       var window = windows.get(i);
       if (window.workspaceId === workspaceId) {
-        windowsInWs.push({ id: window.id, title: window.title, appId: window.appId, isFocused: window.isFocused, workspaceId: window.workspaceId, handle: window.handle });
+        windowsInWs.push({
+                           id: window.id,
+                           title: window.title,
+                           appId: window.appId,
+                           isFocused: window.isFocused,
+                           workspaceId: window.workspaceId,
+                           handle: window.handle
+                         });
       }
     }
     return windowsInWs;
@@ -252,7 +268,8 @@ Singleton {
   function getCurrentWorkspace() {
     for (var i = 0; i < workspaces.count; i++) {
       const ws = workspaces.get(i);
-      if (ws.isFocused) return ws;
+      if (ws.isFocused)
+        return ws;
     }
     return null;
   }
@@ -261,7 +278,8 @@ Singleton {
     const activeWorkspaces = [];
     for (var i = 0; i < workspaces.count; i++) {
       const ws = workspaces.get(i);
-      if (ws.isActive) activeWorkspaces.push(ws);
+      if (ws.isActive)
+        activeWorkspaces.push(ws);
     }
     return activeWorkspaces;
   }
@@ -289,7 +307,11 @@ Singleton {
     if (backend && backend.spawn) {
       backend.spawn(cmdArray);
     } else {
-      try { Quickshell.execDetached(cmdArray); } catch (e) { Logger.e("CompositorService", "Failed to execute detached:", e); }
+      try {
+        Quickshell.execDetached(cmdArray);
+      } catch (e) {
+        Logger.e("CompositorService", "Failed to execute detached:", e);
+      }
     }
   }
 
@@ -316,82 +338,106 @@ Singleton {
 
   function logout() {
     Logger.i("Compositor", "Logout requested");
-    if (executeSessionAction("logout")) return;
-    if (backend && backend.logout) { backend.logout(); }
-    else { Logger.w("Compositor", "No backend available for logout"); }
+    if (executeSessionAction("logout"))
+      return;
+    if (backend && backend.logout) {
+      backend.logout();
+    } else {
+      Logger.w("Compositor", "No backend available for logout");
+    }
   }
 
   function shutdown() {
     Logger.i("Compositor", "Shutdown requested");
-    if (executeSessionAction("shutdown")) return;
+    if (executeSessionAction("shutdown"))
+      return;
     HooksService.executeSessionHook("shutdown", () => {
-                                      Quickshell.execDetached(["sh", "-c", "systemctl poweroff || loginctl poweroff"]);
-                                    });
+      Quickshell.execDetached(["sh", "-c", "systemctl poweroff || loginctl poweroff"]);
+    });
   }
 
   function reboot() {
     Logger.i("Compositor", "Reboot requested");
-    if (executeSessionAction("reboot")) return;
+    if (executeSessionAction("reboot"))
+      return;
     HooksService.executeSessionHook("reboot", () => {
-                                      Quickshell.execDetached(["sh", "-c", "systemctl reboot || loginctl reboot"]);
-                                    });
+      Quickshell.execDetached(["sh", "-c", "systemctl reboot || loginctl reboot"]);
+    });
   }
 
   function userspaceReboot() {
     Logger.i("Compositor", "Userspace reboot requested");
-    if (executeSessionAction("userspaceReboot")) return;
+    if (executeSessionAction("userspaceReboot"))
+      return;
     HooksService.executeSessionHook("userspaceReboot", () => {
-                                      Quickshell.execDetached(["sh", "-c", "systemctl soft-reboot"]);
-                                    });
+      Quickshell.execDetached(["sh", "-c", "systemctl soft-reboot"]);
+    });
   }
 
   function rebootToUefi() {
     Logger.i("Compositor", "Reboot to UEFI firmware requested");
-    if (executeSessionAction("rebootToUefi")) return;
+    if (executeSessionAction("rebootToUefi"))
+      return;
     HooksService.executeSessionHook("rebootToUefi", () => {
-                                      Quickshell.execDetached(["sh", "-c", "systemctl reboot --firmware-setup || loginctl reboot --firmware-setup"]);
-                                    });
+      Quickshell.execDetached(["sh", "-c", "systemctl reboot --firmware-setup || loginctl reboot --firmware-setup"]);
+    });
   }
 
   function turnOffMonitors() {
     Logger.i("Compositor", "Turn off monitors requested");
-    if (backend && backend.turnOffMonitors) { backend.turnOffMonitors(); }
-    else { Logger.w("Compositor", "No backend available for turnOffMonitors"); }
+    if (backend && backend.turnOffMonitors) {
+      backend.turnOffMonitors();
+    } else {
+      Logger.w("Compositor", "No backend available for turnOffMonitors");
+    }
   }
 
   function turnOnMonitors() {
     Logger.i("Compositor", "Turn on monitors requested");
-    if (backend && backend.turnOnMonitors) { backend.turnOnMonitors(); }
-    else { Logger.w("Compositor", "No backend available for turnOnMonitors"); }
+    if (backend && backend.turnOnMonitors) {
+      backend.turnOnMonitors();
+    } else {
+      Logger.w("Compositor", "No backend available for turnOnMonitors");
+    }
   }
 
   function suspend() {
     Logger.i("Compositor", "Suspend requested");
-    if (executeSessionAction("suspend")) return;
+    if (executeSessionAction("suspend"))
+      return;
     Quickshell.execDetached(["sh", "-c", "systemctl suspend || loginctl suspend"]);
   }
 
   function lock() {
     Logger.i("Compositor", "LockScreen requested");
-    if (executeSessionAction("lock")) return;
-    if (PanelService && PanelService.lockScreen) { PanelService.lockScreen.active = true; }
+    if (executeSessionAction("lock"))
+      return;
+    if (PanelService && PanelService.lockScreen) {
+      PanelService.lockScreen.active = true;
+    }
   }
 
   function hibernate() {
     Logger.i("Compositor", "Hibernate requested");
-    if (executeSessionAction("hibernate")) return;
+    if (executeSessionAction("hibernate"))
+      return;
     Quickshell.execDetached(["sh", "-c", "systemctl hibernate || loginctl hibernate"]);
   }
 
   function cycleKeyboardLayout() {
-    if (backend && backend.cycleKeyboardLayout) { backend.cycleKeyboardLayout(); }
+    if (backend && backend.cycleKeyboardLayout) {
+      backend.cycleKeyboardLayout();
+    }
   }
 
   property int lockAndSuspendCheckCount: 0
 
   function lockAndSuspend() {
     Logger.i("Compositor", "Lock and suspend requested");
-    if (executeSessionAction("lock")) { suspend(); return; }
+    if (executeSessionAction("lock")) {
+      suspend();
+      return;
+    }
     if (PanelService && PanelService.lockScreen && PanelService.lockScreen.active) {
       Logger.i("Compositor", "Screen already locked, suspending");
       suspend();

@@ -11,6 +11,9 @@ Singleton {
   readonly property var codeClients: []
   readonly property var emacsClients: []
 
-  function resolvedCodeClientPaths(name) { return []; }
-  function writeUserTemplatesToml() {}
+  function resolvedCodeClientPaths(name) {
+    return [];
+  }
+  function writeUserTemplatesToml() {
+  }
 }

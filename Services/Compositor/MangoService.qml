@@ -51,19 +51,19 @@ Item {
     // Window signature for change detection
     property string lastWindowSignature: ""
 
-                                        // Get all screen names mapped to their DwlIpcOutput
-                                        function getOutputMap() {
-                                          const map = {};
-                                          const screens = Quickshell.screens;
-                                          for (let i = 0; i < screens.length; i++) {
-                                            const name = screens[i].name;
-                                            const dwlOutput = DwlIpc.outputForName(name);
-                                            if (dwlOutput) {
-                                              map[name] = dwlOutput;
-                                            }
-                                          }
-                                          return map;
-                                        }
+    // Get all screen names mapped to their DwlIpcOutput
+    function getOutputMap() {
+      const map = {};
+      const screens = Quickshell.screens;
+      for (let i = 0; i < screens.length; i++) {
+        const name = screens[i].name;
+        const dwlOutput = DwlIpc.outputForName(name);
+        if (dwlOutput) {
+          map[name] = dwlOutput;
+        }
+      }
+      return map;
+    }
 
     // ===== REBUILD WORKSPACES FROM DWL =====
 
@@ -354,26 +354,26 @@ Item {
 
   // ===== PROCESSES =====
 
-   // Scale query (mmsg get all-monitors) - New IPC: get monitor data including scales
-   property QtObject _scaleQuery: Process {
-     id: scaleQuery
-     command: ["mmsg", "get", "all-monitors"]
+  // Scale query (mmsg get all-monitors) - New IPC: get monitor data including scales
+  property QtObject _scaleQuery: Process {
+    id: scaleQuery
+    command: ["mmsg", "get", "all-monitors"]
 
-     property string buffer: ""
+    property string buffer: ""
 
-     stdout: SplitParser {
-       onRead: line => {
-                 scaleQuery.buffer += line + "\n";
-               }
-     }
+    stdout: SplitParser {
+      onRead: line => {
+        scaleQuery.buffer += line + "\n";
+      }
+    }
 
-     onExited: code => {
-                 if (code === 0) {
-                   internal.processMonitorScales(scaleQuery.buffer);
-                   scaleQuery.buffer = "";
-                 }
-               }
-   }
+    onExited: code => {
+      if (code === 0) {
+        internal.processMonitorScales(scaleQuery.buffer);
+        scaleQuery.buffer = "";
+      }
+    }
+  }
 
   // Keyboard layout polling - MangoWC doesn't send DWL IPC events for XKB-driven
   // layout switches (grp:win_space_toggle), so we poll mmsg periodically.
@@ -386,29 +386,30 @@ Item {
     property bool busy: false
 
     onTriggered: {
-      if (busy) return;
+      if (busy)
+        return;
       busy = true;
       kbLayoutQuery.running = true;
     }
   }
 
-   property QtObject _kbLayoutQuery: Process {
-      id: kbLayoutQuery
-      command: ["sh", "-c", "mmsg get keyboardlayout | jq -r '.layout'"]
+  property QtObject _kbLayoutQuery: Process {
+    id: kbLayoutQuery
+    command: ["sh", "-c", "mmsg get keyboardlayout | jq -r '.layout'"]
 
-     stdout: SplitParser {
-       onRead: line => {
-         var layout = line.trim();
-         if (layout.length > 0) {
-           KeyboardLayoutService.setCurrentLayout(layout);
-         }
-       }
-     }
+    stdout: SplitParser {
+      onRead: line => {
+        var layout = line.trim();
+        if (layout.length > 0) {
+          KeyboardLayoutService.setCurrentLayout(layout);
+        }
+      }
+    }
 
-     onExited: code => {
-       kbLayoutPoll.busy = false;
-     }
-   }
+    onExited: code => {
+      kbLayoutPoll.busy = false;
+    }
+  }
 
   // ===== TOPLEVEL MANAGER CONNECTION =====
 

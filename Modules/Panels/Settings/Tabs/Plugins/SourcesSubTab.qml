@@ -70,10 +70,10 @@ ColumnLayout {
             checked: modelData.enabled !== false // Default to true if not set
             baseSize: Style.baseWidgetSize * 0.7
             onToggled: checked => {
-                         PluginRegistry.setSourceEnabled(modelData.url, checked);
-                         PluginService.refreshAvailablePlugins();
-                         ToastService.showNotice("Plugins", "Refreshing plugins list...");
-                       }
+              PluginRegistry.setSourceEnabled(modelData.url, checked);
+              PluginService.refreshAvailablePlugins();
+              ToastService.showNotice("Plugins", "Refreshing plugins list...");
+            }
           }
         }
       }

@@ -15,14 +15,22 @@ ColumnLayout {
   // Helper to map slot name → representative Color.* property
   function colorForSlot(slot) {
     switch (slot) {
-    case "primary":   return Color.mPrimary;
-    case "secondary": return Color.mSecondary;
-    case "tertiary":  return Color.mTertiary;
-    case "error":     return Color.mError;
-    case "surface":   return Color.mSurfaceVariant;
-    case "background":return Color.mBackground;
-    case "outline":   return Color.mOutline;
-    default:          return Color.mOnSurface;
+    case "primary":
+      return Color.mPrimary;
+    case "secondary":
+      return Color.mSecondary;
+    case "tertiary":
+      return Color.mTertiary;
+    case "error":
+      return Color.mError;
+    case "surface":
+      return Color.mSurfaceVariant;
+    case "background":
+      return Color.mBackground;
+    case "outline":
+      return Color.mOutline;
+    default:
+      return Color.mOnSurface;
     }
   }
 

@@ -16,7 +16,7 @@ SmartPanel {
 
   // === CUSTOMIZATION GUIDE ===
   // This file controls the overall ControlCenter V5 layout and sizing.
-  // 
+  //
   // KEY SIZING PROPERTIES (see below for exact lines):
   // 1. Panel width          → Line ~63  (preferredWidth: 480px)
   // 2. Content margins      → Line ~187 (anchors.margins)
@@ -146,7 +146,10 @@ SmartPanel {
           opacity: root._currentPage === root.pageQuickSettings ? 1 : 0
 
           Behavior on opacity {
-            NumberAnimation { duration: Style.animationFast; easing.type: Easing.OutCubic }
+            NumberAnimation {
+              duration: Style.animationFast
+              easing.type: Easing.OutCubic
+            }
           }
 
           onOpenSettingsRequested: {
@@ -162,20 +165,23 @@ SmartPanel {
           opacity: root._currentPage === root.pageMedia ? 1 : 0
 
           Behavior on opacity {
-            NumberAnimation { duration: Style.animationFast; easing.type: Easing.OutCubic }
+            NumberAnimation {
+              duration: Style.animationFast
+              easing.type: Easing.OutCubic
+            }
           }
 
-           ColumnLayout {
-             anchors.fill: parent
-             anchors.margins: Style.marginS
-             spacing: Style.marginM
+          ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: Style.marginS
+            spacing: Style.marginM
 
-             // === MEDIA PAGE HEADER HEIGHT ===
-             // implicitHeight: auto-calculated from content + padding
-             // Adjust Style.margin2M to change header padding
-             NBox {
-               Layout.fillWidth: true
-               implicitHeight: mediaHeader.implicitHeight + Style.margin2M
+            // === MEDIA PAGE HEADER HEIGHT ===
+            // implicitHeight: auto-calculated from content + padding
+            // Adjust Style.margin2M to change header padding
+            NBox {
+              Layout.fillWidth: true
+              implicitHeight: mediaHeader.implicitHeight + Style.margin2M
 
               RowLayout {
                 id: mediaHeader
@@ -214,20 +220,23 @@ SmartPanel {
           opacity: root._currentPage === root.pageSystem ? 1 : 0
 
           Behavior on opacity {
-            NumberAnimation { duration: Style.animationFast; easing.type: Easing.OutCubic }
+            NumberAnimation {
+              duration: Style.animationFast
+              easing.type: Easing.OutCubic
+            }
           }
 
-           ColumnLayout {
-             anchors.fill: parent
-             anchors.margins: Style.marginS
-             spacing: Style.marginM
+          ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: Style.marginS
+            spacing: Style.marginM
 
-             // === SYSTEM PAGE HEADER HEIGHT ===
-             // implicitHeight: auto-calculated from content + padding
-             // Adjust Style.margin2M to change header padding
-             NBox {
-               Layout.fillWidth: true
-               implicitHeight: sysHeader.implicitHeight + Style.margin2M
+            // === SYSTEM PAGE HEADER HEIGHT ===
+            // implicitHeight: auto-calculated from content + padding
+            // Adjust Style.margin2M to change header padding
+            NBox {
+              Layout.fillWidth: true
+              implicitHeight: sysHeader.implicitHeight + Style.margin2M
 
               RowLayout {
                 id: sysHeader

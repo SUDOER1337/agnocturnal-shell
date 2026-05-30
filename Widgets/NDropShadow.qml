@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Effects
 import qs.Commons
+
 // Unified shadow system
 Item {
   id: root

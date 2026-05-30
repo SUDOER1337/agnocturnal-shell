@@ -172,10 +172,10 @@ SmartPanel {
         WallpaperService.wallpaperSelectionAppearance = panelContent.appearanceTabIndex === 1 ? "dark" : "light";
         // Give initial focus to search input
         Qt.callLater(() => {
-                       if (searchInput.inputItem) {
-                         searchInput.inputItem.forceActiveFocus();
-                       }
-                     });
+          if (searchInput.inputItem) {
+            searchInput.inputItem.forceActiveFocus();
+          }
+        });
       }
     }
 
@@ -362,14 +362,14 @@ SmartPanel {
               }
 
               Keys.onPressed: event => {
-                                if (Keybinds.checkKey(event, 'down', Settings)) {
-                                  let currentView = screenRepeater.itemAt(currentScreenIndex);
-                                  if (currentView && currentView.gridView) {
-                                    currentView.gridView.forceActiveFocus();
-                                  }
-                                  event.accepted = true;
-                                }
-                              }
+                if (Keybinds.checkKey(event, 'down', Settings)) {
+                  let currentView = screenRepeater.itemAt(currentScreenIndex);
+                  if (currentView && currentView.gridView) {
+                    currentView.gridView.forceActiveFocus();
+                  }
+                  event.accepted = true;
+                }
+              }
             }
 
             NIconButton {
@@ -395,13 +395,13 @@ SmartPanel {
               property bool _initialized: false
               property bool _userChanging: false
               Component.onCompleted: Qt.callLater(() => {
-                                                    _initialized = true;
-                                                  })
+                _initialized = true;
+              })
 
               model: Settings.data.colorSchemes.useWallpaperColors ? TemplateProcessor.schemeTypes : ColorSchemeService.schemes.map(s => ({
-                                                                                                                                            "key": ColorSchemeService.getBasename(s),
-                                                                                                                                            "name": ColorSchemeService.getBasename(s)
-                                                                                                                                          }))
+                "key": ColorSchemeService.getBasename(s),
+                "name": ColorSchemeService.getBasename(s)
+              }))
               currentKey: Settings.data.colorSchemes.useWallpaperColors ? Settings.data.colorSchemes.generationMethod : Settings.data.colorSchemes.predefinedScheme
               onCurrentKeyChanged: {
                 if (!_initialized)
@@ -413,17 +413,17 @@ SmartPanel {
                 schemeGlowAnimation.restart();
               }
               onSelected: key => {
-                            _userChanging = true;
-                            if (Settings.data.colorSchemes.useWallpaperColors) {
-                              Settings.data.colorSchemes.generationMethod = key;
-                              AppThemeService.generate();
-                            } else {
-                              ColorSchemeService.setPredefinedScheme(key);
-                            }
-                            Qt.callLater(() => {
-                                           _userChanging = false;
-                                         });
-                          }
+                _userChanging = true;
+                if (Settings.data.colorSchemes.useWallpaperColors) {
+                  Settings.data.colorSchemes.generationMethod = key;
+                  AppThemeService.generate();
+                } else {
+                  ColorSchemeService.setPredefinedScheme(key);
+                }
+                Qt.callLater(() => {
+                  _userChanging = false;
+                });
+              }
 
               SequentialAnimation {
                 id: schemeGlowAnimation
@@ -913,13 +913,13 @@ SmartPanel {
         }
 
         onKeyPressed: event => {
-                        if (Keybinds.checkKey(event, 'enter', Settings)) {
-                          if (currentIndex >= 0 && currentIndex < filteredItems.length) {
-                            selectItem(filteredItems[currentIndex]);
-                          }
-                          event.accepted = true;
-                        }
-                      }
+          if (Keybinds.checkKey(event, 'enter', Settings)) {
+            if (currentIndex >= 0 && currentIndex < filteredItems.length) {
+              selectItem(filteredItems[currentIndex]);
+            }
+            event.accepted = true;
+          }
+        }
 
         delegate: Item {
           id: wallpaperItemWrapper
@@ -1289,5 +1289,4 @@ SmartPanel {
       }
     }
   }
-
 }

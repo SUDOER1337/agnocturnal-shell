@@ -66,6 +66,9 @@ Item {
   // Track if sidebar was auto-expanded by hover (vs. manual toggle)
   property bool _sidebarAutoExpanded: false
 
+  // Cached searchable items (rebuild only when search index changes, not on every keystroke)
+  property var _searchableItems: []
+
   readonly property bool sidebarCardStyle: Settings.data.ui.settingsPanelSideBarCardStyle
 
   onSearchResultsChanged: {
@@ -90,39 +93,16 @@ Item {
 
     // Auto-expand sidebar when searching
     if (!root.sidebarExpanded) {
-      if (root.activeFocus) {
-        // If we are typing and the sidebar is collapsed and focused, we assume the user is typing to search
-        wasCollapsedBeforeSearch = true;
-      }
+      wasCollapsedBeforeSearch = true;
       sidebarCollapseTimer.stop();
       root._sidebarAutoExpanded = false;
       root.sidebarExpanded = true;
     }
 
-    if (SettingsSearchService.searchIndex.length === 0)
+    if (_searchableItems.length === 0)
       return;
 
-    // Build searchable items with resolved translations, filtering out invisible entries
-    let items = [];
-    for (let j = 0; j < SettingsSearchService.searchIndex.length; j++) {
-      const entry = SettingsSearchService.searchIndex[j];
-      if (!SettingsSearchService.isEntryVisible(entry))
-        continue;
-      items.push({
-                   "labelKey": entry.labelKey,
-                   "descriptionKey": entry.descriptionKey,
-                   "widget": entry.widget,
-                   "tab": entry.tab,
-                   "tabLabel": entry.tabLabel,
-                   "subTab": entry.subTab,
-                   "subTabLabel": entry.subTabLabel || null,
-                   "label": I18n.tr(entry.labelKey),
-                   "description": entry.descriptionKey ? I18n.tr(entry.descriptionKey) : "",
-                   "subTabName": entry.subTabLabel ? I18n.tr(entry.subTabLabel) : ""
-                 });
-    }
-
-    const results = FuzzySort.go(searchText.trim(), items, {
+    const results = FuzzySort.go(searchText.trim(), _searchableItems, {
                                    "keys": ["label", "subTabName", "description"],
                                    "limit": 20,
                                    "scoreFn": function (r) {
@@ -142,6 +122,33 @@ Item {
     searchResults = extracted;
   }
 
+  // Rebuild the cached searchable items array (call once at init or when search index changes)
+  function _rebuildSearchableItems() {
+    if (SettingsSearchService.searchIndex.length === 0) {
+      _searchableItems = [];
+      return;
+    }
+    let items = [];
+    for (let j = 0; j < SettingsSearchService.searchIndex.length; j++) {
+      const entry = SettingsSearchService.searchIndex[j];
+      if (!SettingsSearchService.isEntryVisible(entry))
+        continue;
+      items.push({
+                   "labelKey": entry.labelKey,
+                   "descriptionKey": entry.descriptionKey,
+                   "widget": entry.widget,
+                   "tab": entry.tab,
+                   "tabLabel": entry.tabLabel,
+                   "subTab": entry.subTab,
+                   "subTabLabel": entry.subTabLabel || null,
+                   "label": I18n.tr(entry.labelKey),
+                   "description": entry.descriptionKey ? I18n.tr(entry.descriptionKey) : "",
+                   "subTabName": entry.subTabLabel ? I18n.tr(entry.subTabLabel) : ""
+                 });
+    }
+    _searchableItems = items;
+  }
+
   // Navigate to a search result
   property int _pendingSubTab: -1
 
@@ -154,15 +161,21 @@ Item {
 
     const alreadyOnTab = (currentTabIndex === entry.tab);
     navigatingFromSearch = true;
-    currentTabIndex = entry.tab;
-    navigatingFromSearch = false;
+    try {
+      currentTabIndex = entry.tab;
+    } finally {
+      navigatingFromSearch = false;
+    }
 
     if (alreadyOnTab && activeTabContent) {
       if (_pendingSubTab >= 0) {
         navigatingFromSearch = true;
-        setSubTabIndex(_pendingSubTab);
-        navigatingFromSearch = false;
-        _pendingSubTab = -1;
+        try {
+          setSubTabIndex(_pendingSubTab);
+        } finally {
+          navigatingFromSearch = false;
+          _pendingSubTab = -1;
+        }
       }
       highlightScrollTimer.targetKey = highlightLabelKey;
       highlightScrollTimer.restart();
@@ -414,14 +427,19 @@ Item {
     if (!sidebarExpanded) {
       root.searchText = "";
       searchInput.text = "";
-      root.forceActiveFocus();
+      if (!root.activeFocus) {
+        root.forceActiveFocus();
+      }
     }
   }
 
   Component.onCompleted: {
     SystemStatService.registerComponent("settings");
-    // Restore sidebar state
+    // Restore sidebar state and allow auto-collapse on mouse leave
     sidebarExpanded = ShellState.getSettingsSidebarExpanded();
+    _sidebarAutoExpanded = sidebarExpanded;
+    // Pre-build searchable items cache
+    _rebuildSearchableItems();
   }
 
   // Tab components
@@ -677,9 +695,9 @@ Item {
     const isNvidia = SystemStatService.gpuType === "nvidia";
     if (sidebarExpanded && !isNvidia) {
       Qt.callLater(() => {
-                     if (searchInput.inputItem)
-                     searchInput.inputItem.forceActiveFocus();
-                   });
+        if (searchInput.inputItem)
+          searchInput.inputItem.forceActiveFocus();
+      });
     } else {
       // Ensure root has focus so it can catch typing
       Qt.callLater(() => root.forceActiveFocus());
@@ -689,30 +707,30 @@ Item {
   // Handle typing when sidebar is collapsed
   focus: true
   Keys.onPressed: event => {
-                    if (!sidebarExpanded && event.text.length > 0 && event.text.trim() !== "") {
-                      // Only capture if it looks like visible text
-                      if (event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier))
-                      return;
+    if (!sidebarExpanded && event.text.length > 0 && event.text.trim() !== "") {
+      // Only capture if it looks like visible text
+      if (event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier))
+        return;
 
-                      // Explicitly ignore backspace and similar keys that might have text but shouldn't trigger search
-                      if (event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete || event.key === Qt.Key_Escape)
-                      return;
+      // Explicitly ignore backspace and similar keys that might have text but shouldn't trigger search
+      if (event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete || event.key === Qt.Key_Escape)
+        return;
 
-                      wasCollapsedBeforeSearch = true;
-                      sidebarCollapseTimer.stop();
-                      _sidebarAutoExpanded = false;
-                      sidebarExpanded = true;
-                      searchInput.text = event.text;
-                      Qt.callLater(() => {
-                                     if (searchInput.inputItem) {
-                                       searchInput.inputItem.forceActiveFocus();
-                                       // Cursor moves to end automatically usually, but let's be safe
-                                       searchInput.inputItem.cursorPosition = 1;
-                                     }
-                                   });
-                      event.accepted = true;
-                    }
-                  }
+      wasCollapsedBeforeSearch = true;
+      sidebarCollapseTimer.stop();
+      _sidebarAutoExpanded = false;
+      sidebarExpanded = true;
+      searchInput.text = event.text;
+      Qt.callLater(() => {
+        if (searchInput.inputItem) {
+          searchInput.inputItem.forceActiveFocus();
+          // Cursor moves to end automatically usually, but let's be safe
+          searchInput.inputItem.cursorPosition = 1;
+        }
+      });
+      event.accepted = true;
+    }
+  }
 
   // Scroll functions
   function scrollDown() {
@@ -799,7 +817,7 @@ Item {
         }
 
         clip: true
-        Layout.preferredWidth: Math.round(root.sidebarExpanded ? 200 * Style.uiScaleRatio : sidebarToggle.width + (root.sidebarCardStyle ? Style.margin2M : 0) + (sidebarList.verticalScrollBarActive ? Style.marginM : 0))
+        Layout.preferredWidth: Math.round(root.sidebarExpanded ? 200 * Style.uiScaleRatio : sidebarToggle.width + (root.sidebarCardStyle ? Style.margin2M : 0))
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignTop
 
@@ -1227,7 +1245,6 @@ Item {
               Layout.fillWidth: true
               Layout.alignment: Qt.AlignVCenter
             }
-
           }
 
           // Tab content area

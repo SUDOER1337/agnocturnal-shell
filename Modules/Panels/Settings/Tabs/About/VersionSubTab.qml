@@ -158,59 +158,57 @@ ColumnLayout {
     stderr: StdioCollector {}
   }
 
-
   // Versions
-      GridLayout {
-        columns: 2
-        rowSpacing: Style.marginXS
-        columnSpacing: Style.marginM
+  GridLayout {
+    columns: 2
+    rowSpacing: Style.marginXS
+    columnSpacing: Style.marginM
 
-        // Installed Version (Shell)
-        NText {
-          text: "Agnoctural Shell:"
-          color: Color.mOnSurfaceVariant
-          Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-        }
+    // Installed Version (Shell)
+    NText {
+      text: "Agnoctural Shell:"
+      color: Color.mOnSurfaceVariant
+      Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+    }
 
-        RowLayout {
-          spacing: Style.marginS
+    RowLayout {
+      spacing: Style.marginS
 
-          NText {
-            text: root.currentVersion
-            color: Color.mOnSurface
-            font.weight: Style.fontWeightBold
-          }
+      NText {
+        text: root.currentVersion
+        color: Color.mOnSurface
+        font.weight: Style.fontWeightBold
+      }
 
-          // Git commit in parentheses
-          NText {
-            id: commitText
-            visible: root.isGitVersion
-            text: "(" + (root.commitInfo || "Loading...") + ")"
-            color: commitMouseArea.containsMouse ? Color.mPrimary : Color.mOnSurfaceVariant
-            pointSize: Style.fontSizeXS
-            font.underline: commitMouseArea.containsMouse && root.commitInfo
+      // Git commit in parentheses
+      NText {
+        id: commitText
+        visible: root.isGitVersion
+        text: "(" + (root.commitInfo || "Loading...") + ")"
+        color: commitMouseArea.containsMouse ? Color.mPrimary : Color.mOnSurfaceVariant
+        pointSize: Style.fontSizeXS
+        font.underline: commitMouseArea.containsMouse && root.commitInfo
 
-            MouseArea {
-              id: commitMouseArea
-              anchors.fill: parent
-              hoverEnabled: true
-              cursorShape: root.commitInfo ? Qt.PointingHandCursor : Qt.ArrowCursor
-              onEntered: {
-                if (root.commitInfo) {
-                  TooltipService.show(commitText, "View commit on GitHub");
-                }
-              }
-              onExited: TooltipService.hide()
-              onClicked: {
-                if (root.commitInfo) {
-                  Quickshell.execDetached(["xdg-open", "https://github.com/noctalia-dev/noctalia-shell/commit/" + root.commitInfo]);
-                }
-              }
+        MouseArea {
+          id: commitMouseArea
+          anchors.fill: parent
+          hoverEnabled: true
+          cursorShape: root.commitInfo ? Qt.PointingHandCursor : Qt.ArrowCursor
+          onEntered: {
+            if (root.commitInfo) {
+              TooltipService.show(commitText, "View commit on GitHub");
             }
           }
-
+          onExited: TooltipService.hide()
+          onClicked: {
+            if (root.commitInfo) {
+              Quickshell.execDetached(["xdg-open", "https://github.com/noctalia-dev/noctalia-shell/commit/" + root.commitInfo]);
+            }
+          }
         }
       }
+    }
+  }
 
   // System Information Section
   NDivider {

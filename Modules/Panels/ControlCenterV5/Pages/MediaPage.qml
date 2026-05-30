@@ -32,7 +32,8 @@ Rectangle {
   }
 
   Component.onCompleted: {
-    if (needsSpectrum) SpectrumService.registerComponent("mediapage");
+    if (needsSpectrum)
+      SpectrumService.registerComponent("mediapage");
   }
 
   Component.onDestruction: {
@@ -180,7 +181,9 @@ Rectangle {
               color: Color.mOnSurfaceVariant
             }
 
-            Item { Layout.fillWidth: true }
+            Item {
+              Layout.fillWidth: true
+            }
 
             NText {
               text: MediaService.lengthString || "0:00"
