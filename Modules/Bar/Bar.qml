@@ -367,12 +367,7 @@ Item {
             controlCenterPanel?.toggle(null, followMouse ? mapToItem(null, mouse.x, mouse.y) : "ControlCenter");
             mouse.accepted = true;
           } else if (action === "settings") {
-            var ccPanel = PanelService.getPanel("controlCenterPanel", screen);
-            if (ccPanel?.isPanelOpen) {
-              ccPanel.close();
-            } else {
-              ccPanel?.openToTab(ControlCenterV5Panel.Tab.General);
-            }
+            SettingsPanelService.toggle(0, -1, screen);
             mouse.accepted = true;
           } else if (action === "launcherPanel") {
             var launcherPanel = PanelService.getPanel("launcherPanel", screen);

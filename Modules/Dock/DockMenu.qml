@@ -535,24 +535,14 @@ PopupWindow {
 
   function handleLauncherSettings() {
     if (targetScreen) {
-      var panel = PanelService.getPanel("controlCenterPanel", targetScreen);
-      if (panel.isPanelOpen) {
-        panel.close();
-      } else {
-        panel.openToTab(ControlCenterV5Panel.Tab.Launcher);
-      }
+      SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Launcher, -1, targetScreen);
     }
     closeAndReset();
   }
 
   function handleDockSettings() {
     if (targetScreen) {
-      var panel = PanelService.getPanel("controlCenterPanel", targetScreen);
-      if (panel.isPanelOpen) {
-        panel.close();
-      } else {
-        panel.openToTab(ControlCenterV5Panel.Tab.Dock);
-      }
+      SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Dock, -1, targetScreen);
     }
     closeAndReset();
   }

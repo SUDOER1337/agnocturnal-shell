@@ -1450,17 +1450,11 @@ Singleton {
           // Open settings panel to Plugins tab on the screen where the cursor is
           if (root.screenDetector) {
             root.screenDetector.withCurrentScreen(function (screen) {
-              var panel = PanelService.getPanel("controlCenterPanel", screen);
-              if (panel) {
-                panel.openToTab(ControlCenterV5Panel.Tab.Plugins);
-              }
+              SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Plugins, -1, screen);
             });
           } else {
             // Fallback to primary screen if screen detector is not available
-            var panel = PanelService.getPanel("controlCenterPanel", Quickshell.screens[0]);
-            if (panel) {
-              panel.openToTab(ControlCenterV5Panel.Tab.Plugins);
-            }
+            SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Plugins, -1, Quickshell.screens[0]);
           }
         });
       }

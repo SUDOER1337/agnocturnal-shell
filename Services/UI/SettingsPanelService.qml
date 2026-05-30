@@ -3,7 +3,6 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import qs.Commons
-import qs.Modules.Panels.ControlCenterV5
 import qs.Services.UI
 
 Singleton {
@@ -41,10 +40,10 @@ Singleton {
         Logger.w("SettingsPanelService", "Screen parameter required for panel mode");
         return;
       }
-      var ccPanel = PanelService.getPanel("controlCenterPanel", screen);
-      if (ccPanel) {
-        ccPanel.requestedEntry = entry;
-        ccPanel.openToTab(ControlCenterV5Panel.Tab.General, -1);
+      var panel = PanelService.getPanel("settingsPanel", screen);
+      if (panel) {
+        panel.requestedEntry = entry;
+        panel.openToTab(0, -1);
       }
     }
   }
@@ -70,9 +69,9 @@ Singleton {
         Logger.w("SettingsPanelService", "Screen parameter required for panel mode");
         return;
       }
-      var ccPanel = PanelService.getPanel("controlCenterPanel", screen);
-      if (ccPanel) {
-        ccPanel.openToTab(tabId, subTabId);
+      var panel = PanelService.getPanel("settingsPanel", screen);
+      if (panel) {
+        panel.openToTab(tabId, subTabId);
       }
     }
   }
@@ -121,11 +120,11 @@ Singleton {
         Logger.w("SettingsPanelService", "Screen parameter required for panel mode");
         return;
       }
-      var ccPanel = PanelService.getPanel("controlCenterPanel", screen);
-      if (ccPanel?.isPanelOpen) {
-        ccPanel.close();
+      var panel = PanelService.getPanel("settingsPanel", screen);
+      if (panel?.isPanelOpen) {
+        panel.close();
       } else {
-        ccPanel?.openToTab(tabId, subTabId);
+        panel?.openToTab(tabId, subTabId);
       }
     }
   }
@@ -137,8 +136,8 @@ Singleton {
     } else {
       if (!screen)
         return;
-      var ccPanel = PanelService.getPanel("controlCenterPanel", screen);
-      ccPanel?.close();
+      var panel = PanelService.getPanel("settingsPanel", screen);
+      panel?.close();
     }
   }
 }

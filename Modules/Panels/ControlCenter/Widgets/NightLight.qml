@@ -28,7 +28,6 @@ NIconButtonHot {
   }
 
   onRightClicked: {
-    var panel = PanelService.getPanel("controlCenterPanel", screen);
-    panel.openToTab(ControlCenterV5Panel.Tab.Display);
+    SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Display, -1, screen);
   }
 }

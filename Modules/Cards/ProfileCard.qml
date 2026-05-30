@@ -78,11 +78,8 @@ NBox {
         icon: "settings"
         tooltipText: "Settings"
         onClicked: {
-          // Better close the control center in case the settings open in a separate window
           PanelService.openedPanel?.close();
-
-          var panel = PanelService.getPanel("controlCenterPanel", screen);
-          panel.openToTab(ControlCenterV5Panel.Tab.General);
+          SettingsPanelService.openToTab(0, -1, screen);
         }
       }
 

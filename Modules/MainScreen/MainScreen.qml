@@ -394,6 +394,13 @@ PanelWindow {
       screen: root.screen
     }
 
+    // Settings panel - slides from the left edge
+    SettingsPanel {
+      id: settingsPanel
+      objectName: "settingsPanel-" + (root.screen?.name || "unknown")
+      screen: root.screen
+    }
+
     // ----------------------------------------------
     // Plugin panel slots
     // ----------------------------------------------

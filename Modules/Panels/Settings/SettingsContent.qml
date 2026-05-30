@@ -46,7 +46,7 @@ Item {
   property var tabsModel: []
   property var activeScrollView: null
   property var activeTabContent: null
-  property bool sidebarExpanded: true
+  property bool sidebarExpanded: false
   // Track if sidebar was collapsed before searching started
   property bool wasCollapsedBeforeSearch: false
 
@@ -62,6 +62,9 @@ Item {
   property real _lastMouseX: 0
   property real _lastMouseY: 0
   property bool _mouseInitialized: false
+
+  // Track if sidebar was auto-expanded by hover (vs. manual toggle)
+  property bool _sidebarAutoExpanded: false
 
   readonly property bool sidebarCardStyle: Settings.data.ui.settingsPanelSideBarCardStyle
 
@@ -91,6 +94,8 @@ Item {
         // If we are typing and the sidebar is collapsed and focused, we assume the user is typing to search
         wasCollapsedBeforeSearch = true;
       }
+      sidebarCollapseTimer.stop();
+      root._sidebarAutoExpanded = false;
       root.sidebarExpanded = true;
     }
 
@@ -381,6 +386,16 @@ Item {
         }
       }
       targetKey = "";
+    }
+  }
+
+  // Collapse sidebar 100ms after mouse leaves, only if auto-expanded by hover
+  Timer {
+    id: sidebarCollapseTimer
+    interval: 50
+    onTriggered: {
+      root._sidebarAutoExpanded = false;
+      root.sidebarExpanded = false;
     }
   }
 
@@ -684,6 +699,8 @@ Item {
                       return;
 
                       wasCollapsedBeforeSearch = true;
+                      sidebarCollapseTimer.stop();
+                      _sidebarAutoExpanded = false;
                       sidebarExpanded = true;
                       searchInput.text = event.text;
                       Qt.callLater(() => {
@@ -758,6 +775,29 @@ Item {
       NBox {
         id: sidebar
 
+        // Auto-expand on hover, collapse 100ms after mouse leaves
+        HoverHandler {
+          id: sidebarHover
+          onHoveredChanged: {
+            if (sidebarHover.hovered) {
+              sidebarCollapseTimer.stop();
+              if (!root.sidebarExpanded) {
+                root._sidebarAutoExpanded = true;
+                root.sidebarExpanded = true;
+              }
+            } else if (root._sidebarAutoExpanded) {
+              sidebarCollapseTimer.restart();
+            }
+          }
+        }
+
+        // Collapse when user focuses something outside the sidebar
+        onActiveFocusChanged: {
+          if (!sidebar.activeFocus && root._sidebarAutoExpanded) {
+            sidebarCollapseTimer.restart();
+          }
+        }
+
         clip: true
         Layout.preferredWidth: Math.round(root.sidebarExpanded ? 200 * Style.uiScaleRatio : sidebarToggle.width + (root.sidebarCardStyle ? Style.margin2M : 0) + (sidebarList.verticalScrollBarActive ? Style.marginM : 0))
         Layout.fillHeight: true
@@ -780,11 +820,12 @@ Item {
           spacing: Style.marginS
           anchors.margins: root.sidebarCardStyle ? Style.marginM : 0
 
-          // Sidebar toggle button
+          // Sidebar toggle button (invisible, retained for collapsed width anchoring)
           Item {
             id: toggleContainer
             Layout.fillWidth: true
             Layout.preferredHeight: Math.round(toggleRow.implicitHeight + Style.margin2S)
+            visible: false
 
             Rectangle {
               id: sidebarToggle
@@ -792,15 +833,7 @@ Item {
               height: parent.height
               anchors.left: parent.left
               radius: Style.radiusS
-              color: toggleMouseArea.containsMouse ? Color.mHover : "transparent"
-
-              Behavior on color {
-                enabled: !Color.isTransitioning
-                ColorAnimation {
-                  duration: Style.animationFast
-                  easing.type: Easing.InOutQuad
-                }
-              }
+              color: "transparent"
 
               RowLayout {
                 id: toggleRow
@@ -810,8 +843,8 @@ Item {
                 spacing: 0
 
                 NIcon {
-                  icon: root.sidebarExpanded ? "layout-sidebar-right-expand" : "layout-sidebar-left-expand"
-                  color: toggleMouseArea.containsMouse ? Color.mOnHover : Color.mOnSurface
+                  icon: "layout-sidebar-right-expand"
+                  color: "transparent"
                   pointSize: Style.fontSizeXL
                 }
               }
@@ -819,18 +852,7 @@ Item {
               MouseArea {
                 id: toggleMouseArea
                 anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onEntered: {
-                  TooltipService.show(sidebarToggle, root.sidebarExpanded ? "Collapse sidebar" : "Expand sidebar");
-                }
-                onExited: {
-                  TooltipService.hide();
-                }
-                onClicked: {
-                  TooltipService.hide();
-                  root.sidebarExpanded = !root.sidebarExpanded;
-                }
+                enabled: false
               }
             }
           }
@@ -919,6 +941,8 @@ Item {
                   hoverEnabled: true
                   cursorShape: Qt.PointingHandCursor
                   onClicked: {
+                    sidebarCollapseTimer.stop();
+                    root._sidebarAutoExpanded = false;
                     root.sidebarExpanded = true;
                     root.wasCollapsedBeforeSearch = false; // Expanding manually resets this
                     Qt.callLater(() => searchInput.inputItem.forceActiveFocus());
@@ -1009,7 +1033,7 @@ Item {
                     text: {
                       let t = I18n.tr(modelData.tabLabel);
                       if (modelData.subTabLabel)
-                        t += " › " + I18n.tr(modelData.subTabLabel);
+                        t += " \u203A " + I18n.tr(modelData.subTabLabel);
                       return t;
                     }
                     pointSize: Style.fontSizeXS
@@ -1204,12 +1228,6 @@ Item {
               Layout.alignment: Qt.AlignVCenter
             }
 
-            NIconButton {
-              icon: "close"
-              tooltipText: "Close"
-              Layout.alignment: Qt.AlignVCenter
-              onClicked: root.closeRequested()
-            }
           }
 
           // Tab content area

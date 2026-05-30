@@ -124,7 +124,6 @@ FloatingWindow {
     SettingsContent {
       id: settingsContent
       anchors.fill: parent
-      onCloseRequested: SettingsPanelService.closeWindow()
     }
   }
 }

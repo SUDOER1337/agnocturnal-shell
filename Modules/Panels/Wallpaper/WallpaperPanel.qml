@@ -264,8 +264,7 @@ SmartPanel {
               tooltipText: "Wallpaper settings"
               baseSize: Style.baseWidgetSize * 0.8
               onClicked: {
-                var panel = PanelService.getPanel("controlCenterPanel", screen);
-                panel.openToTab(ControlCenterV5Panel.Tab.Wallpaper);
+                SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Wallpaper, -1, screen);
               }
             }
 

@@ -96,14 +96,7 @@ NIconButton {
                    if (action === "open-launcher") {
                      PanelService.toggleLauncher(screen);
                     } else if (action === "open-settings") {
-                      var panel = PanelService.getPanel("controlCenterPanel", screen);
-                      if (panel) {
-                        if (panel.isPanelOpen) {
-                          panel.close();
-                        } else {
-                          panel.openToTab(ControlCenterV5Panel.Tab.General);
-                        }
-                      }
+                      SettingsPanelService.openToTab(0, -1, screen);
                    } else if (action === "widget-settings") {
                      BarService.openWidgetSettings(screen, section, sectionWidgetIndex, widgetId, widgetSettings);
                    }

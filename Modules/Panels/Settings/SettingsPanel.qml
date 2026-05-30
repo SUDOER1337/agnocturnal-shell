@@ -13,60 +13,9 @@ SmartPanel {
   preferredWidth: Math.round(840 * Style.uiScaleRatio)
   preferredHeight: Math.round(910 * Style.uiScaleRatio)
 
-  // Settings panel mode: "centered", "attached", "window"
-  readonly property string settingsPanelMode: Settings.data.ui.settingsPanelMode
-  readonly property bool isWindowMode: settingsPanelMode === "window"
-  readonly property bool attachToBar: settingsPanelMode === "attached"
-
-  readonly property string barDensity: Settings.data.bar.density
-  readonly property string barPosition: Settings.getBarPositionForScreen(screen?.name)
-  readonly property bool barFloating: Settings.data.bar.barType === "floating"
-  readonly property real barMarginH: barFloating ? Math.ceil(Settings.data.bar.marginHorizontal) : 0
-  readonly property real barMarginV: barFloating ? Math.ceil(Settings.data.bar.marginVertical) : 0
-
-  forceAttachToBar: attachToBar
-  panelAnchorHorizontalCenter: !root.useButtonPosition && (attachToBar ? (barPosition === "top" || barPosition === "bottom") : true)
-  panelAnchorVerticalCenter: !root.useButtonPosition && (attachToBar ? (barPosition === "left" || barPosition === "right") : true)
-  panelAnchorTop: !root.useButtonPosition && attachToBar && barPosition === "top"
-  panelAnchorBottom: !root.useButtonPosition && attachToBar && barPosition === "bottom"
-  panelAnchorLeft: !root.useButtonPosition && attachToBar && barPosition === "left"
-  panelAnchorRight: !root.useButtonPosition && attachToBar && barPosition === "right"
-
-  onAttachToBarChanged: {
-    if (isPanelOpen) {
-      Qt.callLater(root.setPosition);
-    }
-  }
-
-  onBarPositionChanged: {
-    if (isPanelOpen) {
-      Qt.callLater(root.setPosition);
-    }
-  }
-
-  onBarDensityChanged: {
-    if (isPanelOpen) {
-      Qt.callLater(root.setPosition);
-    }
-  }
-
-  onBarFloatingChanged: {
-    if (isPanelOpen) {
-      Qt.callLater(root.setPosition);
-    }
-  }
-
-  onBarMarginHChanged: {
-    if (isPanelOpen) {
-      Qt.callLater(root.setPosition);
-    }
-  }
-
-  onBarMarginVChanged: {
-    if (isPanelOpen) {
-      Qt.callLater(root.setPosition);
-    }
-  }
+  // Always slide from the left edge of the screen
+  panelAnchorLeft: true
+  panelAnchorVerticalCenter: true
 
   // Tabs enumeration, order is NOT relevant
   enum Tab {
@@ -106,61 +55,13 @@ SmartPanel {
   // Internal reference to the content (set when panel content loads)
   property var _settingsContent: null
 
-  // Override toggle to handle window mode
-  function toggle(buttonItem, buttonName) {
-    if (isWindowMode) {
-      SettingsPanelService.toggleWindow(requestedTab);
-      return;
-    }
-    // Call parent toggle
-    if (isPanelOpen) {
-      close();
-    } else {
-      open(buttonItem, buttonName);
-    }
-  }
-
-  // Override open to handle window mode
-  function open(buttonItem, buttonName) {
-    if (isWindowMode) {
-      SettingsPanelService.openWindow(requestedTab);
-      return;
-    }
-
-    // Panel mode: replicate SmartPanel.open() logic
-    if (!buttonItem && buttonName) {
-      if (typeof buttonName === "object" && buttonName.x !== undefined && buttonName.y !== undefined) {
-        root.buttonItem = null;
-        root.buttonPosition = buttonName;
-        root.buttonWidth = 0;
-        root.buttonHeight = 0;
-        root.useButtonPosition = true;
-      } else {
-        buttonItem = BarService.lookupWidget(buttonName, screen.name);
-      }
-    }
-
-    if (buttonItem) {
-      root.buttonItem = buttonItem;
-      var buttonPos = buttonItem.mapToItem(null, 0, 0);
-      root.buttonPosition = Qt.point(buttonPos.x, buttonPos.y);
-      root.buttonWidth = buttonItem.width;
-      root.buttonHeight = buttonItem.height;
-      root.useButtonPosition = true;
-    } else if (!(buttonName && typeof buttonName === "object" && buttonName.x !== undefined && buttonName.y !== undefined)) {
-      root.buttonItem = null;
-      root.useButtonPosition = false;
-    }
-
-    isPanelOpen = true;
-    PanelService.willOpenPanel(root);
-  }
-
   // Open to a specific tab and optionally a subtab
-  function openToTab(tab, subTab, buttonItem, buttonName) {
+  function openToTab(tab, subTab) {
     requestedTab = tab !== undefined ? tab : SettingsPanel.Tab.General;
     requestedSubTab = subTab !== undefined ? subTab : -1;
-    open(buttonItem, buttonName);
+    if (!isPanelOpen) {
+      open();
+    }
   }
 
   // When the panel opens, initialize content
@@ -264,15 +165,14 @@ SmartPanel {
     }
   }
 
-  panelContent: Rectangle {
+  panelContent: Item {
     id: panelContent
-    color: "transparent"
+    readonly property bool allowAttach: true
 
     SettingsContent {
       id: settingsContent
       anchors.fill: parent
       screen: root.screen
-      onCloseRequested: root.close()
       Component.onCompleted: {
         root._settingsContent = settingsContent;
         root.tabsModel = Qt.binding(function () {

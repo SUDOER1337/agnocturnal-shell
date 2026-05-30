@@ -77,117 +77,37 @@ SmartPanel {
   // Adjust the multiplier (480) to change panel width: smaller = narrower, larger = wider
   preferredWidth: Math.round(770 * Style.uiScaleRatio)
 
-  // Settings compatibility
-  property int requestedTab: ControlCenterV5Panel.Tab.General
-  property int requestedSubTab: -1
-  property var requestedEntry: null
-
   // Internal state
   property int _currentPage: 0
-  property var _settingsPage: null
-  property bool _pendingSubTab: false
 
   // Page indices
   readonly property int pageQuickSettings: 0
   readonly property int pageMedia: 1
   readonly property int pageSystem: 2
-  readonly property int pageSettings: 3
 
   onOpened: {
     MediaService.autoSwitchingPaused = true;
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.initialize();
-    }
   }
 
   onClosed: {
     MediaService.autoSwitchingPaused = false;
   }
 
-  // SettingsPanel-compatible API
+  // SettingsPanel-compatible API — redirects to standalone settings panel
   function openToTab(tab, subTab) {
-    requestedTab = tab !== undefined ? tab : ControlCenterV5Panel.Tab.General;
-    requestedSubTab = subTab !== undefined ? subTab : -1;
-    _currentPage = pageSettings;
-    if (_settingsPage) {
-      _settingsPage.requestedTab = requestedTab;
-      if (requestedSubTab >= 0) {
-        _settingsPage._pendingSubTab = requestedSubTab;
-      }
-      Qt.callLater(() => _settingsPage.initialize());
-    }
-    if (!isPanelOpen) {
-      open();
-    }
-  }
-
-  function navigateToResult(entry) {
-    requestedEntry = entry;
-    _currentPage = pageSettings;
-    if (_settingsPage) {
-      _settingsPage.requestedEntry = entry;
-      _settingsPage.initialize();
-    }
+    SettingsPanelService.openToTab(tab, subTab, root.screen);
   }
 
   // Keyboard handlers for SmartPanel integration
   function onTabPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.selectNextTab();
-    } else {
-      _currentPage = (_currentPage + 1) % 4;
-    }
+    _currentPage = (_currentPage + 1) % 3;
   }
 
   function onBackTabPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.selectPreviousTab();
-    } else {
-      _currentPage = (_currentPage - 1 + 4) % 4;
-    }
-  }
-
-  function onUpPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.scrollUp();
-    }
-  }
-
-  function onDownPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.scrollDown();
-    }
-  }
-
-  function onPageUpPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.scrollPageUp();
-    }
-  }
-
-  function onPageDownPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.scrollPageDown();
-    }
-  }
-
-  function onCtrlJPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.scrollDown();
-    }
-  }
-
-  function onCtrlKPressed() {
-    if (_currentPage === pageSettings && _settingsPage) {
-      _settingsPage.scrollUp();
-    }
+    _currentPage = (_currentPage - 1 + 3) % 3;
   }
 
   function onEscapePressed() {
-    if (_settingsPage && _settingsPage.searchText.trim() !== "") {
-      _settingsPage.searchText = "";
-      return;
-    }
     close();
   }
 
@@ -210,13 +130,6 @@ SmartPanel {
 
         onTabSelected: index => {
           root._currentPage = index;
-          if (index === root.pageSettings && root._settingsPage) {
-            if (root.requestedEntry) {
-              root._settingsPage.requestedEntry = root.requestedEntry;
-              root.requestedEntry = null;
-            }
-            Qt.callLater(() => root._settingsPage.initialize());
-          }
         }
       }
 
@@ -237,10 +150,7 @@ SmartPanel {
           }
 
           onOpenSettingsRequested: {
-            root._currentPage = root.pageSettings;
-            if (root._settingsPage) {
-              Qt.callLater(() => root._settingsPage.initialize());
-            }
+            SettingsPanelService.openToTab(0, -1, root.screen);
           }
         }
 
@@ -346,34 +256,6 @@ SmartPanel {
               Layout.fillHeight: true
               screen: root.screen
             }
-          }
-        }
-
-        // Settings Page
-        Rectangle {
-          anchors.fill: parent
-          color: "transparent"
-          visible: root._currentPage === root.pageSettings
-          opacity: root._currentPage === root.pageSettings ? 1 : 0
-
-          Behavior on opacity {
-            NumberAnimation { duration: Style.animationFast; easing.type: Easing.OutCubic }
-          }
-
-          SettingsPage {
-            id: settingsPage
-            anchors.fill: parent
-            screen: root.screen
-
-            Component.onCompleted: {
-              root._settingsPage = settingsPage;
-              if (root.requestedEntry) {
-                settingsPage.requestedEntry = root.requestedEntry;
-                root.requestedEntry = null;
-              }
-            }
-
-            onCloseRequested: root.close()
           }
         }
       }

@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import Quickshell
 import qs.Commons
-import qs.Modules.Panels.ControlCenterV5
 import qs.Services.UI
 import qs.Widgets
 
@@ -36,7 +35,8 @@ NIconButton {
 
   icon: "settings"
   tooltipText: {
-    if (PanelService.getPanel("controlCenterPanel", screen)?.isPanelOpen) {
+    var panel = PanelService.getPanel("settingsPanel", screen);
+    if (panel?.isPanelOpen) {
       return "";
     } else {
       return "Settings";
@@ -75,14 +75,7 @@ NIconButton {
   }
 
   onClicked: {
-    var panel = PanelService.getPanel("controlCenterPanel", screen);
-    if (panel) {
-      if (panel.isPanelOpen) {
-        panel.close();
-      } else {
-        panel.openToTab(ControlCenterV5Panel.Tab.General);
-      }
-    }
+    SettingsPanelService.toggle(0, -1, screen);
   }
   onRightClicked: {
     PanelService.showContextMenu(contextMenu, root, screen);
