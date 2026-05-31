@@ -402,7 +402,7 @@ Variants {
           width: controlsLayout.implicitWidth + Style.margin2XL
           height: controlsLayout.implicitHeight + Style.margin2XL
 
-          color: Qt.rgba(Color.mSurface.r, Color.mSurface.g, Color.mSurface.b, 0.85)
+          color: Qt.rgba(Color.mSurfaceContainer.r, Color.mSurfaceContainer.g, Color.mSurfaceContainer.b, 0.85)
           radius: Style.radiusL
           border {
             width: Style.borderS

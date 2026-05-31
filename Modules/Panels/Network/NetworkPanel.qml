@@ -197,7 +197,7 @@ SmartPanel {
           visible: panelViewMode === "wifi" && NetworkService.lastError.length > 0
           Layout.fillWidth: true
           Layout.preferredHeight: errorRow.implicitHeight + Style.margin2M
-          color: Qt.alpha(Color.mError, 0.1)
+          color: Color.mErrorContainer
           radius: Style.radiusS
           border.width: Style.borderS
           border.color: Color.mError
@@ -238,7 +238,7 @@ SmartPanel {
           horizontalPolicy: ScrollBar.AlwaysOff
           verticalPolicy: ScrollBar.AsNeeded
           reserveScrollbarSpace: false
-          gradientColor: Color.mSurface
+          gradientColor: Color.mBackground
 
           ColumnLayout {
             id: contentColumn

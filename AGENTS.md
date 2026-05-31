@@ -173,13 +173,7 @@ Agnoctural detects and adapts to the running compositor:
 ## Testing & Validation
 
 ### Shell Load Test
-To test the shell compiles and loads without errors:
-```bash
-# Kill existing instance first (or use --allow-duplicate to run alongside)
-pkill -f "quickshell.*agnocturnal-shell" 2>/dev/null
-qs -c ~/.config/quickshell/agnocturnal-shell/
-```
-Look for `Configuration Loaded` in stdout — it confirms clean startup. `ERROR` lines indicate load failures (usually missing types, bad imports, or corrupted QML files).
+-- Ask user to test it
 
 ### Notification Testing
 ```bash

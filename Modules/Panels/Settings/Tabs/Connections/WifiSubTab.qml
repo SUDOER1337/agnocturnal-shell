@@ -388,7 +388,7 @@ Item {
       id: customPopupBg
       anchors.fill: parent
       radius: Style.radiusL
-      color: Qt.alpha(Color.mSurface, 0.95)
+      color: Qt.alpha(Color.mSurfaceContainer, 0.95)
       border.color: Color.mOutline
       border.width: Style.borderS
     }

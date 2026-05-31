@@ -148,7 +148,7 @@ Item {
         return "";
       } else {
         const nick = AudioService.source?.nickname ?? "";
-        const volumeText = "Microphone volume: {volume}%";
+        const volumeText = "Microphone volume: " + Math.round((AudioService.source?.volume ?? 0) * 100) + "%";
         return nick ? volumeText + "\n" + nick : volumeText;
       }
     }

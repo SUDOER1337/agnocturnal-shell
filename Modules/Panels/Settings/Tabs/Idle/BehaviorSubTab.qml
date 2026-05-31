@@ -37,7 +37,7 @@ ColumnLayout {
 
     NText {
       Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-      text: IdleService.idleSeconds > 0 ? (IdleService.idleSeconds === 1 ? "{count} second" : "{count} seconds") : "Active"
+      text: IdleService.idleSeconds > 0 ? IdleService.idleSeconds + (IdleService.idleSeconds === 1 ? " second" : " seconds") : "Active"
       family: Settings.data.ui.fontFixed
       pointSize: Style.fontSizeM
       color: IdleService.idleSeconds > 0 ? Color.mPrimary : Color.mOnSurfaceVariant

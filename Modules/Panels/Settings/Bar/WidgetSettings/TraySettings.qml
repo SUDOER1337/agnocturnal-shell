@@ -133,7 +133,7 @@ ColumnLayout {
     Layout.fillWidth: true
     Layout.preferredHeight: 150
     Layout.topMargin: Style.marginL // Increased top margin
-    gradientColor: Color.mSurface
+    gradientColor: Color.mBackground
 
     model: blacklistModel
     delegate: Item {

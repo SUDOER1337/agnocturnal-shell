@@ -33,10 +33,6 @@ ColumnLayout {
 
       required property var modelData
       readonly property string screenName: modelData.name || "Unknown"
-      readonly property real compositorScale: {
-        const info = CompositorService.displayScales[screenName];
-        return (info && info.scale) ? info.scale : 1.0;
-      }
       readonly property bool barEnabled: (Settings.data.bar.monitors || []).indexOf(screenName) !== -1
       readonly property bool hasOverride: Settings.hasScreenOverride(screenName)
 
@@ -71,7 +67,10 @@ ColumnLayout {
 
             NText {
               text: {
-                return "{model} ({width}x{height} @ {scale}x)";
+                var w = modelData.geometry ? modelData.geometry.width : 0;
+                var h = modelData.geometry ? modelData.geometry.height : 0;
+                var scale = modelData.scale || 1.0;
+                return modelData.name + " (" + w + "x" + h + " @" + scale + "x)";
               }
               pointSize: Style.fontSizeS
               color: Color.mOnSurfaceVariant

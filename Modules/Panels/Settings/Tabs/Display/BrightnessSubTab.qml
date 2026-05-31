@@ -107,12 +107,12 @@ ColumnLayout {
 
             NText {
               Layout.fillWidth: true
-              readonly property real compositorScale: {
-                const info = CompositorService.displayScales[modelData.name];
-                return (info && info.scale) ? info.scale : 1.0;
-              }
               text: {
-                "{model} ({width}x{height} @ {scale}x)";
+                var outputName = modelData.name || "Unknown";
+                var w = modelData.geometry ? modelData.geometry.width : 0;
+                var h = modelData.geometry ? modelData.geometry.height : 0;
+                var scale = modelData.scale || 1.0;
+                return outputName + " (" + w + "x" + h + " @" + scale + "x)";
               }
               pointSize: Style.fontSizeS
               color: Color.mOnSurfaceVariant

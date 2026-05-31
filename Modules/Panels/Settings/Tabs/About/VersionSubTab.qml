@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import qs.Commons
+import qs.Services.Agnocturnal
 import qs.Services.Compositor
 import qs.Services.System
 import qs.Services.UI

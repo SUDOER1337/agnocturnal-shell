@@ -271,7 +271,7 @@ ColumnLayout {
     visible: Settings.data.colorSchemes.useWallpaperColors
     Layout.fillWidth: true
     implicitHeight: descriptionColumn.implicitHeight + Style.margin2L
-    color: Color.mSurface
+    containerLevel: 1
 
     Column {
       id: descriptionColumn

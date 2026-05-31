@@ -79,7 +79,7 @@ SmartPanel {
       Rectangle {
         clip: true
         Layout.fillWidth: true
-        color: Qt.alpha(Color.mPrimary, 0.08)
+        color: Color.mPrimaryContainer
         radius: Style.radiusS
         border.color: Color.mPrimary
         border.width: Style.borderS

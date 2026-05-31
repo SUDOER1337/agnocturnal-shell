@@ -114,8 +114,8 @@ Singleton {
   Connections {
     target: I18n
 
-    function onLanguageChanged() {
-      Logger.d("PluginService", "Language changed to:", "en", "- reloading plugin translations");
+    function onLangCodeChanged() {
+      Logger.d("PluginService", "Language changed to:", I18n.langCode, "- reloading plugin translations");
 
       // Reload translations for all loaded plugins
       for (var pluginId in root.loadedPlugins) {

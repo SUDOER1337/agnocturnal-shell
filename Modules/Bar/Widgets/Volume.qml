@@ -163,7 +163,7 @@ Item {
         return "";
       } else {
         const nick = AudioService.sink?.nickname ?? "";
-        const volumeText = "Output volume: {volume}%";
+        const volumeText = "Output volume: " + Math.round((AudioService.sink?.volume ?? 0) * 100) + "%";
         return nick ? volumeText + "\n" + nick : volumeText;
       }
     }

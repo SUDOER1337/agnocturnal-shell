@@ -122,13 +122,12 @@ ColumnLayout {
       model: Quickshell.screens || []
       delegate: NCheckbox {
         Layout.fillWidth: true
-        readonly property real compositorScale: {
-          const info = CompositorService.displayScales[modelData.name];
-          return (info && info.scale) ? info.scale : 1.0;
-        }
         label: modelData.name || "Unknown"
         description: {
-          "{model} ({width}x{height} @ {scale}x)";
+          var w = modelData.geometry ? modelData.geometry.width : 0;
+          var h = modelData.geometry ? modelData.geometry.height : 0;
+          var scale = modelData.scale || 1.0;
+          return modelData.name + " (" + w + "x" + h + " @" + scale + "x)";
         }
         checked: (Settings.data.notifications.monitors || []).indexOf(modelData.name) !== -1
         onToggled: checked => {

@@ -26,7 +26,7 @@ Item {
     // For vertical dock, swap width and height logic
     width: dockRoot.isVertical ? Math.round(dockRoot.iconSize * 1.5) : Math.min(dockLayout.implicitWidth + Style.marginXL, dockRoot.maxWidth)
     height: dockRoot.isVertical ? Math.min(dockLayout.implicitHeight + Style.marginXL, dockRoot.maxHeight) : Math.round(dockRoot.iconSize * 1.5)
-    color: Qt.alpha(Color.mSurface, (isAttachedMode ? 0 : Color.adaptiveOpacity(Settings.data.dock.backgroundOpacity)))
+    color: Qt.alpha(Color.mBackground, (isAttachedMode ? 0 : Color.adaptiveOpacity(Settings.data.dock.backgroundOpacity)))
 
     // Anchor based on padding to achieve centering shift
     anchors.horizontalCenter: extraLeft > 0 || extraRight > 0 ? undefined : parent.horizontalCenter
@@ -818,7 +818,7 @@ Item {
               id: groupNumberIndicatorComponent
               Rectangle {
                 radius: Style.radiusS
-                color: Qt.alpha(Color.mSurface, 0.9)
+                color: Qt.alpha(Color.mSurfaceContainer, 0.9)
                 border.color: Qt.alpha(Color.mOutline, 0.7)
                 border.width: Style.borderS
                 width: Math.max(14, numberLabel.implicitWidth + Style.marginXS)

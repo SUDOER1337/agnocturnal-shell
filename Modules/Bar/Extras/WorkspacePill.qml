@@ -21,9 +21,6 @@ Item {
   required property string focusedColor
   required property string occupiedColor
   required property string emptyColor
-  required property real masterProgress
-  required property bool effectsActive
-  required property color effectColor
   required property var getWorkspaceWidth
   required property var getWorkspaceHeight
 

@@ -38,7 +38,7 @@ Popup {
   }
 
   background: Rectangle {
-    color: Color.mSurface
+    color: Color.mSurfaceContainer
     radius: Style.iRadiusL
     border.color: Color.mPrimary
     border.width: Style.borderM
@@ -92,14 +92,14 @@ Popup {
       cellHeight: root.cellH
       model: root.filteredIcons
       reserveScrollbarSpace: false
-      gradientColor: Color.mSurface
+      gradientColor: Color.mSurfaceContainer
 
       delegate: Rectangle {
         width: grid.cellWidth
         height: grid.cellHeight
         radius: Style.iRadiusS
 
-        color: (root.selectedIcon === modelData) ? Qt.alpha(Color.mPrimary, 0.15) : "transparent"
+        color: (root.selectedIcon === modelData) ? Color.mPrimaryContainer : "transparent"
         border.color: (root.selectedIcon === modelData) ? Color.mPrimary : "transparent"
         border.width: (root.selectedIcon === modelData) ? Style.borderS : 0
 

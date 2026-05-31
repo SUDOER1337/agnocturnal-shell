@@ -300,25 +300,18 @@ Item {
           return;
         }
 
-        // Parse monitor JSON and extract scales
-        // Structure: {"monitors": [{"name": "...", "scale": 1, ...}, ...]}
+        // Extract per-monitor scales from mmsg JSON and forward to CompositorService
+        // Resolution/geometry sourced from Quickshell.screens instead
+        const scalesMap = {};
         for (let i = 0; i < data.monitors.length; i++) {
           const mon = data.monitors[i];
           if (mon.name && typeof mon.scale === "number") {
             internal.monitorScales[mon.name] = mon.scale;
+            scalesMap[mon.name] = {
+              name: mon.name,
+              scale: mon.scale
+            };
           }
-        }
-
-        const scalesMap = {};
-        for (const name in internal.monitorScales) {
-          scalesMap[name] = {
-            name: name,
-            scale: internal.monitorScales[name] || 1.0,
-            width: 0,
-            height: 0,
-            x: 0,
-            y: 0
-          };
         }
 
         if (CompositorService && CompositorService.onDisplayScalesUpdated) {

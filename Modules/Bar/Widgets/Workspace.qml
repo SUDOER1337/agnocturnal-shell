@@ -592,9 +592,6 @@ Item {
         focusedColor: root.focusedColor
         occupiedColor: root.occupiedColor
         emptyColor: root.emptyColor
-        masterProgress: root.masterProgress
-        effectsActive: root.effectsActive
-        effectColor: root.effectColor
         getWorkspaceWidth: root.getWorkspaceWidth
         getWorkspaceHeight: root.getWorkspaceHeight
       }
@@ -635,9 +632,6 @@ Item {
         focusedColor: root.focusedColor
         occupiedColor: root.occupiedColor
         emptyColor: root.emptyColor
-        masterProgress: root.masterProgress
-        effectsActive: root.effectsActive
-        effectColor: root.effectColor
         getWorkspaceWidth: root.getWorkspaceWidth
         getWorkspaceHeight: root.getWorkspaceHeight
       }

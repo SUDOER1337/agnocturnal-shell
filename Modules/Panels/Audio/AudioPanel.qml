@@ -13,7 +13,6 @@ SmartPanel {
   id: root
 
   preferredWidth: Math.round(440 * Style.uiScaleRatio)
-  preferredHeight: Math.round(420 * Style.uiScaleRatio)
 
   panelContent: Item {
     id: panelContent
@@ -171,22 +170,6 @@ SmartPanel {
           anchors.margins: Style.marginM
           spacing: Style.marginM
 
-          RowLayout {
-            NIcon {
-              icon: "settings-audio"
-              pointSize: Style.fontSizeXXL
-              color: Color.mPrimary
-            }
-
-            NText {
-              text: "Audio"
-              pointSize: Style.fontSizeL
-              font.weight: Style.fontWeightBold
-              color: Color.mOnSurface
-              Layout.fillWidth: true
-            }
-          }
-
           NTabBar {
             id: tabBar
             Layout.fillWidth: true
@@ -223,7 +206,7 @@ SmartPanel {
           verticalPolicy: ScrollBar.AsNeeded
           contentWidth: availableWidth
           reserveScrollbarSpace: false
-          gradientColor: Color.mSurface
+          gradientColor: Color.mBackground
 
           ColumnLayout {
             spacing: Style.marginM
@@ -269,7 +252,7 @@ SmartPanel {
                     id: outputVolumeSlider
                     Layout.fillWidth: true
                     from: 0
-                    to: Settings.data.audio.volumeOverdrive ? 1.5 : 1.0
+                    to: 1.0
                     value: localOutputVolume
                     stepSize: 0.01
                     heightRatio: 0.5
@@ -345,7 +328,7 @@ SmartPanel {
                     id: inputVolumeSlider
                     Layout.fillWidth: true
                     from: 0
-                    to: Settings.data.audio.volumeOverdrive ? 1.5 : 1.0
+                    to: 1.0
                     value: localInputVolume
                     stepSize: 0.01
                     heightRatio: 0.5
@@ -547,96 +530,12 @@ SmartPanel {
                   return raw;
                 }
 
-                readonly property string appIcon: {
-                  if (!modelData)
-                    return ThemeIcons.iconFromName("application-x-executable", "application-x-executable");
-
-                  var props = modelData.properties;
-
-                  if (!props) {
-                    var name = modelData.name || "";
-                    if (name) {
-                      var nameParts = name.split(/[-_]/);
-                      if (nameParts.length > 0) {
-                        var entry = ThemeIcons.findAppEntry(nameParts[0].toLowerCase());
-                        if (entry && entry.icon && isValidMatch(nameParts[0].toLowerCase(), entry))
-                          return ThemeIcons.iconFromName(entry.icon, "application-x-executable");
-                      }
-                    }
-                    return ThemeIcons.iconFromName("application-x-executable", "application-x-executable");
-                  }
-
-                  var binaryName = props["application.process.binary"] || "";
-                  if (binaryName) {
-                    var binParts = binaryName.split("/");
-                    if (binParts.length > 0) {
-                      var binName = binParts[binParts.length - 1].toLowerCase();
-                      var entry = ThemeIcons.findAppEntry(binName);
-                      if (entry && entry.icon && isValidMatch(binName, entry))
-                        return ThemeIcons.iconFromName(entry.icon, "");
-                    }
-                  }
-
-                  var iconName = props["application.icon-name"] || "";
-                  if (iconName && ThemeIcons.iconExists(iconName)) {
-                    var iconPath = ThemeIcons.iconFromName(iconName, "");
-                    if (iconPath && iconPath !== "")
-                      return iconPath;
-                  }
-
-                  var appId = props["application.id"] || "";
-                  if (appId) {
-                    var entry = ThemeIcons.findAppEntry(appId);
-                    if (entry && entry.icon && isValidMatch(appId, entry))
-                      return ThemeIcons.iconFromName(entry.icon, "");
-                  }
-
-                  var appName = props["application.name"] || "";
-                  if (appName) {
-                    var entry = ThemeIcons.findAppEntry(appName.toLowerCase());
-                    if (entry && entry.icon && isValidMatch(appName.toLowerCase(), entry))
-                      return ThemeIcons.iconFromName(entry.icon, "");
-                  }
-
-                  var name = modelData.name || "";
-                  if (name) {
-                    var nameParts = name.split(/[-_]/);
-                    if (nameParts.length > 0) {
-                      var entry = ThemeIcons.findAppEntry(nameParts[0].toLowerCase());
-                      if (entry && entry.icon && isValidMatch(nameParts[0].toLowerCase(), entry))
-                        return ThemeIcons.iconFromName(entry.icon, "");
-                    }
-                  }
-
-                  return ThemeIcons.iconFromName("application-x-executable", "application-x-executable");
-                }
-
                 RowLayout {
                   id: appRow
                   anchors.fill: parent
                   anchors.margins: Style.marginM
                   spacing: Style.marginM
 
-                  // App Icon
-                  IconImage {
-                    id: appIconImage
-                    Layout.preferredWidth: Style.baseWidgetSize
-                    Layout.preferredHeight: Style.baseWidgetSize
-                    source: appBox.appIcon
-                    smooth: true
-                    asynchronous: true
-
-                    // Fallback icon if image fails to load
-                    NIcon {
-                      anchors.fill: parent
-                      icon: "apps"
-                      pointSize: Style.fontSizeXL
-                      color: Color.mPrimary
-                      visible: appIconImage.status === Image.Error || appIconImage.status === Image.Null || appBox.appIcon === ""
-                    }
-                  }
-
-                  // App Name and Volume Slider
                   ColumnLayout {
                     Layout.fillWidth: true
                     spacing: Style.marginXS
@@ -667,7 +566,7 @@ SmartPanel {
                       NValueSlider {
                         Layout.fillWidth: true
                         from: 0
-                        to: Settings.data.audio.volumeOverdrive ? 1.5 : 1.0
+                        to: 1.0
                         value: (appBox.appVolume !== undefined) ? appBox.appVolume : 0.0
                         stepSize: 0.01
                         heightRatio: 0.5
@@ -732,7 +631,7 @@ SmartPanel {
           verticalPolicy: ScrollBar.AsNeeded
           contentWidth: availableWidth
           reserveScrollbarSpace: false
-          gradientColor: Color.mSurface
+          gradientColor: Color.mBackground
 
           // AudioService Devices
           ColumnLayout {

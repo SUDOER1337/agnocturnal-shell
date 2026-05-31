@@ -3,8 +3,8 @@
 //   resolveColorKey(key)         - Map "primary"/"secondary"/"tertiary"/"error" → main color
 //   resolveOnColorKey(key)       - Map to corresponding "on" color
 //   resolveColorKeyOptional(key) - Same but returns "transparent" for unknown keys
-//   adaptiveOpacity(baseOpacity) - Returns 1.0 (performance-optimized)
-//   smartAlpha(baseColor)        - Returns unmodified color (performance-optimized)
+//   adaptiveOpacity(baseOpacity) - Adjust opacity for dark/light + performance mode
+//   smartAlpha(baseColor)        - Alpha with translucency toggle + performance mode
 //   scheduleExternalColorReload()- Debounced reload from colors.json watcher
 //   startTransition()            - Set isTransitioning flag for animation
 //
@@ -37,6 +37,7 @@ import Quickshell
 import Quickshell.Io
 import "../Helpers/ColorsConvert.js" as CC
 import qs.Commons
+import qs.Services.Power
 
 Singleton {
   id: root
@@ -543,11 +544,22 @@ Singleton {
 
   // Adaptive opacity calculation
   function adaptiveOpacity(baseOpacity) {
-    return 1.0;
+    if (PowerProfileService.noctaliaPerformanceMode)
+      return 1.0;
+    return Settings.data.colorSchemes.darkMode ? baseOpacity : Math.pow(baseOpacity, 1.5);
   }
 
   function smartAlpha(baseColor, minAlpha = 0.4) {
-    return baseColor;
+    if (PowerProfileService.noctaliaPerformanceMode)
+      return baseColor;
+
+    if (!Settings.data.ui.translucentWidgets)
+      return baseColor;
+
+    let alpha = Math.max(adaptiveOpacity(Settings.data.ui.panelBackgroundOpacity), minAlpha);
+
+    let resultAlpha = Math.max(0, baseColor.a - (1.0 - alpha));
+    return Qt.alpha(baseColor, resultAlpha);
   }
 
   readonly property var colorKeyModel: [

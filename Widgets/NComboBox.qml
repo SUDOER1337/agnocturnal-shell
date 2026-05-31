@@ -231,7 +231,9 @@ RowLayout {
       text: {
         if (combo.currentIndex >= 0 && combo.currentIndex < root.itemCount()) {
           var item = root.getItem(combo.currentIndex);
-          return item ? item.name : root.placeholder;
+          if (!item) return root.placeholder;
+          var name = item.name !== undefined ? item.name : (item.text !== undefined ? item.text : root.placeholder);
+          return name;
         }
         return root.placeholder;
       }

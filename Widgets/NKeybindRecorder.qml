@@ -126,7 +126,7 @@ Item {
             id: slotBg
             anchors.fill: parent
             radius: Style.iRadiusS
-            color: root.hasConflict && slotArea.isRecordingThis ? Color.mError : (slotArea.isRecordingThis ? Color.mSecondary : (slotArea.containsMouse ? Qt.alpha(Color.mSecondary, 0.15) : Color.mSurface))
+            color: root.hasConflict && slotArea.isRecordingThis ? Color.mError : (slotArea.isRecordingThis ? Color.mSecondaryContainer : (slotArea.containsMouse ? Color.mSecondaryContainer : Color.mSurfaceContainer))
             border.color: root.hasConflict && slotArea.isRecordingThis ? Color.mError : (slotArea.isRecordingThis ? Color.mPrimary : (slotArea.containsMouse ? Color.mSecondary : Color.mOutline))
             border.width: Style.borderS
 
@@ -175,7 +175,7 @@ Item {
                   visible: root.recordingIndex === -1 && (root.currentKeybinds.length > 1 || root.allowEmpty)
                   icon: "x"
                   colorBg: "transparent"
-                  colorBgHover: Qt.alpha(Color.mError, 0.1)
+                  colorBgHover: Color.mErrorContainer
                   colorFg: Color.mOnSurfaceVariant
                   colorFgHover: Color.mError
                   border.width: 0

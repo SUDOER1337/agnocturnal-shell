@@ -24,7 +24,7 @@ Popup {
   property bool showToastOnSave: false
 
   background: Rectangle {
-    color: Color.mSurface
+    color: Color.mSurfaceContainer
     radius: Style.radiusL
     border.color: Color.mPrimary
     border.width: Style.borderM
@@ -71,7 +71,7 @@ Popup {
         Layout.fillHeight: true
         Layout.minimumHeight: 100
         horizontalPolicy: ScrollBar.AlwaysOff
-        gradientColor: Color.mSurface
+        gradientColor: Color.mSurfaceContainer
 
         Loader {
           id: settingsLoader

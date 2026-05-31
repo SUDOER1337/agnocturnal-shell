@@ -2,267 +2,114 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import qs.Commons
 import qs.Modules.MainScreen
-import qs.Services.Compositor
 import qs.Services.Hardware
 import qs.Services.UI
 import qs.Widgets
+
+// === Brightness Panel ===
+// A simple brightness slider that controls all capable monitors.
+// Functions:
+//   getIcon(brightness)     - Choose icon based on brightness level
+//   updateBrightness()     - Average brightness across capable monitors
+//   applyBrightness(value) - Set brightness on all capable monitors
 
 SmartPanel {
   id: root
 
   preferredWidth: Math.round(440 * Style.uiScaleRatio)
-  preferredHeight: Math.round(420 * Style.uiScaleRatio)
 
   panelContent: Item {
     id: panelContent
-    property real contentPreferredHeight: mainColumn.implicitHeight + Style.margin2L
 
-    property var brightnessWidgetInstance: BarService.lookupWidget("Brightness", screen ? screen.name : null)
-    readonly property var brightnessWidgetSettings: brightnessWidgetInstance ? brightnessWidgetInstance.widgetSettings : null
-    readonly property var brightnessWidgetMetadata: BarWidgetRegistry.widgetMetadata["Brightness"]
-
-    function resolveWidgetSetting(key, defaultValue) {
-      if (brightnessWidgetSettings && brightnessWidgetSettings[key] !== undefined)
-        return brightnessWidgetSettings[key];
-      if (brightnessWidgetMetadata && brightnessWidgetMetadata[key] !== undefined)
-        return brightnessWidgetMetadata[key];
-      return defaultValue;
-    }
-
-    Connections {
-      target: BarService
-      function onActiveWidgetsChanged() {
-        panelContent.brightnessWidgetInstance = BarService.lookupWidget("Brightness", screen ? screen.name : null);
-      }
-    }
-
-    property real globalBrightness: 0
-    property bool globalBrightnessChanging: false
-    property int globalBrightnessCapableMonitors: 0
-
-    function getIcon(brightness) {
-      return brightness <= 0.5 ? "brightness-low" : "brightness-high";
-    }
-
-    function getControllableMonitors() {
-      var monitors = BrightnessService.monitors || [];
-      return monitors.filter(m => m && m.brightnessControlAvailable);
-    }
-
-    function updateGlobalBrightness() {
-      var monitors = getControllableMonitors();
-      panelContent.globalBrightnessCapableMonitors = monitors.length;
-
-      if (panelContent.globalBrightnessChanging)
-        return;
-
-      if (monitors.length === 0) {
-        panelContent.globalBrightness = 0;
-        return;
-      }
-
-      var total = 0;
-      monitors.forEach(m => {
-        var brightnessValue = isNaN(m.brightness) ? 0 : m.brightness;
-        total += brightnessValue;
-      });
-      panelContent.globalBrightness = total / monitors.length;
-    }
-
-    function applyGlobalBrightness(value) {
-      var monitors = BrightnessService.monitors || [];
-      monitors.forEach(m => {
-        if (m && m.brightnessControlAvailable) {
-          m.setBrightness(value);
-        }
-      });
-    }
-
-    Component.onCompleted: updateGlobalBrightness()
+    property real currentBrightness: 0
+    property bool hasCapableMonitors: false
+    property real contentPreferredHeight: layout.implicitHeight + Style.margin2L
 
     Connections {
       target: BrightnessService
-      function onMonitorBrightnessChanged(monitor, newBrightness) {
-        panelContent.updateGlobalBrightness();
+      function onMonitorBrightnessChanged() {
+        panelContent.updateBrightness();
       }
       function onMonitorsChanged() {
-        panelContent.updateGlobalBrightness();
+        panelContent.updateBrightness();
       }
       function onDdcMonitorsChanged() {
-        panelContent.updateGlobalBrightness();
+        panelContent.updateBrightness();
       }
     }
 
+    Component.onCompleted: updateBrightness()
+
+    function getIcon(brightness) // Pick icon by brightness level
+    {
+      return brightness <= 0.5 ? "brightness-low" : "brightness-high";
+    }
+
+    function updateBrightness() // Average brightness across all capable monitors
+    {
+      var capable = (BrightnessService.monitors || []).filter(m => m && m.brightnessControlAvailable);
+      panelContent.hasCapableMonitors = capable.length > 0;
+      if (!panelContent.hasCapableMonitors) {
+        panelContent.currentBrightness = 0;
+        return;
+      }
+      var total = 0;
+      capable.forEach(m => {
+        total += isNaN(m.brightness) ? 0 : m.brightness;
+      });
+      panelContent.currentBrightness = total / capable.length;
+    }
+
+    function applyBrightness(value) // Set brightness on all capable monitors
+    {
+      (BrightnessService.monitors || []).forEach(m => {
+        if (m && m.brightnessControlAvailable)
+          m.setBrightness(value);
+      });
+    }
+
     ColumnLayout {
-      id: mainColumn
+      id: layout
       anchors.fill: parent
       anchors.margins: Style.marginL
-      spacing: Style.marginM
 
-      // HEADER
       NBox {
         Layout.fillWidth: true
-        implicitHeight: headerRow.implicitHeight + Style.margin2M
+        Layout.preferredHeight: row.implicitHeight + Style.margin2M
 
         RowLayout {
-          id: headerRow
+          id: row
           anchors.fill: parent
           anchors.margins: Style.marginM
           spacing: Style.marginM
 
           NIcon {
-            icon: "settings-display"
-            pointSize: Style.fontSizeXXL
-            color: Color.mPrimary
+            icon: panelContent.getIcon(panelContent.currentBrightness)
+            pointSize: Style.fontSizeXL
+            color: Color.mOnSurface
+            enabled: panelContent.hasCapableMonitors
+          }
+
+          NValueSlider {
+            Layout.fillWidth: true
+            from: 0
+            to: 1
+            value: panelContent.currentBrightness
+            stepSize: 0.01
+            enabled: panelContent.hasCapableMonitors
+            onMoved: value => panelContent.applyBrightness(value)
+            onPressedChanged: (pressed, value) => panelContent.applyBrightness(value)
           }
 
           NText {
-            text: "Display"
-            pointSize: Style.fontSizeL
-            font.weight: Style.fontWeightBold
+            text: panelContent.hasCapableMonitors ? Math.round(panelContent.currentBrightness * 100) + "%" : "N/A"
+            Layout.preferredWidth: 45
+            horizontalAlignment: Text.AlignRight
+            Layout.alignment: Qt.AlignVCenter
             color: Color.mOnSurface
-            Layout.fillWidth: true
-          }
-        }
-      }
-
-      NScrollView {
-        id: brightnessScrollView
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        horizontalPolicy: ScrollBar.AlwaysOff
-        verticalPolicy: ScrollBar.AsNeeded
-        contentWidth: availableWidth
-        reserveScrollbarSpace: false
-        gradientColor: Color.mSurface
-
-        // AudioService Devices
-        ColumnLayout {
-          spacing: Style.marginM
-          width: brightnessScrollView.availableWidth
-
-          NBox {
-            Layout.fillWidth: true
-            visible: panelContent.globalBrightnessCapableMonitors > 1 && panelContent.resolveWidgetSetting("applyToAllMonitors", false)
-            implicitHeight: globalBrightnessContent.implicitHeight + (Style.marginXL)
-
-            ColumnLayout {
-              id: globalBrightnessContent
-              anchors.left: parent.left
-              anchors.right: parent.right
-              anchors.top: parent.top
-              anchors.margins: Style.marginM
-              spacing: Style.marginS
-
-              NLabel {
-                label: "All monitors"
-                description: "Adjust brightness for all monitors at once."
-              }
-
-              RowLayout {
-                Layout.fillWidth: true
-                spacing: Style.marginS
-
-                NIcon {
-                  icon: panelContent.getIcon(panelContent.globalBrightness)
-                  pointSize: Style.fontSizeXL
-                  color: Color.mOnSurface
-                }
-
-                NValueSlider {
-                  id: globalBrightnessSlider
-                  from: 0
-                  to: 1
-                  value: panelContent.globalBrightness
-                  stepSize: 0.01
-                  enabled: panelContent.globalBrightnessCapableMonitors > 0
-                  onMoved: value => {
-                    panelContent.globalBrightness = value;
-                    panelContent.applyGlobalBrightness(value);
-                  }
-                  onPressedChanged: (pressed, value) => {
-                    panelContent.globalBrightnessChanging = pressed;
-                    panelContent.globalBrightness = value;
-                    panelContent.applyGlobalBrightness(value);
-                  }
-                  Layout.fillWidth: true
-                  text: ""
-                }
-
-                NText {
-                  text: panelContent.globalBrightnessCapableMonitors > 0 ? Math.round(panelContent.globalBrightness * 100) + "%" : "N/A"
-                  Layout.preferredWidth: 55
-                  horizontalAlignment: Text.AlignRight
-                  Layout.alignment: Qt.AlignVCenter
-                }
-              }
-            }
-          }
-
-          Repeater {
-            model: Quickshell.screens || []
-            delegate: NBox {
-              Layout.fillWidth: true
-              Layout.preferredHeight: outputColumn.implicitHeight + Style.margin2M
-
-              property var brightnessMonitor: BrightnessService.getMonitorForScreen(modelData)
-              readonly property real compositorScale: {
-                const info = CompositorService.displayScales[modelData.name];
-                return (info && info.scale) ? info.scale : 1.0;
-              }
-
-              ColumnLayout {
-                id: outputColumn
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.margins: Style.marginM
-                spacing: Style.marginS
-
-                NLabel {
-                  label: modelData.name || "Unknown"
-                  labelColor: Color.mPrimary
-                  description: {
-                    "{model} ({width}x{height} @ {scale}x)";
-                  }
-                }
-
-                RowLayout {
-
-                  Layout.fillWidth: true
-                  spacing: Style.marginS
-                  NIcon {
-                    icon: getIcon(brightnessMonitor ? brightnessMonitor.brightness : 0)
-                    pointSize: Style.fontSizeXL
-                    color: Color.mOnSurface
-                  }
-
-                  NValueSlider {
-                    id: brightnessSlider
-                    from: 0
-                    to: 1
-                    value: brightnessMonitor ? brightnessMonitor.brightness : 0.5
-                    stepSize: 0.01
-                    enabled: brightnessMonitor ? brightnessMonitor.brightnessControlAvailable : false
-                    onMoved: value => {
-                      if (brightnessMonitor && brightnessMonitor.brightnessControlAvailable) {
-                        brightnessMonitor.setBrightness(value);
-                      }
-                    }
-                    onPressedChanged: (pressed, value) => {
-                      if (brightnessMonitor && brightnessMonitor.brightnessControlAvailable) {
-                        brightnessMonitor.setBrightness(value);
-                      }
-                    }
-                    Layout.fillWidth: true
-                    text: brightnessMonitor ? Math.round(brightnessSlider.value * 100) + "%" : "N/A"
-                  }
-                }
-              }
-            }
+            enabled: panelContent.hasCapableMonitors
           }
         }
       }

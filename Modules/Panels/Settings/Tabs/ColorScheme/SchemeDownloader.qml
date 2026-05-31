@@ -818,7 +818,7 @@ Popup {
       visible: hasInitialData && availableSchemes.length > 0
       verticalPolicy: ScrollBar.AsNeeded
       horizontalPolicy: ScrollBar.AlwaysOff
-      gradientColor: Color.mSurface
+      gradientColor: Color.mBackground
 
       ColumnLayout {
         width: schemesScrollView.availableWidth

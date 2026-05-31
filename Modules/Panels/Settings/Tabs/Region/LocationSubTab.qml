@@ -91,7 +91,7 @@ ColumnLayout {
     }
 
     NText {
-      text: LocationService.coordinatesReady ? "{name} ({coordinates})" : ""
+      text: LocationService.coordinatesReady ? LocationService.stableName + " (" + LocationService.displayCoordinates + ")" : ""
       pointSize: Style.fontSizeS
       color: Color.mOnSurfaceVariant
       font.italic: true

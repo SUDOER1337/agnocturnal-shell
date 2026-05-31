@@ -208,7 +208,7 @@ PopupWindow {
   Rectangle {
     id: menuBackground
     anchors.fill: parent
-    color: Color.mSurface
+    color: Color.mSurfaceContainer
     border.color: Color.mOutline
     border.width: Style.borderS
     radius: Style.radiusM

@@ -473,7 +473,7 @@ Item {
           Layout.preferredWidth: 1
           Layout.fillHeight: true
           Layout.rightMargin: 4
-          color: Qt.alpha(Color.mOutline, 0.3)
+          color: Color.mOutlineVariant
           visible: MediaService.currentPlayer && MediaService.canPlay
         }
 

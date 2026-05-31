@@ -36,8 +36,8 @@ Rectangle {
   anchors.top: parent.top
   anchors.topMargin: 100
   radius: Style.radiusL
-  color: Color.mSurface
-  border.color: Qt.alpha(Color.mOutline, 0.2)
+  color: Color.mSurfaceContainer
+  border.color: Color.mOutlineVariant
   border.width: Style.borderS
 
   RowLayout {

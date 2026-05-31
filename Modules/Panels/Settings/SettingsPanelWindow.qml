@@ -118,7 +118,7 @@ FloatingWindow {
   // Main content
   Rectangle {
     anchors.fill: parent
-    color: Qt.alpha(Color.mSurface, Settings.data.ui.panelBackgroundOpacity)
+    color: Qt.alpha(Color.mBackground, Settings.data.ui.panelBackgroundOpacity)
     radius: Style.radiusL
 
     SettingsContent {

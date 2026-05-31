@@ -120,7 +120,7 @@ NBox {
   signal dragPotentialEnded
   signal openPluginSettingsRequested(var pluginManifest, string settingsEntryPoint)
 
-  color: Color.mSurface
+  containerLevel: 1
   Layout.fillWidth: true
   z: flowDragArea.dragStarted ? 5000 : 0
 
@@ -432,7 +432,7 @@ NBox {
       Rectangle {
         anchors.fill: parent
         radius: Style.iRadiusL
-        color: Qt.alpha(Color.mSecondary, 0.12)
+        color: Color.mSecondaryContainer
         border.color: Color.mSecondary
         border.width: Style.borderM
         visible: root.showCrossSectionDropHint

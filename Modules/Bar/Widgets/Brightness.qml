@@ -158,7 +158,7 @@ Item {
       var panel = PanelService.getPanel("brightnessPanel", screen);
       if (panel?.isPanelOpen || !monitor || !monitor.brightnessControlAvailable || isNaN(monitor.brightness))
         return "";
-      return "Brightness: {brightness}%";
+      return "Brightness: " + Math.round((monitor?.brightness ?? 0) * 100) + "%";
     }
 
     onWheel: function (angle) {

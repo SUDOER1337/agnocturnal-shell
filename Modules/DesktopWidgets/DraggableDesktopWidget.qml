@@ -297,10 +297,10 @@ Item {
     id: container
     anchors.fill: parent
     radius: root.roundedCorners ? Math.min(Math.round(Style.radiusL * root.widgetScale), Style.radiusL, width / 2, height / 2) : 0
-    color: Qt.alpha(Color.mSurface, Settings.data.ui.panelBackgroundOpacity)
+    color: Qt.alpha(Color.mBackground, Settings.data.ui.panelBackgroundOpacity)
     border {
       width: 1
-      color: Qt.alpha(Color.mOutline, 0.12)
+      color: Color.mOutlineVariant
     }
     clip: true
     visible: root.showBackground

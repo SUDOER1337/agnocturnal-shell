@@ -74,7 +74,7 @@ Singleton {
 
     if (layoutChanged) {
       if (Settings.data.notifications.enableKeyboardLayoutToast) {
-        const message = "Keyboard layout changed to {layout}";
+        const message = "Keyboard layout changed to " + currentLayout;
         ToastService.showNotice("Keyboard", message, "", 2000);
       }
       Logger.d("KeyboardLayout", "Layout changed from", previousLayout, "to", currentLayout);

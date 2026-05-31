@@ -501,7 +501,7 @@ PopupWindow {
         }
         Layout.preferredWidth: parent.width
         Layout.preferredHeight: 28
-        color: pinUnpinMouseArea.containsMouse ? Qt.alpha(Color.mPrimary, 0.2) : Qt.alpha(Color.mPrimary, 0.08)
+        color: pinUnpinMouseArea.containsMouse ? Color.mPrimaryContainer : Color.mPrimaryContainer
         radius: Style.radiusS
         border.color: Qt.alpha(Color.mPrimary, pinUnpinMouseArea.containsMouse ? 0.4 : 0.2)
         border.width: Style.borderS

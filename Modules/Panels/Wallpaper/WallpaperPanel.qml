@@ -1242,7 +1242,7 @@ SmartPanel {
 
       // Empty / scanning state
       Rectangle {
-        color: Color.mSurface
+        color: Color.mSurfaceContainer
         radius: Style.radiusM
         border.color: Color.mOutline
         border.width: Style.borderS

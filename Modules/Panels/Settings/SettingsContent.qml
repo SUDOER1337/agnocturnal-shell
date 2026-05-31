@@ -1328,7 +1328,7 @@ Item {
               id: highlightOverlay
               visible: opacity > 0
               opacity: 0
-              color: Qt.alpha(Color.mSecondary, 0.2)
+              color: Color.mSecondaryContainer
               border.color: Qt.alpha(Color.mSecondary, 0.6)
               border.width: Style.borderM
               radius: Style.radiusS

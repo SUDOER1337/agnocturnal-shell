@@ -214,9 +214,9 @@ Rectangle {
             radius: Style.iRadiusS
             color: {
               if (tokenMouseArea.containsMouse) {
-                return Qt.alpha(Color.mPrimary, 0.1);
+                return Color.mPrimaryContainer;
               }
-              return index % 2 === 0 ? Color.mSurfaceVariant : Qt.alpha(Color.mSurfaceVariant, 0.6);
+              return index % 2 === 0 ? Color.mSurfaceContainer : Color.mSurfaceContainerLow;
             }
 
             // Mouse area for the entire delegate
@@ -238,13 +238,13 @@ Rectangle {
               PropertyAnimation {
                 target: tokenDelegate
                 property: "color"
-                to: Qt.alpha(Color.mPrimary, 0.3)
+                to: Color.mPrimaryContainer
                 duration: 100
               }
               PropertyAnimation {
                 target: tokenDelegate
                 property: "color"
-                to: tokenMouseArea.containsMouse ? Qt.alpha(Color.mPrimary, 0.1) : (index % 2 === 0 ? Color.mSurface : Color.mSurfaceVariant)
+                to: tokenMouseArea.containsMouse ? Color.mPrimaryContainer : (index % 2 === 0 ? Color.mSurfaceContainer : Color.mSurfaceVariant)
                 duration: 200
               }
             }

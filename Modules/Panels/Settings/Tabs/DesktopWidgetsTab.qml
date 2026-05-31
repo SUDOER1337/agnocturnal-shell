@@ -80,10 +80,7 @@ ColumnLayout {
 
       NSectionEditor {
         required property var modelData
-        readonly property real compositorScale: {
-          const info = CompositorService.displayScales[modelData.name];
-          return (info && info.scale) ? info.scale : 1.0;
-        }
+        readonly property real compositorScale: modelData.scale || 1.0
 
         Layout.fillWidth: true
         sectionName: modelData.name

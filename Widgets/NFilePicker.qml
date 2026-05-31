@@ -406,7 +406,7 @@ Popup {
       Rectangle {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        color: Color.mSurface
+        color: Color.mBackground
         radius: Style.iRadiusM
         border.color: Color.mOutline
         border.width: Style.borderS
@@ -460,7 +460,7 @@ Popup {
           model: filteredModel
           visible: filePickerPanel.viewMode
           reuseItems: true
-          gradientColor: Color.mSurface
+          gradientColor: Color.mSurfaceContainer
 
           property int columns: Math.max(1, Math.floor(availableWidth / 120))
           property int itemSize: Math.floor((availableWidth - leftMargin - rightMargin - (columns * Style.marginS)) / columns)
@@ -666,7 +666,7 @@ Popup {
           anchors.margins: Style.marginS
           model: filteredModel
           visible: !filePickerPanel.viewMode
-          gradientColor: Color.mSurface
+          gradientColor: Color.mBackground
 
           delegate: Rectangle {
             id: listItem

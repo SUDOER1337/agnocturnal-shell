@@ -233,7 +233,7 @@ Loader {
                   anchors.bottom: parent.bottom
                   anchors.bottomMargin: (Settings.data.general.compactLockScreen ? 280 : 360) * Style.uiScaleRatio
                   radius: Style.radiusL
-                  color: Color.mSurface
+                  color: Color.mBackground
                   visible: panelComponent.timerActive
                   opacity: visible ? 1.0 : 0.0
 
@@ -250,7 +250,7 @@ Loader {
                     }
 
                     NText {
-                      text: "{action} in {seconds} seconds..."
+                      text: panelComponent.pendingAction + " in " + panelComponent.timeRemaining + " seconds..."
                       color: Color.mOnSurface
                       pointSize: Style.fontSizeL
                       horizontalAlignment: Text.AlignHCenter
@@ -265,7 +265,7 @@ Loader {
                       icon: "x"
                       tooltipText: "Cancel timer"
                       baseSize: 32
-                      colorBg: Qt.alpha(Color.mPrimary, 0.1)
+                      colorBg: Color.mPrimaryContainer
                       colorFg: Color.mPrimary
                       colorBgHover: Color.mPrimary
                       onClicked: panelComponent.cancelTimer()
