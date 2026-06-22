@@ -1,12 +1,19 @@
 // File: Commons/Color.qml
+// =============================================================================
+// Color Token Singleton — 30 semantic color tokens for the shell UI.
+// Serves as the single source of truth for all color references.
+// Every UI component binds to Color.mPrimary (and friends), never to raw values.
+//
 // Functions:
-//   resolveColorKey(key)         - Map "primary"/"secondary"/"tertiary"/"error" → main color
-//   resolveOnColorKey(key)       - Map to corresponding "on" color
-//   resolveColorKeyOptional(key) - Same but returns "transparent" for unknown keys
-//   adaptiveOpacity(baseOpacity) - Adjust opacity for dark/light + performance mode
+//   resolveColorKey(key)          - Map "primary"/"secondary"/"tertiary"/"error" → main color
+//   resolveOnColorKey(key)        - Map to corresponding "on" color
+//   resolveColorKeyOptional(key)  - Same but returns "transparent" for unknown keys
+//   adaptiveOpacity(baseOpacity)  - Adjust opacity for dark/light + performance mode
 //   smartAlpha(baseColor)        - Alpha with translucency toggle + performance mode
-//   scheduleExternalColorReload()- Debounced reload from colors.json watcher
-//   startTransition()            - Set isTransitioning flag for animation
+//   scheduleExternalColorReload() - Debounced reload from colors.json watcher
+//   startTransition()             - Set isTransitioning flag for animation
+//   _refreshToken(token)          - Apply saturation then assign to root property
+//   _refreshSlot(slot)            - Refresh all tokens in a slot
 //
 // Properties (30 color tokens):
 //   mPrimary, mOnPrimary, mPrimaryContainer, mOnPrimaryContainer
@@ -18,6 +25,7 @@
 //   mBackground, mOnBackground
 //   mOutline, mOutlineVariant
 //   mShadow, mHover, mOnHover
+// =============================================================================
 
 // -- Slot & Token Index --
 // primary    | mPrimary, mOnPrimary, mPrimaryContainer, mOnPrimaryContainer
@@ -44,7 +52,10 @@ Singleton {
 
   property bool reloadColors: false
 
-  // Debounce external reload requests (file watcher + directory watcher)
+  // === External File Watching ===
+
+  /** Debounced timer that fires 200ms after the last external change notification.
+  *  Prevents rapid re-reads when atomic file swaps or batch writes occur. */
   Timer {
     id: externalColorReloadTimer
     running: false
@@ -58,7 +69,10 @@ Singleton {
     }
   }
 
-  function scheduleExternalColorReload() {
+  /** Schedule a deferred reload of colors.json.
+  *  Guards against calls before config directories exist. */
+  function scheduleExternalColorReload() // Deferred reload from file watcher
+  {
     if (!Settings.directoriesCreated || customColorsFile.path === undefined) {
       return;
     }
@@ -66,11 +80,14 @@ Singleton {
   }
 
   // Suppress transition animations until the first colors.json load completes
+  // (avoids flashing from default → initial scheme transition)
   property bool skipTransition: true
 
-  // Flag indicating theme colors are currently transitioning
+  // Flag indicating theme colors are currently transitioning (used by consumers to gate animations)
   property bool isTransitioning: false
 
+  /** Timer that clears the transitioning flag after the longest animation completes.
+  *  Duration = Style.animationSlowest + 50ms fudge factor to ensure all parallel animations finish. */
   Timer {
     id: transitionTimer
     interval: Style.animationSlowest + 50
@@ -339,15 +356,23 @@ Singleton {
     }
   }
 
-  function startTransition() {
+  /** Flag the beginning of a color transition animation.
+  *  Sets isTransitioning = true, then clears it after Style.animationSlowest + 50ms.
+  *  Consumers use this to coordinate their own animations during scheme switches. */
+  function startTransition() // Begin color transition animation window
+  {
     root.isTransitioning = true;
     transitionTimer.restart();
   }
 
-  // --- Internal helpers for saturation-aware color updates ---
+  // -- Saturation-Aware Color Update Internals --
 
-  // Apply saturation from ColorSaturation then assign to root property
-  function _refreshToken(token, maybeRaw) {
+  /** Apply saturation from ColorSaturation then assign to the root property.
+  *  @param token - Token name like "mPrimary"
+  *  @param maybeRaw - Optional raw color override; defaults to customColorsData[token]
+  *  Triggers a transition animation if not in skipTransition mode. */
+  function _refreshToken(token, maybeRaw) // Saturate and set a single token
+  {
     const raw = maybeRaw !== undefined ? maybeRaw : customColorsData[token];
     if (raw === undefined)
       return;
@@ -357,8 +382,11 @@ Singleton {
     root[token] = ColorSaturation.apply(token, raw);
   }
 
-  // Refresh all tokens in a slot (called when ColorSaturation values change)
-  function _refreshSlot(slot) {
+  /** Refresh all tokens within a semantic slot.
+  *  Called when any ColorSaturation per-slot value changes (e.g. saturationPrimary slider moved).
+  *  @param slot - Slot name like "primary", "surface", etc. */
+  function _refreshSlot(slot) // Refresh all tokens in a saturation slot
+  {
     const tokens = ColorSaturation.slotTokens[slot];
     if (!tokens)
       return;
@@ -496,8 +524,14 @@ Singleton {
     }
   }
 
-  // === Public: Color resolution helpers ===
-  function resolveColorKey(key) {
+  // === Public: Color Resolution Helpers ===
+
+  /** Resolve a semantic slot key to its main color.
+  *  Falls back to mOnSurface (text color) for unknown keys so UI elements never get "transparent".
+  *  @param key - "primary", "secondary", "tertiary", or "error"
+  *  @returns The resolved color */
+  function resolveColorKey(key) // Map slot key → main accent color
+  {
     switch (key) {
     case "primary":
       return root.mPrimary;
@@ -512,7 +546,12 @@ Singleton {
     }
   }
 
-  function resolveOnColorKey(key) {
+  /** Resolve a semantic slot key to its "on" (text/icon) color.
+  *  Falls back to mSurface for unknown keys.
+  *  @param key - "primary", "secondary", "tertiary", or "error"
+  *  @returns The resolved "on" color */
+  function resolveOnColorKey(key) // Map slot key → on-color for text/icons
+  {
     switch (key) {
     case "primary":
       return root.mOnPrimary;
@@ -527,7 +566,12 @@ Singleton {
     }
   }
 
-  function resolveColorKeyOptional(key) {
+  /** Resolve a slot key to its main color, returning "transparent" for unknown keys.
+  *  Used in contexts where an invisible default is safer than a visible fallback.
+  *  @param key - "primary", "secondary", "tertiary", or "error"
+  *  @returns The resolved color or "transparent" */
+  function resolveColorKeyOptional(key) // Map slot key → color, unknown → transparent
+  {
     switch (key) {
     case "primary":
       return root.mPrimary;
@@ -542,14 +586,29 @@ Singleton {
     }
   }
 
-  // Adaptive opacity calculation
-  function adaptiveOpacity(baseOpacity) {
+  // -- Opacity Helpers --
+
+  /** Adjust base opacity for dark/light mode.
+  *  In performance mode, always returns 1.0 (no translucency).
+  *  In light mode, the opacity curve is raised by 1.5× to compensate for
+  *  lighter backgrounds where translucency is less visible.
+  *  @param baseOpacity - Original opacity value (0.0-1.0)
+  *  @returns Adjusted opacity */
+  function adaptiveOpacity(baseOpacity) // Dark/light-aware opacity
+  {
     if (PowerProfileService.noctaliaPerformanceMode)
       return 1.0;
     return Settings.data.colorSchemes.darkMode ? baseOpacity : Math.pow(baseOpacity, 1.5);
   }
 
-  function smartAlpha(baseColor, minAlpha = 0.4) {
+  /** Apply translucent effect to a color.
+  *  Gated by performance mode and translucentWidgets toggle.
+  *  Subtracts the difference between desired and base alpha from the existing alpha.
+  *  @param baseColor - The color to make translucent
+  *  @param minAlpha - Minimum alpha floor (default 0.4)
+  *  @returns Adjusted color */
+  function smartAlpha(baseColor, minAlpha = 0.4) // Apply translucency-aware alpha
+  {
     if (PowerProfileService.noctaliaPerformanceMode)
       return baseColor;
 
@@ -558,6 +617,8 @@ Singleton {
 
     let alpha = Math.max(adaptiveOpacity(Settings.data.ui.panelBackgroundOpacity), minAlpha);
 
+    // Shrink color's alpha by the inverse of the panel opacity
+    // so final blended result lands at the desired panel opacity
     let resultAlpha = Math.max(0, baseColor.a - (1.0 - alpha));
     return Qt.alpha(baseColor, resultAlpha);
   }
@@ -585,7 +646,10 @@ Singleton {
     }
   ]
 
-  // === Default colors: Agnoctural (default) dark ===
+  // === Default Colors: Agnoctural (default) Dark ===
+  /** Fallback palette used when no colors.json exists yet.
+  *  All 30 tokens initialized here so the shell has a valid visual state
+  *  before any scheme is loaded. Matches the "Agnoctural (default)" scheme. */
   QtObject {
     id: defaultColors
 
@@ -628,7 +692,11 @@ Singleton {
     readonly property color mOnHover: "#0e0e43"
   }
 
-  // === FileView: loads custom colors from colors.json ===
+  // === File I/O: Custom Colors from colors.json ===
+
+  /** Reads colors.json from disk via a JsonAdapter.
+  *  Watches for external changes (atomic file swaps from wallpaper pipelines)
+  *  and debounces reloads to avoid rapid re-evaluation. */
   FileView {
     id: customColorsFile
     path: Settings.directoriesCreated ? (Settings.configDir + "colors.json") : undefined
@@ -654,6 +722,7 @@ Singleton {
       }
     }
     onLoadFailed: function (error) {
+      // Suppress retry debounce for programmatic reloads
       if (reloadColors) {
         reloadColors = false;
         return;
@@ -665,15 +734,19 @@ Singleton {
         });
       }
 
+      // On "file not found", write defaults so colors.json exists for next launch
       if (error === 2 || error.toString().includes("No such file")) {
         writeAdapter();
       }
     }
 
+    /** In-memory representation of colors.json.
+    *  All 30 tokens default to the fallback palette so the shell is always
+    *  in a valid visual state, even on first launch with no colors.json. */
     JsonAdapter {
       id: customColorsData
 
-      // Existing 16 tokens
+      // Original 16 tokens (pre-color-revamp)
       property color mPrimary: defaultColors.mPrimary
       property color mOnPrimary: defaultColors.mOnPrimary
       property color mSecondary: defaultColors.mSecondary
@@ -691,7 +764,7 @@ Singleton {
       property color mHover: defaultColors.mHover
       property color mOnHover: defaultColors.mOnHover
 
-      // New tokens (14 added)
+      // New tokens (14 added in color revamp — containers, background, surface levels)
       property color mPrimaryContainer: defaultColors.mPrimaryContainer
       property color mOnPrimaryContainer: defaultColors.mOnPrimaryContainer
       property color mSecondaryContainer: defaultColors.mSecondaryContainer
@@ -709,7 +782,10 @@ Singleton {
     }
   }
 
-  // Directory watcher fallback for atomic file swaps
+  // -- Directory Watcher Fallback --
+  /** Watches the config directory for file-level changes.
+  *  Some editors / scripts swap files atomically at the directory level,
+  *  which the file watcher above might miss without this fallback. */
   FileView {
     id: colorsDirWatcher
     path: Settings.directoriesCreated ? Settings.configDir : undefined

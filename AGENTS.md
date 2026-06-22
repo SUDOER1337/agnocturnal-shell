@@ -49,7 +49,8 @@ lefthook run pre-commit
 
 ### `Commons/`
 Shared utilities imported as `qs.Commons`:
-- **Color.qml** — Color manipulation and theming
+- **Color.qml** — 30-token MD3 color system consumed by all UI. Tokens are read from `colors.json` via `FileView.watchChanges`, with hardness-tuned fallbacks. Saturation post-processing via `ColorSaturation.apply()`.
+- **ColorSaturation.qml** — Per-slot saturation post-processor. Each of 7 semantic slots (primary, secondary, tertiary, error, surface, background, outline) has an independent multiplier read from `Settings.data.colorSchemes.saturation`. Exposes wrapper functions for `ColorsConvert.js` derivation (container color, surface variant, L+S adjust) to avoid cross-namespace JS imports from `qs.Modules.*` files. Includes 3 built-in presets (Vibrant, Muted, Vintage).
 - **I18n.qml** — Internationalization strings
 - **Settings.qml** — Central settings manager
 - **ShellState.qml** — Shell-wide state (loaded, focused monitors, etc.)
@@ -85,6 +86,14 @@ Backend logic — imported as `qs.Services.*`:
 - **Power/** — Power management
 - **Media/** — Media player controls
 - **Location/** — Geolocation
+
+### `Helpers/`
+Utility modules (JS, not QML):
+- **ColorsConvert.js** — Color space conversions (HSL, RGB, HSV), WCAG contrast utilities, MD3 derivation functions (`generateContainerColor`, `generateSurfaceVariant`, `adjustLightnessAndSaturation`), and `applySaturation` post-processing. Imported by `ColorSaturation.qml` and `ColorSchemeService.qml` via relative path.
+
+### `Scripts/python/src/theming/`
+Python pipeline for MD3 color extraction:
+- **template-processor.py** — CLI tool that extracts a 48-color MD3 palette from a wallpaper image or expands a predefined scheme. Supports 9 scheme types (`tonal-spot`, `content`, `fruit-salad`, `rainbow`, `monochrome`, `vibrant`, `faithful`, `dysfunctional`, `muted`). Called from QML via `Process` in `TemplateProcessor.qml`.
 
 ### `Assets/`
 - **settings-default.json** — Factory defaults for all shell settings
@@ -180,6 +189,44 @@ Agnoctural detects and adapts to the running compositor:
 ./Scripts/dev/notifications-test.sh          # Send test notifications
 ./Scripts/dev/notifications-test-replace.sh  # Test notification replacement
 ```
+
+## Color Pipeline (MD3)
+
+The shell uses a 30-token Material Design 3 color system derived from either a predefined scheme or a wallpaper image.
+
+### Color Tokens (30 total)
+- **16 base tokens**: `mPrimary`, `mOnPrimary`, `mPrimaryContainer`, `mOnPrimaryContainer`, `mSecondary`, `mOnSecondary`, `mSecondaryContainer`, `mOnSecondaryContainer`, `mTertiary`, `mOnTertiary`, `mTertiaryContainer`, `mOnTertiaryContainer`, `mError`, `mOnError`, `mErrorContainer`, `mOnErrorContainer`
+- **9 surface tokens**: `mSurface`, `mOnSurface`, `mSurfaceVariant`, `mOnSurfaceVariant`, `mSurfaceContainerLow`, `mSurfaceContainer`, `mSurfaceContainerHigh`, `mBackground`, `mOnBackground`
+- **3 outline tokens**: `mOutline`, `mOutlineVariant`, `mShadow`
+- **2 hover tokens**: `mHover`, `mOnHover`
+
+### Data Flow
+```
+Wallpaper Image or Predefined Scheme JSON
+    ↓
+TemplateProcessor.qml (Python Process) → template-processor.py
+    ↓
+ColorSchemeService.qml → writeColorsToDisk() → colors.json
+    ↓
+Color.qml (FileView.watchChanges detects change)
+    ↓  (saturation post-processing via ColorSaturation.apply())
+UI components bound to Color.* properties
+```
+
+### Derivation Chain
+When a scheme file only has 16 base tokens (missing the 14 derived ones):
+1. `generateContainerColor()` — derives `m*Container` from base accent + `mOn*Container` equals base
+2. `generateSurfaceVariant()` — derives `mSurfaceContainerLow/Mid/High` from `mSurface` with stepped elevation
+3. `adjustLightnessAndSaturation()` — derives `mOutlineVariant` from `mOutline`
+4. `mBackground`/`mOnBackground` fall back to `mSurface`/`mOnSurface`
+
+### Saturation Post-Processing
+- 7 semantic slots with independent multipliers (stored in `Settings.data.colorSchemes.saturation.*`)
+- Applied in `Color.qml` via `ColorSaturation.apply(token, hex)` — each token resolves its slot, multiplier is applied, hex is returned
+- 3 built-in presets: Vibrant (1.0 all), Muted (0.5-0.7), Vintage (0.6-0.85)
+
+### Cross-Namespace Import Rule
+`ColorsConvert.js` functions (container color, surface variant, blend) must be accessed via `ColorSaturation.*` wrappers when used from `qs.Modules.*` QML files. This is because Quickshell's module system resolves relative paths against the virtual `qs.Modules` namespace, not the actual filesystem. From `qs.Services.*` files, direct relative import (`import "../../Helpers/ColorsConvert.js" as CC`) works.
 
 ### QML Lint
 ```bash

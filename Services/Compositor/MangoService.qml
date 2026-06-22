@@ -388,18 +388,40 @@ Item {
 
   property QtObject _kbLayoutQuery: Process {
     id: kbLayoutQuery
-    command: ["sh", "-c", "mmsg get keyboardlayout | jq -r '.layout'"]
+    command: ["mmsg", "get", "keyboardlayout"]
+
+    property string buffer: ""
 
     stdout: SplitParser {
       onRead: line => {
-        var layout = line.trim();
-        if (layout.length > 0) {
-          KeyboardLayoutService.setCurrentLayout(layout);
+        kbLayoutQuery.buffer += line + "\n";
+      }
+    }
+
+    stderr: SplitParser {
+      onRead: line => {
+        if (line.trim().length > 0) {
+          Logger.e("MangoService", "kbLayoutQuery stderr:", line.trim());
         }
       }
     }
 
     onExited: code => {
+      if (code === 0) {
+        try {
+          var data = JSON.parse(kbLayoutQuery.buffer);
+          var layout = String(data.layout ?? "").trim();
+          if (layout.length > 0) {
+            KeyboardLayoutService.setCurrentLayout(layout);
+            Logger.d("MangoService", "Keyboard layout:", layout);
+          }
+        } catch (e) {
+          Logger.e("MangoService", "Failed to parse keyboard layout JSON:", e);
+        }
+        kbLayoutQuery.buffer = "";
+      } else {
+        Logger.e("MangoService", "kbLayoutQuery exited with code", code);
+      }
       kbLayoutPoll.busy = false;
     }
   }

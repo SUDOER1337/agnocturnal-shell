@@ -60,11 +60,34 @@ ColumnLayout {
     Layout.fillWidth: true
   }
 
-  NButton {
-    text: "Reset All"
-    icon: "restore"
-    onClicked: resetAll()
-    Layout.alignment: Qt.AlignLeft
+  // -- Presets --
+  Flow {
+    Layout.fillWidth: true
+    spacing: Style.marginS
+
+    Repeater {
+      model: ColorSaturation.presets
+
+      NButton {
+        text: modelData.name
+        icon: modelData.icon || "adjust"
+        onClicked: {
+          var vals = modelData.values;
+          var slots = ColorSaturation.slotNames;
+          for (var i = 0; i < slots.length; i++) {
+            var s = slots[i];
+            if (vals[s] !== undefined)
+              Settings.data.colorSchemes.saturation[s] = vals[s];
+          }
+        }
+      }
+    }
+
+    NButton {
+      text: "Reset All"
+      icon: "restore"
+      onClicked: resetAll()
+    }
   }
 
   NDivider {

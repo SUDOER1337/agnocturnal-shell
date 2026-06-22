@@ -39,7 +39,13 @@ ColumnLayout {
     return schemeName;
   }
 
-  function getSchemeColor(schemeName, colorKey) {
+  /** Look up a color token from a cached scheme, falling back to the
+  *  active Color singleton value. Supports all 30 MD3 tokens.
+  *  @param schemeName - Display name of the scheme
+  *  @param colorKey - Token name like "mPrimary" or "mPrimaryContainer"
+  *  @returns The resolved color (falls through to Color.* for live values) */
+  function getSchemeColor(schemeName, colorKey) // Resolve a scheme color token
+  {
     var _ = cacheVersion;
 
     if (schemeColorsCache[schemeName]) {
@@ -55,16 +61,35 @@ ColumnLayout {
       }
     }
 
-    if (colorKey === "mSurface")
+    // Fallback: use the live color from the current theme
+    // Safety check: if the token exists on Color, use it; otherwise compute
+    if (colorKey in Color)
+      return Color[colorKey];
+
+    // Container fallbacks: derive from base accent
+    var isDark = Settings.data.colorSchemes.darkMode;
+    if (colorKey === "mPrimaryContainer" || colorKey === "mSecondaryContainer" || colorKey === "mTertiaryContainer" || colorKey === "mErrorContainer") {
+      var baseKey = "m" + colorKey.charAt(1).toUpperCase() + colorKey.slice(2).replace("Container", "");
+      if (baseKey in Color)
+        return ColorSaturation.generateContainerColor(Color[baseKey], isDark);
+    }
+    if (colorKey.replace("Container", "") !== colorKey) {
+      var onKey = "mOn" + colorKey.charAt(1).toUpperCase() + colorKey.slice(2);
+      if (onKey in Color)
+        return Color[onKey];
+    }
+    if (colorKey === "mBackground")
+      return Color.mSurface;
+    if (colorKey === "mOnBackground")
+      return Color.mOnSurface;
+    if (colorKey === "mSurfaceContainerLow")
+      return ColorSaturation.generateSurfaceVariant(Color.mSurface, 1, isDark);
+    if (colorKey === "mSurfaceContainer")
       return Color.mSurfaceVariant;
-    if (colorKey === "mPrimary")
-      return Color.mPrimary;
-    if (colorKey === "mSecondary")
-      return Color.mSecondary;
-    if (colorKey === "mTertiary")
-      return Color.mTertiary;
-    if (colorKey === "mError")
-      return Color.mError;
+    if (colorKey === "mSurfaceContainerHigh")
+      return ColorSaturation.generateSurfaceVariant(Color.mSurface, 3, isDark);
+    if (colorKey === "mOutlineVariant")
+      return ColorSaturation.adjustLightnessAndSaturation(Color.mOutline, isDark ? 10 : -10, isDark ? -10 : 10);
     return Color.mOnSurfaceVariant;
   }
 
@@ -342,7 +367,7 @@ ColumnLayout {
           opacity: enabled ? 1.0 : 0.6
           Layout.fillWidth: true
           Layout.alignment: Qt.AlignHCenter
-          height: 50 * Style.uiScaleRatio
+          height: 64 * Style.uiScaleRatio
           radius: Style.radiusS
           color: root.getSchemeColor(schemeName, "mSurface")
           border.width: Style.borderL
@@ -356,51 +381,102 @@ ColumnLayout {
             return Color.mOutline;
           }
 
-          RowLayout {
-            id: scheme
+          Column {
             anchors.fill: parent
             anchors.margins: Style.marginL
-            spacing: Style.marginS
+            spacing: 2
 
-            NText {
-              text: schemeItem.schemeName
-              pointSize: Style.fontSizeS
-              color: Color.mOnSurface
-              Layout.fillWidth: true
-              elide: Text.ElideRight
-              verticalAlignment: Text.AlignVCenter
-              wrapMode: Text.WordWrap
-              maximumLineCount: 1
+            RowLayout {
+              width: parent.width
+              spacing: Style.marginS
+
+              NText {
+                text: schemeItem.schemeName
+                pointSize: Style.fontSizeS
+                color: Color.mOnSurface
+                Layout.fillWidth: true
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.WordWrap
+                maximumLineCount: 1
+              }
+
+              readonly property int diameter: 14 * Style.uiScaleRatio
+
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                color: root.getSchemeColor(schemeItem.schemeName, "mPrimary")
+              }
+
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                color: root.getSchemeColor(schemeItem.schemeName, "mSecondary")
+              }
+
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                color: root.getSchemeColor(schemeItem.schemeName, "mTertiary")
+              }
+
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                color: root.getSchemeColor(schemeItem.schemeName, "mError")
+              }
             }
 
-            property int diameter: 16 * Style.uiScaleRatio
+            RowLayout {
+              width: parent.width
+              spacing: Style.marginS
+              // Container swatches — same width as first row items, right-aligned
+              Item {
+                Layout.fillWidth: true
+              } // spacer matching text area
 
-            Rectangle {
-              width: scheme.diameter
-              height: scheme.diameter
-              radius: scheme.diameter * 0.5
-              color: root.getSchemeColor(schemeItem.schemeName, "mPrimary")
-            }
+              readonly property int diameter: 10 * Style.uiScaleRatio
 
-            Rectangle {
-              width: scheme.diameter
-              height: scheme.diameter
-              radius: scheme.diameter * 0.5
-              color: root.getSchemeColor(schemeItem.schemeName, "mSecondary")
-            }
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                border.width: 1
+                border.color: Color.mOutlineVariant
+                color: root.getSchemeColor(schemeItem.schemeName, "mPrimaryContainer")
+              }
 
-            Rectangle {
-              width: scheme.diameter
-              height: scheme.diameter
-              radius: scheme.diameter * 0.5
-              color: root.getSchemeColor(schemeItem.schemeName, "mTertiary")
-            }
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                border.width: 1
+                border.color: Color.mOutlineVariant
+                color: root.getSchemeColor(schemeItem.schemeName, "mSecondaryContainer")
+              }
 
-            Rectangle {
-              width: scheme.diameter
-              height: scheme.diameter
-              radius: scheme.diameter * 0.5
-              color: root.getSchemeColor(schemeItem.schemeName, "mError")
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                border.width: 1
+                border.color: Color.mOutlineVariant
+                color: root.getSchemeColor(schemeItem.schemeName, "mTertiaryContainer")
+              }
+
+              Rectangle {
+                width: parent.diameter
+                height: parent.diameter
+                radius: parent.diameter * 0.5
+                border.width: 1
+                border.color: Color.mOutlineVariant
+                color: root.getSchemeColor(schemeItem.schemeName, "mErrorContainer")
+              }
             }
           }
 

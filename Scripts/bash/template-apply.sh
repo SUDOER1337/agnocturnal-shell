@@ -520,7 +520,7 @@ mango)
 
     # Trigger live reload
     if command -v mmsg >/dev/null 2>&1; then
-        mmsg -s -d reload_config
+        mmsg dispatch reload_config
     else
         echo "Warning: mmsg command not found, manual restart may be needed." >&2
     fi

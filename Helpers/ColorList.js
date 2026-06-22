@@ -1,3 +1,14 @@
+// File: Helpers/ColorList.js
+// =============================================================================
+// Named color reference list for the color picker UI.
+// Contains CSS named colors plus popular palette colors (Material, Flat UI, etc.)
+// organized by hue family. Used in NColorPicker and NColorChoice widgets.
+//
+// Structure: Array of { name, color } objects
+//   name  - Display name (e.g. "MistyRose", "Red 500")
+//   color - CSS color string or hex code (e.g. "mistyrose", "#E91E63")
+// =============================================================================
+
 var colors = [
     // --- REDS ---
     { name: "MistyRose", color: "mistyrose" },
