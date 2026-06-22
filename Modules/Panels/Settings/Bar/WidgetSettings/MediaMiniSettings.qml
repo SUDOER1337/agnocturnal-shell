@@ -29,6 +29,8 @@ ColumnLayout {
   property bool valueUseFixedWidth: widgetData.useFixedWidth !== undefined ? widgetData.useFixedWidth : widgetMetadata.useFixedWidth
   property bool valueShowProgressRing: widgetData.showProgressRing !== undefined ? widgetData.showProgressRing : widgetMetadata.showProgressRing
   property bool valueCompactMode: widgetData.compactMode !== undefined ? widgetData.compactMode : widgetMetadata.compactMode
+  property string valuePanelVisualizerPlacement: widgetData.panelVisualizerPlacement !== undefined ? widgetData.panelVisualizerPlacement : widgetMetadata.panelVisualizerPlacement
+  property int valuePanelAlbumArtSize: widgetData.panelAlbumArtSize !== undefined ? widgetData.panelAlbumArtSize : widgetMetadata.panelAlbumArtSize
   property string valueTextColor: widgetData.textColor !== undefined ? widgetData.textColor : widgetMetadata.textColor
 
   Component.onCompleted: {
@@ -51,6 +53,8 @@ ColumnLayout {
     settings.useFixedWidth = valueUseFixedWidth;
     settings.showProgressRing = valueShowProgressRing;
     settings.compactMode = valueCompactMode;
+    settings.panelVisualizerPlacement = valuePanelVisualizerPlacement;
+    settings.panelAlbumArtSize = valuePanelAlbumArtSize;
     settings.textColor = valueTextColor;
     settingsChanged(settings);
   }
@@ -233,6 +237,49 @@ ColumnLayout {
       saveSettings();
     }
     defaultValue: widgetMetadata.panelShowAlbumArt
+  }
+
+  NComboBox {
+    visible: valueShowVisualizer
+    label: "Panel visualizer placement"
+    description: "Where to show the audio visualizer in the media player panel."
+    model: [
+      {
+        "key": "art",
+        "name": "Overlay on album art"
+      },
+      {
+        "key": "background",
+        "name": "Behind controls"
+      },
+      {
+        "key": "none",
+        "name": "No visualizer"
+      }
+    ]
+    currentKey: valuePanelVisualizerPlacement
+    onSelected: key => {
+      valuePanelVisualizerPlacement = key;
+      saveSettings();
+    }
+    minimumWidth: 200
+    defaultValue: widgetMetadata.panelVisualizerPlacement
+  }
+
+  NValueSlider {
+    visible: valuePanelShowAlbumArt
+    label: "Album art size"
+    description: "Controls the size of the album artwork in compact mode."
+    from: 60
+    to: 200
+    stepSize: 5
+    value: valuePanelAlbumArtSize
+    text: valuePanelAlbumArtSize + "px"
+    onMoved: val => {
+      valuePanelAlbumArtSize = val;
+      saveSettings();
+    }
+    defaultValue: widgetMetadata.panelAlbumArtSize
   }
 
   NToggle {

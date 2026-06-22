@@ -45,6 +45,8 @@ SmartPanel {
   readonly property bool showArtistFirst: !!(mediaMiniSettings && mediaMiniSettings.showArtistFirst !== undefined ? mediaMiniSettings.showArtistFirst : true)
   readonly property bool showAlbumArt: !!(mediaMiniSettings && mediaMiniSettings.panelShowAlbumArt !== undefined ? mediaMiniSettings.panelShowAlbumArt : true)
   readonly property bool showVisualizer: !!(mediaMiniSettings && mediaMiniSettings.showVisualizer !== undefined ? mediaMiniSettings.showVisualizer : true)
+  readonly property string panelVisualizerPlacement: (mediaMiniSettings && mediaMiniSettings.panelVisualizerPlacement !== undefined) ? mediaMiniSettings.panelVisualizerPlacement : "art"
+  readonly property int panelAlbumArtSize: (mediaMiniSettings && mediaMiniSettings.panelAlbumArtSize !== undefined) ? mediaMiniSettings.panelAlbumArtSize : 110
   readonly property bool compactMode: !!(mediaMiniSettings && mediaMiniSettings.compactMode !== undefined ? mediaMiniSettings.compactMode : false)
   readonly property string scrollingMode: (mediaMiniSettings && mediaMiniSettings.scrollingMode !== undefined) ? mediaMiniSettings.scrollingMode : "hover"
 
@@ -227,7 +229,7 @@ SmartPanel {
         Loader {
           anchors.fill: parent
           z: 0
-          active: !!(root.needsSpectrum && !root.showAlbumArt)
+          active: !!(root.needsSpectrum && root.panelVisualizerPlacement !== "none" && (!root.showAlbumArt || root.panelVisualizerPlacement !== "art"))
           sourceComponent: visualizerSource
         }
 
@@ -247,7 +249,7 @@ SmartPanel {
           // Album Art (Vertical in normal, Horizontal in compact)
           Item {
             id: albumArtItem
-            readonly property real compactArtSize: Math.round(110 * Style.uiScaleRatio)
+            readonly property real compactArtSize: Math.round(root.panelAlbumArtSize * Style.uiScaleRatio)
             readonly property bool artSizeKnown: artSizeProbe.status === Image.Ready && artSizeProbe.sourceSize.width > 0 && artSizeProbe.sourceSize.height > 0
             readonly property real artAspectRatio: artSizeKnown ? artSizeProbe.sourceSize.width / artSizeProbe.sourceSize.height : 1
             // Non-compact: height from width÷aspect so grid implicit height does not depend on panel height (no layout loop).
@@ -288,7 +290,7 @@ SmartPanel {
               anchors.fill: parent
               anchors.margins: Style.marginS
               z: 2
-              active: !!(root.needsSpectrum && root.showAlbumArt)
+              active: !!(root.needsSpectrum && root.showAlbumArt && root.panelVisualizerPlacement === "art")
               sourceComponent: visualizerSource
             }
           }

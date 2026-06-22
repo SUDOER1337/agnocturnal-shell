@@ -204,7 +204,9 @@ Singleton {
                                     "visualizerType": "linear",
                                     "textColor": "none",
                                     "compactMode": false,
-                                    "panelShowAlbumArt": true
+                                    "panelShowAlbumArt": true,
+                                    "panelVisualizerPlacement": "art",
+                                    "panelAlbumArtSize": 110
                                   },
                                   "Microphone": {
                                     "displayMode": "onhover",
