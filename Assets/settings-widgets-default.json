@@ -43,10 +43,11 @@
     },
     "ControlCenter": {
       "useDistroLogo": false,
-      "icon": "agnocturnal",
+      "icon": "noctalia",
       "customIconPath": "",
       "colorizeDistroLogo": false,
       "colorizeSystemIcon": "none",
+      "colorizeSystemText": "none",
       "enableColorization": false
     },
     "CustomButton": {
@@ -110,6 +111,7 @@
       "icon": "rocket",
       "customIconPath": "",
       "colorizeSystemIcon": "none",
+      "colorizeSystemText": "none",
       "enableColorization": false,
       "iconColor": "none"
     },
@@ -126,7 +128,9 @@
       "visualizerType": "linear",
       "textColor": "none",
       "compactMode": false,
-      "panelShowAlbumArt": true
+      "panelShowAlbumArt": true,
+      "panelVisualizerPlacement": "art",
+      "panelAlbumArtSize": 110
     },
     "Microphone": {
       "displayMode": "onhover",
@@ -290,3 +294,4 @@
     }
   }
 }
+AGNOCTURAL_EOF

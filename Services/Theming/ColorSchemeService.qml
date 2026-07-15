@@ -29,7 +29,6 @@
 // =============================================================================
 
 pragma Singleton
-import Qt.labs.folderlistmodel
 
 import QtQuick
 import Quickshell

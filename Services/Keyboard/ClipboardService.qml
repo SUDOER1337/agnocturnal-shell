@@ -98,9 +98,10 @@ Singleton {
     }
   }
 
-  // Fallback: periodically refresh list so UI updates even if not in clip mode
+  // Fallback: periodically refresh list so UI updates even if not in clip mode.
+  // Set to 15s since watchers handle real-time updates — this is only a safety net.
   Timer {
-    interval: 5000
+    interval: 15000
     repeat: true
     running: root.active
     onTriggered: list()

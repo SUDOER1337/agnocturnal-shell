@@ -1,5 +1,32 @@
+// File: Services/System/SystemStatService.qml
+// =============================================================================
+// System monitoring service — polls CPU, GPU, memory, disk, network, and load
+// average at configurable intervals. Provides rolling history arrays for graphs
+// and formatted display strings for the bar and system monitor.
+//
+// Functions:
+//   registerComponent(id)        - Start polling when a UI component needs data
+//   unregisterComponent(id)      - Stop polling when no components are active
+//   calculateCpuUsage(text)      - Parse /proc/stat into per-core usage
+//   parseMemoryInfo(text)        - Parse /proc/meminfo into GB/percent values
+//   parseLoadAverage(text)       - Parse /proc/loadavg into 1/5/15 min averages
+//   calculateNetworkSpeed(text)  - Parse /proc/net/dev into rx/tx speeds
+//   updateCpuTemperature()       - Read CPU thermal zones for temperature
+//   updateGpuTemperature()       - Read GPU thermal zones for temperature
+//   formatRamDisplay(...)        - Format memory as "used / total GB" string
+//   formatDiskDisplay(...)       - Format disk as "used / total GB" string
+//
+// Properties:
+//   cpuUsage, coresUsage         - Overall and per-core CPU usage (0-1)
+//   cpuTemp, gpuTemp             - CPU and GPU temperatures in Celsius
+//   memGb, memPercent            - Memory usage in GB and percentage
+//   diskPercents                 - Per-mount disk usage percentages
+//   rxSpeed, txSpeed             - Network download/upload in bytes/sec
+//   cpuHistory, memHistory       - Rolling history arrays for graphing
+//   nproc                        - Number of CPU cores
+// =============================================================================
+
 pragma Singleton
-import Qt.labs.folderlistmodel
 
 import QtQuick
 import Quickshell

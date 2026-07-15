@@ -1,3 +1,27 @@
+// File: Services/Media/AudioService.qml
+// =============================================================================
+// Audio management service — wraps PipeWire for output/input volume control,
+// mute toggling, per-application stream volume overrides, device switching,
+// and volume-feedback sound playback with rate limiting.
+//
+// Functions:
+//   increaseVolume()          - Raise output volume by one step
+//   decreaseVolume()          - Lower output volume by one step
+//   setVolume(vol)            - Set output volume to an absolute value
+//   setOutputMuted(muted)     - Mute or unmute the default output
+//   setAudioSink(node)        - Switch the default audio output device
+//   setAudioSource(node)      - Switch the default audio input device
+//   getAppVolumeOverride(key) - Get stored per-app volume override
+//   playVolumeFeedback(vol)   - Play a tick sound at the given volume level
+//   getOutputIcon()           - Return icon name for current output state
+//
+// Properties:
+//   sink / source             - Default PipeWire output/input node
+//   sinks / sources           - Lists of available audio devices
+//   maxVolume                 - 1.0 or 1.5 when overdrive is enabled
+//   wpctlOutputVolume         - wpctl fallback volume (stale-node recovery)
+// =============================================================================
+
 pragma Singleton
 
 import QtQuick

@@ -81,7 +81,6 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "",
     "dimmerOpacity": 0.2,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,
@@ -105,7 +104,6 @@
     "shadowOffsetY": 3,
     "language": "",
     "allowPanelsOnScreenWithoutBar": true,
-    "showChangelogOnStartup": true,
     "telemetryEnabled": false,
     "enableLockScreenCountdown": true,
     "lockScreenCountdownDuration": 10000,
@@ -172,7 +170,7 @@
     "firstDayOfWeek": -1,
     "hideWeatherTimezone": false,
     "hideWeatherCityName": false,
-    "autoLocate": true
+    "autoLocate": false
   },
   "calendar": {
     "cards": [
@@ -277,6 +275,9 @@
         },
         {
           "id": "WallpaperSelector"
+        },
+        {
+          "id": "AgnocturalPerformance"
         }
       ],
       "right": [
@@ -494,7 +495,7 @@
   },
   "colorSchemes": {
     "useWallpaperColors": false,
-    "predefinedScheme": "Noctalia (default)",
+    "predefinedScheme": "Agnoctural (default)",
     "darkMode": true,
     "schedulingMode": "off",
     "manualSunrise": "06:30",
@@ -503,12 +504,12 @@
     "monitorForColors": "",
     "syncGsettings": true,
     "saturation": {
-      "primary": 1.0,
-      "secondary": 1.0,
-      "tertiary": 1.0,
+      "primary": 1,
+      "secondary": 1,
+      "tertiary": 1,
       "surface": 0.9,
       "background": 0.85,
-      "error": 1.0,
+      "error": 1,
       "outline": 0.7
     }
   },
@@ -561,3 +562,4 @@
     "monitorWidgets": []
   }
 }
+AGNOCTURAL_EOF

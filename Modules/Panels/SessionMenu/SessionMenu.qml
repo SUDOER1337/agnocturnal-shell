@@ -1,3 +1,27 @@
+// File: Modules/Panels/SessionMenu/SessionMenu.qml
+// =============================================================================
+// Session/power menu panel — displays power actions (logout, reboot, shutdown,
+// suspend, hibernate) with configurable countdown timer, keyboard navigation,
+// and optional large-button fullscreen style. Extends SmartPanel.
+//
+// Functions:
+//   startTimer(action)        - Begin countdown for a session action
+//   cancelTimer()             - Abort the active countdown
+//   executeAction(action)     - Dispatch the chosen power action
+//   selectNextWrapped()       - Move selection to next item (wrapping)
+//   selectPreviousWrapped()   - Move selection to previous item (wrapping)
+//   navigateGrid(direction)   - Move selection in a 2D grid layout
+//   activate()                - Trigger the currently selected action
+//   handleEscape()            - Close panel or cancel countdown
+//
+// Properties:
+//   largeButtonsStyle         - Use fullscreen button layout
+//   timerDuration             - Countdown duration from settings
+//   timeRemaining             - Seconds left on the active countdown
+//   selectedIndex             - Currently highlighted power action
+//   panelPosition             - Computed anchor position string
+// =============================================================================
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects

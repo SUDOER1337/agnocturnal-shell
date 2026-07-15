@@ -1,4 +1,3 @@
-import Qt.labs.folderlistmodel
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -100,11 +99,12 @@ Popup {
     filteredModel.clear();
     const searchText = filePickerPanel.filterText.toLowerCase();
 
-    for (var i = 0; i < folderModel.count; i++) {
-      const fileName = folderModel.get(i, "fileName");
-      const filePath = folderModel.get(i, "filePath");
-      const fileIsDir = folderModel.get(i, "fileIsDir");
-      const fileSize = folderModel.get(i, "fileSize");
+    for (var i = 0; i < rawModel.count; i++) {
+      const entry = rawModel.get(i);
+      const fileName = entry.fileName;
+      const filePath = entry.filePath;
+      const fileIsDir = entry.fileIsDir;
+      const fileSize = entry.fileSize;
 
       // Skip hidden items if showHiddenFiles is false
       // This additional check ensures hidden files are properly filtered
@@ -255,10 +255,7 @@ Popup {
           tooltipText: "Refresh"
           onClicked: {
             // Force a proper refresh by resetting the folder
-            const currentFolder = folderModel.folder;
-            folderModel.folder = "";
-            folderModel.folder = currentFolder;
-            Qt.callLater(root.updateFilteredModel);
+            root.refreshFolder();
           }
         }
         NIconButton {
@@ -296,11 +293,12 @@ Popup {
             icon: "filepicker-arrow-up"
             tooltipText: "Parent directory"
             baseSize: Style.baseWidgetSize * 0.8
-            enabled: folderModel.folder.toString() !== "file:///"
+            enabled: root.currentPath !== "/"
             onClicked: {
-              const parentPath = folderModel.parentFolder.toString().replace("file://", "");
-              folderModel.folder = "file://" + parentPath;
-              root.currentPath = parentPath;
+              var parts = root.currentPath.split("/");
+              parts.pop();
+              var parentPath = parts.join("/") || "/";
+              root.navigateTo(parentPath);
             }
           }
 
@@ -310,7 +308,7 @@ Popup {
             baseSize: Style.baseWidgetSize * 0.8
             onClicked: {
               const homePath = Quickshell.env("HOME") || "/home";
-              folderModel.folder = "file://" + homePath;
+              root.navigateTo(homePath);
               root.currentPath = homePath;
             }
           }
@@ -341,7 +339,7 @@ Popup {
             onEditingFinished: {
               const newPath = text.trim();
               if (newPath !== "" && newPath !== root.currentPath) {
-                folderModel.folder = "file://" + newPath;
+                root.navigateTo(newPath);
                 root.currentPath = newPath;
               } else {
                 text = root.currentPath;
@@ -393,10 +391,7 @@ Popup {
             onClicked: {
               root.showHiddenFiles = !root.showHiddenFiles;
               // Force model refresh by resetting the folder
-              const currentFolder = folderModel.folder;
-              folderModel.folder = "";
-              folderModel.folder = currentFolder;
-              Qt.callLater(root.updateFilteredModel);
+              root.navigateTo(root.currentPath);
             }
           }
         }
@@ -411,41 +406,53 @@ Popup {
         border.color: Color.mOutline
         border.width: Style.borderS
 
-        FolderListModel {
-          id: folderModel
-          folder: "file://" + root.currentPath
-          // Use wildcard filters including hidden files when showHiddenFiles is true
-          nameFilters: root.showHiddenFiles ? ["*", ".*"] : root.nameFilters
-          showDirs: root.showDirs
-          showHidden: true // Always true, we'll filter in updateFilteredModel
-          showDotAndDotDot: false
-          sortField: FolderListModel.Name
-          sortReversed: false
+        ListModel {
+          id: rawModel
+        }
 
-          onFolderChanged: {
-            root.currentPath = folder.toString().replace("file://", "");
-            filePickerPanel.currentSelection = [];
-            Qt.callLater(root.updateFilteredModel);
+        Process {
+          id: dirListProcess
+          property string targetFolder: ""
+          command: ["sh", "-c", "cd \"$0\" 2>/dev/null || exit 1; for f in * .[!.]* ..?*; do [ -e \"$f\" ] || continue; if [ -d \"$f\" ]; then printf 'dir|0|%s\\n' \"$f\"; else printf 'file|%s|%s\\n' \"$(stat -c %s \"$f\" 2>/dev/null || echo 0)\" \"$f\"; fi; done | sort -t'|' -k3", targetFolder]
+
+          stdout: SplitParser {
+            onRead: data => {
+              var parts = data.trim().split("|");
+              if (parts.length === 3) {
+                rawModel.append({
+                  "fileName": parts[2],
+                  "filePath": dirListProcess.targetFolder + "/" + parts[2],
+                  "fileIsDir": parts[0] === "dir",
+                  "fileSize": parseInt(parts[1]) || 0
+                });
+              }
+            }
           }
 
-          onStatusChanged: {
-            if (status === FolderListModel.Error) {
-              if (root.currentPath !== Quickshell.env("HOME")) {
-                folder = "file://" + Quickshell.env("HOME");
-                root.currentPath = Quickshell.env("HOME");
+          onRunningChanged: {
+            if (!running) {
+              if (rawModel.count === 0 && dirListProcess.targetFolder !== "/") {
+                var home = Quickshell.env("HOME") || "/home";
+                root.navigateTo(home);
+              } else {
+                Qt.callLater(root.updateFilteredModel);
               }
-            } else if (status === FolderListModel.Ready) {
-              root.updateFilteredModel();
             }
           }
         }
 
-        // Update nameFilters when showHiddenFiles changes
-        Connections {
-          target: root
-          function onShowHiddenFilesChanged() {
-            folderModel.nameFilters = root.showHiddenFiles ? ["*", ".*"] : root.nameFilters;
-          }
+        function navigateTo(path) {
+          rawModel.clear();
+          dirListProcess.targetFolder = path;
+          dirListProcess.running = true;
+          root.currentPath = path;
+          filePickerPanel.currentSelection = [];
+        }
+
+        function refreshFolder() {
+          rawModel.clear();
+          dirListProcess.targetFolder = root.currentPath;
+          dirListProcess.running = true;
         }
 
         ListModel {
@@ -644,7 +651,7 @@ Popup {
                 if (mouse.button === Qt.LeftButton) {
                   if (model.fileIsDir) {
                     // Double-click on folder always navigates into it
-                    folderModel.folder = "file://" + model.filePath;
+                    root.navigateTo(model.filePath);
                     root.currentPath = model.filePath;
                   } else {
                     // Double-click on file selects and confirms (only in file mode)
@@ -743,7 +750,7 @@ Popup {
                 if (mouse.button === Qt.LeftButton) {
                   if (model.fileIsDir) {
                     // Double-click on folder always navigates into it
-                    folderModel.folder = "file://" + model.filePath;
+                    root.navigateTo(model.filePath);
                     root.currentPath = model.filePath;
                   } else {
                     // Double-click on file selects and confirms (only in file mode)
@@ -811,7 +818,8 @@ Popup {
     Component.onCompleted: {
       if (!root.currentPath)
         root.currentPath = root.initialPath;
-      folderModel.folder = "file://" + root.currentPath;
+      dirListProcess.targetFolder = root.currentPath;
+      dirListProcess.running = true;
     }
   }
 }

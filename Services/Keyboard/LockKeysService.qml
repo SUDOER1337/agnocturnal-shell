@@ -1,6 +1,4 @@
 pragma Singleton
-import Qt.labs.folderlistmodel 2.10
-import QtQml.Models
 
 import QtQuick
 import Quickshell
@@ -35,17 +33,40 @@ Singleton {
   signal numLockChanged(bool active)
   signal scrollLockChanged(bool active)
 
-  Instantiator {
-    model: FolderListModel {
-      id: folderModel
-      folder: Qt.resolvedUrl("/sys/class/leds")
-      showFiles: false
-      showOnlyReadable: true
+  ListModel {
+    id: ledModel
+  }
+
+  Process {
+    id: ledDiscovery
+    command: ["ls", "-1", "/sys/class/leds/"]
+    running: true
+
+    stdout: SplitParser {
+      onRead: data => {
+        var trimmed = data.trim();
+        if (trimmed.length > 0 && trimmed.includes("::")) {
+          var kind = trimmed.split("::")[1];
+          if (kind === "numlock" || kind === "capslock" || kind === "scrolllock") {
+            ledModel.append({"dirName": trimmed, "filePath": "/sys/class/leds/" + trimmed});
+          }
+        }
+      }
     }
+
+    onRunningChanged: {
+      if (!running) {
+        Logger.d("LockKeysService", "LED discovery complete, found:", ledModel.count, "lock key LEDs");
+      }
+    }
+  }
+
+  Instantiator {
+    model: ledModel
     delegate: Component {
       FileView {
         id: fileView
-        path: filePath + "/brightness"
+        path: model.filePath + "/brightness"
         // sysfs brightness can fail transiently (e.g. resume); omit console spam like other sysfs FileViews.
         printErrors: false
         watchChanges: false
@@ -97,7 +118,7 @@ Singleton {
           if (state === null)
           return;
 
-          var kind = fileName.split("::")[1];
+          var kind = model.dirName.split("::")[1];
 
           // First read after polling starts: sync bar/UI from sysfs without firing
           // *Changed signals (OSD listens to those and would flash on startup).
@@ -110,10 +131,10 @@ Singleton {
           fileView.applyLockState(kind, state, true);
         }
 
-        // FolderListModel only provides filters for file names, not folders
+        // Only monitor directories that contain lock key LEDs
         property bool isWanted: {
-          if (fileName.startsWith("input") && fileName.includes("::")) {
-            switch (fileName.split("::")[1]) {
+          if (model.dirName.startsWith("input") && model.dirName.includes("::")) {
+            switch (model.dirName.split("::")[1]) {
               case "numlock":
               case "capslock":
               case "scrolllock":

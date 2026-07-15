@@ -1,3 +1,28 @@
+// File: Services/System/NotificationService.qml
+// =============================================================================
+// Notification service — implements the desktop notification server, manages
+// popup display with rate-limited sounds, content-based deduplication, action
+// invocation, persistent history with markdown sanitization, and media toast
+// integration.
+//
+// Functions:
+//   handleNotification(n)       - Inbound notification dispatcher
+//   addPopup(id, n, data)       - Show a new popup or queue it
+//   dismissPopup(id)            - Dismiss a single popup by internal ID
+//   dismissAllPopups()          - Clear every visible popup
+//   invokeAction(id, actionId)  - Trigger a notification action
+//   clearHistory()              - Remove all persisted notifications
+//   removeFromHistory(id)       - Delete a single history entry
+//   getHistorySnapshot()        - Return current history as an array
+//   processNotificationText(t)  - Strip/sanitize raw notification text
+//
+// Properties:
+//   popupModel                  - Active popup list for the UI
+//   historyModel                - Persistent notification history
+//   doNotDisturb                - Suppress sounds and popups when true
+//   maxPopups / maxHistory      - Display and storage limits
+// =============================================================================
+
 pragma Singleton
 
 import QtQuick
@@ -18,8 +43,8 @@ Singleton {
 
   // Configuration
   property int maxPopups: 5
-  property int maxHistory: 100
-  property string historyFile: Quickshell.env("NOCTALIA_NOTIF_HISTORY_FILE") || (Settings.cacheDir + "notifications.json")
+  property int maxHistory: 50
+  property string historyFile: Quickshell.env("AGNOCTURNAL_NOTIF_HISTORY_FILE") || (Settings.cacheDir + "notifications.json")
 
   // State
   property real lastSeenTs: 0

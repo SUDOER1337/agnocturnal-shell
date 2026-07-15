@@ -1893,7 +1893,7 @@ Singleton {
                                  "wallpaper.no-wallpaper": "No wallpaper found.",
                                  "wallpaper.panel.apikey-help": "An API key is required to access NSFW content.",
                                  "wallpaper.panel.apikey-label": "API Key",
-                                 "wallpaper.panel.apikey-managed-by-env": "Managed via NOCTALIA_WALLHAVEN_API_KEY environment variable.",
+                                 "wallpaper.panel.apikey-managed-by-env": "Managed via AGNOCTURNAL_WALLHAVEN_API_KEY environment variable.",
                                  "wallpaper.panel.apikey-placeholder": "Enter your Wallhaven API Key",
                                  "wallpaper.panel.appearance-dark-tab": "Dark",
                                  "wallpaper.panel.appearance-light-tab": "Light",

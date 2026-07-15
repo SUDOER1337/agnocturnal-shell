@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell
-import Quickshell.DWL
 import Quickshell.Io
 import Quickshell.Wayland
 import qs.Commons
@@ -31,6 +30,9 @@ Item {
   QtObject {
     id: internal
 
+    // Latest monitor data from mmsg watch all-monitors
+    property var lastMonitorData: null
+
     // Window-to-tag persistence: Map<UniqueID, TagID>
     property var windowTagMap: ({})
 
@@ -51,32 +53,20 @@ Item {
     // Window signature for change detection
     property string lastWindowSignature: ""
 
-    // Get all screen names mapped to their DwlIpcOutput
-    function getOutputMap() {
-      const map = {};
-      const screens = Quickshell.screens;
-      for (let i = 0; i < screens.length; i++) {
-        const name = screens[i].name;
-        const dwlOutput = DwlIpc.outputForName(name);
-        if (dwlOutput) {
-          map[name] = dwlOutput;
-        }
-      }
-      return map;
-    }
-
-    // ===== REBUILD WORKSPACES FROM DWL =====
+    // ===== REBUILD WORKSPACES FROM MMSG DATA =====
 
     function rebuildWorkspaces() {
-      if (!DwlIpc.available) {
+      if (!internal.lastMonitorData || !internal.lastMonitorData.monitors) {
+        Logger.w("MangoService", "rebuildWorkspaces: no monitor data available");
         return;
       }
 
-      const outputMap = getOutputMap();
+      const monitors = internal.lastMonitorData.monitors;
       const workspaceList = [];
 
-      for (const outputName in outputMap) {
-        const output = outputMap[outputName];
+      for (let mi = 0; mi < monitors.length; mi++) {
+        const mon = monitors[mi];
+        const outputName = mon.name;
 
         // Assign stable index to output
         if (internal.outputIndices[outputName] === undefined) {
@@ -85,15 +75,21 @@ Item {
         const outputIdx = internal.outputIndices[outputName];
 
         // Track selected monitor and layout
-        if (output.active) {
+        if (mon.active) {
           root.selectedMonitor = outputName;
-          root.currentLayoutSymbol = output.layoutSymbol;
+          root.currentLayoutSymbol = mon.layout_symbol || "";
         }
 
-        const tags = output.tags;
+        // Store scale
+        if (typeof mon.scale === "number") {
+          internal.monitorScales[outputName] = mon.scale;
+        }
+
+        const tags = mon.tags || [];
+        const activeTags = mon.active_tags || [];
         for (let ti = 0; ti < tags.length; ti++) {
           const tag = tags[ti];
-          const tagId = tag.index + 1; // DwlTag.index is zero-based, our IDs are 1-based
+          const tagId = tag.index; // mmsg tags are 1-based
           const uniqueId = outputIdx * 100 + tagId;
 
           workspaceList.push({
@@ -101,10 +97,10 @@ Item {
                                idx: tagId,
                                name: tagId.toString(),
                                output: outputName,
-                               isActive: tag.active,
-                               isFocused: tag.active && output.active,
-                               isUrgent: tag.urgent,
-                               isOccupied: tag.clientCount > 0
+                               isActive: activeTags.includes(tagId),
+                               isFocused: tag.is_active && mon.active,
+                               isUrgent: tag.is_urgent,
+                               isOccupied: tag.client_count > 0
                              });
         }
       }
@@ -118,42 +114,47 @@ Item {
       }
 
       root.workspaceChanged();
+      if (workspaceList.length > 0) {
+        Logger.d("MangoService", "Rebuilt", workspaceList.length, "workspaces from", monitors.length, "monitors");
+      }
     }
 
     // ===== UPDATE WINDOWS =====
 
     function updateWindows() {
-      if (!ToplevelManager.toplevels || !DwlIpc.available) {
+      if (!ToplevelManager.toplevels) {
+        Logger.w("MangoService", "updateWindows: ToplevelManager.toplevels is null");
+        return;
+      }
+      if (!internal.lastMonitorData || !internal.lastMonitorData.monitors) {
+        Logger.w("MangoService", "updateWindows: no monitor data available");
         return;
       }
 
-      const outputMap = getOutputMap();
+      const monitors = internal.lastMonitorData.monitors;
       const toplevels = ToplevelManager.toplevels.values;
       const windowList = [];
       let newFocusedIdx = -1;
       const currentWindows = new Set();
 
-      // Build per-output state from DWL
+      // Build per-output state from mmsg data
       // Map<outputName, { title, appId, activeTagId }>
-      // Always populated (activeTagId needed for visible-window inference),
-      // title/appId may be empty if no window is focused.
       const outputState = {};
-      for (const outputName in outputMap) {
-        const output = outputMap[outputName];
+      for (let mi = 0; mi < monitors.length; mi++) {
+        const mon = monitors[mi];
+        const outputName = mon.name;
 
-        // Find active tag for this output
+        // Find first active tag
         let activeTagId = 1;
-        const tags = output.tags;
-        for (let ti = 0; ti < tags.length; ti++) {
-          if (tags[ti].active) {
-            activeTagId = tags[ti].index + 1;
-            break;
-          }
+        const activeTags = mon.active_tags || [];
+        if (activeTags.length > 0) {
+          activeTagId = activeTags[0];
         }
 
+        const ac = mon.active_client;
         outputState[outputName] = {
-          title: output.title || "",
-          appId: output.appId || "",
+          title: ac ? (ac.title || "") : "",
+          appId: ac ? (ac.appid || "") : "",
           activeTagId: activeTagId
         };
 
@@ -187,7 +188,7 @@ Item {
         // Determine output
         let outputName;
 
-        // Priority 1: Focused window matched to DWL output metadata
+        // Priority 1: Focused window matched to mmsg output metadata
         if (isFocused && (title || appId)) {
           for (const oName in outputState) {
             const os = outputState[oName];
@@ -211,7 +212,7 @@ Item {
 
         // Fallback: selected monitor
         if (!outputName) {
-          outputName = root.selectedMonitor || "DP-1";
+          outputName = root.selectedMonitor || "HDMI-A-1";
         }
 
         // Determine tag
@@ -219,7 +220,7 @@ Item {
 
         const os = outputState[outputName];
         if (isFocused && os && !os.consumed && (os.title || os.appId) && title === os.title && appId === os.appId) {
-          // Focused window: assign to the active tag from DWL metadata
+          // Focused window: assign to the active tag from mmsg metadata
           tagId = os.activeTagId;
           internal.windowTagMap[windowId] = tagId;
           // Consume so a second toplevel with identical title+appId cannot also claim focus
@@ -230,8 +231,7 @@ Item {
         }
 
         if (tagId === null) {
-          // DWL only reports the focused window per output, so we can't
-          // determine the tag for unfocused windows until they gain focus.
+          // Can't determine the tag for unfocused windows until they gain focus.
           continue;
         }
 
@@ -283,6 +283,7 @@ Item {
         internal.lastWindowSignature = signature;
         root.windows = windowList;
         root.windowListChanged();
+        Logger.d("MangoService", "Window list updated:", windowList.length, "windows,", toplevels.length, "toplevels");
       }
 
       if (newFocusedIdx !== root.focusedWindowIndex) {
@@ -291,84 +292,89 @@ Item {
       }
     }
 
-    // ===== PROCESS MONITOR SCALES (JSON from new IPC) =====
+    // ===== PROCESS MONITOR SCALES (forward to CompositorService) =====
 
-    function processMonitorScales(jsonOutput) {
-      try {
-        const data = JSON.parse(jsonOutput);
-        if (!data.monitors || !Array.isArray(data.monitors)) {
+    function processMonitorScales(monitors) {
+      const scalesMap = {};
+      for (let i = 0; i < monitors.length; i++) {
+        const mon = monitors[i];
+        if (mon.name && typeof mon.scale === "number") {
+          internal.monitorScales[mon.name] = mon.scale;
+          scalesMap[mon.name] = {
+            name: mon.name,
+            scale: mon.scale
+          };
+        }
+      }
+
+      if (typeof CompositorService !== "undefined" && CompositorService.onDisplayScalesUpdated) {
+        CompositorService.onDisplayScalesUpdated(scalesMap);
+      }
+
+      root.displayScalesChanged();
+    }
+  }
+
+  // ===== MMSG WATCH PROCESS (persistent stream) =====
+
+  property QtObject _mmsgWatch: Process {
+    id: mmsgWatch
+    command: ["mmsg", "watch", "all-monitors"]
+    running: root.initialized
+
+    stdout: SplitParser {
+      onRead: line => {
+        const trimmed = line.trim();
+        if (trimmed.length === 0)
           return;
-        }
-
-        // Extract per-monitor scales from mmsg JSON and forward to CompositorService
-        // Resolution/geometry sourced from Quickshell.screens instead
-        const scalesMap = {};
-        for (let i = 0; i < data.monitors.length; i++) {
-          const mon = data.monitors[i];
-          if (mon.name && typeof mon.scale === "number") {
-            internal.monitorScales[mon.name] = mon.scale;
-            scalesMap[mon.name] = {
-              name: mon.name,
-              scale: mon.scale
-            };
+        try {
+          const data = JSON.parse(trimmed);
+          if (data.monitors && Array.isArray(data.monitors)) {
+            const prevData = internal.lastMonitorData;
+            internal.lastMonitorData = data;
+            internal.processMonitorScales(data.monitors);
+            internal.rebuildWorkspaces();
+            internal.updateWindows();
           }
+        } catch (e) {
+          Logger.e("MangoService", "Failed to parse mmsg watch output:", e);
         }
+      }
+    }
 
-        if (CompositorService && CompositorService.onDisplayScalesUpdated) {
-          CompositorService.onDisplayScalesUpdated(scalesMap);
-        }
-
-        root.displayScalesChanged();
-      } catch (e) {
-        Logger.e("MangoService", "Failed to parse monitor JSON:", e);
+    onRunningChanged: {
+      if (!running && root.initialized) {
+        Logger.w("MangoService", "mmsg watch process exited, restarting in 1s");
+        restartTimer.restart();
       }
     }
   }
 
-  // ===== DWL CONNECTIONS =====
-
-  // React to DWL frame events on each output (atomic state updates)
-  Instantiator {
-    model: DwlIpc.outputs
-    delegate: Connections {
-      required property DwlIpcOutput modelData
-      target: modelData
-
-      function onFrame() {
-        internal.rebuildWorkspaces();
-        internal.updateWindows();
+  property QtObject _restartTimer: Timer {
+    id: restartTimer
+    interval: 1000
+    onTriggered: {
+      if (root.initialized && !mmsgWatch.running) {
+        Logger.i("MangoService", "Restarting mmsg watch");
+        mmsgWatch.running = true;
       }
+    }
+  }
 
-      function onKbLayoutChanged() {
-        // Not reliable for XKB-driven switches on MangoWC; handled by kbLayoutPoll
-      }
+  // ===== TOPLEVEL MANAGER CONNECTION =====
+
+  property QtObject _toplevelConnection: Connections {
+    target: ToplevelManager.toplevels
+    enabled: ToplevelManager.toplevels !== null && ToplevelManager.toplevels !== undefined
+
+    function onValuesChanged() {
+      internal.updateWindows();
     }
   }
 
   // ===== PROCESSES =====
 
-  // Scale query (mmsg get all-monitors) - New IPC: get monitor data including scales
-  property QtObject _scaleQuery: Process {
-    id: scaleQuery
-    command: ["mmsg", "get", "all-monitors"]
-
-    property string buffer: ""
-
-    stdout: SplitParser {
-      onRead: line => {
-        scaleQuery.buffer += line + "\n";
-      }
-    }
-
-    onExited: code => {
-      if (code === 0) {
-        internal.processMonitorScales(scaleQuery.buffer);
-        scaleQuery.buffer = "";
-      }
-    }
-  }
-
-  // Keyboard layout polling - MangoWC doesn't send DWL IPC events for XKB-driven
+  // Keyboard layout polling - MangoWC doesn't send events for XKB-driven
   // layout switches (grp:win_space_toggle), so we poll mmsg periodically.
   property QtObject _kbLayoutPoll: Timer {
     id: kbLayoutPoll
@@ -426,16 +432,6 @@ Item {
     }
   }
 
-  // ===== TOPLEVEL MANAGER CONNECTION =====
-
-  property QtObject _toplevelConnection: Connections {
-    target: ToplevelManager.toplevels
-
-    function onValuesChanged() {
-      internal.updateWindows();
-    }
-  }
-
   // ===== PUBLIC FUNCTIONS =====
 
   function initialize() {
@@ -443,16 +439,12 @@ Item {
       return;
     }
 
-    Logger.i("MangoService", "Initializing MangoWC/DWL compositor integration (DWL protocol)");
+    Logger.i("MangoService", "Initializing MangoWC compositor integration (mmsg IPC)");
+    Logger.i("MangoService", "ToplevelManager.toplevels:", ToplevelManager.toplevels ? "available" : "null");
+    Logger.i("MangoService", "Quickshell.screens count:", Quickshell.screens ? Quickshell.screens.length : 0);
 
-    // Query display scales (only thing still needing mmsg)
-    scaleQuery.running = true;
-
-    // Initial build from DWL state
-    if (DwlIpc.available && DwlIpc.outputs.length > 0) {
-      internal.rebuildWorkspaces();
-      internal.updateWindows();
-    }
+    // Start mmsg watch (persistent stream)
+    mmsgWatch.running = true;
 
     // Start keyboard layout polling
     kbLayoutPoll.running = true;
@@ -461,26 +453,34 @@ Item {
   }
 
   function queryDisplayScales() {
-    scaleQuery.running = true;
+    // Scales are now updated via mmsg watch, but force a refresh
+    const getProcess = ProcessFactory.createObject(root, {
+      command: ["mmsg", "get", "all-monitors"]
+    });
+    getProcess.stdout = SplitParser.createObject(getProcess, {
+      onRead: line => {
+        try {
+          const data = JSON.parse(line.trim());
+          if (data.monitors) {
+            internal.processMonitorScales(data.monitors);
+          }
+        } catch (e) {}
+      }
+    });
+    getProcess.running = true;
+    // Clean up after it finishes
+    getProcess.onExited.connect(() => getProcess.destroy());
   }
 
   function switchToWorkspace(workspace) {
     const tagId = workspace.idx || workspace.id || 1;
     const outputName = workspace.output || root.selectedMonitor || "";
 
-    // Use DWL protocol to switch tags
-    const dwlOutput = DwlIpc.outputForName(outputName);
-    if (dwlOutput) {
-      dwlOutput.setTags(1 << (tagId - 1)); // tagId is 1-based, bitmask is 0-based
-    } else {
-      // Fallback to new mmsg dispatch API: view <tagid>
-      // Per IPC_MIGRATION_GUIDE.md: mmsg dispatch view,1
-      let cmd = ["mmsg", "dispatch", "view," + tagId.toString()];
-      if (outputName && Object.keys(internal.monitorScales).length > 1) {
-        cmd.push("monitor," + outputName);
-      }
-      Quickshell.execDetached(cmd);
+    let cmd = ["mmsg", "dispatch", "view," + tagId.toString()];
+    if (outputName && Object.keys(internal.monitorScales).length > 1) {
+      cmd.push("monitor," + outputName);
     }
+    Quickshell.execDetached(cmd);
   }
 
   function focusWindow(window) {
@@ -498,13 +498,11 @@ Item {
     if (window && window.handle) {
       window.handle.close();
     } else {
-      // New mmsg dispatch API: killclient
       Quickshell.execDetached(["mmsg", "dispatch", "killclient"]);
     }
   }
 
   function cycleKeyboardLayout() {
-    // New mmsg dispatch API: switch_keyboard_layout
     Quickshell.execDetached(["mmsg", "dispatch", "switch_keyboard_layout"]);
   }
 
@@ -514,7 +512,6 @@ Item {
 
   function spawn(command) {
     try {
-      // New mmsg dispatch API: spawn_shell for shell command execution
       const cmd = ["mmsg", "dispatch", "spawn_shell," + command.join(" ")];
       Quickshell.execDetached(cmd);
     } catch (e) {

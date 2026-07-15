@@ -1,3 +1,27 @@
+// File: Modules/Panels/Settings/Tabs/Connections/WifiSubTab.qml
+// =============================================================================
+// WiFi settings tab — displays connected, saved, and available networks with
+// signal-strength sorting. Handles WPA2/WPA3 and enterprise (EAP) password
+// entry, network info expansion, inline custom-network creation, and keyboard
+// navigation across the network list.
+//
+// Functions:
+//   requestPassword(ssid)    - Open the password entry dialog for a network
+//   submitPassword(ssid, pw) - Send credentials and initiate connection
+//   cancelPassword()         - Dismiss the password dialog
+//   confirmForget(ssid)      - Confirm and remove a saved network
+//   openForInline()          - Open inline Wi-Fi add dialog
+//   openForAddNetwork()      - Open the full add-network form
+//
+// Properties:
+//   passwordSsid             - SSID currently awaiting password input
+//   connectedNetworks        - Filtered list of connected networks
+//   savedNetworks            - Filtered list of saved-but-disconnected networks
+//   availableNetworks        - Filtered list of new discoverable networks
+//   effectivelyVisible       - True when tab and window are both visible
+//   detailsGrid              - Whether to show network details in grid layout
+// =============================================================================
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

@@ -1,3 +1,28 @@
+// File: Services/UI/WallpaperService.qml
+// =============================================================================
+// Wallpaper lifecycle management — scanning directories, browse navigation,
+// solid colors, favorites with theme sync, transitions, and per-screen wallpaper
+// state for light/dark appearance slots.
+//
+// Functions:
+//   init()                       - Load persisted wallpaper state and defaults
+//   toggleFavorite(path, slot)   - Add or remove a wallpaper from favorites
+//   setNextWallpaper()           - Advance to the next wallpaper in the list
+//   toggleRandomWallpaper()      - Start or stop random wallpaper cycling
+//   scanDirectoryWithDirs()      - Scan a directory for images and subdirectories
+//   refreshWallpapersList()      - Re-scan all configured wallpaper directories
+//   navigateUp(screen)           - Browse one directory level up
+//   setSolidColor(color)         - Apply a solid-color wallpaper
+//   applyFavoriteTheme(path)     - Switch color scheme to match a favorite wallpaper
+//
+// Properties:
+//   currentWallpapers            - Per-screen current wallpaper path
+//   wallpaperLists               - Per-screen scanned file lists
+//   currentBrowsePaths           - Per-screen browse-mode directory
+//   favoritesRevision            - Bumped on favorite add/remove for UI refresh
+//   wallpaperSelectionAppearance - Which slot ("light"/"dark") new picks apply to
+// =============================================================================
+
 pragma Singleton
 
 import QtQuick

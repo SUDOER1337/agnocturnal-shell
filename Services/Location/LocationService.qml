@@ -9,7 +9,7 @@ import qs.Commons
 Singleton {
   id: root
 
-  property string locationFile: Quickshell.env("NOCTALIA_WEATHER_FILE") || (Settings.cacheDir + "location.json")
+  property string locationFile: Quickshell.env("AGNOCTURNAL_WEATHER_FILE") || (Settings.cacheDir + "location.json")
   property int weatherUpdateFrequency: 30 * 60
   property bool isFetchingWeather: false
 

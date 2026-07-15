@@ -1,3 +1,24 @@
+// File: Modules/LockScreen/LockScreenPanel.qml
+// =============================================================================
+// Lock screen UI — password entry with custom character rendering, countdown
+// timer for session actions (logout, reboot, shutdown), weather display, media
+// controls, and battery indicator. Supports auto-unlock on trusted input.
+//
+// Functions:
+//   doUnlock()                - Attempt to unlock via lockControl
+//   startTimer(action)        - Begin countdown for a session action
+//   cancelTimer()             - Abort the active countdown
+//   executeAction(action)     - Dispatch a session action (logout, shutdown, etc.)
+//
+// Properties:
+//   lockControl               - Required lock state controller
+//   passwordInput             - Required TextInput for password entry
+//   timerDuration             - Countdown duration from settings
+//   timeRemaining             - Seconds left on the active countdown
+//   animationsEnabled         - Whether smooth cursor animations are active
+//   weatherReady              - True when weather data is available
+// =============================================================================
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

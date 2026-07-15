@@ -1,3 +1,27 @@
+// File: Modules/Panels/Settings/SettingsContent.qml
+// =============================================================================
+// Settings panel container — manages the sidebar tab list, content area scroll
+// view, full-text search across all settings tabs, keyboard navigation, and
+// sidebar expand/collapse behavior with hover auto-expand.
+//
+// Functions:
+//   initialize()              - Build the tab model and select initial tab
+//   selectTabById(tabId)      - Switch to a tab by its string identifier
+//   navigateToTab(tabId)      - Switch tab and optionally scroll to a sub-tab
+//   searchSelectNext()        - Move search highlight to next result
+//   searchActivate()          - Jump to the currently highlighted search result
+//   updateTabsModel()         - Rebuild the sidebar tab list from registered tabs
+//   scrollDown() / scrollUp() - Scroll the active tab content
+//   selectNextTab()           - Move to the next sidebar tab
+//
+// Properties:
+//   currentTabIndex           - Index of the active settings tab
+//   searchText                - Current search query string
+//   searchResults             - Filtered list of matching setting entries
+//   sidebarExpanded           - Whether the sidebar is expanded or collapsed
+//   tabsModel                 - Array of tab descriptors for the sidebar
+// =============================================================================
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

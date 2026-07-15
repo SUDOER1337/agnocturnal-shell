@@ -1,3 +1,28 @@
+// File: Commons/Settings.qml
+// =============================================================================
+// Central settings singleton — persists shell configuration to settings.json,
+// provides the typed adapter tree (Settings.data.*), handles directory creation,
+// settings version migration, per-screen bar overrides, and external file-watch
+// reload with debouncing.
+//
+// Functions:
+//   saveImmediate()              - Write current settings to disk immediately
+//   scheduleExternalReload()     - Debounced reload from file watcher
+//   preprocessPath(path)         - Expand ~ and resolve relative paths
+//   getBarPositionForScreen(n)   - Get bar position override for a screen
+//   setScreenOverride(n, p, v)  - Set a per-screen override property
+//   clearScreenOverride(n, p)   - Remove per-screen override(s)
+//   upgradeSettings()            - Migrate old settings to current version
+//   generateDefaultSettings()    - Write factory defaults (debug mode)
+//
+// Properties:
+//   data                         - Alias to the typed settings adapter tree
+//   settingsVersion              - Schema version for migration tracking
+//   configDir / cacheDir         - Resolved config and cache directories
+//   isDebug                      - True when AGNOCTURNAL_DEBUG=1
+//   isLoaded                     - True after first successful load
+// =============================================================================
+
 pragma Singleton
 
 import QtQuick

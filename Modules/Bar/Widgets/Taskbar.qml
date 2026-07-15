@@ -1,3 +1,28 @@
+// File: Modules/Bar/Widgets/Taskbar.qml
+// =============================================================================
+// Taskbar widget — displays running windows with optional pinned-app
+// persistence, smart width capping, drag-to-reorder, and per-app context
+// actions. Combines pinned and active windows into a unified model.
+//
+// Functions:
+//   getSelectedWindow()            - Return the active window entry
+//   getAppKey(appData)             - Derive a stable key for an app entry
+//   sortApps(apps)                 - Sort apps by pinned order then focus
+//   updateCombinedModel()          - Rebuild merged pinned+window list
+//   launchPinnedApp(appId)         - Launch a pinned app that has no window
+//   toggleAppPin(appId)            - Pin or unpin an application
+//   reorderApps(from, to)          - Drag-reorder within the taskbar
+//   savePinnedOrder()              - Persist pinned-app order to settings
+//
+// Properties:
+//   screen / screenName            - The screen this taskbar is rendered on
+//   barPosition / isVerticalBar    - Bar layout orientation
+//   widgetSettings                 - Per-instance widget configuration
+//   hasWindow                      - True when at least one window exists
+//   showPinnedApps                 - Whether pinned apps are displayed
+//   smartWidth / maxTaskbarWidth   - Dynamic width capping settings
+// =============================================================================
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

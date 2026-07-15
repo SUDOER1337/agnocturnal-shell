@@ -1,3 +1,29 @@
+// File: Services/Networking/NetworkService.qml
+// =============================================================================
+// Network management service — wraps NetworkManager for WiFi and Ethernet
+// status, scanning, connection/disconnection, enterprise credentials,
+// IP detail parsing, and signal-strength helpers.
+//
+// Functions:
+//   setWifiEnabled(enabled)         - Toggle WiFi radio on/off
+//   setAirplaneMode(state)          - Toggle airplane mode
+//   scan()                          - Trigger a WiFi network scan
+//   connect(ssid, password, ...)    - Initiate a WiFi connection
+//   disconnect(ssid)                - Disconnect from a WiFi network
+//   forget(ssid)                    - Remove a saved network
+//   refreshActiveWifiDetails()      - Fetch current WiFi connection details
+//   refreshActiveEthernetDetails()  - Fetch current Ethernet connection details
+//   getSignalInfo(signal, connected) - Get signal icon and label for a level
+//   parseIpDetails(text)            - Parse nmcli output into IP/dns/gateway map
+//
+// Properties:
+//   wifiEnabled / wifiAvailable     - WiFi radio and hardware state
+//   ethernetAvailable               - Whether an Ethernet adapter exists
+//   internetConnectivity            - True when internet access is confirmed
+//   networks                        - Map of scanned WiFi networks by SSID
+//   activeWifiDetails / activeEthernetDetails - Current connection info
+// =============================================================================
+
 pragma Singleton
 
 import QtQuick

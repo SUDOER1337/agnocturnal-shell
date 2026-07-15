@@ -1,3 +1,25 @@
+// File: Modules/Panels/NotificationHistory/NotificationHistoryPanel.qml
+// =============================================================================
+// Notification history panel — scrollable list of past notifications with
+// time-range filtering (1h/6h/24h/all), keyboard navigation, inline action
+// buttons, swipe-to-dismiss, markdown sanitization, and category tab counts.
+//
+// Functions:
+//   moveSelection(dir)       - Move highlight up/down through the list
+//   moveAction(dir)          - Cycle through inline actions on the focused item
+//   activateSelection()      - Invoke the default action on the selected notification
+//   removeSelection()        - Dismiss/delete the selected notification
+//   scrollToItem(index)      - Scroll the list to make an item visible
+//   resetFocus()             - Clear selection and return to neutral state
+//   recalcRangeCounts()      - Rebuild per-range notification counts
+//
+// Properties:
+//   currentRange             - Active time-range filter index (0=1h..3=all)
+//   selectedNotificationIndex - Currently highlighted notification
+//   selectedActionIndex      - Currently focused inline action
+//   panelPosition            - Computed anchor position string
+// =============================================================================
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

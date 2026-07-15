@@ -1,3 +1,29 @@
+// File: Services/Agnocturnal/PluginService.qml
+// =============================================================================
+// Plugin lifecycle management — install, uninstall, load, enable, disable,
+// hot-reload, and registry fetching for third-party shell plugins.
+//
+// Functions:
+//   init()                      - Initialize plugin system and load enabled plugins
+//   installPlugin(metadata)     - Download and install a plugin from registry
+//   uninstallPlugin(key)        - Remove a plugin and its data
+//   enablePlugin(key)           - Load and activate a plugin
+//   disablePlugin(key)          - Unload and deactivate a plugin
+//   loadPlugin(id)              - Load a plugin component into the shell
+//   unloadPlugin(id)            - Tear down a running plugin instance
+//   refreshAvailablePlugins()   - Re-fetch all plugin registries
+//   createPluginAPI(id, ...)    - Build the runtime API object exposed to plugins
+//   addWidgetToBar(id, section) - Insert a plugin widget into the bar
+//   removeWidgetFromBar(id)     - Remove a plugin widget from all bar sections
+//
+// Properties:
+//   loadedPlugins               - Map of running plugin instances
+//   availablePlugins            - Array of metadata from all registries
+//   pluginUpdates               - Available updates keyed by plugin ID
+//   pluginErrors                - Load errors keyed by plugin ID
+//   pluginHotReloadEnabled      - List of plugins with hot-reload active
+// =============================================================================
+
 pragma Singleton
 
 import QtQuick
@@ -2020,25 +2046,12 @@ Singleton {
 
     loadPluginTranslationsAsync(pluginId, plugin.manifest, "en", function (translations) {
       plugin.api.pluginTranslations = translations;
+      plugin.api.pluginFallbackTranslations = {};
+      plugin.api.translationVersion++;
 
-      // Also reload English fallback for non-English languages
-      if ("en" !== "en") {
-        loadPluginTranslationsAsync(pluginId, plugin.manifest, "en", function (fallbackTranslations) {
-          plugin.api.pluginFallbackTranslations = fallbackTranslations;
-          plugin.api.translationVersion++;
-
-          var pluginName = plugin.manifest.name || pluginId;
-          ToastService.showNotice("Plugins", "Reloaded translations: {name}");
-          Logger.i("PluginService", "Translation hot reload complete for plugin:", pluginId);
-        });
-      } else {
-        plugin.api.pluginFallbackTranslations = {};
-        plugin.api.translationVersion++;
-
-        var pluginName = plugin.manifest.name || pluginId;
-        ToastService.showNotice("Plugins", "Reloaded translations: {name}");
-        Logger.i("PluginService", "Translation hot reload complete for plugin:", pluginId);
-      }
+      var pluginName = plugin.manifest.name || pluginId;
+      ToastService.showNotice("Plugins", "Reloaded translations: {name}");
+      Logger.i("PluginService", "Translation hot reload complete for plugin:", pluginId);
     });
 
     return true;

@@ -1,3 +1,24 @@
+// File: Modules/Panels/Wallpaper/WallpaperPanel.qml
+// =============================================================================
+// Wallpaper picker panel — grid-based browser for wallpapers with favorite
+// toggling, view-mode cycling (grid/list), browse navigation, screen tab
+// switching, and keyboard grid navigation. Extends SmartPanel.
+//
+// Functions:
+//   onDownPressed()           - Move grid selection down
+//   onUpPressed()             - Move grid selection up
+//   onReturnPressed()         - Apply the selected wallpaper
+//   selectItem(path, isDir)  - Navigate into directory or select wallpaper
+//   cycleViewMode()           - Toggle between grid and list view
+//   refreshWallpaperScreenData() - Re-scan wallpapers for current screen
+//   sortFavoritesToTop(items) - Reorder items with favorites first
+//
+// Properties:
+//   contentItem               - Direct ref to the inner content component
+//   panelPosition             - Computed panel anchor position string
+//   screenBarPosition         - Bar position for the current screen
+// =============================================================================
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

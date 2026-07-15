@@ -1,3 +1,28 @@
+// File: Modules/MainScreen/SmartPanel.qml
+// =============================================================================
+// Base smart panel — handles open/close animations (size + opacity), edge-aware
+// positioning relative to the bar or button anchor, blur backdrop, and keyboard
+// escape-to-close. All floating panels (Session, Wallpaper, Settings, etc.)
+// extend this component.
+//
+// Functions:
+//   toggle(buttonItem, name)  - Toggle panel open/closed
+//   open(buttonItem, name)    - Animate panel open from anchor position
+//   close()                   - Animate panel close (fade then shrink)
+//   closeImmediately()        - Skip animation and finalize close instantly
+//   setPosition()             - Recalculate panel x/y from anchor and content size
+//   onEscapePressed()         - Handle Escape key to close panel
+//
+// Properties:
+//   screen                     - ShellScreen this panel is displayed on
+//   preferredWidth/Height      - Desired content dimensions
+//   panelAnchor{Top,Bottom,Left,Right,HorizontalCenter,VerticalCenter}
+//   isPanelOpen                - Whether the panel is currently open
+//   isPanelVisible             - Whether the panel is rendered (post-animation)
+//   blurEnabled                - Whether blur backdrop is active
+//   panelBackgroundColor       - Background color of the panel rectangle
+// =============================================================================
+
 import QtQuick
 import Quickshell
 import qs.Commons

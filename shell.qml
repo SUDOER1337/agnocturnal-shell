@@ -104,8 +104,6 @@ ShellRoot {
           PowerProfileService.init();
           HostService.init();
           NotificationRulesService.init();
-          // GitHubService.init();    // removed
-          // SupporterService.init(); // removed
           CustomButtonIPCService.init();
           IPCService.init(screenDetector);
 
@@ -171,7 +169,6 @@ ShellRoot {
       HooksService.init();
       FontService.init();
       UpdateService.init();
-      // TelemetryService.init(); // removed
     }
   }
 }

@@ -109,6 +109,8 @@ Singleton {
     if (!backend)
       return;
 
+    Logger.i("CompositorService", "Setting up backend connections, backend:", typeof backend);
+
     backend.workspaceChanged.connect(() => {
       syncWorkspaces();
       workspaceChanged();
@@ -140,6 +142,8 @@ Singleton {
       overviewActive = backend.overviewActive;
     if (backend.globalWorkspaces !== undefined)
       globalWorkspaces = backend.globalWorkspaces;
+
+    Logger.i("CompositorService", "Backend connections ready. Workspaces:", workspaces.count, "Windows:", windows.count);
   }
 
   function syncWorkspaces() {

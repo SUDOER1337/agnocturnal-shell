@@ -21,6 +21,7 @@ Singleton {
 
   // Searches emojis based on query
   function search(query) {
+    _ensureLoaded();
     if (!loaded) {
       return [];
     }
@@ -78,6 +79,7 @@ Singleton {
   }
 
   function getCategoriesWithCounts() {
+    _ensureLoaded();
     if (!loaded) {
       return [];
     }
@@ -105,6 +107,7 @@ Singleton {
   }
 
   function getEmojisByCategory(category) {
+    _ensureLoaded();
     if (!loaded) {
       return [];
     }
@@ -147,8 +150,17 @@ Singleton {
   property var _builtinEmojiData: []
   property int _pendingLoads: 0
 
-  // Initialize on component completion
+  // Lazy-load on first access instead of at startup.
+  // The 202KB emoji.json stays off the heap until the emoji picker is actually opened.
   Component.onCompleted: {
+    // Deferred — _ensureLoaded() is called from each entry point.
+  }
+
+  // Ensure data is loaded before any operation.
+  // Safe to call multiple times — no-ops after first load.
+  function _ensureLoaded() {
+    if (loaded)
+      return;
     _loadUsageData();
     _loadEmojis();
   }
