@@ -406,16 +406,4 @@ Singleton {
     // emit signal
     didClose();
   }
-
-  // Close panels when compositor overview opens (if setting is enabled)
-  Connections {
-    target: CompositorService
-    enabled: Settings.data.bar.hideOnOverview
-
-    function onOverviewActiveChanged() {
-      if (CompositorService.overviewActive && root.openedPanel) {
-        root.openedPanel.close();
-      }
-    }
-  }
 }

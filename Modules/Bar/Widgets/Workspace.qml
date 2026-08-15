@@ -335,8 +335,8 @@ Item {
       const screenName = screen.name.toLowerCase();
       for (var i = 0; i < CompositorService.workspaces.count; i++) {
         const ws = CompositorService.workspaces.get(i);
-        // For global workspaces (e.g., LabWC), show all workspaces on all screens
-        const matchesScreen = CompositorService.globalWorkspaces || (followFocusedScreen && ws.output.toLowerCase() == focusedOutput) || (!followFocusedScreen && ws.output.toLowerCase() == screenName);
+        // MangoWC uses per-output workspaces; only match this screen's workspaces
+        const matchesScreen = (followFocusedScreen && ws.output.toLowerCase() == focusedOutput) || (!followFocusedScreen && ws.output.toLowerCase() == screenName);
 
         if (!matchesScreen)
           continue;

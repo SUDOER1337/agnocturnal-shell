@@ -811,7 +811,7 @@ Singleton {
                                  "panels.bar.appearance-widget-spacing-label": "Widget spacing",
                                  "panels.bar.behavior-middle-click-command-description": "Command to execute on middle click.",
                                  "panels.bar.behavior-middle-click-command-label": "Middle click command",
-                                 "panels.bar.behavior-middle-click-command-placeholder": "niri msg action toggle-overview",
+                                 "panels.bar.behavior-middle-click-command-placeholder": "mmsg dispatch spawn_shell,foot",
                                  "panels.bar.behavior-middle-click-description": "Choose what middle click does on empty areas of the bar.",
                                  "panels.bar.behavior-middle-click-follow-mouse-description": "Open the selected middle-click panel at the cursor position.",
                                  "panels.bar.behavior-middle-click-follow-mouse-label": "Middle click follow mouse",

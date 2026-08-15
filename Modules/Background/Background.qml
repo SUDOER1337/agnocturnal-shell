@@ -158,7 +158,7 @@ Variants {
         smooth: true
         mipmap: false
         visible: false
-        cache: true // Cached so Overview can share the same texture
+        cache: false
         asynchronous: true
         onStatusChanged: {
           if (status === Image.Error) {

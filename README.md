@@ -6,7 +6,7 @@ A minimal desktop shell for Wayland built on [Quickshell](https://quickshell.org
 
 ## Features
 
-- Native support for Niri, Hyprland, Sway, Labwc, and MangoWC
+- Native support for MangoWC (via mmsg IPC)
 - Extensive theming with color schemes and automatic wallpaper color generation
 - Wallpaper management with Wallhaven integration --(planned to remove Wallhaven)
 - Notifications with history and Do Not Disturb
@@ -17,7 +17,7 @@ A minimal desktop shell for Wayland built on [Quickshell](https://quickshell.org
 
 ## Requirements
 
-- Wayland compositor (see supported list above)
+- [MangoWC](https://github.com/mango-wm/mango-wm) (mmsg must be on PATH)
 - [Quickshell](https://quickshell.org/) (noctalia-qs fork)
 - See `flake.nix` for additional dependencies
 

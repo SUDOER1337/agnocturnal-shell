@@ -81,7 +81,7 @@ Backend logic — imported as `qs.Services.*`:
 - **Networking/** — Network status and WiFi
 - **Hardware/** — System info, battery
 - **Keyboard/** — Keyboard layout
-- **Compositor/** — Wayland compositor detection and interaction
+- **Compositor/** — MangoWC compositor integration (mmsg IPC)
 - **UI/** — UI state (focus, monitors, window hints)
 - **Power/** — Power management
 - **Media/** — Media player controls
@@ -170,12 +170,7 @@ These files are excluded from the final package build (see `nix/package.nix`):
 Only QML source, configs, and assets are packaged.
 
 ### Wayland Compositor Support
-Agnoctural detects and adapts to the running compositor:
-- **Niri** — Native
-- **Hyprland** — Via Hyprcursor/Hyprctl
-- **Sway** — Via wlr-randr
-- **Labwc** — Minimal support
-- **MangoWC** — Minimal support
+Agnoctural targets **MangoWC only**, talking to it via the `mmsg` IPC socket (`MANGO_INSTANCE_SIGNATURE`). `mmsg` must be on PATH. All other compositor backends have been removed.
 
 ---
 

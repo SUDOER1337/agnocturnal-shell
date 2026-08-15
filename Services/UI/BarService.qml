@@ -11,12 +11,9 @@ Singleton {
 
   property bool isVisible: true
 
-  // Computed visibility that factors in compositor overview state
+  // Computed visibility
   readonly property bool effectivelyVisible: {
     if (!isVisible) {
-      return false;
-    }
-    if (Settings.data.bar.hideOnOverview && CompositorService.overviewActive) {
       return false;
     }
     return true;

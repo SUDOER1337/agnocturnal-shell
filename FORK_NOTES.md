@@ -21,7 +21,7 @@ This document explains the current state of Agnoctural as an independent fork of
 
 ### Goals
 - ✅ Keep the QML-based shell functional and maintained
-- ✅ Continue support for Quickshell and current Wayland compositors
+- ✅ Maintain MangoWC as the sole supported compositor (via mmsg IPC)
 - ✅ Fix bugs and add community-requested features
 - ✅ Maintain compatibility with existing configs and themes
 

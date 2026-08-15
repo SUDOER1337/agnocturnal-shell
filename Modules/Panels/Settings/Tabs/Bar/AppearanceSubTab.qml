@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Commons
-import qs.Services.Compositor
 import qs.Widgets
 
 ColumnLayout {
@@ -232,16 +231,6 @@ ColumnLayout {
     checked: Settings.data.bar.enableExclusionZoneInset
     defaultValue: Settings.getDefaultValue("bar.enableExclusionZoneInset")
     onToggled: checked => Settings.data.bar.enableExclusionZoneInset = checked
-  }
-
-  NToggle {
-    Layout.fillWidth: true
-    visible: CompositorService.isNiri
-    label: "Hide bar on overview"
-    description: "Hide the bar and close panels when the compositor overview is active."
-    checked: Settings.data.bar.hideOnOverview
-    defaultValue: Settings.getDefaultValue("bar.hideOnOverview")
-    onToggled: checked => Settings.data.bar.hideOnOverview = checked
   }
 
   NToggle {

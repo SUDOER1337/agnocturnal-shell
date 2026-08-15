@@ -49,8 +49,7 @@ Variants {
     }
 
     // Only create PanelWindow if enabled AND (screen has widgets OR in edit mode)
-    // During compositor overview, show widgets only when overviewEnabled is true.
-    active: modelData && Settings.data.desktopWidgets.enabled && (screenWidgets.length > 0 || DesktopWidgetRegistry.editMode) && (!CompositorService.overviewActive || Settings.data.desktopWidgets.overviewEnabled) && !PanelService.lockScreen?.active
+    active: modelData && Settings.data.desktopWidgets.enabled && (screenWidgets.length > 0 || DesktopWidgetRegistry.editMode) && !PanelService.lockScreen?.active
 
     sourceComponent: PanelWindow {
       id: window

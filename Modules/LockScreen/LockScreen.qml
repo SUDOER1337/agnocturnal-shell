@@ -128,7 +128,7 @@ Loader {
               Item {
                 anchors.fill: parent
 
-                // Mouse area to trigger focus on cursor movement (workaround for Hyprland focus issues)
+                // Request keyboard focus when the cursor re-enters the lock surface
                 MouseArea {
                   anchors.fill: parent
                   hoverEnabled: true

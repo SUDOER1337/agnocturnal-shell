@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Commons
-import qs.Services.Compositor
 import qs.Widgets
 
 ColumnLayout {
@@ -18,29 +17,20 @@ ColumnLayout {
     Layout.fillWidth: true
     label: "Bar mouse wheel action"
     description: "Choose what the mouse wheel does on empty areas of the bar."
-    model: {
-      var items = [
-            {
-              "key": "none",
-              "name": "None"
-            },
-            {
-              "key": "volume",
-              "name": "Volume"
-            },
-            {
-              "key": "workspace",
-              "name": "Workspace"
-            }
-          ];
-      if (CompositorService.isNiri) {
-        items.push({
-                     "key": "content",
-                     "name": "Content"
-                   });
+    model: [
+      {
+        "key": "none",
+        "name": "None"
+      },
+      {
+        "key": "volume",
+        "name": "Volume"
+      },
+      {
+        "key": "workspace",
+        "name": "Workspace"
       }
-      return items;
-    }
+    ]
     currentKey: root.effectiveWheelAction
     defaultValue: Settings.getDefaultValue("bar.mouseWheelAction")
     onSelected: key => Settings.data.bar.mouseWheelAction = key

@@ -3,20 +3,20 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Quickshell.Wayland
 import qs.Commons
 import qs.Services.Control
+import qs.Services.Keyboard
 import qs.Services.UI
 
 Singleton {
   id: root
 
-  property bool isHyprland: false
-  property bool isNiri: false
-  property bool isSway: false
-  property bool isMango: false
-  property bool isLabwc: false
-  property bool isExtWorkspace: false
-  property bool isScroll: false
+  // ===== PUBLIC INTERFACE =====
+  // Agnoctural targets MangoWC exclusively. The compositor integration is
+  // built on the mmsg IPC socket (MANGO_INSTANCE_SIGNATURE env, set by MangoWC).
+
+  property bool isMango: true
 
   property ListModel workspaces: ListModel {}
   property ListModel windows: ListModel {}
@@ -24,14 +24,413 @@ Singleton {
 
   property var displayScales: ({})
   property bool displayScalesLoaded: false
-  property bool overviewActive: false
-  property bool globalWorkspaces: false
 
   signal workspaceChanged
   signal activeWindowChanged
   signal windowListChanged
 
-  property var backend: null
+  // ===== INTERNAL STATE =====
+
+  QtObject {
+    id: internal
+
+    // Latest monitor data from mmsg watch all-monitors
+    property var lastMonitorData: null
+
+    // Window-to-tag persistence: Map<UniqueID, TagID>
+    property var windowTagMap: ({})
+
+    // Window-to-output persistence: Map<UniqueID, OutputName>
+    property var windowOutputMap: ({})
+
+    // Toplevel-to-ID mapping: Map<ToplevelObject, UniqueID>
+    property var toplevelIdMap: new Map()
+    property int windowIdCounter: 0
+
+    // Output name to index mapping for unique workspace IDs
+    property var outputIndices: ({})
+    property int outputCounter: 0
+
+    // Monitor scales: Map<OutputName, scale>
+    property var monitorScales: ({})
+
+    // Change-detection signatures to avoid needless ListModel churn
+    property string lastWindowSignature: ""
+    property string lastWorkspaceSignature: ""
+
+    // ===== REBUILD WORKSPACES FROM MMSG DATA =====
+
+    function rebuildWorkspaces() {
+      if (!internal.lastMonitorData || !internal.lastMonitorData.monitors) {
+        Logger.w("CompositorService", "rebuildWorkspaces: no monitor data available");
+        return;
+      }
+
+      const monitors = internal.lastMonitorData.monitors;
+      const workspaceList = [];
+
+      for (let mi = 0; mi < monitors.length; mi++) {
+        const mon = monitors[mi];
+        const outputName = mon.name;
+
+        // Assign stable index to output
+        if (internal.outputIndices[outputName] === undefined) {
+          internal.outputIndices[outputName] = internal.outputCounter++;
+        }
+        const outputIdx = internal.outputIndices[outputName];
+
+        // Track the active monitor (used as fallback output name)
+        if (mon.active) {
+          root.selectedMonitor = outputName;
+        }
+
+        // Store scale
+        if (typeof mon.scale === "number") {
+          internal.monitorScales[outputName] = mon.scale;
+        }
+
+        const tags = mon.tags || [];
+        const activeTags = mon.active_tags || [];
+        for (let ti = 0; ti < tags.length; ti++) {
+          const tag = tags[ti];
+          const tagId = tag.index; // mmsg tags are 1-based
+          const uniqueId = outputIdx * 100 + tagId;
+
+          workspaceList.push({
+                               id: uniqueId,
+                               idx: tagId,
+                               name: tagId.toString(),
+                               output: outputName,
+                               isActive: activeTags.includes(tagId),
+                               isFocused: tag.is_active && mon.active,
+                               isUrgent: tag.is_urgent,
+                               isOccupied: tag.client_count > 0
+                             });
+        }
+      }
+
+      // Sort by unique ID
+      workspaceList.sort((a, b) => a.id - b.id);
+
+      // Only churn the model when the workspace state actually changed
+      const signature = JSON.stringify(workspaceList.map(w => w.id + "|" + w.isActive + "|" + w.isFocused + "|" + w.isUrgent + "|" + w.isOccupied));
+      if (signature === internal.lastWorkspaceSignature) {
+        return;
+      }
+      internal.lastWorkspaceSignature = signature;
+
+      root.workspaces.clear();
+      for (let k = 0; k < workspaceList.length; k++) {
+        root.workspaces.append(workspaceList[k]);
+      }
+
+      root.workspaceChanged();
+      if (workspaceList.length > 0) {
+        Logger.d("CompositorService", "Rebuilt", workspaceList.length, "workspaces from", monitors.length, "monitors");
+      }
+    }
+
+    // ===== UPDATE WINDOWS =====
+
+    function updateWindows() {
+      if (!ToplevelManager.toplevels) {
+        Logger.w("CompositorService", "updateWindows: ToplevelManager.toplevels is null");
+        return;
+      }
+      if (!internal.lastMonitorData || !internal.lastMonitorData.monitors) {
+        Logger.w("CompositorService", "updateWindows: no monitor data available");
+        return;
+      }
+
+      const monitors = internal.lastMonitorData.monitors;
+      const toplevels = ToplevelManager.toplevels.values;
+      const windowList = [];
+      let newFocusedIdx = -1;
+      const currentWindows = new Set();
+
+      // Build per-output state from mmsg data
+      // Map<outputName, { title, appId, activeTagId }>
+      const outputState = {};
+      for (let mi = 0; mi < monitors.length; mi++) {
+        const mon = monitors[mi];
+        const outputName = mon.name;
+
+        // Find first active tag
+        let activeTagId = 1;
+        const activeTags = mon.active_tags || [];
+        if (activeTags.length > 0) {
+          activeTagId = activeTags[0];
+        }
+
+        const ac = mon.active_client;
+        outputState[outputName] = {
+          title: ac ? (ac.title || "") : "",
+          appId: ac ? (ac.appid || "") : "",
+          activeTagId: activeTagId
+        };
+
+        // Ensure output index exists
+        if (internal.outputIndices[outputName] === undefined) {
+          internal.outputIndices[outputName] = internal.outputCounter++;
+        }
+      }
+
+      for (let i = 0; i < toplevels.length; i++) {
+        const toplevel = toplevels[i];
+        if (!toplevel || toplevel.outliers) {
+          continue;
+        }
+
+        const appId = toplevel.appId || toplevel.wayland?.appId || "";
+        const title = toplevel.title || toplevel.wayland?.title || "";
+        const isFocused = toplevel.activated;
+
+        // Get or assign a stable ID
+        let windowId;
+        if (internal.toplevelIdMap.has(toplevel)) {
+          windowId = internal.toplevelIdMap.get(toplevel);
+        } else {
+          windowId = `win-${internal.windowIdCounter++}`;
+          internal.toplevelIdMap.set(toplevel, windowId);
+        }
+
+        currentWindows.add(windowId);
+
+        // Determine output
+        let outputName;
+
+        // Priority 1: Focused window matched to mmsg output metadata
+        if (isFocused && (title || appId)) {
+          for (const oName in outputState) {
+            const os = outputState[oName];
+            if ((os.title || os.appId) && title === os.title && appId === os.appId) {
+              outputName = oName;
+              internal.windowOutputMap[windowId] = oName;
+              break;
+            }
+          }
+        }
+
+        // Priority 2: Remembered output
+        if (!outputName && internal.windowOutputMap[windowId]) {
+          outputName = internal.windowOutputMap[windowId];
+        }
+
+        // Priority 3: toplevel.screens (wlr-foreign-toplevel visible screens)
+        if (!outputName && toplevel.screens && toplevel.screens.length > 0) {
+          outputName = toplevel.screens[0].name;
+        }
+
+        // Fallback: selected monitor
+        if (!outputName) {
+          outputName = root.selectedMonitor || "HDMI-A-1";
+        }
+
+        // Determine tag
+        let tagId = null;
+
+        const os = outputState[outputName];
+        if (isFocused && os && !os.consumed && (os.title || os.appId) && title === os.title && appId === os.appId) {
+          // Focused window: assign to the active tag from mmsg metadata
+          tagId = os.activeTagId;
+          internal.windowTagMap[windowId] = tagId;
+          // Consume so a second toplevel with identical title+appId cannot also claim focus
+          os.consumed = true;
+        } else if (internal.windowTagMap[windowId] !== undefined) {
+          // Previously seen window: use remembered tag
+          tagId = internal.windowTagMap[windowId];
+        }
+
+        if (tagId === null) {
+          // Can't determine the tag for unfocused windows until they gain focus.
+          continue;
+        }
+
+        // Convert to unique workspace ID
+        const outputIdx = internal.outputIndices[outputName];
+        if (outputIdx === undefined) {
+          Logger.e("CompositorService", "No output index for", outputName);
+          continue;
+        }
+        const workspaceId = outputIdx * 100 + tagId;
+
+        windowList.push({
+                          id: `${outputName}:${appId}:${title}:${i}`,
+                          title: title,
+                          appId: appId,
+                          class: appId,
+                          workspaceId: workspaceId,
+                          isFocused: isFocused,
+                          output: outputName,
+                          handle: toplevel,
+                          fullscreen: toplevel.fullscreen || false,
+                          floating: toplevel.maximized === false && toplevel.fullscreen === false
+                        });
+
+        if (isFocused) {
+          newFocusedIdx = windowList.length - 1;
+        }
+      }
+
+      // Clean up stale window tracking
+      if (Object.keys(internal.windowTagMap).length > toplevels.length + 20) {
+        const newTagMap = {};
+        const newOutputMap = {};
+        for (const windowId of currentWindows) {
+          if (internal.windowTagMap[windowId] !== undefined) {
+            newTagMap[windowId] = internal.windowTagMap[windowId];
+          }
+          if (internal.windowOutputMap[windowId] !== undefined) {
+            newOutputMap[windowId] = internal.windowOutputMap[windowId];
+          }
+        }
+        internal.windowTagMap = newTagMap;
+        internal.windowOutputMap = newOutputMap;
+      }
+
+      // Check if window list changed
+      const signature = JSON.stringify(windowList.map(w => w.id + w.workspaceId + w.isFocused));
+      if (signature !== internal.lastWindowSignature) {
+        internal.lastWindowSignature = signature;
+        root.windows.clear();
+        for (const w of windowList) {
+          root.windows.append(w);
+        }
+        root.windowListChanged();
+        Logger.d("CompositorService", "Window list updated:", windowList.length, "windows,", toplevels.length, "toplevels");
+      }
+
+      if (newFocusedIdx !== root.focusedWindowIndex) {
+        root.focusedWindowIndex = newFocusedIdx;
+        root.activeWindowChanged();
+      }
+    }
+
+    // ===== PROCESS MONITOR SCALES =====
+
+    function processMonitorScales(monitors) {
+      const scalesMap = {};
+      for (let i = 0; i < monitors.length; i++) {
+        const mon = monitors[i];
+        if (mon.name && typeof mon.scale === "number") {
+          internal.monitorScales[mon.name] = mon.scale;
+          scalesMap[mon.name] = {
+            name: mon.name,
+            scale: mon.scale
+          };
+        }
+      }
+
+      root.onDisplayScalesUpdated(scalesMap);
+    }
+  }
+
+  // ===== MMSG WATCH PROCESSES (persistent streams) =====
+
+  property string selectedMonitor: ""
+
+  property QtObject _mmsgWatch: Process {
+    id: mmsgWatch
+    command: ["mmsg", "watch", "all-monitors"]
+    running: root.initialized
+
+    stdout: SplitParser {
+      onRead: line => {
+        const trimmed = line.trim();
+        if (trimmed.length === 0)
+          return;
+        try {
+          const data = JSON.parse(trimmed);
+          if (data.monitors && Array.isArray(data.monitors)) {
+            internal.lastMonitorData = data;
+            internal.processMonitorScales(data.monitors);
+            internal.rebuildWorkspaces();
+            internal.updateWindows();
+          }
+        } catch (e) {
+          Logger.e("CompositorService", "Failed to parse mmsg watch output:", e);
+        }
+      }
+    }
+
+    onRunningChanged: {
+      if (!running && root.initialized) {
+        Logger.w("CompositorService", "mmsg watch process exited, restarting in 1s");
+        restartTimer.restart();
+      }
+    }
+  }
+
+  property QtObject _restartTimer: Timer {
+    id: restartTimer
+    interval: 1000
+    onTriggered: {
+      if (root.initialized && !mmsgWatch.running) {
+        Logger.i("CompositorService", "Restarting mmsg watch");
+        mmsgWatch.running = true;
+      }
+    }
+  }
+
+  // Keyboard layout - MangoWC doesn't send events for XKB-driven
+  // layout switches (grp:win_space_toggle), so we keep a persistent
+  // `mmsg watch keyboardlayout` stream instead of polling.
+  property QtObject _kbLayoutWatch: Process {
+    id: kbLayoutWatch
+    command: ["mmsg", "watch", "keyboardlayout"]
+    running: root.initialized
+
+    stdout: SplitParser {
+      onRead: line => {
+        const trimmed = line.trim();
+        if (trimmed.length === 0)
+          return;
+        try {
+          const data = JSON.parse(trimmed);
+          const layout = String(data.layout ?? "").trim();
+          if (layout.length > 0) {
+            KeyboardLayoutService.setCurrentLayout(layout);
+            Logger.d("CompositorService", "Keyboard layout:", layout);
+          }
+        } catch (e) {
+          Logger.e("CompositorService", "Failed to parse keyboard layout JSON:", e);
+        }
+      }
+    }
+
+    onRunningChanged: {
+      if (!running && root.initialized) {
+        Logger.w("CompositorService", "mmsg watch keyboardlayout exited, restarting in 1s");
+        kbLayoutRestartTimer.restart();
+      }
+    }
+  }
+
+  property QtObject _kbLayoutRestartTimer: Timer {
+    id: kbLayoutRestartTimer
+    interval: 1000
+    onTriggered: {
+      if (root.initialized && !kbLayoutWatch.running) {
+        Logger.i("CompositorService", "Restarting mmsg keyboardlayout watch");
+        kbLayoutWatch.running = true;
+      }
+    }
+  }
+
+  // ===== TOPLEVEL MANAGER CONNECTION =====
+
+  property QtObject _toplevelConnection: Connections {
+    target: ToplevelManager.toplevels
+    enabled: ToplevelManager.toplevels !== null && ToplevelManager.toplevels !== undefined
+
+    function onValuesChanged() {
+      internal.updateWindows();
+    }
+  }
+
+  // ===== LIFECYCLE =====
+
+  property bool initialized: false
 
   Component.onCompleted: {
     Qt.callLater(() => {
@@ -39,7 +438,7 @@ Singleton {
         loadDisplayScalesFromState();
       }
     });
-    detectCompositor();
+    initialize();
   }
 
   Connections {
@@ -51,32 +450,24 @@ Singleton {
     }
   }
 
-  function detectCompositor() {
-    const niriSocket = Quickshell.env("NIRI_SOCKET");
-    const currentDesktop = Quickshell.env("XDG_CURRENT_DESKTOP");
-
-    if (currentDesktop && currentDesktop.toLowerCase().includes("mango")) {
-      isMango = true;
-      backendLoader.sourceComponent = mangoComponent;
-    } else if (niriSocket && niriSocket.length > 0) {
-      isNiri = true;
-      backendLoader.sourceComponent = niriComponent;
-    } else {
-      isNiri = true;
-      backendLoader.sourceComponent = niriComponent;
-      Logger.i("CompositorService", "No compositor env detected, defaulting to Niri backend");
+  function initialize() {
+    if (initialized) {
+      return;
     }
-  }
 
-  Loader {
-    id: backendLoader
-    onLoaded: {
-      if (item) {
-        root.backend = item;
-        setupBackendConnections();
-        backend.initialize();
-      }
+    Logger.i("CompositorService", "Initializing MangoWC compositor integration (mmsg IPC)");
+    Logger.i("CompositorService", "ToplevelManager.toplevels:", ToplevelManager.toplevels ? "available" : "null");
+    Logger.i("CompositorService", "Quickshell.screens count:", Quickshell.screens ? Quickshell.screens.length : 0);
+
+    if (!Quickshell.env("MANGO_INSTANCE_SIGNATURE")) {
+      Logger.e("CompositorService", "MANGO_INSTANCE_SIGNATURE not set - this shell only supports MangoWC. mmsg IPC will fail.");
     }
+
+    // Start persistent mmsg watch streams
+    mmsgWatch.running = true;
+    kbLayoutWatch.running = true;
+
+    initialized = true;
   }
 
   function loadDisplayScalesFromState() {
@@ -95,92 +486,15 @@ Singleton {
     }
   }
 
-  Component {
-    id: niriComponent
-    NiriService {}
-  }
-
-  Component {
-    id: mangoComponent
-    MangoService {}
-  }
-
-  function setupBackendConnections() {
-    if (!backend)
-      return;
-
-    Logger.i("CompositorService", "Setting up backend connections, backend:", typeof backend);
-
-    backend.workspaceChanged.connect(() => {
-      syncWorkspaces();
-      workspaceChanged();
-    });
-
-    backend.activeWindowChanged.connect(() => {
-      syncFocusedWindow();
-      activeWindowChanged();
-    });
-
-    backend.windowListChanged.connect(() => {
-      syncWindows();
-    });
-
-    backend.focusedWindowIndexChanged.connect(() => {
-      focusedWindowIndex = backend.focusedWindowIndex;
-    });
-
-    if (backend.overviewActiveChanged) {
-      backend.overviewActiveChanged.connect(() => {
-        overviewActive = backend.overviewActive;
-      });
-    }
-
-    syncWorkspaces();
-    syncWindows();
-    focusedWindowIndex = backend.focusedWindowIndex;
-    if (backend.overviewActive !== undefined)
-      overviewActive = backend.overviewActive;
-    if (backend.globalWorkspaces !== undefined)
-      globalWorkspaces = backend.globalWorkspaces;
-
-    Logger.i("CompositorService", "Backend connections ready. Workspaces:", workspaces.count, "Windows:", windows.count);
-  }
-
-  function syncWorkspaces() {
-    workspaces.clear();
-    const ws = backend.workspaces;
-    for (var i = 0; i < ws.count; i++) {
-      workspaces.append(ws.get(i));
-    }
-    workspacesChanged();
-  }
-
-  function syncWindows() {
-    windows.clear();
-    const ws = backend.windows;
-    for (var i = 0; i < ws.length; i++) {
-      windows.append(ws[i]);
-    }
-    windowListChanged();
-  }
-
-  function syncFocusedWindow() {
-    const newIndex = backend.focusedWindowIndex;
-    for (var i = 0; i < windows.count && i < backend.windows.length; i++) {
-      const backendFocused = backend.windows[i].isFocused;
-      if (windows.get(i).isFocused !== backendFocused) {
-        windows.setProperty(i, "isFocused", backendFocused);
-      }
-    }
-    focusedWindowIndex = newIndex;
-  }
-
   function updateDisplayScales() {
-    if (!backend || !backend.queryDisplayScales) {
-      Logger.w("CompositorService", "Backend does not support display scale queries");
-      return;
+    queryDisplayScales();
+  }
+
+  function queryDisplayScales() {
+    // Scales are pushed continuously via the all-monitors watch stream.
+    if (internal.lastMonitorData && internal.lastMonitorData.monitors) {
+      internal.processMonitorScales(internal.lastMonitorData.monitors);
     }
-    backend.queryDisplayScales();
   }
 
   function onDisplayScalesUpdated(scales) {
@@ -217,8 +531,6 @@ Singleton {
   }
 
   function getFocusedScreen() {
-    if (backend && backend.getFocusedScreen)
-      return backend.getFocusedScreen();
     return null;
   }
 
@@ -256,17 +568,14 @@ Singleton {
   }
 
   function switchToWorkspace(workspace) {
-    if (backend && backend.switchToWorkspace) {
-      backend.switchToWorkspace(workspace);
-    } else {
-      Logger.w("Compositor", "No backend available for workspace switching");
-    }
-  }
+    const tagId = workspace.idx || workspace.id || 1;
+    const outputName = workspace.output || root.selectedMonitor || "";
 
-  function scrollWorkspaceContent(direction) {
-    if (backend && backend.scrollWorkspaceContent) {
-      backend.scrollWorkspaceContent(direction);
+    let cmd = ["mmsg", "dispatch", "view," + tagId.toString()];
+    if (outputName && Object.keys(internal.monitorScales).length > 1) {
+      cmd.push("monitor," + outputName);
     }
+    Quickshell.execDetached(cmd);
   }
 
   function getCurrentWorkspace() {
@@ -289,18 +598,21 @@ Singleton {
   }
 
   function focusWindow(window) {
-    if (backend && backend.focusWindow) {
-      backend.focusWindow(window);
-    } else {
-      Logger.w("Compositor", "No backend available for window focus");
+    if (window && window.handle) {
+      window.handle.activate();
+    } else if (window.workspaceId) {
+      switchToWorkspace({
+                          id: window.workspaceId,
+                          output: window.output
+                        });
     }
   }
 
   function closeWindow(window) {
-    if (backend && backend.closeWindow) {
-      backend.closeWindow(window);
+    if (window && window.handle) {
+      window.handle.close();
     } else {
-      Logger.w("Compositor", "No backend available for window closing");
+      Quickshell.execDetached(["mmsg", "dispatch", "killclient"]);
     }
   }
 
@@ -308,13 +620,15 @@ Singleton {
     const cmdArray = Array.isArray(command) ? command : (command && typeof command === "object" && command.length !== undefined) ? Array.from(command) : [command];
 
     Logger.d("CompositorService", "Spawning: " + cmdArray.join(" "));
-    if (backend && backend.spawn) {
-      backend.spawn(cmdArray);
-    } else {
+    try {
+      const cmd = ["mmsg", "dispatch", "spawn_shell," + cmdArray.join(" ")];
+      Quickshell.execDetached(cmd);
+    } catch (e) {
+      Logger.e("CompositorService", "Failed to spawn command:", e);
       try {
         Quickshell.execDetached(cmdArray);
-      } catch (e) {
-        Logger.e("CompositorService", "Failed to execute detached:", e);
+      } catch (e2) {
+        Logger.e("CompositorService", "Failed to execute detached:", e2);
       }
     }
   }
@@ -344,11 +658,7 @@ Singleton {
     Logger.i("Compositor", "Logout requested");
     if (executeSessionAction("logout"))
       return;
-    if (backend && backend.logout) {
-      backend.logout();
-    } else {
-      Logger.w("Compositor", "No backend available for logout");
-    }
+    Quickshell.execDetached(["mmsg", "dispatch", "quit"]);
   }
 
   function shutdown() {
@@ -389,20 +699,12 @@ Singleton {
 
   function turnOffMonitors() {
     Logger.i("Compositor", "Turn off monitors requested");
-    if (backend && backend.turnOffMonitors) {
-      backend.turnOffMonitors();
-    } else {
-      Logger.w("Compositor", "No backend available for turnOffMonitors");
-    }
+    Logger.w("Compositor", "MangoWC backend does not support monitor power off");
   }
 
   function turnOnMonitors() {
     Logger.i("Compositor", "Turn on monitors requested");
-    if (backend && backend.turnOnMonitors) {
-      backend.turnOnMonitors();
-    } else {
-      Logger.w("Compositor", "No backend available for turnOnMonitors");
-    }
+    Logger.w("Compositor", "MangoWC backend does not support monitor power on");
   }
 
   function suspend() {
@@ -429,9 +731,7 @@ Singleton {
   }
 
   function cycleKeyboardLayout() {
-    if (backend && backend.cycleKeyboardLayout) {
-      backend.cycleKeyboardLayout();
-    }
+    Quickshell.execDetached(["mmsg", "dispatch", "switch_keyboard_layout"]);
   }
 
   property int lockAndSuspendCheckCount: 0

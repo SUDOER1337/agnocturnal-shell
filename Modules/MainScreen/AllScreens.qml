@@ -104,10 +104,7 @@ Variants {
     }
 
     // BarExclusionZone - created after MainScreen has fully loaded
-    // Note: Exclusion zone should NOT be affected by hideOnOverview setting.
-    // When bar is hidden during overview, the exclusion zone should remain to prevent
-    // windows from moving into the bar area. Auto-hide is handled by the component
-    // itself via ExclusionMode.Ignore/Auto.
+    // Auto-hide is handled by the component itself via ExclusionMode.Ignore/Auto.
     Repeater {
       model: Settings.data.bar.barType === "framed" ? ["top", "bottom", "left", "right"] : [Settings.getBarPositionForScreen(windowItem.modelData?.name)]
       delegate: Loader {
