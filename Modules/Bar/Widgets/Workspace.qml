@@ -295,7 +295,7 @@ Item {
 
   Connections {
     target: CompositorService
-    function onWorkspacesChanged() {
+    function onWorkspaceChanged() {
       scheduleRefresh();
     }
     function onWindowListChanged() {
