@@ -37,12 +37,10 @@ WIDGET_TYPES = (
 )
 
 # Regex patterns
-RE_WIDGET_OPEN = re.compile(
-    r"^\s*(" + "|".join(WIDGET_TYPES) + r")\s*\{", re.MULTILINE
-)
-RE_LABEL = re.compile(r'label:\s*I18n\.tr\("([^"]+)"')
-RE_DESCRIPTION = re.compile(r'description:\s*I18n\.tr\("([^"]+)"')
-RE_VISIBLE = re.compile(r'^\s*visible:\s*(.+?)(?:\s*;)?\s*$')
+RE_WIDGET_OPEN = re.compile(r"^\s*(" + "|".join(WIDGET_TYPES) + r")\s*\{", re.MULTILINE)
+RE_LABEL = re.compile(r'label:\s*(?:I18n\.tr\("([^"]+)"\)|"([^"]*)")')
+RE_DESCRIPTION = re.compile(r'description:\s*(?:I18n\.tr\("([^"]+)"\)|"([^"]*)")')
+RE_VISIBLE = re.compile(r"^\s*visible:\s*(.+?)(?:\s*;)?\s*$")
 
 # Prefixes that indicate externally-resolvable conditions (singleton services or globals).
 # Conditions referencing local variables (root., parent., model, index, etc.) are skipped.
@@ -94,7 +92,7 @@ def parse_tabs_model_order(content: str) -> list[tuple[str, str]]:
     if not match:
         return []
 
-    func_body = content[match.end():]
+    func_body = content[match.end() :]
 
     # Extract tab entries: each has "label" and "source" fields
     entries = []
@@ -195,7 +193,7 @@ def get_subtab_info(parent_tab_file: Path) -> tuple[list[str], list[str | None]]
     while len(labels) < len(subtabs):
         labels.append(None)
 
-    return subtabs, labels[:len(subtabs)]
+    return subtabs, labels[: len(subtabs)]
 
 
 def resolve_tab_info(
@@ -358,14 +356,15 @@ def extract_entries(
         if not label_match:
             continue
 
-        label_key = label_match.group(1)
+        # Group 1 = i18n key, group 2 = plain string label
+        label_key = label_match.group(1) or label_match.group(2)
         desc_match = RE_DESCRIPTION.search(block)
         desc_key = desc_match.group(1) if desc_match else None
 
         # Collect visibility conditions: ancestor scopes + widget's own visible:
         conditions = list(scope_vis.get(start_line, []))
         widget_vis = re.search(
-            r'^\s*visible:\s*(.+?)(?:\s*;)?\s*$', block, re.MULTILINE
+            r"^\s*visible:\s*(.+?)(?:\s*;)?\s*$", block, re.MULTILINE
         )
         if widget_vis:
             cond = widget_vis.group(1).strip()
@@ -400,7 +399,9 @@ def main():
 
     settings_content = SETTINGS_DIR / "SettingsContent.qml"
     if not settings_content.exists():
-        print(f"Error: SettingsContent.qml not found: {settings_content}", file=sys.stderr)
+        print(
+            f"Error: SettingsContent.qml not found: {settings_content}", file=sys.stderr
+        )
         sys.exit(1)
 
     # Build type -> tabsModel index/label mappings from SettingsContent.qml
@@ -408,7 +409,9 @@ def main():
     type_to_index, type_to_label = build_tab_mappings(content)
 
     if not type_to_index:
-        print("Error: Could not parse tab model from SettingsContent.qml", file=sys.stderr)
+        print(
+            "Error: Could not parse tab model from SettingsContent.qml", file=sys.stderr
+        )
         sys.exit(1)
 
     print(f"Parsed {len(type_to_index)} tab types from SettingsContent.qml")

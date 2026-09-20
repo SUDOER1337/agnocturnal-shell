@@ -1,1 +1,2354 @@
-[]
+[
+  {
+    "labelKey": "Output device",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Input device",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Primary player",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Excluded player",
+    "descriptionKey": null,
+    "widget": "NTextInputButton",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Visualization type",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Mirror spectrum",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Frame rate",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Output volume",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Mute audio output",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Play volume feedback sound",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Volume feedback sound file",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Input volume",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Mute audio input",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Volume step size",
+    "descriptionKey": null,
+    "widget": "NSpinBox",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Allow volume overdrive",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 14,
+    "tabLabel": "panels.audio.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Bar position",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Bar density",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Bar type",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Display mode",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Use separate bar opacity",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Bar background opacity",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.useSeparateOpacity"
+    ]
+  },
+  {
+    "labelKey": "Font scale",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Widget spacing",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Content padding",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Show widget outlines",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Show capsule",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Capsule color",
+    "descriptionKey": null,
+    "widget": "NColorChoice",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.showCapsule"
+    ]
+  },
+  {
+    "labelKey": "Capsule opacity",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.showCapsule"
+    ]
+  },
+  {
+    "labelKey": "Inset exclusion zone",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Outer corners",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.barType === \"simple\""
+    ]
+  },
+  {
+    "labelKey": "Frame Settings",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.barType === \"framed\""
+    ]
+  },
+  {
+    "labelKey": "Thickness",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.barType === \"framed\""
+    ]
+  },
+  {
+    "labelKey": "Inner Radius",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.barType === \"framed\""
+    ]
+  },
+  {
+    "labelKey": "Vertical Margin",
+    "descriptionKey": null,
+    "widget": "NSpinBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.barType === \"floating\""
+    ]
+  },
+  {
+    "labelKey": "Horizontal Margin ",
+    "descriptionKey": null,
+    "widget": "NSpinBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.barType === \"floating\""
+    ]
+  },
+  {
+    "labelKey": "Hide Delay",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.displayMode === \"auto_hide\""
+    ]
+  },
+  {
+    "labelKey": "Show Delay",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.displayMode === \"auto_hide\""
+    ]
+  },
+  {
+    "labelKey": "Show bar on workspace switch",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.bar.displayMode === \"auto_hide\""
+    ]
+  },
+  {
+    "labelKey": "Bar mouse wheel action",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Reverse scrolling",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.mouseWheelAction !== \"none\""
+    ]
+  },
+  {
+    "labelKey": "Wrap around",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.mouseWheelAction === \"workspace\""
+    ]
+  },
+  {
+    "labelKey": "Bar middle click action",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Middle click command",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.middleClickAction === \"command\""
+    ]
+  },
+  {
+    "labelKey": "Middle click follow mouse",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.middleClickAction !== \"none\" && Settings.data.bar.middleClickAction !== \"command\" && !(Settings.data.bar.middleClickAction === \"settings\" && Settings.data.ui.settingsPanelMode === \"window\")"
+    ]
+  },
+  {
+    "labelKey": "Bar right click action",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Right click command",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.rightClickAction === \"command\""
+    ]
+  },
+  {
+    "labelKey": "Right click follow mouse",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.rightClickAction !== \"none\" && Settings.data.bar.rightClickAction !== \"command\" && !(Settings.data.bar.rightClickAction === \"settings\" && Settings.data.ui.settingsPanelMode === \"window\")"
+    ]
+  },
+  {
+    "labelKey": "Override global settings",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Dark Mode",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Sync system theme",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Dark Mode schedule",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Manual scheduling",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.colorSchemes.schedulingMode === \"manual\""
+    ]
+  },
+  {
+    "labelKey": "Use wallpaper colors",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Color generation source",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Palette generation method",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Accents",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Neutrals",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Enable user templates",
+    "descriptionKey": null,
+    "widget": "NCheckbox",
+    "tab": 2,
+    "tabLabel": "panels.color-scheme.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Bluetooth",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Connected devices",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Paired devices",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Available devices",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Auto-connect paired devices",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Hide unnamed devices",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Disable device visibility",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Bluetooth signal polling",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Polling interval",
+    "descriptionKey": null,
+    "widget": "NSpinBox",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "Settings.data.network.bluetoothRssiPollingEnabled"
+    ]
+  },
+  {
+    "labelKey": "Auto-connect",
+    "descriptionKey": null,
+    "widget": "NCheckbox",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "Settings.data.network.bluetoothAutoConnect"
+    ]
+  },
+  {
+    "labelKey": "Wi-Fi",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Connected",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Known networks",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Available networks",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Airplane Mode",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Network name (SSID)",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "EAP Method",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "Phase 2 Authentication",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "Anonymous Identity",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "CA Certificate",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "Identity / Username",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "Password",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "Show password",
+    "descriptionKey": null,
+    "widget": "NCheckbox",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "Hidden network",
+    "descriptionKey": null,
+    "widget": "NCheckbox",
+    "tab": 16,
+    "tabLabel": "panels.connections.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "false"
+    ]
+  },
+  {
+    "labelKey": "Position",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 7,
+    "tabLabel": "panels.control-center.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "System monitor disk path",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 7,
+    "tabLabel": "panels.control-center.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Enable desktop widgets",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 6,
+    "tabLabel": "panels.desktop-widgets.title",
+    "subTab": null
+  },
+  {
+    "labelKey": "Show in overview",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 6,
+    "tabLabel": "panels.desktop-widgets.title",
+    "subTab": null
+  },
+  {
+    "labelKey": "Backlight device",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Brightness step size",
+    "descriptionKey": null,
+    "widget": "NSpinBox",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Enforce minimum brightness (1%)",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "External brightness support",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Enable Night Light",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Night",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Day",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Automatic scheduling",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Force activation",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 15,
+    "tabLabel": "panels.display.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Enable dock",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Dock style",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Display",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.dockType === \"floating\""
+    ]
+  },
+  {
+    "labelKey": "Dock sits on frame",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.dockType === \"attached\" && Settings.data.bar.barType === \"framed\""
+    ]
+  },
+  {
+    "labelKey": "Dock indicator",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Thicker indicator",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.showDockIndicator"
+    ]
+  },
+  {
+    "labelKey": "Indicator color",
+    "descriptionKey": null,
+    "widget": "NColorChoice",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.showDockIndicator"
+    ]
+  },
+  {
+    "labelKey": "Indicator opacity",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.showDockIndicator"
+    ]
+  },
+  {
+    "labelKey": "Background opacity",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Dead opacity",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Dock floating distance",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.dockType === \"floating\""
+    ]
+  },
+  {
+    "labelKey": "Dock size",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Hide/show speed",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.dockType === \"floating\" && Settings.data.dock.displayMode === \"auto_hide\""
+    ]
+  },
+  {
+    "labelKey": "Running indicators",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Static pinned apps",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Group same apps",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Grouped app click action",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.groupApps"
+    ]
+  },
+  {
+    "labelKey": "Grouped app menu mode",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.groupApps"
+    ]
+  },
+  {
+    "labelKey": "Grouped indicator style",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.groupApps"
+    ]
+  },
+  {
+    "labelKey": "Only apps from same monitor",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Colorize icons",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Show app launcher",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Launcher position",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.showLauncherIcon"
+    ]
+  },
+  {
+    "labelKey": "Use distro logo instead of icon",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.showLauncherIcon"
+    ]
+  },
+  {
+    "labelKey": "Launcher icon",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.showLauncherIcon"
+    ]
+  },
+  {
+    "labelKey": "Select icon color",
+    "descriptionKey": null,
+    "widget": "NColorChoice",
+    "tab": 5,
+    "tabLabel": "panels.dock.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.dock.showLauncherIcon"
+    ]
+  },
+  {
+    "labelKey": "Default font",
+    "descriptionKey": null,
+    "widget": "NSearchableComboBox",
+    "tab": 0,
+    "tabLabel": "common.general",
+    "subTab": null
+  },
+  {
+    "labelKey": "Monospaced font",
+    "descriptionKey": null,
+    "widget": "NSearchableComboBox",
+    "tab": 0,
+    "tabLabel": "common.general",
+    "subTab": null
+  },
+  {
+    "labelKey": "Default font size",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 0,
+    "tabLabel": "common.general",
+    "subTab": null
+  },
+  {
+    "labelKey": "Monospaced font size",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 0,
+    "tabLabel": "common.general",
+    "subTab": null
+  },
+  {
+    "labelKey": "Smooth scrolling",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 0,
+    "tabLabel": "common.general",
+    "subTab": null
+  },
+  {
+    "labelKey": "Navigation keybinds",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 0,
+    "tabLabel": "common.general",
+    "subTab": null
+  },
+  {
+    "labelKey": "Enable hooks",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Available parameters",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Noctalia started",
+    "descriptionKey": null,
+    "widget": "HookRow",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Wallpaper changed",
+    "descriptionKey": null,
+    "widget": "HookRow",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Colors generated",
+    "descriptionKey": null,
+    "widget": "HookRow",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Theme changed",
+    "descriptionKey": null,
+    "widget": "HookRow",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Screen locked",
+    "descriptionKey": null,
+    "widget": "HookRow",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Screen unlocked",
+    "descriptionKey": null,
+    "widget": "HookRow",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Session end",
+    "descriptionKey": null,
+    "widget": "HookRow",
+    "tab": 20,
+    "tabLabel": "panels.hooks.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Enable idle management",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 13,
+    "tabLabel": "panels.idle.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Idle time",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 13,
+    "tabLabel": "panels.idle.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "IdleService.nativeIdleMonitorAvailable"
+    ]
+  },
+  {
+    "labelKey": "Timeouts",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 13,
+    "tabLabel": "panels.idle.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Fade duration",
+    "descriptionKey": null,
+    "widget": "NSpinBox",
+    "tab": 13,
+    "tabLabel": "panels.idle.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Custom idle commands",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 13,
+    "tabLabel": "panels.idle.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Enable clipboard history",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Enable clip preview",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Wrap clipboard text",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Auto paste",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Enable Smart Icons",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Enable Category Chips",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Text watch command",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "Settings.data.appLauncher.enableClipboardHistory"
+    ]
+  },
+  {
+    "labelKey": "Image watch command",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "Settings.data.appLauncher.enableClipboardHistory"
+    ]
+  },
+  {
+    "labelKey": "Terminal command",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Enable custom launch prefix",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Custom launch prefix",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.appLauncher.customLaunchPrefixEnabled"
+    ]
+  },
+  {
+    "labelKey": "Annotation tool",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Show above fullscreen",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "View mode",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Density",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Show categories",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Use native icons",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Show icon background",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Sort by most used",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Enable settings search",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Enable windows search",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Enable session search",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Ignore mouse input",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 8,
+    "tabLabel": "panels.launcher.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Clock style",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Clock format",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.general.clockStyle === \"custom\""
+    ]
+  },
+  {
+    "labelKey": "Random password icons",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Compact lock screen",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Lock screen media controls",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "!Settings.data.general.compactLockScreen"
+    ]
+  },
+  {
+    "labelKey": "Lockscreen animations",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Lock screen blur strength",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Lock screen tint strength",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Lock on suspend",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Auto-start authentication",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Allow password login with fprintd",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Power controls",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Show hibernate",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "Settings.data.general.showSessionButtonsOnLockScreen"
+    ]
+  },
+  {
+    "labelKey": "Enable countdown timer",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "Settings.data.general.showSessionButtonsOnLockScreen"
+    ]
+  },
+  {
+    "labelKey": "Countdown duration",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 11,
+    "tabLabel": "panels.lock-screen.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "Settings.data.general.showSessionButtonsOnLockScreen && Settings.data.general.enableLockScreenCountdown"
+    ]
+  },
+  {
+    "labelKey": "Respect expire timeout",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Low urgency",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Normal urgency",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Critical urgency",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Enable notifications",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Do Not Disturb",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Always on top",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Clear on dismissed",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Enable Markdown",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Save low urgency to history",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Save normal urgency to history",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Save critical urgency to history",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Filter rules",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 5
+  },
+  {
+    "labelKey": "Notification sounds unavailable",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3,
+    "visibleWhen": [
+      "!SoundService.multimediaAvailable"
+    ]
+  },
+  {
+    "labelKey": "Enable notification sounds",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Sound volume",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Use different sounds per priority",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Notification sound",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3,
+    "visibleWhen": [
+      "!(Settings.data.notifications?.sounds?.separateSounds ?? false)"
+    ]
+  },
+  {
+    "labelKey": "Low urgency sound",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3,
+    "visibleWhen": [
+      "SoundService.multimediaAvailable && (Settings.data.notifications?.sounds?.enabled ?? false) && (Settings.data.notifications?.sounds?.separateSounds ?? false)"
+    ]
+  },
+  {
+    "labelKey": "Normal urgency sound",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3,
+    "visibleWhen": [
+      "SoundService.multimediaAvailable && (Settings.data.notifications?.sounds?.enabled ?? false) && (Settings.data.notifications?.sounds?.separateSounds ?? false)"
+    ]
+  },
+  {
+    "labelKey": "Critical urgency sound",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3,
+    "visibleWhen": [
+      "SoundService.multimediaAvailable && (Settings.data.notifications?.sounds?.enabled ?? false) && (Settings.data.notifications?.sounds?.separateSounds ?? false)"
+    ]
+  },
+  {
+    "labelKey": "Excluded applications",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 3
+  },
+  {
+    "labelKey": "Media",
+    "descriptionKey": null,
+    "widget": "NCheckbox",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 4
+  },
+  {
+    "labelKey": "Keyboard layout",
+    "descriptionKey": null,
+    "widget": "NCheckbox",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 4
+  },
+  {
+    "labelKey": "Battery warning",
+    "descriptionKey": null,
+    "widget": "NCheckbox",
+    "tab": 9,
+    "tabLabel": "common.notifications",
+    "subTab": 4
+  },
+  {
+    "labelKey": "Enable on-screen display",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 10,
+    "tabLabel": "panels.osd.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Auto-hide after",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 10,
+    "tabLabel": "panels.osd.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "No plugins available",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 19,
+    "tabLabel": "panels.plugins.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Auto-update plugins",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 19,
+    "tabLabel": "panels.plugins.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Plugin update notifications",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 19,
+    "tabLabel": "panels.plugins.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "No plugins installed",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 19,
+    "tabLabel": "panels.plugins.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Repository name",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 19,
+    "tabLabel": "panels.plugins.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Repository URL",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 19,
+    "tabLabel": "panels.plugins.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Use analog style clock",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Show week numbers",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Show calendar events",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Use 12-hour time format",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "First day of week",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Application language",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Auto-locate",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Search for a location",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "!Settings.data.location.autoLocate"
+    ]
+  },
+  {
+    "labelKey": "Enable weather",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Display temperature in Fahrenheit (\u00b0F)",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Display weather effects",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Always show Talia weather emojis",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Hide city name",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Hide timezone",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 17,
+    "tabLabel": "panels.region.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Large buttons style",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 12,
+    "tabLabel": "session-menu.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Large buttons layout",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 12,
+    "tabLabel": "session-menu.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.sessionMenu.largeButtonsStyle"
+    ]
+  },
+  {
+    "labelKey": "Show header",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 12,
+    "tabLabel": "session-menu.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "!Settings.data.sessionMenu.largeButtonsStyle"
+    ]
+  },
+  {
+    "labelKey": "Show keybinds",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 12,
+    "tabLabel": "session-menu.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Enable discrete GPU monitoring",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 18,
+    "tabLabel": "panels.system.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Use custom highlight colors",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 18,
+    "tabLabel": "panels.system.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "External system monitor command",
+    "descriptionKey": null,
+    "widget": "NTextInput",
+    "tab": 18,
+    "tabLabel": "panels.system.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Show tooltips",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Container outline",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Always show scrollbars",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Drop shadows",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Blur behind",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Translucent widgets",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Shadow direction",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "Settings.data.general.enableShadows"
+    ]
+  },
+  {
+    "labelKey": "Interface scaling",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Container radius",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Input radius",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Disable UI animations",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Animation speed",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 0,
+    "visibleWhen": [
+      "!Settings.data.general.animationDisabled"
+    ]
+  },
+  {
+    "labelKey": "Snap panels to edges",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Allow panels on screens without a bar",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 1,
+    "visibleWhen": [
+      "(Quickshell.screens.length > 1)"
+    ]
+  },
+  {
+    "labelKey": "Panel background opacity",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Dimmed desktop opacity",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Settings panel mode",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Sidebar card style",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Show screen corners",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Solid black corners",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Screen corners radius",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 1,
+    "tabLabel": "panels.user-interface.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Scheduled change",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Change mode",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Wallpaper interval",
+    "descriptionKey": null,
+    "widget": "NSpinBox",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Enable wallpaper management",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Wallpaper selector",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Viewing mode",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Wallpaper folder",
+    "descriptionKey": null,
+    "widget": "NTextInputButton",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Monitor-specific directories",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Use original images",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Wallpaper cache",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 0
+  },
+  {
+    "labelKey": "Fill mode",
+    "descriptionKey": null,
+    "widget": "NComboBox",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Fill color",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Transition type",
+    "descriptionKey": null,
+    "widget": "NLabel",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Skip startup transition",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Transition duration",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 1
+  },
+  {
+    "labelKey": "Soften transition edge",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 3,
+    "tabLabel": "common.wallpaper",
+    "subTab": 1
+  }
+]

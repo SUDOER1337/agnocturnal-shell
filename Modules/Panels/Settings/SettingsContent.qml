@@ -466,6 +466,15 @@ Item {
     _rebuildSearchableItems();
   }
 
+  // Rebuild the searchable items cache if the search index loads or changes
+  // after this panel was created (FileView loads asynchronously).
+  Connections {
+    target: SettingsSearchService
+    function onSearchIndexChanged() {
+      root._rebuildSearchableItems();
+    }
+  }
+
   // Tab components
   Component {
     id: generalTab

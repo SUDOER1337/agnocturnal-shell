@@ -298,7 +298,7 @@ Popup {
               var parts = root.currentPath.split("/");
               parts.pop();
               var parentPath = parts.join("/") || "/";
-              root.navigateTo(parentPath);
+              filePickerPanel.navigateTo(parentPath);
             }
           }
 
@@ -308,7 +308,7 @@ Popup {
             baseSize: Style.baseWidgetSize * 0.8
             onClicked: {
               const homePath = Quickshell.env("HOME") || "/home";
-              root.navigateTo(homePath);
+              filePickerPanel.navigateTo(homePath);
               root.currentPath = homePath;
             }
           }
@@ -339,7 +339,7 @@ Popup {
             onEditingFinished: {
               const newPath = text.trim();
               if (newPath !== "" && newPath !== root.currentPath) {
-                root.navigateTo(newPath);
+                filePickerPanel.navigateTo(newPath);
                 root.currentPath = newPath;
               } else {
                 text = root.currentPath;
@@ -391,7 +391,7 @@ Popup {
             onClicked: {
               root.showHiddenFiles = !root.showHiddenFiles;
               // Force model refresh by resetting the folder
-              root.navigateTo(root.currentPath);
+              filePickerPanel.navigateTo(root.currentPath);
             }
           }
         }
@@ -433,7 +433,7 @@ Popup {
             if (!running) {
               if (rawModel.count === 0 && dirListProcess.targetFolder !== "/") {
                 var home = Quickshell.env("HOME") || "/home";
-                root.navigateTo(home);
+                filePickerPanel.navigateTo(home);
               } else {
                 Qt.callLater(root.updateFilteredModel);
               }
@@ -651,7 +651,7 @@ Popup {
                 if (mouse.button === Qt.LeftButton) {
                   if (model.fileIsDir) {
                     // Double-click on folder always navigates into it
-                    root.navigateTo(model.filePath);
+                    filePickerPanel.navigateTo(model.filePath);
                     root.currentPath = model.filePath;
                   } else {
                     // Double-click on file selects and confirms (only in file mode)
@@ -750,7 +750,7 @@ Popup {
                 if (mouse.button === Qt.LeftButton) {
                   if (model.fileIsDir) {
                     // Double-click on folder always navigates into it
-                    root.navigateTo(model.filePath);
+                    filePickerPanel.navigateTo(model.filePath);
                     root.currentPath = model.filePath;
                   } else {
                     // Double-click on file selects and confirms (only in file mode)
