@@ -20,6 +20,8 @@ Item {
   property bool oppositeDirection: false
   property string iconPosition: ""
   property bool hovered: false
+  property bool hoverOpensPanel: false
+  readonly property bool hoverOpensPanelEnabled: hoverOpensPanel && HoverPanelService.enabled
   property color customBackgroundColor: "transparent"
   property color customTextIconColor: "transparent"
   property color customIconColor: "transparent"
@@ -285,7 +287,9 @@ Item {
     onEntered: {
       hovered = true;
       root.entered();
-      TooltipService.show(root, root.tooltipText, BarService.getTooltipDirection(root.screen?.name), (forceOpen || forceClose) ? Style.tooltipDelay : Style.tooltipDelayLong);
+      if (!root.hoverOpensPanelEnabled) {
+        TooltipService.show(root, root.tooltipText, BarService.getTooltipDirection(root.screen?.name), (forceOpen || forceClose) ? Style.tooltipDelay : Style.tooltipDelayLong);
+      }
       if (forceClose) {
         return;
       }

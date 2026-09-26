@@ -166,6 +166,16 @@ Item {
         AudioService.setInputVolume(AudioService.inputVolume - AudioService.stepVolume);
       }
     }
+    hoverOpensPanel: true
+    onEntered: {
+      HoverPanelService.arm({
+                              "screen": screen,
+                              "anchor": pill,
+                              "panel": "audioPanel",
+                              "open": () => PanelService.getPanel("audioPanel", screen)?.open(pill)
+                            });
+    }
+    onExited: HoverPanelService.disarm(pill)
     onClicked: {
       PanelService.getPanel("audioPanel", screen)?.toggle(this);
     }

@@ -188,6 +188,16 @@ Item {
       }
     }
 
+    hoverOpensPanel: true
+    onEntered: {
+      HoverPanelService.arm({
+                              "screen": screen,
+                              "anchor": pill,
+                              "panel": "brightnessPanel",
+                              "open": () => PanelService.getPanel("brightnessPanel", screen)?.open(pill)
+                            });
+    }
+    onExited: HoverPanelService.disarm(pill)
     onClicked: PanelService.getPanel("brightnessPanel", screen)?.toggle(this)
 
     onRightClicked: {

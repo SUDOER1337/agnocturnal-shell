@@ -74,6 +74,19 @@ NIconButton {
     }
   }
 
+  hoverOpensPanel: true
+  onEntered: {
+    HoverPanelService.arm({
+                            "screen": screen,
+                            "anchor": root,
+                            "panel": "settingsPanel",
+                            "open": () => SettingsPanelService.openToTab(0, -1, screen),
+                            // The detached settings window has no panel to track the pointer on
+                            "trackPointer": Settings.data.ui.settingsPanelMode !== "window"
+                          });
+  }
+  onExited: HoverPanelService.disarm(root)
+
   onClicked: {
     SettingsPanelService.toggle(0, -1, screen);
   }

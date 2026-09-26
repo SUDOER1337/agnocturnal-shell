@@ -13,6 +13,50 @@ ColumnLayout {
   readonly property string effectiveMiddleClickAction: Settings.data.bar.middleClickAction || "none"
   readonly property string effectiveRightClickAction: Settings.data.bar.rightClickAction || "dashboard"
 
+  NToggle {
+    Layout.fillWidth: true
+    label: "Open panels on hover"
+    description: "Open a bar widget's panel by hovering it. The panel closes when the mouse leaves both the widget and the panel. Widgets without a panel still need a click."
+    checked: Settings.data.bar.hoverOpenPanels
+    defaultValue: Settings.getDefaultValue("bar.hoverOpenPanels")
+    onToggled: checked => Settings.data.bar.hoverOpenPanels = checked
+  }
+
+  NValueSlider {
+    Layout.fillWidth: true
+    visible: Settings.data.bar.hoverOpenPanels
+    label: "Hover open delay"
+    description: "How long the mouse must rest on a widget before its panel opens."
+    from: 0
+    to: 1500
+    stepSize: 50
+    showReset: true
+    value: Settings.data.bar.hoverOpenDelay
+    defaultValue: Settings.getDefaultValue("bar.hoverOpenDelay")
+    onMoved: value => Settings.data.bar.hoverOpenDelay = value
+    text: Settings.data.bar.hoverOpenDelay + "ms"
+  }
+
+  NValueSlider {
+    Layout.fillWidth: true
+    visible: Settings.data.bar.hoverOpenPanels
+    label: "Hover close delay"
+    description: "Grace period after the mouse leaves, so it can reach the panel."
+    from: 0
+    to: 1000
+    stepSize: 50
+    showReset: true
+    value: Settings.data.bar.hoverCloseDelay
+    defaultValue: Settings.getDefaultValue("bar.hoverCloseDelay")
+    onMoved: value => Settings.data.bar.hoverCloseDelay = value
+    text: Settings.data.bar.hoverCloseDelay + "ms"
+  }
+
+  NDivider {
+    Layout.fillWidth: true
+    Layout.topMargin: Style.marginS
+  }
+
   NComboBox {
     Layout.fillWidth: true
     label: "Bar mouse wheel action"

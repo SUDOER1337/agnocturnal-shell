@@ -86,6 +86,20 @@ NIconButton {
     }
   }
 
+  hoverOpensPanel: true
+  onEntered: {
+    HoverPanelService.arm({
+                            "screen": screen,
+                            "anchor": root,
+                            "panel": "launcherPanel",
+                            "open": () => PanelService.openLauncher(screen),
+                            // The overview-layer launcher is a full-screen overlay, not a SmartPanel,
+                            // so it cannot report the pointer back to the service
+                            "trackPointer": !Settings.data.appLauncher.overviewLayer
+                          });
+  }
+  onExited: HoverPanelService.disarm(root)
+
   onClicked: PanelService.toggleLauncher(screen)
   onMiddleClicked: PanelService.toggleLauncher(screen)
   onRightClicked: {

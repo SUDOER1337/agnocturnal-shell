@@ -244,6 +244,18 @@ Item {
   }
 
   function toggleDrawer(button) {
+    prepareDrawer();
+    PanelService.getPanel("trayDrawerPanel", root.screen)?.toggle(this);
+  }
+
+  function openDrawer() {
+    prepareDrawer();
+    PanelService.getPanel("trayDrawerPanel", root.screen)?.open(this);
+  }
+
+  // Shared by the click and hover paths: dismiss the tooltip and the tray popup
+  // menu, and tell the drawer which widget opened it.
+  function prepareDrawer() {
     TooltipService.hideImmediately();
 
     // Close the popup menu if it's open
@@ -255,7 +267,6 @@ Item {
     if (panel) {
       panel.widgetSection = root.section;
       panel.widgetIndex = root.sectionWidgetIndex;
-      panel.toggle(this);
     }
   }
 
@@ -377,6 +388,16 @@ Item {
           return "caret-down";
         }
       }
+      hoverOpensPanel: true
+      onEntered: {
+        HoverPanelService.arm({
+                                "screen": root.screen,
+                                "anchor": chevronIconBefore,
+                                "panel": "trayDrawerPanel",
+                                "open": () => root.openDrawer()
+                              });
+      }
+      onExited: HoverPanelService.disarm(chevronIconBefore)
       onClicked: toggleDrawer(this)
       onRightClicked: PanelService.showContextMenu(chevronContextMenu, this, screen)
     }
@@ -573,6 +594,16 @@ Item {
           return "caret-down";
         }
       }
+      hoverOpensPanel: true
+      onEntered: {
+        HoverPanelService.arm({
+                                "screen": root.screen,
+                                "anchor": chevronIconAfter,
+                                "panel": "trayDrawerPanel",
+                                "open": () => root.openDrawer()
+                              });
+      }
+      onExited: HoverPanelService.disarm(chevronIconAfter)
       onClicked: toggleDrawer(this)
       onRightClicked: PanelService.showContextMenu(chevronContextMenu, this, screen)
     }

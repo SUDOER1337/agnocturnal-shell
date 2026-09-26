@@ -194,12 +194,22 @@ Item {
     acceptedButtons: Qt.LeftButton | Qt.RightButton
     cursorShape: Qt.PointingHandCursor
     onEntered: {
+      if (HoverPanelService.enabled) {
+        HoverPanelService.arm({
+                                "screen": screen,
+                                "anchor": nBattery,
+                                "panel": "batteryPanel",
+                                "open": () => getBatteryPanel()?.open(root)
+                              });
+        return;
+      }
       if (!getBatteryPanel()?.isPanelOpen && root.tooltipContent) {
         TooltipService.show(root, root.tooltipContent, BarService.getTooltipDirection(root.screen?.name));
         tooltipRefreshTimer.start();
       }
     }
     onExited: {
+      HoverPanelService.disarm(nBattery);
       tooltipRefreshTimer.stop();
       TooltipService.hide();
     }
@@ -218,7 +228,7 @@ Item {
     interval: 1000
     repeat: true
     onTriggered: {
-      if (graphicMouseArea.containsMouse) {
+      if (graphicMouseArea.containsMouse && !HoverPanelService.enabled) {
         TooltipService.updateText(root.tooltipContent);
       }
     }
@@ -240,6 +250,16 @@ Item {
     customBackgroundColor: root.isCharging ? Color.mPrimary : ((root.isLowBattery || root.isCriticalBattery) ? Color.mError : "transparent")
     customTextIconColor: root.isCharging ? Color.mOnPrimary : ((root.isLowBattery || root.isCriticalBattery) ? Color.mOnError : "transparent")
     tooltipText: !getBatteryPanel()?.isPanelOpen ? root.tooltipContent : ""
+    hoverOpensPanel: true
+    onEntered: {
+      HoverPanelService.arm({
+                              "screen": screen,
+                              "anchor": pill,
+                              "panel": "batteryPanel",
+                              "open": () => getBatteryPanel()?.open(root)
+                            });
+    }
+    onExited: HoverPanelService.disarm(pill)
     onClicked: toggleBatteryPanel()
     onRightClicked: PanelService.showContextMenu(contextMenu, pill, screen)
   }

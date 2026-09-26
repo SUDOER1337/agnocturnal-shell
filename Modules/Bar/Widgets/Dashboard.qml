@@ -102,6 +102,26 @@ NIconButton {
     }
   }
 
+  hoverOpensPanel: true
+  onEntered: {
+    HoverPanelService.arm({
+                            "screen": screen,
+                            "anchor": root,
+                            "panel": "dashboardPanel",
+                            "open": () => {
+                              var panel = PanelService.getPanel("dashboardPanel", screen);
+                              if (!panel)
+                                return;
+                              if (Settings.data.dashboard.position === "close_to_bar_button") {
+                                panel.open(root);
+                              } else {
+                                panel.open();
+                              }
+                            }
+                          });
+  }
+  onExited: HoverPanelService.disarm(root)
+
   onClicked: {
     var dashboardPanel = PanelService.getPanel("dashboardPanel", screen);
     if (Settings.data.dashboard.position === "close_to_bar_button") {

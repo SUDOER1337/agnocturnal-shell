@@ -1330,6 +1330,18 @@ Item {
           mouse.accepted = true; // Accept and ignore - prevents propagation to background
         }
       }
+
+      // Reports pointer presence so HoverPanelService can keep a panel that was
+      // opened on hover alive while the pointer moves from the bar into it.
+      // A HoverHandler (not a MouseArea) is used because it observes without
+      // taking the pointer away from the panel's own interactive content.
+      HoverHandler {
+        id: panelHoverHandler
+        onHoveredChanged: {
+          if (root.isPanelVisible)
+            HoverPanelService.setPanelHovered(hovered);
+        }
+      }
     }
 
     // Panel top content: Text, icons, etc...

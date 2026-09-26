@@ -37,6 +37,9 @@ Item {
   readonly property real barFontSize: Style.getBarFontSizeForScreen(screenName)
   readonly property var now: Time.now
 
+  // The clock tooltip is redundant once hovering opens the calendar panel
+  readonly property bool hoverOpensPanel: HoverPanelService.enabled
+
   // Resolve settings: try user settings or defaults from BarWidgetRegistry
   readonly property string clockColor: widgetSettings.clockColor !== undefined ? widgetSettings.clockColor : widgetMetadata.clockColor
   readonly property bool useCustomFont: widgetSettings.useCustomFont !== undefined ? widgetSettings.useCustomFont : widgetMetadata.useCustomFont
@@ -187,12 +190,22 @@ Item {
     hoverEnabled: true
     acceptedButtons: Qt.LeftButton | Qt.RightButton
     onEntered: {
+      if (root.hoverOpensPanel) {
+        HoverPanelService.arm({
+                                "screen": root.screen,
+                                "anchor": root,
+                                "panel": "clockPanel",
+                                "open": () => PanelService.getPanel("clockPanel", root.screen)?.open(root)
+                              });
+        return;
+      }
       if (!PanelService.getPanel("clockPanel", screen)?.isPanelOpen) {
         TooltipService.show(root, buildTooltipText(), BarService.getTooltipDirection(root.screen?.name));
         tooltipRefreshTimer.start();
       }
     }
     onExited: {
+      HoverPanelService.disarm(root);
       tooltipRefreshTimer.stop();
       TooltipService.hide();
     }
@@ -211,7 +224,7 @@ Item {
     interval: 1000
     repeat: true
     onTriggered: {
-      if (clockMouseArea.containsMouse && !PanelService.getPanel("clockPanel", screen)?.isPanelOpen) {
+      if (clockMouseArea.containsMouse && !root.hoverOpensPanel && !PanelService.getPanel("clockPanel", screen)?.isPanelOpen) {
         TooltipService.updateText(buildTooltipText());
       }
     }

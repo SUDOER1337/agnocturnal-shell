@@ -70,6 +70,17 @@ NIconButton {
     }
   }
 
+  hoverOpensPanel: true
+  onEntered: {
+    HoverPanelService.arm({
+                            "screen": screen,
+                            "anchor": root,
+                            "panel": "sessionMenuPanel",
+                            "open": () => PanelService.getPanel("sessionMenuPanel", screen)?.open(root)
+                          });
+  }
+  onExited: HoverPanelService.disarm(root)
+
   onClicked: PanelService.getPanel("sessionMenuPanel", screen)?.toggle()
   onRightClicked: {
     PanelService.showContextMenu(contextMenu, root, screen);

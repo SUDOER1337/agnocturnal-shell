@@ -17,6 +17,11 @@ Item {
   property bool handleWheel: false
   property bool hovering: false
 
+  // Set by widgets whose panel opens on hover. The tooltip is redundant then:
+  // it would pop up on every sweep across the bar, just before the panel.
+  property bool hoverOpensPanel: false
+  readonly property bool hoverOpensPanelEnabled: hoverOpensPanel && HoverPanelService.enabled
+
   property color colorBg: Color.smartAlpha(Color.mSurfaceVariant)
   property color colorFg: Color.mPrimary
   property color colorBgHover: Color.mHover
@@ -96,7 +101,7 @@ Item {
     hoverEnabled: true
     onEntered: {
       hovering = root.enabled ? true : false;
-      if (hovering && tooltipText && (!Array.isArray(tooltipText) || tooltipText.length > 0)) {
+      if (hovering && tooltipText && !root.hoverOpensPanelEnabled && (!Array.isArray(tooltipText) || tooltipText.length > 0)) {
         TooltipService.show(root, tooltipText, tooltipDirection);
       }
       root.entered();

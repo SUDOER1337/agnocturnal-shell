@@ -257,6 +257,11 @@ Singleton {
       property int autoShowDelay: 150 // ms before showing when mouse enters
       property bool showOnWorkspaceSwitch: true // show bar briefly on workspace switch
 
+      // Open a bar widget's panel by hovering it instead of clicking
+      property bool hoverOpenPanels: false
+      property int hoverOpenDelay: 400 // ms the pointer must rest on a widget
+      property int hoverCloseDelay: 250 // ms grace period to reach the panel
+
       // Widget configuration for modular bar system
       property JsonObject widgets
       widgets: JsonObject {

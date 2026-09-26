@@ -411,6 +411,15 @@ Item {
       if (!root || !screen) {
         return;
       }
+      if (HoverPanelService.enabled) {
+        HoverPanelService.arm({
+                                "screen": screen,
+                                "anchor": container,
+                                "panel": "dashboardPanel",
+                                "open": () => PanelService.getPanel("dashboardPanel", screen)?.open(container)
+                              });
+        return;
+      }
       var scrollMode = scrollingMode;
       if ((isVertical || scrollMode === "never")) {
         var panel = PanelService.getPanel("dashboardPanel", screen);
@@ -419,7 +428,10 @@ Item {
         }
       }
     }
-    onExited: TooltipService.hide()
+    onExited: {
+      HoverPanelService.disarm(container);
+      TooltipService.hide();
+    }
   }
 
   // Components

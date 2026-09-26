@@ -109,6 +109,17 @@ NIconButton {
     }
   }
 
+  hoverOpensPanel: true
+  onEntered: {
+    HoverPanelService.arm({
+                            "screen": screen,
+                            "anchor": root,
+                            "panel": "notificationHistoryPanel",
+                            "open": () => PanelService.getPanel("notificationHistoryPanel", screen)?.open(root)
+                          });
+  }
+  onExited: HoverPanelService.disarm(root)
+
   onClicked: {
     var panel = PanelService.getPanel("notificationHistoryPanel", screen);
     panel?.toggle(this);

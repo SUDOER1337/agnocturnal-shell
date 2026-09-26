@@ -43,6 +43,9 @@ Item {
   readonly property string iconColorKey: widgetSettings.iconColor !== undefined ? widgetSettings.iconColor : widgetMetadata.iconColor
   readonly property string textColorKey: widgetSettings.textColor !== undefined ? widgetSettings.textColor : widgetMetadata.textColor
 
+  // The stats tooltip is redundant once hovering opens the stats panel
+  readonly property bool hoverOpensPanel: HoverPanelService.enabled
+
   readonly property bool useMonospaceFont: widgetSettings.useMonospaceFont !== undefined ? widgetSettings.useMonospaceFont : widgetMetadata.useMonospaceFont
   readonly property bool usePadding: !compactMode && !isVertical && useMonospaceFont && ((widgetSettings.usePadding !== undefined) ? widgetSettings.usePadding : widgetMetadata.usePadding)
 
@@ -941,12 +944,22 @@ Item {
       }
     }
     onEntered: {
+      if (root.hoverOpensPanel) {
+        HoverPanelService.arm({
+                                "screen": root.screen,
+                                "anchor": root,
+                                "panel": "systemStatsPanel",
+                                "open": () => PanelService.getPanel("systemStatsPanel", root.screen)?.open(root)
+                              });
+        return;
+      }
       if (!PanelService.getPanel("systemStatsPanel", screen).isPanelOpen) {
         TooltipService.show(root, buildTooltipContent(), BarService.getTooltipDirection(root.screen?.name));
         tooltipRefreshTimer.start();
       }
     }
     onExited: {
+      HoverPanelService.disarm(root);
       tooltipRefreshTimer.stop();
       TooltipService.hide();
     }
@@ -957,7 +970,7 @@ Item {
     interval: 1000
     repeat: true
     onTriggered: {
-      if (tooltipArea.containsMouse) {
+      if (tooltipArea.containsMouse && !root.hoverOpensPanel) {
         TooltipService.updateText(buildTooltipContent());
       }
     }

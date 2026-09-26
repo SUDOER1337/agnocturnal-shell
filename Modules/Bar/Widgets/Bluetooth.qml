@@ -101,6 +101,16 @@ Item {
     autoHide: false
     forceOpen: !isBarVertical && root.displayMode === "alwaysShow"
     forceClose: isBarVertical || root.displayMode === "alwaysHide" || text === ""
+    hoverOpensPanel: true
+    onEntered: {
+      HoverPanelService.arm({
+                              "screen": screen,
+                              "anchor": pill,
+                              "panel": "bluetoothPanel",
+                              "open": () => PanelService.getPanel("bluetoothPanel", screen)?.open(pill)
+                            });
+    }
+    onExited: HoverPanelService.disarm(pill)
     onClicked: {
       var p = PanelService.getPanel("bluetoothPanel", screen);
       if (p)

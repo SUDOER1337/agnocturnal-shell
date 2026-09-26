@@ -88,6 +88,16 @@ Item {
     autoHide: false
     forceOpen: !isBarVertical && root.displayMode === "alwaysShow"
     forceClose: isBarVertical || root.displayMode === "alwaysHide" || text === ""
+    hoverOpensPanel: true
+    onEntered: {
+      HoverPanelService.arm({
+                              "screen": screen,
+                              "anchor": pill,
+                              "panel": "networkPanel",
+                              "open": () => PanelService.getPanel("networkPanel", screen)?.open(pill)
+                            });
+    }
+    onExited: HoverPanelService.disarm(pill)
     onClicked: {
       var panel = PanelService.getPanel("networkPanel", screen);
       panel?.toggle(this);

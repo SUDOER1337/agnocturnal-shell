@@ -19,6 +19,7 @@ Item {
   property bool forceClose: false
   property bool oppositeDirection: false
   property bool hovered: false
+  property bool hoverOpensPanel: false
   property bool rotateText: false
   property color customBackgroundColor: "transparent"
   property color customTextIconColor: "transparent"
@@ -65,6 +66,7 @@ Item {
         forceClose: root.forceClose
         oppositeDirection: root.oppositeDirection
         hovered: root.hovered
+        hoverOpensPanel: root.hoverOpensPanel
         rotateText: root.rotateText
         customBackgroundColor: root.customBackgroundColor
         customTextIconColor: root.customTextIconColor
@@ -95,6 +97,7 @@ Item {
         forceClose: root.forceClose
         oppositeDirection: root.oppositeDirection
         hovered: root.hovered
+        hoverOpensPanel: root.hoverOpensPanel
         customBackgroundColor: root.customBackgroundColor
         customTextIconColor: root.customTextIconColor
         customIconColor: root.customIconColor

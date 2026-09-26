@@ -25,6 +25,9 @@
     "autoHideDelay": 500,
     "autoShowDelay": 150,
     "showOnWorkspaceSwitch": true,
+    "hoverOpenPanels": false,
+    "hoverOpenDelay": 400,
+    "hoverCloseDelay": 250,
     "widgets": {
       "left": [
         {

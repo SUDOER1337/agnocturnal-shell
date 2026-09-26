@@ -340,6 +340,36 @@
     ]
   },
   {
+    "labelKey": "Open panels on hover",
+    "descriptionKey": null,
+    "widget": "NToggle",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2
+  },
+  {
+    "labelKey": "Hover open delay",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.hoverOpenPanels"
+    ]
+  },
+  {
+    "labelKey": "Hover close delay",
+    "descriptionKey": null,
+    "widget": "NValueSlider",
+    "tab": 4,
+    "tabLabel": "panels.bar.title",
+    "subTab": 2,
+    "visibleWhen": [
+      "Settings.data.bar.hoverOpenPanels"
+    ]
+  },
+  {
     "labelKey": "Bar mouse wheel action",
     "descriptionKey": null,
     "widget": "NComboBox",

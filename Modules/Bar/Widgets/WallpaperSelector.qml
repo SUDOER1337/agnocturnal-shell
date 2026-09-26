@@ -78,6 +78,26 @@ NIconButton {
     }
   }
 
+  hoverOpensPanel: true
+  onEntered: {
+    HoverPanelService.arm({
+                            "screen": screen,
+                            "anchor": root,
+                            "panel": "wallpaperPanel",
+                            "open": () => {
+                              var wallpaperPanel = PanelService.getPanel("wallpaperPanel", screen);
+                              if (!wallpaperPanel)
+                                return;
+                              if (Settings.data.wallpaper.panelPosition === "follow_bar") {
+                                wallpaperPanel.open(root);
+                              } else {
+                                wallpaperPanel.open();
+                              }
+                            }
+                          });
+  }
+  onExited: HoverPanelService.disarm(root)
+
   onClicked: {
     var wallpaperPanel = PanelService.getPanel("wallpaperPanel", screen);
     if (Settings.data.wallpaper.panelPosition === "follow_bar") {
