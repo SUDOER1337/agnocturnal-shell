@@ -5,7 +5,6 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import qs.Commons
-import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -89,7 +88,7 @@ NBox {
         tooltipText: "Session menu"
         onClicked: {
           PanelService.getPanel("sessionMenuPanel", screen)?.open();
-          PanelService.getPanel("controlCenterPanel", screen)?.close();
+          PanelService.getPanel("dashboardPanel", screen)?.close();
         }
       }
     }

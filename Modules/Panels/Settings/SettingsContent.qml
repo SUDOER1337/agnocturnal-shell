@@ -33,7 +33,7 @@ import qs.Modules.Panels.Settings.Tabs.Audio
 import qs.Modules.Panels.Settings.Tabs.Bar
 import qs.Modules.Panels.Settings.Tabs.ColorScheme
 import qs.Modules.Panels.Settings.Tabs.Connections
-import qs.Modules.Panels.Settings.Tabs.ControlCenter
+import qs.Modules.Panels.Settings.Tabs.Dashboard
 import qs.Modules.Panels.Settings.Tabs.Display
 import qs.Modules.Panels.Settings.Tabs.Dock
 import qs.Modules.Panels.Settings.Tabs.Hooks
@@ -537,8 +537,8 @@ Item {
     NotificationsTab {}
   }
   Component {
-    id: controlCenterTab
-    ControlCenterTab {}
+    id: dashboardTab
+    DashboardTab {}
   }
   Component {
     id: userInterfaceTab
@@ -610,10 +610,10 @@ Item {
             "source": desktopWidgetsTab
           },
           {
-            "id": SettingsPanel.Tab.ControlCenter,
-            "label": "panels.control-center.title",
+            "id": SettingsPanel.Tab.Dashboard,
+            "label": "panels.dashboard.title",
             "icon": "settings-control-center",
-            "source": controlCenterTab
+            "source": dashboardTab
           },
           {
             "id": SettingsPanel.Tab.Launcher,

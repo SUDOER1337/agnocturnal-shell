@@ -30,7 +30,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.Commons
-import qs.Modules.Panels.ControlCenterV5
+import qs.Modules.Panels.Dashboard
 import qs.Modules.Panels.Settings
 import qs.Services.Agnocturnal
 import qs.Services.UI
@@ -911,21 +911,25 @@ Singleton {
         }
       }
 
-      // Load control center widget component if provided
-      if (manifest.entryPoints && manifest.entryPoints.controlCenterWidget) {
-        var ccWidgetPath = pluginDir + "/" + manifest.entryPoints.controlCenterWidget;
-        var ccWidgetLoadVersion = PluginRegistry.pluginLoadVersions[pluginId] || 0;
-        var ccWidgetComponent = Qt.createComponent("file://" + ccWidgetPath + "?v=" + ccWidgetLoadVersion);
+      // Load dashboard widget component if provided. `controlCenterWidget` is the
+      // legacy spelling of the entry point and is still honoured: it is part of the
+      // published plugin API, so existing plugins must keep loading unchanged.
+      const dashboardEntry = manifest.entryPoints && (manifest.entryPoints.dashboardWidget || manifest.entryPoints.controlCenterWidget);
+      if (dashboardEntry) {
+        var dashboardWidgetPath = pluginDir + "/" + dashboardEntry;
+        var dashboardWidgetLoadVersion = PluginRegistry.pluginLoadVersions[pluginId] || 0;
+        var dashboardWidgetComponent = Qt.createComponent("file://" + dashboardWidgetPath + "?v=" + dashboardWidgetLoadVersion);
 
-        if (ccWidgetComponent.status === Component.Ready) {
-          root.loadedPlugins[pluginId].controlCenterWidget = ccWidgetComponent;
-          pluginApi.controlCenterWidget = ccWidgetComponent;
+        if (dashboardWidgetComponent.status === Component.Ready) {
+          root.loadedPlugins[pluginId].dashboardWidget = dashboardWidgetComponent;
+          pluginApi.dashboardWidget = dashboardWidgetComponent;
+          pluginApi.controlCenterWidget = dashboardWidgetComponent;
 
-          // Register with ControlCenterWidgetRegistry
-          ControlCenterWidgetRegistry.registerPluginWidget(pluginId, ccWidgetComponent, manifest.metadata);
-          Logger.i("PluginService", "Loaded control center widget for plugin:", pluginId);
-        } else if (ccWidgetComponent.status === Component.Error) {
-          root.recordPluginError(pluginId, "controlCenterWidget", ccWidgetComponent.errorString());
+          // Register with DashboardWidgetRegistry
+          DashboardWidgetRegistry.registerPluginWidget(pluginId, dashboardWidgetComponent, manifest.metadata);
+          Logger.i("PluginService", "Loaded dashboard widget for plugin:", pluginId);
+        } else if (dashboardWidgetComponent.status === Component.Error) {
+          root.recordPluginError(pluginId, "dashboardWidget", dashboardWidgetComponent.errorString());
         }
       }
 
@@ -973,9 +977,9 @@ Singleton {
       LauncherProviderRegistry.unregisterPluginProvider(pluginId);
     }
 
-    // Unregister from ControlCenterWidgetRegistry
-    if (plugin.manifest.entryPoints && plugin.manifest.entryPoints.controlCenterWidget) {
-      ControlCenterWidgetRegistry.unregisterPluginWidget(pluginId);
+    // Unregister from DashboardWidgetRegistry
+    if (plugin.manifest.entryPoints && (plugin.manifest.entryPoints.dashboardWidget || plugin.manifest.entryPoints.controlCenterWidget)) {
+      DashboardWidgetRegistry.unregisterPluginWidget(pluginId);
     }
 
     // Destroy Main instance if any
@@ -1007,6 +1011,9 @@ Singleton {
         property var barWidget: null
         property var desktopWidget: null
         property var launcherProvider: null
+        property var dashboardWidget: null
+        // Deprecated alias of dashboardWidget, kept for plugins written against the
+        // pre-rename plugin API
         property var controlCenterWidget: null
 
         // Panel state: which screen the plugin's panel is currently open on (null if closed)
@@ -1476,11 +1483,11 @@ Singleton {
           // Open settings panel to Plugins tab on the screen where the cursor is
           if (root.screenDetector) {
             root.screenDetector.withCurrentScreen(function (screen) {
-              SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Plugins, -1, screen);
+              SettingsPanelService.openToTab(DashboardPanel.Tab.Plugins, -1, screen);
             });
           } else {
             // Fallback to primary screen if screen detector is not available
-            SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Plugins, -1, Quickshell.screens[0]);
+            SettingsPanelService.openToTab(DashboardPanel.Tab.Plugins, -1, Quickshell.screens[0]);
           }
         });
       }

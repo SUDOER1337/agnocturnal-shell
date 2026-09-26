@@ -11,7 +11,7 @@ ColumnLayout {
 
   readonly property string effectiveWheelAction: Settings.data.bar.mouseWheelAction || "none"
   readonly property string effectiveMiddleClickAction: Settings.data.bar.middleClickAction || "none"
-  readonly property string effectiveRightClickAction: Settings.data.bar.rightClickAction || "controlCenter"
+  readonly property string effectiveRightClickAction: Settings.data.bar.rightClickAction || "dashboard"
 
   NComboBox {
     Layout.fillWidth: true
@@ -66,8 +66,8 @@ ColumnLayout {
         "name": "None"
       },
       {
-        "key": "controlCenter",
-        "name": "Control center"
+        "key": "dashboard",
+        "name": "Dashboard"
       },
       {
         "key": "settings",
@@ -118,8 +118,8 @@ ColumnLayout {
         "name": "None"
       },
       {
-        "key": "controlCenter",
-        "name": "Control center"
+        "key": "dashboard",
+        "name": "Dashboard"
       },
       {
         "key": "settings",

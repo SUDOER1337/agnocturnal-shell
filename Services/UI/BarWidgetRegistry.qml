@@ -18,7 +18,7 @@ Singleton {
                            "Bluetooth": bluetoothComponent,
                            "Brightness": brightnessComponent,
                            "Clock": clockComponent,
-                           "ControlCenter": controlCenterComponent,
+                           "Dashboard": dashboardComponent,
                            "CustomButton": customButtonComponent,
                            "DarkMode": darkModeComponent,
                            "KeepAwake": keepAwakeComponent,
@@ -50,7 +50,7 @@ Singleton {
                                      "Bluetooth": "WidgetSettings/BluetoothSettings.qml",
                                      "Brightness": "WidgetSettings/BrightnessSettings.qml",
                                      "Clock": "WidgetSettings/ClockSettings.qml",
-                                     "ControlCenter": "WidgetSettings/ControlCenterSettings.qml",
+                                     "Dashboard": "WidgetSettings/DashboardSettings.qml",
                                      "CustomButton": "WidgetSettings/CustomButtonSettings.qml",
                                      "DarkMode": "WidgetSettings/DarkModeSettings.qml",
                                      "KeepAwake": "WidgetSettings/KeepAwakeSettings.qml",
@@ -117,7 +117,7 @@ Singleton {
                                     "formatVertical": "HH mm - dd MM",
                                     "tooltipFormat": "HH:mm ddd, MMM dd"
                                   },
-                                  "ControlCenter": {
+                                  "Dashboard": {
                                     "useDistroLogo": false,
                                     "icon": "noctalia",
                                     "customIconPath": "",
@@ -376,8 +376,8 @@ Singleton {
   property Component settingsComponent: Component {
     Settings {}
   }
-  property Component controlCenterComponent: Component {
-    ControlCenter {}
+  property Component dashboardComponent: Component {
+    Dashboard {}
   }
   property Component spacerComponent: Component {
     Spacer {}

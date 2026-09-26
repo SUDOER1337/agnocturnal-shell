@@ -41,7 +41,7 @@
       "formatVertical": "HH mm - dd MM",
       "tooltipFormat": "HH:mm ddd, MMM dd"
     },
-    "ControlCenter": {
+    "Dashboard": {
       "useDistroLogo": false,
       "icon": "noctalia",
       "customIconPath": "",
@@ -130,7 +130,7 @@
       "compactMode": false,
       "panelShowAlbumArt": true,
       "panelVisualizerPlacement": "art",
-      "panelAlbumArtSize": 110
+      "panelAlbumArtSize": 180
     },
     "Microphone": {
       "displayMode": "onhover",
@@ -241,7 +241,7 @@
       "iconColor": "none"
     }
   },
-  "controlCenter": {
+  "dashboard": {
     "CustomButton": {
       "icon": "heart",
       "onClicked": "",

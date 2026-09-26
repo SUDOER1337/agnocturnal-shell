@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
 import qs.Commons
-import qs.Modules.Panels.ControlCenterV5
+import qs.Modules.Panels.Dashboard
 import qs.Modules.Panels.Settings
 import qs.Services.UI
 import qs.Widgets
@@ -535,14 +535,14 @@ PopupWindow {
 
   function handleLauncherSettings() {
     if (targetScreen) {
-      SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Launcher, -1, targetScreen);
+      SettingsPanelService.openToTab(DashboardPanel.Tab.Launcher, -1, targetScreen);
     }
     closeAndReset();
   }
 
   function handleDockSettings() {
     if (targetScreen) {
-      SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Dock, -1, targetScreen);
+      SettingsPanelService.openToTab(DashboardPanel.Tab.Dock, -1, targetScreen);
     }
     closeAndReset();
   }

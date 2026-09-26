@@ -17,7 +17,7 @@ SmartPanel {
     Bar,
     ColorScheme,
     LockScreen,
-    ControlCenter,
+    Dashboard,
     DesktopWidgets,
     OSD,
     Display,

@@ -5,7 +5,7 @@ import qs.Commons
 import qs.Services.Hardware
 import qs.Widgets
 
-// Brightness control card for the ControlCenter
+// Brightness control card for the Dashboard
 NBox {
   id: root
 

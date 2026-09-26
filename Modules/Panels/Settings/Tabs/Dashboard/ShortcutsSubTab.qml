@@ -45,10 +45,10 @@ ColumnLayout {
       NSectionEditor {
         sectionName: "Left"
         sectionId: "left"
-        settingsDialogComponent: Qt.resolvedUrl(Quickshell.shellDir + "/Modules/Panels/Settings/ControlCenter/ControlCenterWidgetSettingsDialog.qml")
-        maxWidgets: Settings.data.controlCenter.shortcuts["right"].length > 5 ? 0 : (Settings.data.controlCenter.shortcuts["right"].length > 0 ? 5 : 10)
-        widgetRegistry: ControlCenterWidgetRegistry
-        widgetModel: Settings.data.controlCenter.shortcuts["left"]
+        settingsDialogComponent: Qt.resolvedUrl(Quickshell.shellDir + "/Modules/Panels/Settings/Dashboard/DashboardWidgetSettingsDialog.qml")
+        maxWidgets: Settings.data.dashboard.shortcuts["left"].length > 5 ? 0 : (Settings.data.dashboard.shortcuts["left"].length > 0 ? 5 : 10)
+        widgetRegistry: DashboardWidgetRegistry
+        widgetModel: Settings.data.dashboard.shortcuts["left"]
         sectionIcons: root.getSectionIcons()
         availableWidgets: root.availableWidgets
         availableSections: ["left", "right"]
@@ -64,10 +64,10 @@ ColumnLayout {
       NSectionEditor {
         sectionName: "Right"
         sectionId: "right"
-        settingsDialogComponent: Qt.resolvedUrl(Quickshell.shellDir + "/Modules/Panels/Settings/ControlCenter/ControlCenterWidgetSettingsDialog.qml")
-        maxWidgets: Settings.data.controlCenter.shortcuts["left"].length > 5 ? 0 : (Settings.data.controlCenter.shortcuts["left"].length > 0 ? 5 : 10)
-        widgetRegistry: ControlCenterWidgetRegistry
-        widgetModel: Settings.data.controlCenter.shortcuts["right"]
+        settingsDialogComponent: Qt.resolvedUrl(Quickshell.shellDir + "/Modules/Panels/Settings/Dashboard/DashboardWidgetSettingsDialog.qml")
+        maxWidgets: Settings.data.dashboard.shortcuts["right"].length > 5 ? 0 : (Settings.data.dashboard.shortcuts["right"].length > 0 ? 5 : 10)
+        widgetRegistry: DashboardWidgetRegistry
+        widgetModel: Settings.data.dashboard.shortcuts["right"]
         sectionIcons: root.getSectionIcons()
         availableWidgets: root.availableWidgets
         availableSections: ["left", "right"]

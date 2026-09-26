@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import qs.Commons
-import qs.Modules.Panels.ControlCenter.Widgets
+import qs.Modules.Panels.Dashboard.Widgets
 
 Singleton {
   id: root
@@ -71,7 +71,7 @@ Singleton {
   }
 
   function init() {
-    Logger.i("ControlCenterWidgetRegistry", "Service started");
+    Logger.i("DashboardWidgetRegistry", "Service started");
   }
 
   // ------------------------------
@@ -105,7 +105,7 @@ Singleton {
   // Register a plugin widget
   function registerPluginWidget(pluginId, component, metadata) {
     if (!pluginId || !component) {
-      Logger.e("ControlCenterWidgetRegistry", "Cannot register plugin widget: invalid parameters");
+      Logger.e("DashboardWidgetRegistry", "Cannot register plugin widget: invalid parameters");
       return false;
     }
 
@@ -119,7 +119,7 @@ Singleton {
     widgets[widgetId] = component;
     widgetMetadata[widgetId] = metadata || {};
 
-    Logger.i("ControlCenterWidgetRegistry", "Registered plugin widget:", widgetId);
+    Logger.i("DashboardWidgetRegistry", "Registered plugin widget:", widgetId);
     return true;
   }
 
@@ -128,7 +128,7 @@ Singleton {
     var widgetId = "plugin:" + pluginId;
 
     if (!pluginWidgets[widgetId]) {
-      Logger.w("ControlCenterWidgetRegistry", "Plugin widget not registered:", widgetId);
+      Logger.w("DashboardWidgetRegistry", "Plugin widget not registered:", widgetId);
       return false;
     }
 
@@ -137,7 +137,7 @@ Singleton {
     delete widgets[widgetId];
     delete widgetMetadata[widgetId];
 
-    Logger.i("ControlCenterWidgetRegistry", "Unregistered plugin widget:", widgetId);
+    Logger.i("DashboardWidgetRegistry", "Unregistered plugin widget:", widgetId);
     return true;
   }
 

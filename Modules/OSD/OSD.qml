@@ -184,12 +184,12 @@ Variants {
       root.currentBrightness = newBrightness;
       // Don't show OSD if brightness panel is open
       var brightnessPanel = PanelService.getPanel("brightnessPanel", root.modelData);
-      var controlCenterPanel = PanelService.getPanel("controlCenterPanel", root.modelData);
+      var dashboardPanel = PanelService.getPanel("dashboardPanel", root.modelData);
 
       if (brightnessPanel && brightnessPanel.isPanelOpen)
         return;
-      if (controlCenterPanel && controlCenterPanel.isPanelOpen) {
-        var cards = Settings.data.controlCenter.cards || [];
+      if (dashboardPanel && dashboardPanel.isPanelOpen) {
+        var cards = Settings.data.dashboard.cards || [];
         if (cards.some(c => c.enabled && c.id === "brightness-card"))
           return;
       }
@@ -215,14 +215,14 @@ Variants {
       if (!isTypeEnabled(type))
         return;
 
-      // Suppress Audio OSD if Audio Panel or Control Center (with audio card) is open
+      // Suppress Audio OSD if Audio Panel or Dashboard (with audio card) is open
       if (type === OSD.Type.Volume || type === OSD.Type.InputVolume) {
         var audioPanel = PanelService.getPanel("audioPanel", root.modelData);
         if (audioPanel && audioPanel.isPanelOpen)
           return;
-        var controlCenterPanel = PanelService.getPanel("controlCenterPanel", root.modelData);
-        if (controlCenterPanel && controlCenterPanel.isPanelOpen) {
-          var cards = Settings.data.controlCenter.cards || [];
+        var dashboardPanel = PanelService.getPanel("dashboardPanel", root.modelData);
+        if (dashboardPanel && dashboardPanel.isPanelOpen) {
+          var cards = Settings.data.dashboard.cards || [];
           if (cards.some(c => c.enabled && c.id === "audio-card"))
             return;
         }

@@ -13,7 +13,7 @@ NBox {
   Component.onCompleted: SystemStatService.registerComponent("card-sysmonitor")
   Component.onDestruction: SystemStatService.unregisterComponent("card-sysmonitor")
 
-  readonly property string diskPath: Settings.data.controlCenter.diskPath || "/"
+  readonly property string diskPath: Settings.data.dashboard.diskPath || "/"
   readonly property real contentScale: 0.95 * Style.uiScaleRatio
 
   Item {

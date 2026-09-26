@@ -16,11 +16,9 @@ import qs.Modules.Panels.Bluetooth
 import qs.Modules.Panels.Brightness
 import qs.Modules.Panels.Changelog
 import qs.Modules.Panels.Clock
-import qs.Modules.Panels.ControlCenter
-import qs.Modules.Panels.ControlCenterV5
+import qs.Modules.Panels.Dashboard
 import qs.Modules.Panels.Dock
 import qs.Modules.Panels.Launcher
-import qs.Modules.Panels.Media
 import qs.Modules.Panels.Network
 import qs.Modules.Panels.NotificationHistory
 import qs.Modules.Panels.Plugins
@@ -296,12 +294,6 @@ PanelWindow {
       screen: root.screen
     }
 
-    MediaPlayerPanel {
-      id: mediaPlayerPanel
-      objectName: "mediaPlayerPanel-" + (root.screen?.name || "unknown")
-      screen: root.screen
-    }
-
     BatteryPanel {
       id: batteryPanel
       objectName: "batteryPanel-" + (root.screen?.name || "unknown")
@@ -320,9 +312,9 @@ PanelWindow {
       screen: root.screen
     }
 
-    ControlCenterV5Panel {
-      id: controlCenterPanel
-      objectName: "controlCenterPanel-" + (root.screen?.name || "unknown")
+    DashboardPanel {
+      id: dashboardPanel
+      objectName: "dashboardPanel-" + (root.screen?.name || "unknown")
       screen: root.screen
     }
 

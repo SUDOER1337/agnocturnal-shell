@@ -11,7 +11,8 @@
 //   preprocessPath(path)         - Expand ~ and resolve relative paths
 //   getBarPositionForScreen(n)   - Get bar position override for a screen
 //   setScreenOverride(n, p, v)  - Set a per-screen override property
-//   clearScreenOverride(n, p)   - Remove per-screen override(s)
+//   clearScreenOverride(n, p)    - Remove per-screen override(s)
+//   migrateRawSettings(raw)      - One-shot key renames on the raw JSON (pre-adapter)
 //   upgradeSettings()            - Migrate old settings to current version
 //   generateDefaultSettings()    - Write factory defaults (debug mode)
 //
@@ -48,7 +49,7 @@ Singleton {
   - Default cache directory: ~/.cache/agnocturnal
   */
   readonly property alias data: adapter  // Used to access via Settings.data.xxx.yyy
-  readonly property int settingsVersion: 59
+  readonly property int settingsVersion: 60
   property bool isDebug: Quickshell.env("AGNOCTURNAL_DEBUG") === "1"
   readonly property string shellName: "agnocturnal"
   readonly property string configDir: ensureTrailingSlash(Quickshell.env("AGNOCTURNAL_CONFIG_DIR") || (Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config") + "/" + shellName + "/")
@@ -150,7 +151,7 @@ Singleton {
           Logger.w("Settings", "Could not parse raw JSON for migrations");
         }
 
-        // Migrations have been removed — skipping versioned migrations
+        migrateRawSettings(rawJson);
 
         // Finally, update our local settings version
         adapter.settingsVersion = settingsVersion;
@@ -298,7 +299,7 @@ Singleton {
             "id": "Brightness"
           },
           {
-            "id": "ControlCenter"
+            "id": "Dashboard"
           }
         ]
       }
@@ -308,7 +309,7 @@ Singleton {
       property string middleClickAction: "none"
       property bool middleClickFollowMouse: false
       property string middleClickCommand: ""
-      property string rightClickAction: "controlCenter"
+      property string rightClickAction: "dashboard"
       property bool rightClickFollowMouse: true
       property string rightClickCommand: ""
       // Per-screen overrides for position and widgets
@@ -494,8 +495,8 @@ Singleton {
       property string density: "default" // "compact", "default", "comfortable"
     }
 
-    // control center
-    property JsonObject controlCenter: JsonObject {
+    // dashboard
+    property JsonObject dashboard: JsonObject {
       // Position: close_to_bar_button, center, top_left, top_right, bottom_left, bottom_right, bottom_center, top_center
       property string position: "close_to_bar_button"
       property string diskPath: "/"
@@ -1127,7 +1128,7 @@ Singleton {
 
       var output = {
         "bar": QtObj2JS.qtObjectToPlainObject(BarWidgetRegistry.widgetMetadata),
-        "controlCenter": QtObj2JS.qtObjectToPlainObject(ControlCenterWidgetRegistry.widgetMetadata),
+        "dashboard": QtObj2JS.qtObjectToPlainObject(DashboardWidgetRegistry.widgetMetadata),
         "desktop": QtObj2JS.qtObjectToPlainObject(DesktopWidgetRegistry.widgetMetadata)
       };
       var jsonData = JSON.stringify(output, null, 2);
@@ -1141,7 +1142,74 @@ Singleton {
   }
 
   // -----------------------------------------------------
-  // Migrations removed — settings version is current on fresh installs
+  // One-shot renames applied to the raw settings JSON before it reaches
+  // the typed adapter. The adapter silently drops keys it no longer
+  // declares, so a renamed section has to be copied across by hand.
+  // Every step is gated on the presence of the old key, which makes the
+  // whole thing idempotent and safe to re-run on an already-migrated file.
+  function migrateRawSettings(raw) {
+    if (!raw || typeof raw !== "object") {
+      return;
+    }
+
+    // v60: controlCenter -> dashboard (panel section rename)
+    if (raw.controlCenter && !raw.dashboard) {
+      const cc = raw.controlCenter;
+      if (cc.position !== undefined) {
+        adapter.dashboard.position = cc.position;
+      }
+      if (cc.diskPath !== undefined) {
+        adapter.dashboard.diskPath = cc.diskPath;
+      }
+      if (cc.cards !== undefined) {
+        adapter.dashboard.cards = cc.cards;
+      }
+      if (cc.shortcuts) {
+        if (cc.shortcuts.left !== undefined) {
+          adapter.dashboard.shortcuts.left = cc.shortcuts.left;
+        }
+        if (cc.shortcuts.right !== undefined) {
+          adapter.dashboard.shortcuts.right = cc.shortcuts.right;
+        }
+      }
+      Logger.i("Settings", "Migrated 'controlCenter' settings section to 'dashboard'");
+    }
+
+    // v60: bar click action value + bar widget id renames
+    const bar = raw.bar;
+    if (bar) {
+      for (const action of ["middleClickAction", "rightClickAction"]) {
+        if (bar[action] === "controlCenter") {
+          adapter.bar[action] = "dashboard";
+          Logger.i("Settings", `Migrated bar.${action} from 'controlCenter' to 'dashboard'`);
+        }
+      }
+
+      // The dashboard widget was renamed, so an existing bar layout would
+      // otherwise have its button pruned as an unknown widget id. The array is
+      // rebuilt and reassigned rather than mutated in place, because a plain
+      // property write on a list<var> element does not mark the adapter dirty.
+      for (const section of ["left", "center", "right"]) {
+        const widgets = adapter.bar.widgets[section];
+        let renamed = false;
+        const migrated = widgets.map(widget => {
+          if (widget.id === "ControlCenter") {
+            renamed = true;
+            return Object.assign({}, widget, {
+              id: "Dashboard"
+            });
+          }
+          return widget;
+        });
+        if (renamed) {
+          adapter.bar.widgets[section] = migrated;
+          Logger.i("Settings", `Migrated bar.${section} widget id 'ControlCenter' to 'Dashboard'`);
+        }
+      }
+    }
+  }
+
+  // -----------------------------------------------------
   // If the settings structure has changed, ensure
   // backward compatibility by upgrading the settings
   function upgradeSettings() {
@@ -1180,15 +1248,15 @@ Singleton {
     }
 
     // -----------------
-    // 2. remove any non existing control center widget type
+    // 2. remove any non existing dashboard widget type
     const ccSections = ["left", "right"];
     for (var s = 0; s < ccSections.length; s++) {
       const sectionName = ccSections[s];
-      const shortcuts = adapter.controlCenter.shortcuts[sectionName];
+      const shortcuts = adapter.dashboard.shortcuts[sectionName];
       for (var i = shortcuts.length - 1; i >= 0; i--) {
         var shortcut = shortcuts[i];
-        if (!ControlCenterWidgetRegistry.hasWidget(shortcut.id)) {
-          Logger.w(`Settings`, `!!! Deleted invalid control center widget ${shortcut.id} !!!`);
+        if (!DashboardWidgetRegistry.hasWidget(shortcut.id)) {
+          Logger.w(`Settings`, `!!! Deleted invalid dashboard widget ${shortcut.id} !!!`);
           shortcuts.splice(i, 1);
           removedWidget = true;
         }

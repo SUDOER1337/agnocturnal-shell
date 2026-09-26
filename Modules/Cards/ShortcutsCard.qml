@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
-import qs.Modules.Panels.ControlCenter
+import qs.Modules.Panels.Dashboard
 import qs.Widgets
 
 RowLayout {
@@ -13,7 +13,7 @@ RowLayout {
   NBox {
     Layout.fillWidth: true
     Layout.preferredHeight: root.shortcutsHeight
-    visible: Settings.data.controlCenter.shortcuts.left.length > 0
+    visible: Settings.data.dashboard.shortcuts.left.length > 0
 
     RowLayout {
       id: leftContent
@@ -25,8 +25,8 @@ RowLayout {
       }
 
       Repeater {
-        model: Settings.data.controlCenter.shortcuts.left
-        delegate: ControlCenterWidgetLoader {
+        model: Settings.data.dashboard.shortcuts.left
+        delegate: DashboardWidgetLoader {
           required property var modelData
           required property int index
 
@@ -37,7 +37,7 @@ RowLayout {
             "widgetId": modelData.id,
             "section": "quickSettings",
             "sectionWidgetIndex": index,
-            "sectionWidgetsCount": Settings.data.controlCenter.shortcuts.left.length,
+            "sectionWidgetsCount": Settings.data.dashboard.shortcuts.left.length,
             "widgetSettings": modelData
           }
           Layout.alignment: Qt.AlignVCenter
@@ -53,7 +53,7 @@ RowLayout {
   NBox {
     Layout.fillWidth: true
     Layout.preferredHeight: root.shortcutsHeight
-    visible: Settings.data.controlCenter.shortcuts.right.length > 0
+    visible: Settings.data.dashboard.shortcuts.right.length > 0
 
     RowLayout {
       id: rightContent
@@ -65,8 +65,8 @@ RowLayout {
       }
 
       Repeater {
-        model: Settings.data.controlCenter.shortcuts.right
-        delegate: ControlCenterWidgetLoader {
+        model: Settings.data.dashboard.shortcuts.right
+        delegate: DashboardWidgetLoader {
           required property var modelData
           required property int index
 
@@ -77,7 +77,7 @@ RowLayout {
             "widgetId": modelData.id,
             "section": "quickSettings",
             "sectionWidgetIndex": index,
-            "sectionWidgetsCount": Settings.data.controlCenter.shortcuts.right.length,
+            "sectionWidgetsCount": Settings.data.dashboard.shortcuts.right.length,
             "widgetSettings": modelData
           }
           Layout.alignment: Qt.AlignVCenter

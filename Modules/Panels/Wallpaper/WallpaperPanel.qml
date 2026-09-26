@@ -25,7 +25,7 @@ import QtQuick.Layouts
 import Quickshell
 import qs.Commons
 import qs.Modules.MainScreen
-import qs.Modules.Panels.ControlCenterV5
+import qs.Modules.Panels.Dashboard
 import qs.Modules.Panels.Settings
 import qs.Services.Theming
 import qs.Services.UI
@@ -285,7 +285,7 @@ SmartPanel {
               tooltipText: "Wallpaper settings"
               baseSize: Style.baseWidgetSize * 0.8
               onClicked: {
-                SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Wallpaper, -1, screen);
+                SettingsPanelService.openToTab(DashboardPanel.Tab.Wallpaper, -1, screen);
               }
             }
 

@@ -750,7 +750,7 @@
     "descriptionKey": null,
     "widget": "NComboBox",
     "tab": 7,
-    "tabLabel": "panels.control-center.title",
+    "tabLabel": "panels.dashboard.title",
     "subTab": 0
   },
   {
@@ -758,7 +758,7 @@
     "descriptionKey": null,
     "widget": "NComboBox",
     "tab": 7,
-    "tabLabel": "panels.control-center.title",
+    "tabLabel": "panels.dashboard.title",
     "subTab": 0
   },
   {

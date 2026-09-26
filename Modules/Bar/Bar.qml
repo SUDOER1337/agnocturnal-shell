@@ -7,7 +7,6 @@ import Quickshell.Wayland
 import qs.Commons
 import qs.Modules.Bar.Extras
 import qs.Modules.Notification
-import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.Compositor
 import qs.Services.Media
@@ -211,7 +210,7 @@ Item {
         readonly property string barWheelAction: {
           return Settings.data.bar.mouseWheelAction || "none";
         }
-        readonly property string barRightClickAction: Settings.data.bar.rightClickAction || "controlCenter"
+        readonly property string barRightClickAction: Settings.data.bar.rightClickAction || "dashboard"
 
         // Position and size the bar content based on orientation
         x: (root.barPosition === "right") ? (parent.width - root.barHeight) : 0
@@ -362,9 +361,9 @@ Item {
         function handleEmptyBarClick(action, followMouse, command, mouse) {
           if (action === "none")
             return;
-          if (action === "controlCenter") {
-            var controlCenterPanel = PanelService.getPanel("controlCenterPanel", screen);
-            controlCenterPanel?.toggle(null, followMouse ? mapToItem(null, mouse.x, mouse.y) : "ControlCenter");
+          if (action === "dashboard") {
+            var dashboardPanel = PanelService.getPanel("dashboardPanel", screen);
+            dashboardPanel?.toggle(null, followMouse ? mapToItem(null, mouse.x, mouse.y) : "Dashboard");
             mouse.accepted = true;
           } else if (action === "settings") {
             SettingsPanelService.toggle(0, -1, screen);

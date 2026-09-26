@@ -22,10 +22,10 @@ Item {
     return (item && item.visible) ? item[prop] : 0;
   }
 
-  readonly property bool _isPlugin: ControlCenterWidgetRegistry.isPluginWidget(widgetId)
+  readonly property bool _isPlugin: DashboardWidgetRegistry.isPluginWidget(widgetId)
 
   function _loadPluginWidget() {
-    var comp = ControlCenterWidgetRegistry.getWidget(widgetId);
+    var comp = DashboardWidgetRegistry.getWidget(widgetId);
     if (!comp)
       return;
     var pluginId = widgetId.substring(7); // Remove "plugin:" prefix
@@ -47,7 +47,7 @@ Item {
         root._loadPluginWidget();
       } else {
         sourceComponent = Qt.binding(function () {
-          return ControlCenterWidgetRegistry.getWidget(widgetId);
+          return DashboardWidgetRegistry.getWidget(widgetId);
         });
       }
     }
@@ -82,8 +82,8 @@ Item {
 
   // Error handling
   Component.onCompleted: {
-    if (!ControlCenterWidgetRegistry.hasWidget(widgetId)) {
-      Logger.w("ControlCenterWidgetLoader", "Widget not found in registry:", widgetId);
+    if (!DashboardWidgetRegistry.hasWidget(widgetId)) {
+      Logger.w("DashboardWidgetLoader", "Widget not found in registry:", widgetId);
       // Retry briefly in case the registry initializes after this component
       retryTimer.start();
     }
@@ -98,8 +98,8 @@ Item {
     property int attempts: 0
     onTriggered: {
       attempts += 1;
-      if (ControlCenterWidgetRegistry.hasWidget(widgetId)) {
-        loader.sourceComponent = ControlCenterWidgetRegistry.getWidget(widgetId);
+      if (DashboardWidgetRegistry.hasWidget(widgetId)) {
+        loader.sourceComponent = DashboardWidgetRegistry.getWidget(widgetId);
         stop();
         attempts = 0;
         return;
@@ -107,7 +107,7 @@ Item {
       if (attempts >= 20) { // ~3s max
         stop();
         attempts = 0;
-        Logger.w("ControlCenterWidgetLoader", "Giving up waiting for widget:", widgetId);
+        Logger.w("DashboardWidgetLoader", "Giving up waiting for widget:", widgetId);
       }
     }
   }

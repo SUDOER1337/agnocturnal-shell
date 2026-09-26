@@ -66,8 +66,8 @@ NBox {
       _saveWidgets(widgets);
       BarService.widgetsRevision++;
 
-      if (removedWidgets[0].id === "ControlCenter" && BarService.lookupWidget("ControlCenter") === undefined) {
-        ToastService.showWarning("Last control center widget removed", "The control center widget has been removed from the bar. To access it from the bar again, you will need to re-add the widget. You can open it with right clicking on the bar too", 12000);
+      if (removedWidgets[0].id === "Dashboard" && BarService.lookupWidget("Dashboard") === undefined) {
+        ToastService.showWarning("Last dashboard widget removed", "The dashboard widget has been removed from the bar. To access it from the bar again, you will need to re-add the widget. You can open it with right clicking on the bar too", 12000);
       }
     }
   }

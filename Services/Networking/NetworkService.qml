@@ -447,7 +447,7 @@ Singleton {
     return details;
   }
 
-  // Functions used in /Modules/Panels/ControlCenter/Widgets/Network.qml & /Modules/Bar/Widgets/Network.qml
+  // Functions used in /Modules/Panels/Dashboard/Widgets/Network.qml & /Modules/Bar/Widgets/Network.qml
   function getStatusText(showSpeed = false) {
     // This variable can be tied to a toggle
     if (root.connecting) {

@@ -88,7 +88,9 @@ Singleton {
                                             "bar": SettingsPanel.Tab.Bar,
                                             "colorscheme": SettingsPanel.Tab.ColorScheme,
                                             "lockscreen": SettingsPanel.Tab.LockScreen,
-                                            "controlcenter": SettingsPanel.Tab.ControlCenter,
+                                            "dashboard": SettingsPanel.Tab.Dashboard,
+                                            // Legacy alias, see the controlCenter IPC handler
+                                            "controlcenter": SettingsPanel.Tab.Dashboard,
                                             "desktopwidgets": SettingsPanel.Tab.DesktopWidgets,
                                             "osd": SettingsPanel.Tab.OSD,
                                             "display": SettingsPanel.Tab.Display,
@@ -571,18 +573,31 @@ Singleton {
     }
   }
 
+  // Dashboard panel toggle (outside IpcHandler to avoid QVariant IPC warnings).
+  // Shared by the "dashboard" target and its legacy "controlCenter" alias.
+  function _toggleDashboard(screen) {
+    var dashboardPanel = PanelService.getPanel("dashboardPanel", screen);
+    if (Settings.data.dashboard.position === "close_to_bar_button") {
+      // Will attempt to open the panel next to the bar button if any.
+      dashboardPanel?.toggle(null, "Dashboard");
+    } else {
+      dashboardPanel?.toggle();
+    }
+  }
+
+  IpcHandler {
+    target: "dashboard"
+    function toggle() {
+      root.screenDetector.withCurrentScreen(screen => root._toggleDashboard(screen));
+    }
+  }
+
+  // Legacy alias: the panel used to be called the control center. Kept so
+  // existing keybindings bound to `qs ipc call controlCenter toggle` keep working.
   IpcHandler {
     target: "controlCenter"
     function toggle() {
-      root.screenDetector.withCurrentScreen(screen => {
-        var controlCenterPanel = PanelService.getPanel("controlCenterPanel", screen);
-        if (Settings.data.controlCenter.position === "close_to_bar_button") {
-          // Will attempt to open the panel next to the bar button if any.
-          controlCenterPanel?.toggle(null, "ControlCenter");
-        } else {
-          controlCenterPanel?.toggle();
-        }
-      });
+      root.screenDetector.withCurrentScreen(screen => root._toggleDashboard(screen));
     }
   }
 
@@ -756,7 +771,7 @@ Singleton {
 
     function toggle() {
       root.screenDetector.withCurrentScreen(screen => {
-        var panel = PanelService.getPanel("mediaPlayerPanel", screen);
+        var panel = PanelService.getPanel("dashboardPanel", screen);
         panel?.toggle(null, "MediaMini");
       });
     }

@@ -55,9 +55,9 @@ ColumnLayout {
   Component.onCompleted: {
     // Fill out availableWidgets ListModel
     availableWidgets.clear();
-    var sortedEntries = ControlCenterWidgetRegistry.getAvailableWidgets().slice().sort();
+    var sortedEntries = DashboardWidgetRegistry.getAvailableWidgets().slice().sort();
     sortedEntries.forEach(entry => {
-      const isPlugin = ControlCenterWidgetRegistry.isPluginWidget(entry);
+      const isPlugin = DashboardWidgetRegistry.isPluginWidget(entry);
       let displayName = entry;
       let badges = [];
       if (isPlugin) {
@@ -83,8 +83,8 @@ ColumnLayout {
     cardsModel = [];
 
     // Add the cards available in settings
-    for (var i = 0; i < Settings.data.controlCenter.cards.length; i++) {
-      const settingCard = Settings.data.controlCenter.cards[i];
+    for (var i = 0; i < Settings.data.dashboard.cards.length; i++) {
+      const settingCard = Settings.data.dashboard.cards[i];
 
       for (var j = 0; j < cardsDefault.length; j++) {
         if (settingCard.id === cardsDefault[j].id) {
@@ -180,61 +180,61 @@ ColumnLayout {
     var newWidget = {
       "id": widgetId
     };
-    if (ControlCenterWidgetRegistry.widgetHasUserSettings(widgetId)) {
-      var metadata = ControlCenterWidgetRegistry.widgetMetadata[widgetId];
+    if (DashboardWidgetRegistry.widgetHasUserSettings(widgetId)) {
+      var metadata = DashboardWidgetRegistry.widgetMetadata[widgetId];
       if (metadata) {
         Object.keys(metadata).forEach(function (key) {
           newWidget[key] = metadata[key];
         });
       }
     }
-    Settings.data.controlCenter.shortcuts[section].push(newWidget);
+    Settings.data.dashboard.shortcuts[section].push(newWidget);
   }
 
   function _removeWidgetFromSection(section, index) {
-    if (index >= 0 && index < Settings.data.controlCenter.shortcuts[section].length) {
-      var newArray = Settings.data.controlCenter.shortcuts[section].slice();
+    if (index >= 0 && index < Settings.data.dashboard.shortcuts[section].length) {
+      var newArray = Settings.data.dashboard.shortcuts[section].slice();
       var removedWidgets = newArray.splice(index, 1);
-      Settings.data.controlCenter.shortcuts[section] = newArray;
+      Settings.data.dashboard.shortcuts[section] = newArray;
     }
   }
 
   function _reorderWidgetInSection(section, fromIndex, toIndex) {
-    if (fromIndex >= 0 && fromIndex < Settings.data.controlCenter.shortcuts[section].length && toIndex >= 0 && toIndex < Settings.data.controlCenter.shortcuts[section].length) {
+    if (fromIndex >= 0 && fromIndex < Settings.data.dashboard.shortcuts[section].length && toIndex >= 0 && toIndex < Settings.data.dashboard.shortcuts[section].length) {
 
       // Create a new array to avoid modifying the original
-      var newArray = Settings.data.controlCenter.shortcuts[section].slice();
+      var newArray = Settings.data.dashboard.shortcuts[section].slice();
       var item = newArray[fromIndex];
       newArray.splice(fromIndex, 1);
       newArray.splice(toIndex, 0, item);
 
-      Settings.data.controlCenter.shortcuts[section] = newArray;
+      Settings.data.dashboard.shortcuts[section] = newArray;
     }
   }
 
   function _moveWidgetBetweenSections(fromSection, index, toSection) {
     // Get the widget from the source section
-    if (index >= 0 && index < Settings.data.controlCenter.shortcuts[fromSection].length) {
-      var widget = Settings.data.controlCenter.shortcuts[fromSection][index];
+    if (index >= 0 && index < Settings.data.dashboard.shortcuts[fromSection].length) {
+      var widget = Settings.data.dashboard.shortcuts[fromSection][index];
 
       // Remove from source section
-      var sourceArray = Settings.data.controlCenter.shortcuts[fromSection].slice();
+      var sourceArray = Settings.data.dashboard.shortcuts[fromSection].slice();
       sourceArray.splice(index, 1);
-      Settings.data.controlCenter.shortcuts[fromSection] = sourceArray;
+      Settings.data.dashboard.shortcuts[fromSection] = sourceArray;
 
       // Add to target section
-      var targetArray = Settings.data.controlCenter.shortcuts[toSection].slice();
+      var targetArray = Settings.data.dashboard.shortcuts[toSection].slice();
       targetArray.push(widget);
-      Settings.data.controlCenter.shortcuts[toSection] = targetArray;
+      Settings.data.dashboard.shortcuts[toSection] = targetArray;
     }
   }
 
   function _updateWidgetSettingsInSection(section, index, settings) {
     // Create a new array to trigger QML's change detection for persistence.
     // This is crucial for Settings.data to detect the change and persist it.
-    var newSectionArray = Settings.data.controlCenter.shortcuts[section].slice();
+    var newSectionArray = Settings.data.dashboard.shortcuts[section].slice();
     newSectionArray[index] = settings;
-    Settings.data.controlCenter.shortcuts[section] = newSectionArray;
+    Settings.data.dashboard.shortcuts[section] = newSectionArray;
     Settings.saveImmediate();
   }
 

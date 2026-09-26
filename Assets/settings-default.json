@@ -65,7 +65,7 @@
           "id": "Brightness"
         },
         {
-          "id": "ControlCenter"
+          "id": "Dashboard"
         }
       ]
     },
@@ -75,7 +75,7 @@
     "middleClickAction": "none",
     "middleClickFollowMouse": false,
     "middleClickCommand": "",
-    "rightClickAction": "controlCenter",
+    "rightClickAction": "dashboard",
     "rightClickFollowMouse": true,
     "rightClickCommand": "",
     "screenOverrides": []
@@ -262,7 +262,7 @@
     "overviewLayer": false,
     "density": "default"
   },
-  "controlCenter": {
+  "dashboard": {
     "position": "close_to_bar_button",
     "diskPath": "/",
     "shortcuts": {

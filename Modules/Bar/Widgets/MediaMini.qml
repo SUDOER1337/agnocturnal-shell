@@ -185,7 +185,7 @@ Item {
                    });
       }
 
-      // Append available players (like in Control Center) so user can switch from the bar
+      // Append available players (like in the Dashboard) so user can switch from the bar
       var players = MediaService.getAvailablePlayers ? MediaService.getAvailablePlayers() : [];
       if (players && players.length > 1) {
         for (var i = 0; i < players.length; i++) {
@@ -395,7 +395,7 @@ Item {
     onClicked: mouse => {
       TooltipService.hide();
       if (mouse.button === Qt.LeftButton) {
-        PanelService.getPanel("mediaPlayerPanel", screen)?.toggle(container);
+        PanelService.getPanel("dashboardPanel", screen)?.toggle(container);
       } else if (mouse.button === Qt.RightButton) {
         PanelService.showContextMenu(contextMenu, container, screen);
       } else if (mouse.button === Qt.MiddleButton && hasPlayer) {
@@ -413,7 +413,7 @@ Item {
       }
       var scrollMode = scrollingMode;
       if ((isVertical || scrollMode === "never")) {
-        var panel = PanelService.getPanel("mediaPlayerPanel", screen);
+        var panel = PanelService.getPanel("dashboardPanel", screen);
         if (panel && !panel.isPanelOpen) {
           TooltipService.show(root, title, BarService.getTooltipDirection(root.screen?.name));
         }

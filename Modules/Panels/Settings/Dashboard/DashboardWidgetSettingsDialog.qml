@@ -151,7 +151,7 @@ Popup {
     if (source) {
       settingsLoader.setSource(source, {
                                  "widgetData": widgetData,
-                                 "widgetMetadata": ControlCenterWidgetRegistry.widgetMetadata[widgetId]
+                                 "widgetMetadata": DashboardWidgetRegistry.widgetMetadata[widgetId]
                                });
     }
   }

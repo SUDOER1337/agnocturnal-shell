@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Widgets
 import qs.Commons
-import qs.Modules.Panels.ControlCenterV5
+import qs.Modules.Panels.Dashboard
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -79,7 +79,7 @@ NIconButton {
       PanelService.closeContextMenu(screen);
 
       if (action === "launcher-settings") {
-        SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Launcher, -1, screen);
+        SettingsPanelService.openToTab(DashboardPanel.Tab.Launcher, -1, screen);
       } else if (action === "widget-settings") {
         BarService.openWidgetSettings(screen, section, sectionWidgetIndex, widgetId, widgetSettings);
       }

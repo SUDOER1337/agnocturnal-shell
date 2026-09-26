@@ -24,11 +24,13 @@ A minimal desktop shell for Wayland built on [Quickshell](https://quickshell.org
 ## Installation
 
 **Via Nix:**
+
 ```bash
 nix run github:SUDOER1337/agnocturnal-shell
 ```
 
 **Via NixOS (home-manager):**
+
 ```nix
 programs.agnoctural-shell = {
   enable = true;
@@ -38,11 +40,13 @@ programs.agnoctural-shell = {
 ## Configuration
 
 Config files: `~/.config/agnocturnal/`
+
 - `settings.json` — Main settings
 - `colors.json` — Current color scheme (auto-generated)
 - `colorschemes/` — Downloaded schemes
 
 Environment variables:
+
 - `AGNOCTURNAL_CONFIG_DIR` — Override config directory
 - `AGNOCTURNAL_CACHE_DIR` — Override cache directory
 - `AGNOCTURNAL_DEBUG` — Enable debug logging
@@ -50,6 +54,7 @@ Environment variables:
 ## Development
 
 Setup:
+
 ```bash
 git clone https://github.com/SUDOER1337/agnocturnal-shell
 cd agnocturnal-shell
@@ -57,6 +62,7 @@ nix flake show
 ```
 
 Build:
+
 ```bash
 nix build
 ```
@@ -74,6 +80,7 @@ Agnoctural is a **desktop shell**, not a full desktop environment. It handles th
 ## Documentation
 
 Most Noctalia v4 documentation applies:
+
 - [Noctalia Docs](https://docs.noctalia.dev)
 - GitHub Issues for questions
 - Original [Noctalia Discord](https://discord.gg/) community

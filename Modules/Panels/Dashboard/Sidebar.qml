@@ -9,32 +9,18 @@ import qs.Widgets
 Item {
   id: root
 
-  property bool expanded: true
+  // The dashboard deliberately keeps its navigation rail stable. Labels
+  // remain available through tooltips without shifting the page layout.
+  property bool expanded: false
   property int currentIndex: 0
-  property bool searching: false
-  property string searchText: ""
 
   signal tabSelected(int index)
+  signal openSettingsRequested
 
-  readonly property real sidebarWidth: expanded ? Math.round(200 * Style.uiScaleRatio) : Math.round(52 * Style.uiScaleRatio)
-
-  onExpandedChanged: {
-    if (!expanded) {
-      searchText = "";
-      searching = false;
-      searchInput.text = "";
-    }
-  }
+  readonly property real sidebarWidth: Math.round(52 * Style.uiScaleRatio)
 
   implicitWidth: sidebarWidth
   implicitHeight: parent ? parent.height : 0
-
-  Behavior on implicitWidth {
-    NumberAnimation {
-      duration: Style.animationFast
-      easing.type: Easing.InOutQuad
-    }
-  }
 
   NBox {
     anchors.fill: parent
@@ -46,123 +32,6 @@ Item {
       anchors.fill: parent
       anchors.margins: Style.marginS
       spacing: Style.marginXS
-
-      // Toggle button — floats left via Layout.alignment, no anchors
-      Item {
-        Layout.fillWidth: false
-        Layout.preferredWidth: Math.round(toggleRow.implicitWidth + Style.margin2S)
-        Layout.preferredHeight: Math.round(toggleRow.implicitHeight + Style.margin2S)
-        Layout.alignment: Qt.AlignLeft
-        clip: true
-
-        Rectangle {
-          id: toggleBtn
-          anchors.fill: parent
-          radius: Style.radiusS
-          color: toggleMouse.containsMouse ? Color.mHover : "transparent"
-
-          RowLayout {
-            id: toggleRow
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: Style.marginS
-            spacing: 0
-
-            NIcon {
-              icon: root.expanded ? "layout-sidebar-right-expand" : "layout-sidebar-left-expand"
-              color: toggleMouse.containsMouse ? Color.mOnHover : Color.mOnSurface
-              pointSize: Style.fontSizeXL
-            }
-          }
-
-          MouseArea {
-            id: toggleMouse
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-              root.expanded = !root.expanded;
-              TooltipService.hide();
-            }
-            onEntered: {
-              TooltipService.show(toggleBtn, root.expanded ? "Collapse sidebar" : "Expand sidebar");
-            }
-            onExited: TooltipService.hide()
-          }
-        }
-      }
-
-      // Search input (visible when expanded)
-      Rectangle {
-        Layout.fillWidth: true
-        Layout.preferredHeight: searchInput.implicitHeight
-        visible: root.expanded
-        opacity: root.expanded ? 1 : 0
-        color: "transparent"
-
-        Behavior on opacity {
-          NumberAnimation {
-            duration: Style.animationFast
-            easing.type: Easing.InOutQuad
-          }
-        }
-
-        NTextInput {
-          id: searchInput
-          anchors.left: parent.left
-          anchors.right: parent.right
-          anchors.verticalCenter: parent.verticalCenter
-          placeholderText: "Search"
-          inputIconName: "search"
-          onTextChanged: {
-            root.searchText = text;
-            root.searching = text.trim() !== "";
-          }
-        }
-      }
-
-      // Search button for collapsed sidebar — Layout sized, no anchors
-      Item {
-        id: searchCollapsedBtn
-        visible: !root.expanded
-        Layout.preferredWidth: Math.round(searchCollapsedRow.implicitWidth + Style.margin2S)
-        Layout.preferredHeight: Math.round(searchCollapsedRow.implicitHeight + Style.margin2S)
-        Layout.alignment: Qt.AlignLeft
-        clip: true
-
-        Rectangle {
-          anchors.fill: parent
-          radius: Style.radiusS
-          color: searchCollapsedMouse.containsMouse ? Color.mHover : "transparent"
-
-          RowLayout {
-            id: searchCollapsedRow
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: Style.marginS
-            spacing: 0
-
-            NIcon {
-              icon: "search"
-              color: searchCollapsedMouse.containsMouse ? Color.mOnHover : Color.mOnSurface
-              pointSize: Style.fontSizeXL
-            }
-          }
-
-          MouseArea {
-            id: searchCollapsedMouse
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-              root.expanded = true;
-              Qt.callLater(() => searchInput.inputItem?.forceActiveFocus());
-            }
-            onEntered: TooltipService.show(searchCollapsedBtn, "Search")
-            onExited: TooltipService.hide()
-          }
-        }
-      }
 
       // Nav items
       Item {
@@ -178,11 +47,6 @@ Item {
               icon: "settings-general",
               labelKey: "common.general",
               label: "Quick Settings"
-            },
-            {
-              icon: "music",
-              labelKey: "panels.media.title",
-              label: "Media"
             },
             {
               icon: "device-analytics",
@@ -289,8 +153,13 @@ Item {
                   TooltipService.hide();
               }
               onClicked: {
-                root.currentIndex = delegateItem.index;
-                root.tabSelected(delegateItem.index);
+                if (delegateItem.labelKey === "panels.settings.title") {
+                  root.currentIndex = 0;
+                  root.openSettingsRequested();
+                } else {
+                  root.currentIndex = delegateItem.index;
+                  root.tabSelected(delegateItem.index);
+                }
                 if (!root.expanded)
                   TooltipService.hide();
               }

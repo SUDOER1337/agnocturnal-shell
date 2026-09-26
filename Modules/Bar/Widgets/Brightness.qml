@@ -3,7 +3,7 @@ import QtQuick.Controls
 import Quickshell
 import qs.Commons
 import qs.Modules.Bar.Extras
-import qs.Modules.Panels.ControlCenterV5
+import qs.Modules.Panels.Dashboard
 import qs.Modules.Panels.Settings
 import qs.Services.Hardware
 import qs.Services.UI
@@ -128,7 +128,7 @@ Item {
       PanelService.closeContextMenu(screen);
 
       if (action === "open-display-settings") {
-        SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Display, -1, screen);
+        SettingsPanelService.openToTab(DashboardPanel.Tab.Display, -1, screen);
       } else if (action === "widget-settings") {
         BarService.openWidgetSettings(screen, section, sectionWidgetIndex, widgetId, widgetSettings);
       }

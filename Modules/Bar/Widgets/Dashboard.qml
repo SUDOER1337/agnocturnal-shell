@@ -5,7 +5,6 @@ import Quickshell
 import Quickshell.Widgets
 import qs.Commons
 import qs.Modules.Bar.Extras
-import qs.Modules.Panels.ControlCenterV5
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -51,10 +50,10 @@ NIconButton {
   // If using distro logo, don't use theme icon.
   icon: (customIconPath === "" && !useDistroLogo) ? customIcon : ""
   tooltipText: {
-    if (!screen || PanelService.getPanel("controlCenterPanel", screen)?.isPanelOpen) {
+    if (!screen || PanelService.getPanel("dashboardPanel", screen)?.isPanelOpen) {
       return "";
     } else {
-      return "Control center";
+      return "Dashboard";
     }
   }
   tooltipDirection: BarService.getTooltipDirection(screen?.name)
@@ -104,12 +103,12 @@ NIconButton {
   }
 
   onClicked: {
-    var controlCenterPanel = PanelService.getPanel("controlCenterPanel", screen);
-    if (Settings.data.controlCenter.position === "close_to_bar_button") {
+    var dashboardPanel = PanelService.getPanel("dashboardPanel", screen);
+    if (Settings.data.dashboard.position === "close_to_bar_button") {
       // Will open the panel next to the bar button.
-      controlCenterPanel?.toggle(this);
+      dashboardPanel?.toggle(this);
     } else {
-      controlCenterPanel?.toggle();
+      dashboardPanel?.toggle();
     }
   }
   onRightClicked: {

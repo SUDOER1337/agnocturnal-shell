@@ -1,7 +1,7 @@
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
-import qs.Modules.Panels.ControlCenterV5
+import qs.Modules.Panels.Dashboard
 import qs.Modules.Panels.Settings
 import qs.Services.System
 import qs.Services.UI
@@ -28,6 +28,6 @@ NIconButtonHot {
   }
 
   onRightClicked: {
-    SettingsPanelService.openToTab(ControlCenterV5Panel.Tab.Display, -1, screen);
+    SettingsPanelService.openToTab(DashboardPanel.Tab.Display, -1, screen);
   }
 }

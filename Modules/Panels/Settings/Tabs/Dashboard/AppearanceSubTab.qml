@@ -18,9 +18,9 @@ ColumnLayout {
     Layout.fillWidth: true
 
     NComboBox {
-      id: controlCenterPosition
+      id: dashboardPosition
       label: "Position"
-      description: "Choose where the control center panel appears when opened."
+      description: "Choose where the dashboard panel appears when opened."
       Layout.fillWidth: true
       model: [
         {
@@ -56,18 +56,18 @@ ColumnLayout {
           "name": "Bottom right"
         }
       ]
-      currentKey: Settings.data.controlCenter.position
+      currentKey: Settings.data.dashboard.position
       onSelected: function (key) {
-        Settings.data.controlCenter.position = key;
+        Settings.data.dashboard.position = key;
       }
-      defaultValue: Settings.getDefaultValue("controlCenter.position")
+      defaultValue: Settings.getDefaultValue("dashboard.position")
     }
 
     NComboBox {
       id: diskPathComboBox
       Layout.fillWidth: true
       label: "System monitor disk path"
-      description: "Select which disk mount point the system monitor card in the control center should monitor."
+      description: "Select which disk mount point the system monitor card in the dashboard should monitor."
       model: {
         const paths = Object.keys(SystemStatService.diskPercents).sort();
         return paths.map(path => ({
@@ -75,9 +75,9 @@ ColumnLayout {
           name: path
         }));
       }
-        currentKey: Settings.data.controlCenter.diskPath || "/"
-        onSelected: key => Settings.data.controlCenter.diskPath = key
-        defaultValue: Settings.getDefaultValue("controlCenter.diskPath") || "/"
+        currentKey: Settings.data.dashboard.diskPath || "/"
+        onSelected: key => Settings.data.dashboard.diskPath = key
+        defaultValue: Settings.getDefaultValue("dashboard.diskPath") || "/"
       }
       }
 
