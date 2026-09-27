@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
+import qs.Modules.Cards
 import qs.Modules.MainScreen
 import qs.Modules.Panels.Dashboard.Pages
 import qs.Services.Compositor
@@ -116,7 +117,11 @@ SmartPanel {
     id: panelContent
 
     readonly property real contentPreferredWidth: contentLayout.implicitWidth + Style.margin2S
-    readonly property real contentPreferredHeight: Style.margin2S + Math.max(contentLayout.implicitHeight, quickSettingsPage.contentImplicitHeight)
+    // The Dashboard is capped so a tall column (big album art, a long month
+    // grid, many shortcut rows) cannot stretch the window. Columns scroll
+    // internally once the cap bites.
+    readonly property real maxContentHeight: Math.round(360 * Style.uiScaleRatio)
+    readonly property real contentPreferredHeight: Style.margin2S + Math.min(Math.max(contentLayout.implicitHeight, quickSettingsPage.contentImplicitHeight), panelContent.maxContentHeight)
 
     RowLayout {
       id: contentLayout
@@ -144,10 +149,20 @@ SmartPanel {
         Layout.fillHeight: true
         spacing: Style.marginS
 
-        // Media player card — combined with the dashboard, always visible
-        MediaPlayerCard {
-          id: mediaCard
-          screen: root.screen
+        // Media player card — narrow full-height column beside the page area.
+        // Scrolls because its artwork plus controls exceed the panel's cap.
+        NScrollView {
+          id: mediaScroll
+          Layout.preferredWidth: mediaCard.implicitWidth
+          Layout.fillHeight: true
+          horizontalPolicy: ScrollBar.AlwaysOff
+          reserveScrollbarSpace: false
+
+          MediaPlayerCard {
+            id: mediaCard
+            screen: root.screen
+            width: mediaScroll.availableWidth
+          }
         }
 
         Item {
@@ -230,6 +245,27 @@ SmartPanel {
               }
             }
           }
+        }
+
+        // Calendar column — fixed width so the month grid keeps its aspect
+        NScrollView {
+          id: calendarScroll
+          Layout.preferredWidth: Math.round(300 * Style.uiScaleRatio)
+          Layout.fillHeight: true
+          horizontalPolicy: ScrollBar.AlwaysOff
+          reserveScrollbarSpace: false
+
+          CalendarMonthCard {
+            width: calendarScroll.availableWidth
+          }
+        }
+
+        // Notification history column — the same rows the Notification History
+        // panel renders, kept always visible on the dashboard
+        NotificationCard {
+          id: notificationCard
+          Layout.preferredWidth: Math.round(320 * Style.uiScaleRatio)
+          Layout.fillHeight: true
         }
       }
     }

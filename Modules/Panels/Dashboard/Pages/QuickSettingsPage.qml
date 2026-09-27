@@ -12,18 +12,63 @@ Rectangle {
 
   property ShellScreen screen
 
+  // Entries come from Settings > Dashboard > Shortcuts. Each one is an object
+  // holding the registry's PascalCase key under "id" plus that widget's own
+  // settings (see CustomButtonSettings.saveSettings), so the entry doubles as
+  // the loader's widgetProps. Core ids with no component in
+  // DashboardWidgetRegistry are dropped here so a stale id in a hand-edited
+  // config renders nothing instead of retrying forever in DashboardWidgetLoader.
+  // Plugin ids always pass through: they register after this binding is first
+  // evaluated and DashboardWidgetLoader already retries while waiting.
+  readonly property var widgetEntries: {
+    const shortcuts = Settings.data.dashboard.shortcuts;
+    if (!shortcuts)
+      return [];
+    const entries = [];
+    const seen = [];
+    for (let s = 0; s < 2; s++) {
+      const section = shortcuts[s === 0 ? "left" : "right"] || [];
+      for (let i = 0; i < section.length; i++) {
+        const entry = section[i];
+        if (!entry)
+          continue;
+        let id = entry;
+        if (typeof entry === "string")
+          id = {
+            "id": entry
+          };
+        if (!id.id || seen.indexOf(id.id) !== -1)
+          continue;
+        const known = id.id.startsWith("plugin:") || DashboardWidgetRegistry.hasWidget(id.id);
+        if (known) {
+          seen.push(id.id);
+          entries.push(id);
+        }
+      }
+    }
+    return entries;
+  }
+
+  readonly property var widgetLabels: ({
+                                         "AirplaneMode": "Airplane Mode",
+                                         "Bluetooth": "Bluetooth",
+                                         "CustomButton": "Custom",
+                                         "DarkMode": "Dark Mode",
+                                         "KeepAwake": "Keep Awake",
+                                         "Network": "Network",
+                                         "NightLight": "Night Light",
+                                         "Notifications": "Notifications",
+                                         "PowerProfile": "Power Profile",
+                                         "WallpaperSelector": "Wallpaper",
+                                         "WiFi": "Wi-Fi"
+                                       })
+
   function labelForWidget(widgetId) {
-    const labels = {
-      "network": "Network",
-      "bluetooth": "Bluetooth",
-      "night-light": "Night Light",
-      "dark-mode": "Dark Mode",
-      "notifications": "Notifications",
-      "keep-awake": "Keep Awake",
-      "power-profile": "Power Profile",
-      "airplane-mode": "Airplane Mode"
-    };
-    return labels[widgetId] || widgetId;
+    if (widgetId.startsWith("plugin:"))
+      return widgetId.substring(7);
+    if (root.widgetLabels[widgetId] !== undefined)
+      return root.widgetLabels[widgetId];
+    return widgetId;
   }
 
   color: "transparent"
@@ -42,46 +87,56 @@ Rectangle {
     // === Shortcut Grid (2 columns) ===
     NBox {
       Layout.fillWidth: true
-      Layout.alignment: Qt.AlignVCenter
+      Layout.fillHeight: true
+      // Natural content height still drives the panel size; fillHeight lets the
+      // card grow into the Dashboard's capped height, and the scroll view below
+      // takes over once the rows no longer fit.
       implicitHeight: shortcutGrid.implicitHeight + Style.margin2S
       containerLevel: 1
 
-      GridLayout {
-        id: shortcutGrid
+      NScrollView {
+        id: shortcutScroll
         anchors.fill: parent
         anchors.margins: Style.marginS
-        columns: 2
-        columnSpacing: Style.marginM
-        rowSpacing: Style.marginM
+        horizontalPolicy: ScrollBar.AlwaysOff
+        reserveScrollbarSpace: false
 
-        Repeater {
-          model: ["network", "bluetooth", "night-light", "dark-mode", "notifications", "keep-awake", "power-profile", "airplane-mode"]
+        GridLayout {
+          id: shortcutGrid
+          width: shortcutScroll.availableWidth
+          columns: 2
+          columnSpacing: Style.marginM
+          rowSpacing: Style.marginM
 
-          delegate: Item {
-            required property string modelData
-            Layout.fillWidth: true
-            Layout.preferredWidth: root.cellWidth
-            Layout.preferredHeight: Math.round(56 * Style.uiScaleRatio)
+          Repeater {
+            model: root.widgetEntries
 
-            DashboardWidgetLoader {
-              id: widgetLoader
-              anchors.top: parent.top
-              anchors.horizontalCenter: parent.horizontalCenter
-              widgetId: parent.modelData
-              widgetScreen: root.screen
-              widgetProps: ({})
-            }
+            delegate: Item {
+              required property var modelData
+              Layout.fillWidth: true
+              Layout.preferredWidth: root.cellWidth
+              Layout.preferredHeight: Math.round(56 * Style.uiScaleRatio)
 
-            NText {
-              anchors.top: widgetLoader.bottom
-              anchors.topMargin: Style.marginXXS
-              anchors.horizontalCenter: parent.horizontalCenter
-              width: parent.width
-              text: root.labelForWidget(parent.modelData)
-              pointSize: Style.fontSizeXXS
-              color: Color.mOnSurfaceVariant
-              horizontalAlignment: Text.AlignHCenter
-              elide: Text.ElideRight
+              DashboardWidgetLoader {
+                id: widgetLoader
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                widgetId: parent.modelData.id
+                widgetScreen: root.screen
+                widgetProps: parent.modelData
+              }
+
+              NText {
+                anchors.top: widgetLoader.bottom
+                anchors.topMargin: Style.marginXXS
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width
+                text: root.labelForWidget(parent.modelData.id)
+                pointSize: Style.fontSizeXXS
+                color: Color.mOnSurfaceVariant
+                horizontalAlignment: Text.AlignHCenter
+                elide: Text.ElideRight
+              }
             }
           }
         }

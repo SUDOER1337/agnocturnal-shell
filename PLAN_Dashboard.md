@@ -9,6 +9,9 @@ separate Settings panel (~840px, `SettingsPanel.qml` + `SettingsPanelWindow.qml`
 **single unified V5-style panel**: sidebar + content pane, fixed ~480px, collapsible sidebar,
 4 tabs, matching the visual design extracted from the Noctalia v5 C++ rewrite.
 
+- add notification calenda lists section as a card in the Dashboard
+- add Agent tabs based on `/home/doer/.config/agnocturnal/plugins/assistant-panel-ollama/`
+
 ---
 
 ## Architecture (v5 C++ Reference)

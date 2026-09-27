@@ -11,6 +11,13 @@ Singleton {
   property var activeTooltip: null
   property var pendingTooltip: null // Track tooltip being created
 
+  // A tooltip is a PopupWindow, i.e. its own surface. Reading one takes the
+  // pointer out of the panel that spawned it, so hover-opened panels consult
+  // this to treat a visible tooltip as continued pointer presence instead of
+  // closing under the cursor. This replaces suppressing tooltips outright,
+  // which left a hover-opened Dashboard with no labels and no tooltips.
+  readonly property bool hasVisibleTooltip: activeTooltip !== null
+
   property Component tooltipComponent: Component {
     Tooltip {}
   }

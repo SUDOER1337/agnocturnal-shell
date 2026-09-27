@@ -58,8 +58,12 @@ NBox {
   readonly property int panelAlbumArtSize: (mediaMiniSettings && mediaMiniSettings.panelAlbumArtSize !== undefined) ? mediaMiniSettings.panelAlbumArtSize : 180
   readonly property string scrollingMode: (mediaMiniSettings && mediaMiniSettings.scrollingMode !== undefined) ? mediaMiniSettings.scrollingMode : "hover"
 
-  // Embedded card: portrait stack, content column centered and width-capped.
-  readonly property real cardContentWidth: Math.round(320 * Style.uiScaleRatio)
+  // Embedded card: narrow full-height column, content column centered and
+  // width-capped. The header pill and the album art are both capped to stay
+  // inside this width, so a long MPRIS identity or an oversized art setting
+  // cannot push the column wider than intended.
+  readonly property real cardContentWidth: Math.round(216 * Style.uiScaleRatio)
+  readonly property real maxArtSize: 200
   readonly property real contentImplicitWidth: Math.max(headerRow.implicitWidth, root.cardContentWidth) + Style.margin2S
 
   readonly property bool isPanelOpen: {
@@ -175,6 +179,10 @@ NBox {
             text: MediaService.currentPlayer ? MediaService.currentPlayer.identity : "Select Player"
             pointSize: Style.fontSizeXS
             color: playerSelectorMouse.containsMouse ? Color.mOnPrimary : Color.mOnSurfaceVariant
+            // Capped so a long player identity cannot widen the card column;
+            // NText already elides right and never wraps.
+            Layout.preferredWidth: Math.round(96 * Style.uiScaleRatio)
+            Layout.maximumWidth: Math.round(96 * Style.uiScaleRatio)
           }
           NIcon {
             icon: "chevron-down"
@@ -282,7 +290,7 @@ NBox {
         // Album art
         Item {
           id: albumArtItem
-          readonly property real compactArtSize: Math.round(root.panelAlbumArtSize * Style.uiScaleRatio)
+          readonly property real compactArtSize: Math.round(Math.min(root.panelAlbumArtSize, root.maxArtSize) * Style.uiScaleRatio)
 
           Layout.preferredWidth: compactArtSize
           Layout.preferredHeight: compactArtSize

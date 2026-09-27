@@ -20,17 +20,20 @@ This document explains the current state of Agnoctural as an independent fork of
 ## Maintenance Approach
 
 ### Goals
+
 - ✅ Keep the QML-based shell functional and maintained
 - ✅ Maintain MangoWC as the sole supported compositor (via mmsg IPC)
 - ✅ Fix bugs and add community-requested features
 - ✅ Maintain compatibility with existing configs and themes
 
 ### Non-Goals
+
 - ❌ Rewrite in C++ or major architectural changes
 - ❌ Compete with Noctalia v5 (different approaches, both valid)
 - ❌ Official support or SLAs
 
 ### Scope
+
 - Bug fixes for existing functionality
 - Compatibility updates for new Wayland compositor features
 - Configuration path changes (e.g., `~/.config/agnocturnal/`)
@@ -38,6 +41,7 @@ This document explains the current state of Agnoctural as an independent fork of
 - Minor feature additions that fit the shell's scope
 
 ### Out of Scope
+
 - Major new subsystems beyond the shell's responsibility
 - Support for proprietary compositors or desktop environments
 - Guarantees on update frequency or feature roadmap
@@ -51,22 +55,26 @@ This document explains the current state of Agnoctural as an independent fork of
 If you're migrating from Noctalia v4 to Agnoctural, note these changes:
 
 **Old Config Path:**
+
 ```
 ~/.config/noctalia/
 ~/.cache/noctalia/
 ```
 
 **New Config Path:**
+
 ```
 ~/.config/agnocturnal/
 ~/.cache/agnocturnal/
 ```
 
 **Automatic Path Change:**
+
 - Agnoctural uses `AGNOCTURNAL_CONFIG_DIR` and `AGNOCTURNAL_CACHE_DIR` environment variables
 - If not set, defaults to `~/.config/agnocturnal/` and `~/.cache/agnocturnal/`
 
 **Manual Migration:**
+
 1. Copy your existing Noctalia v4 config:
    ```bash
    cp -r ~/.config/noctalia/ ~/.config/agnocturnal/
@@ -85,6 +93,7 @@ If you're migrating from Noctalia v4 to Agnoctural, note these changes:
 This fork does **not** submit pull requests upstream or claim to be the official continuation. It is maintained as an independent project.
 
 **Why not merge back?**
+
 - The Noctalia project has moved to v5 (C++ rewrite)
 - The two projects have diverged in goals and maintenance model
 - Both approaches are valid; users can choose which fits their needs
@@ -96,6 +105,7 @@ This fork does **not** submit pull requests upstream or claim to be the official
 ### Quickshell Dependency
 
 Agnoctural depends on Quickshell (Qt/QML framework) via the `noctalia-qs` fork:
+
 ```
 https://github.com/noctalia-dev/noctalia-qs
 ```
@@ -103,6 +113,7 @@ https://github.com/noctalia-dev/noctalia-qs
 This is the Quickshell fork maintained for Noctalia v4 compatibility. As long as this Quickshell fork is maintained, Agnoctural can continue running.
 
 **If `noctalia-qs` is unmaintained:**
+
 - The project may need to fork Quickshell as well, or
 - Find an alternative QML/Qt Wayland shell framework
 
@@ -111,6 +122,7 @@ This is the Quickshell fork maintained for Noctalia v4 compatibility. As long as
 ## Future Directions
 
 ### Potential Development Areas
+
 - Bug fixes and stability improvements
 - Support for new Wayland compositor features
 - UI/UX refinements
@@ -118,6 +130,7 @@ This is the Quickshell fork maintained for Noctalia v4 compatibility. As long as
 - Performance optimizations
 
 ### Not Planned
+
 - Major architectural rewrites (C++, Rust, etc.)
 - Support for non-Wayland environments
 - Desktop environment features (file manager, settings daemon, etc.)

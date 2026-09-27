@@ -174,6 +174,38 @@ Item {
   height: parent ? parent.height : 0
 
   // Panel control functions
+  // Panel presence is reported from two HoverHandlers: one over the bare
+  // background, one parented to the content loader. Both are needed because the
+  // background layer and the content layer are siblings, and interactive
+  // children consume the hover event before it reaches the background. Neither
+  // can be the sole reporter: the background handler never sees controls, and a
+  // handler on panelContent would span the full-screen panel root and so would
+  // never report the pointer leaving.
+  function updatePanelHover() {
+    if (!root.isPanelVisible)
+      return;
+    const inside = backgroundHoverHandler.hovered || contentHoverHandler.hovered;
+    // Reading a tooltip means the pointer is over that tooltip's own popup
+    // window, not this panel, so both handlers report a leave. Hold the panel
+    // open instead: a hover-opened panel that closed mid-read would be worse
+    // than a briefly stale hover state, and onVisibleChanged below re-reports
+    // once the tooltip goes away.
+    if (!inside && TooltipService.hasVisibleTooltip)
+      return;
+    HoverPanelService.setPanelHovered(inside);
+  }
+
+  // A tooltip that was holding the panel open just hid, so re-evaluate presence:
+  // the handlers now reflect where the pointer actually is, which is off-panel
+  // if the user moved away and back onto the panel otherwise.
+  Connections {
+    target: TooltipService
+    function onHasVisibleTooltipChanged() {
+      if (!TooltipService.hasVisibleTooltip)
+        root.updatePanelHover();
+    }
+  }
+
   function toggle(buttonItem, buttonName) {
     if (!isPanelOpen) {
       open(buttonItem, buttonName);
@@ -1331,16 +1363,14 @@ Item {
         }
       }
 
-      // Reports pointer presence so HoverPanelService can keep a panel that was
-      // opened on hover alive while the pointer moves from the bar into it.
+      // Reports pointer presence over the panel's bare background. Interactive
+      // children live in the sibling contentLoader, so this handler alone never
+      // sees them — see contentHoverHandler and updatePanelHover().
       // A HoverHandler (not a MouseArea) is used because it observes without
       // taking the pointer away from the panel's own interactive content.
       HoverHandler {
-        id: panelHoverHandler
-        onHoveredChanged: {
-          if (root.isPanelVisible)
-            HoverPanelService.setPanelHovered(hovered);
-        }
+        id: backgroundHoverHandler
+        onHoveredChanged: updatePanelHover()
       }
     }
 
@@ -1353,6 +1383,16 @@ Item {
       width: panelBackground.width
       height: panelBackground.height
       sourceComponent: root.panelContent
+
+      // The content half of the panel's pointer presence. This handler is
+      // parented to the Loader (whose geometry is the visible panel rect) and
+      // is therefore an ancestor of every button and control it loads. Their
+      // MouseAreas set hoverEnabled, so Qt hands the hover event to them; being
+      // an ancestor is what lets this handler still observe it.
+      HoverHandler {
+        id: contentHoverHandler
+        onHoveredChanged: updatePanelHover()
+      }
 
       onLoaded: {
         // Wait for contentPreferredWidth/Height to be available before making visible
